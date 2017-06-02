@@ -43,7 +43,7 @@ async.waterfall(
       if (commitId.length !== 40)
         throw new Error("commitId invalid : " + commitId);
       var cmd =
-        "go-bindata-assetfs -pkg web -nocompress=false -o " +
+        "go-bindata-assetfs -pkg web -nomemcopy -o " +
         assetsFileName +
         " build/...";
       console.log(cmd);
