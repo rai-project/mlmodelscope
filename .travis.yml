@@ -44,12 +44,6 @@ install:
 - yarn build
 - yarn bundle
 - glide install
-after_deploy:
-- cf logs dockerfile-builder --recent
-- echo "releasing v${VERSION}..."
-- ghr -t "$GITHUB_TOKEN" -u rai-project -r carml --replace "v${VERSION}"
-  "${DIST}/latest"
-- cd ${TRAVIS_BUILD_DIR}
 deploy:
 - provider: bluemixcloudfoundry
   edge: true
