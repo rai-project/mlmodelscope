@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  name: carml
+  host: carml
+  disk_quota: 1024M
+  command: carml web
+  buildpack: https://github.com/cloudfoundry/go-buildpack.git
+  env:
+    GOPACKAGENAME: carml
+    GO_LINKER_SYMBOL: main.AppSecret

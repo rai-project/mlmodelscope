@@ -1,0 +1,69 @@
+language: go
+go:
+- 1.8.x
+dist: trusty
+sudo: false
+cache:
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - $HOME/protobuf
+node_js:
+- '7'
+addons:
+  apt:
+    sources:
+    - sourceline: ppa:masterminds/glide
+    - sourceline: deb https://dl.yarnpkg.com/debian/ stable main
+      key_url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    - sourceline: ppa:ubuntu-toolchain-r/test
+    - sourceline: deb https://deb.nodesource.com/setup_7.x trusty main
+      key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    packages:
+    - glide
+    - yarn
+    - build-essential
+before_install:
+  - bash scripts/install-protobuf.sh
+# check what has been installed by listing contents of protobuf folder
+before_script:
+  - ls -R $HOME/protobuf
+install:
+- cd ${TRAVIS_BUILD_DIR}
+- go get github.com/mjibson/esc
+- go get github.com/ahmetb/govvv
+- go get github.com/franciscocpg/gox
+- go get github.com/tcnksm/ghr
+- go get github.com/sanbornm/go-selfupdate
+- go get github.com/jteeuwen/go-bindata/...
+- go get github.com/elazarl/go-bindata-assetfs/...
+- go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+- go get -u google.golang.org/grpc
+- yarn install
+- yarn build
+- yarn bundle
+- glide install
+after_deploy:
+- cf logs dockerfile-builder --recent
+- echo "releasing v${VERSION}..."
+- ghr -t "$GITHUB_TOKEN" -u rai-project -r carml --replace "v${VERSION}"
+  "${DIST}/latest"
+- cd ${TRAVIS_BUILD_DIR}
+deploy:
+- provider: bluemixcloudfoundry
+  edge: true
+  api: https://api.ng.bluemix.net
+  username: "$BLUEMIX_USERNAME"
+  password: "$BLUEMIX_PASSWORD"
+  organization: IBM-ILLINOIS-C3SR
+  space: dev
+  manifest: manifest.yml
+  on:
+    repo: rai-project/carml
+env:
+  global:
+  - PROTOBUF_VER="3.3.0"
+  - secure: f/wbYvPjKOAevjZ/m72yqJfmQnCk2ECgEVSLFMjl9Tp29Nzzl4lZs2Y3yh5B1r9nXU7uXn8yDD8OYBfp1os12JpYxvd4zSGrYpNeNHpPIhylRPFfea4z1vvE4BNAqdxjuFwdaDm6ILkc1RKM5R5EoFxTL0NdLemAJSQASEESSa6rdVnfoHxPKfVSIYLOjL1cP8cRGA1mLWZ+MZAEu+xETbyPMpnwROwvapwhjvl/YjMzE38SH/PQwUTGsiIkC/nY6WYl/oJKgnla40fXvq1bdcqCA/fbah3arv+Eq25Yp3Am/ZVYio3U05y3pT8fmpVvLN8AcU3diVrbZTmnTSrXoPuy4TdZL6dscfiMLMRJ5gLtQJgEZOkaBlDqBLFrS4pRmbVMd7cUMFMu4+G19pbCsNZVn5O2aKpnamVtOddWEqXOhGdYyCYlh3wV2ynFEDu2rZF30/ckivFI76jpH/oi5m78Qb8hWQe/TzPMDPm9w8NQOOhln03465DUyojVwvEEyELX3CTulwB0E6WrL5fEa9b+j0vyG3wUCY12jG2lUiMHoDnmbt4yRjqRZr9X1PjCg7T4N5dg8OGSCwwaf546aKGNvIZGXi+PM455QRLN7GHTC5zH0zZPn42da8NzsO1PlHx9xJnIEHByl8TdxBoMXB53H+C+0COkyFiMaxarbuY=
+  - secure: neWJaGfomnNnNUsdn6nKULkATBy9VYiyWeIgQsL3dJrchRsboYJRcbvj2SFXjxkV9M7+nOZprr8n6qcj9NLRj4gq0ciAtebXIbfqryC3bL8t+p03XSkkz+6bLxmIZvaw1+p59zLcvBIsaJXh5b8Gc/RSxaP2jmsDc8YCBIb80x261xc31ukSL3fY5Vb9Vp31Q+RTNO6EyDQl+082PMWCcNzgHUVs7r0cEEwU11Zchcz74TSWpFhcOHHkj/RG/zaRdr1nzvAVhWmfvYshW1rqpbAkHaxWmzDnfAkJstKqcjlsksyLjBHat8NYQf+oYfYLZjLQOHnAXdU+vsmkKEelI70KmIWrDN4/Gjx0GSysncVb9VqNSiAyc3+bhUilDvTGA9uQnFd29yXnGKvURdvCmNQp3getz7ZRd7EJaDrT9um68rqdC3rok0QwFkVkP3Sc5uD7ii63Cnx/RAXsT7EED67X+2dg/MTlGos1vPOgUDBtmxp4W6u9+3vqx2SlvZodz7Qs3NYZGIk6eoz8UgWu78Pbed8PJqGkImRUDw8pzLmSFl+r6ON0xzyPN8j5u9d47s6BU6xL7y/4Lq5hyH+OusQIOa0IkvgEwaM8gpm2rp1EsmvCy4u6lEmTyu84l8P9h2q0CFdSs3mtWlaEs5bkiOm8qpAoVINg9SQhu2+rsrs=
+  - secure: Li5x5DGn0SnNkpfxMk09GeCqjnJUapyMjW4gXbgNUxxJGrOa5SJ1rRSRau2lM+MD6f1KzOpPNA0+pOF+bKH+7etqB341y5pHUp6Def6bb4wsvEVSnQyfX5a+aAPXozpzGUDD7MJkPRzoqx9XP5Vawdgitj2pL6+iGjm0/P3ccDsoZQNQUIezP/FnQBQjcvlOiUvZjKRp/4waLWb1m1hpxuMzv52EPxHLMNn/MtCm9MH5YPyQhbFJEma4Loxe7O/FFMWu5SjNgHt7tvy5pGw+2vJkUpQrON40Wr9P4iUJaj1uAUAN7dr0ra6rVRuS2wjFRuu1PKFFQyzA1ZtqO9rvoEBZ5QdV2gpHI+HIZ2vR8gdLfgzKPjbcwMTy5j1MG3wVLbUaWfLeMRI4/aFPshPUCKyXgCv3R/VMhAna284KD/GLmrCZYL9NcZqrfjP1Q2CfqGwRVqSBLSPZPIHVaQt1UIRUXe2itJjPmVPZ8NZQhnUF3W61FwalTVgTRUT5SQMLXcuB9gZYfumdAl5uTPA1XB3kYT8qhgUpolo4O3J/+80Cu5x80m/EfeP/w3P0H6GLDgMZMFqKNhR5RD5qccSCKohtj1n953XDE4KFHD8iGOTBN1S3MGYw0ssRqfnBa6iIuWnao+VZ68WyEGGSdgEDIDKJvNlW2JvmBiBtTG6ZisY=

@@ -27,19 +27,12 @@ var date = moment.utc();
 var version = date.format("YYYY-MM-DDTHH:mm:ss") + "Z";
 var releaseTag = date.format("YYYY-MM-DDTHH-mm-ss") + "Z";
 var buildType = "production";
-var assetsFileName = "../server/bindata_assetfs.go";
+var assetsFileName = "pkg/web/bindata_assetfs.go";
 if (process.env.IO_UI_BUILD) buildType = process.env.IO_UI_BUILD;
 
 async.waterfall(
   [
     function(cb) {
-      rimraf.sync(assetsFileName);
-      rimraf.sync("build");
-      var cmd = "yarn build";
-      console.log("Running", cmd);
-      exec(cmd, cb);
-    },
-    function(stdout, stderr, cb) {
       var cmd = 'git log --format="%H" -n1';
       console.log("Running", cmd);
       exec(cmd, cb);
@@ -50,9 +43,9 @@ async.waterfall(
       if (commitId.length !== 40)
         throw new Error("commitId invalid : " + commitId);
       var cmd =
-        "go-bindata-assetfs -pkg server -nocompress=false -o " +
+        "go-bindata-assetfs -pkg web -nocompress=false -o " +
         assetsFileName +
-        " ../build/...";
+        " build/...";
       console.log(cmd);
       console.log("Running", cmd);
       exec(cmd, cb);

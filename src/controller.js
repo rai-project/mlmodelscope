@@ -1,7 +1,6 @@
 import uuid from "uuid";
 import store from "store2";
 import { Controller, provide } from "cerebral";
-import { ContextProvider } from "cerebral/providers";
 import Devtools from "cerebral/devtools";
 import StorageProvider from "@cerebral/storage";
 import UseragentModule from "@cerebral/useragent";

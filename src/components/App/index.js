@@ -1,7 +1,7 @@
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import React from "react";
-import { Dimmer, Sidebar, Container, Header, Segment } from "semantic-ui-react";
+import { Sidebar, Header, Segment } from "semantic-ui-react";
 
 export default connect(
   {
