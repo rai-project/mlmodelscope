@@ -14,7 +14,7 @@ const (
 
 // serveCmd represents the serve command
 var serveCmd = &cobra.Command{
-	Use:   "serve",
+	Use:   "web",
 	Short: "Start the webserver",
 	Run: func(cmd *cobra.Command, args []string) {
 		port, found := os.LookupEnv("PORT")
