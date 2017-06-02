@@ -44,6 +44,8 @@ install:
 - yarn build
 - yarn bundle
 - glide install
+script:
+- echo "Skip tests..."
 deploy:
 - provider: bluemixcloudfoundry
   edge: true
