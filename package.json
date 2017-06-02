@@ -25,7 +25,10 @@
   },
   "devDependencies": {
     "@storybook/react": "^3.0.0",
+    "commitizen": "^2.9.6",
     "css-loader": "^0.28.4",
+    "cz-customizable": "^5.0.0",
+    "cz-customizable-ghooks": "^1.5.0",
     "file-loader": "^0.11.1",
     "husky": "^0.13.4",
     "lint-staged": "^3.6.0",
@@ -43,6 +46,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "commit": "git-cz",
+    "commitmsg": "node ./node_modules/cz-customizable-ghooks/lib/index.js .git/COMMIT_EDITMSG",
     "precommit": "lint-staged",
     "flow start": "flow start",
     "flow stop": "flow stop",
@@ -50,6 +55,14 @@
     "flow coverage": "flow coverage",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": ".cz-config.js"
+    }
   },
   "verbose": true,
   "lint-staged": {
