@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package carml.org.docker;
+
+message InferenceRequest {
+  string id = 1;
+  // todo...
+}
+
+message InferenceResponse {
+  string id = 1;
+  // todo...
+  ErrorStatus error = 3;
+}
+
+message ErrorStatus {
+  string message = 1;
+  repeated google.protobuf.Any details = 2;
+}
+
+service InferenceService {
+  rpc Infer(InferenceRequest) returns (stream InferenceResponse) {}
+}
