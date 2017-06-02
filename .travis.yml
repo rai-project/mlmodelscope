@@ -42,7 +42,7 @@ install:
 - go get -u google.golang.org/grpc
 - yarn install
 - yarn build
-- yarn bundle
+- yarn build:assets
 - glide install
 script:
 - echo "Skip tests..."
