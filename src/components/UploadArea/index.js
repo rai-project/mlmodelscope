@@ -26,7 +26,11 @@ export default connect(
     componentDidMount() {
       this.uppy = new Core({ debug: true, autoProceed: false });
       this.uppy
-        .use(Dashboard, { target: this.uppyElement, inline: true })
+        .use(Dashboard, {
+          target: this.uppyElement,
+          maxHeight: 300,
+          inline: true
+        })
         .use(Webcam, { target: Dashboard })
         .use(Informer, { target: Dashboard })
         .use(Tus10, {
