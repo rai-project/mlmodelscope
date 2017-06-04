@@ -2462,6 +2462,10 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+dlv@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.0.tgz#fee1a7c43f63be75f3f679e85262da5f102764a7"
+
 doctrine@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
@@ -2804,6 +2808,12 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+eslint-config-prettier@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-2.1.1.tgz#ab3923fb704eebecab6960906b7d0d6e801cde58"
+  dependencies:
+    get-stdin "^5.0.1"
+
 eslint-config-react-app@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-1.0.4.tgz#c0178f535a922236c53daafea4f397203db7d9af"
@@ -2834,9 +2844,15 @@ eslint-module-utils@^2.0.0:
     debug "2.2.0"
     pkg-dir "^1.0.0"
 
-eslint-plugin-flowtype@2.33.0, eslint-plugin-flowtype@^2.33.0:
+eslint-plugin-flowtype@2.33.0:
   version "2.33.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.33.0.tgz#b2783814ed2ddcf729953b8f65ff73c90cabee4b"
+  dependencies:
+    lodash "^4.15.0"
+
+eslint-plugin-flowtype@^2.34.0:
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.34.0.tgz#b9875f314652e5081623c9d2b18a346bbb759c09"
   dependencies:
     lodash "^4.15.0"
 
@@ -2866,6 +2882,13 @@ eslint-plugin-jsx-a11y@5.0.3, eslint-plugin-jsx-a11y@^5.0.1:
     damerau-levenshtein "^1.0.0"
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.4.0"
+
+eslint-plugin-prettier@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-2.1.1.tgz#2fb7e2ab961f2b61d2c8cf91bc17716ca8c53868"
+  dependencies:
+    fast-diff "^1.1.1"
+    jest-docblock "^20.0.1"
 
 eslint-plugin-react@7.0.1, eslint-plugin-react@^7.0.1:
   version "7.0.1"
@@ -3134,6 +3157,10 @@ falafel@^2.0.0:
     foreach "^2.0.5"
     isarray "0.0.1"
     object-keys "^1.0.6"
+
+fast-diff@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.1.1.tgz#0aea0e4e605b6a2189f0e936d4b7fbaf1b7cfd9b"
 
 fast-levenshtein@~2.0.4:
   version "2.0.6"
@@ -3474,6 +3501,10 @@ get-caller-file@^1.0.1:
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+
+get-stdin@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -3899,7 +3930,7 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
-indent-string@^3.0.0:
+indent-string@^3.0.0, indent-string@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-3.1.0.tgz#08ff4334603388399b329e6b9538dc7a3cf5de7d"
 
@@ -4378,7 +4409,7 @@ jest-diff@^20.0.3:
     jest-matcher-utils "^20.0.3"
     pretty-format "^20.0.3"
 
-jest-docblock@^20.0.3:
+jest-docblock@^20.0.1, jest-docblock@^20.0.3:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.0.3.tgz#17bea984342cc33d83c50fbe1545ea0efaa44712"
 
@@ -4927,6 +4958,10 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
+lodash.merge@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.0.tgz#69884ba144ac33fe699737a6086deffadd0f89c5"
+
 lodash.mergewith@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.0.tgz#150cf0a16791f5903b8891eab154609274bdea55"
@@ -4992,6 +5027,17 @@ log-update@^1.0.2:
   dependencies:
     ansi-escapes "^1.0.0"
     cli-cursor "^1.0.2"
+
+loglevel-colored-level-prefix@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/loglevel-colored-level-prefix/-/loglevel-colored-level-prefix-1.0.0.tgz#6a40218fdc7ae15fc76c3d0f3e676c465388603e"
+  dependencies:
+    chalk "^1.1.3"
+    loglevel "^1.4.1"
+
+loglevel@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.4.1.tgz#95b383f91a3c2756fd4ab093667e4309161f2bcd"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -6242,7 +6288,21 @@ prettier-bytes@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prettier-bytes/-/prettier-bytes-1.0.4.tgz#994b02aa46f699c50b6257b5faaa7fe2557e62d6"
 
-prettier@^1.3.1:
+prettier-eslint@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-6.2.3.tgz#3f6acea5104712242b07b5d4646eeba77f5c42f1"
+  dependencies:
+    common-tags "^1.4.0"
+    dlv "^1.1.0"
+    eslint "^3.19.0"
+    indent-string "^3.1.0"
+    lodash.merge "^4.6.0"
+    loglevel-colored-level-prefix "^1.0.0"
+    prettier "^1.3.0"
+    pretty-format "^19.0.0"
+    require-relative "^0.8.7"
+
+prettier@^1.3.0, prettier@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.4.2.tgz#bcdd95ed1eca434ac7f98ca26ea4d25a2af6a2ac"
 
@@ -6256,6 +6316,12 @@ pretty-error@^2.0.2:
   dependencies:
     renderkid "^2.0.1"
     utila "~0.4"
+
+pretty-format@^19.0.0:
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-19.0.0.tgz#56530d32acb98a3fa4851c4e2b9d37b420684c84"
+  dependencies:
+    ansi-styles "^3.0.0"
 
 pretty-format@^20.0.3:
   version "20.0.3"
@@ -6852,6 +6918,10 @@ require-from-string@^1.1.0:
 require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
+
+require-relative@^0.8.7:
+  version "0.8.7"
+  resolved "https://registry.yarnpkg.com/require-relative/-/require-relative-0.8.7.tgz#7999539fc9e047a37928fa196f8e1563dabd36de"
 
 require-uncached@^1.0.2:
   version "1.0.3"
