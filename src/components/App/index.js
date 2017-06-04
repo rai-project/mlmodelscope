@@ -1,7 +1,14 @@
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import React from "react";
-import { Header, Container, Menu, Button } from "semantic-ui-react";
+import {
+  Header,
+  Container,
+  Menu,
+  Button,
+  Segment,
+  Grid
+} from "semantic-ui-react";
 
 import "./App.css";
 
@@ -56,12 +63,20 @@ export default connect(
               Cognitive Artifact for Machine Learning
             </Header>
           </div>
-          <div className="App-upload">
-            <Upload />
-          </div>
-          <div className="App-model">
-            <Model />
-          </div>
+          <Segment.Group vertical raised>
+            <Container>
+              <Grid.Row centered columns={1}>
+                <div className="App-upload">
+                  <Upload />
+                </div>
+              </Grid.Row>
+              <Grid.Row centered columns={1}>
+                <div className="App-model">
+                  <Model />
+                </div>
+              </Grid.Row>
+            </Container>
+          </Segment.Group>
           <div className="App-footer">
             <Footer />
           </div>

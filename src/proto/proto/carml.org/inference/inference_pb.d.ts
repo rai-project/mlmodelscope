@@ -3,7 +3,6 @@
 
 import * as jspb from "google-protobuf";
 import * as google_protobuf_any_pb from "google-protobuf/google/protobuf/any_pb";
-import * as gogo_protobuf_gogoproto_gogo_pb from "../../../gogo/protobuf/gogoproto/gogo_pb";
 
 export class InferenceRequest extends jspb.Message {
   getId(): string;

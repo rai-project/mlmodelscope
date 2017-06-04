@@ -23,21 +23,16 @@
 }
 
 .App-model {
-  margin: auto;
-  width: 50%;
   font-size: large;
   padding: 20px;
 }
 
 .App-upload {
-  margin: auto;
-  width: 17%;
   font-size: large;
   padding: 20px;
 }
 
 .App-footer {
-  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
@@ -47,6 +42,10 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

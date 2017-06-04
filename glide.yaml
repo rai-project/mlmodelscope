@@ -1,23 +1,30 @@
 package: github.com/rai-project/carml
 import:
 - package: github.com/Sirupsen/logrus
-  version: ~0.11.5
 - package: github.com/davecgh/go-spew
-  version: ~1.1.0
   subpackages:
   - spew
 - package: github.com/elazarl/go-bindata-assetfs
+- package: github.com/fatih/color
+- package: github.com/gogo/protobuf
+  subpackages:
+  - proto
+- package: github.com/golang/protobuf
+  subpackages:
+  - ptypes/any
 - package: github.com/k0kubun/pp
-  version: ~2.3.0
 - package: github.com/labstack/echo
-  version: ~3.1.0
   subpackages:
   - middleware
 - package: github.com/labstack/gommon
-  version: ~0.2.1
   subpackages:
   - log
 - package: github.com/rai-project/config
 - package: github.com/rai-project/logger
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
+- package: gogo/protobuf/gogoproto
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: google.golang.org/grpc
