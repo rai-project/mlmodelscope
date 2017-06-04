@@ -1,14 +1,7 @@
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import React from "react";
-import {
-  Sidebar,
-  Header,
-  Segment,
-  Container,
-  Menu,
-  Button
-} from "semantic-ui-react";
+import { Header, Container, Menu, Button } from "semantic-ui-react";
 
 import "./App.css";
 
@@ -18,14 +11,17 @@ import Footer from "../Footer";
 
 export default connect(
   {
-    isLoggedIn: state`user.isLoggedIn`
+    // eslint-disable-next-line
+    isLoggedIn: state`app.userIsLoggedIn`,
+    // eslint-disable-next-line
+    activePage: state`app.activePage`
   },
   class App extends React.Component {
     state = { activeItem: "home" };
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     render() {
-      let { isLoggedIn } = this.props;
+      // const { isLoggedIn } = this.props;
       const { activeItem } = this.state;
 
       return (
@@ -60,11 +56,11 @@ export default connect(
               Cognitive Artifact for Machine Learning
             </Header>
           </div>
-          <div className="App-model">
-            <Model />
-          </div>
           <div className="App-upload">
             <Upload />
+          </div>
+          <div className="App-model">
+            <Model />
           </div>
           <div className="App-footer">
             <Footer />
