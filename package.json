@@ -25,6 +25,7 @@
     "styled-jsx": "^1.0.3",
     "uppy": "^0.16.2",
     "uuid": "^3.0.1",
+    "yeast": "^0.1.2",
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {

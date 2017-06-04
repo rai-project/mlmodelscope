@@ -31,7 +31,7 @@
   "prettier.useTabs": false,
 
   // Fit code within this line limit
-  "prettier.printWidth": 120,
+  "prettier.printWidth": 90,
 
   // Number of spaces it should use per tab
   "prettier.tabWidth": 2,

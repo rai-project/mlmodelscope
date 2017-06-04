@@ -41,7 +41,7 @@ export default connect(
           {showButton
             ? <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
             : null}
-          <Sidebar.Pushable as={Segment}>
+          <Sidebar.Pushable as={Segment} style={{ border: 0, borderRadius: 0 }}>
             <Sidebar
               as={Menu}
               animation="overlay"
@@ -64,16 +64,14 @@ export default connect(
                 Jobs
               </Menu.Item>
             </Sidebar>
-            <Sidebar.Pusher>
+            <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
               <main>
                 <div className="App-content">
                   <Segment.Group
-                    vertical
-                    center
                     className="App-menu"
                     style={{ borderRadius: 0, margin: 0 }}
                   >
-                    <Container text fluid inverted>
+                    <Container text fluid>
                       <Menu inverted pointing secondary>
                         <Menu.Item
                           name="home"
@@ -97,12 +95,10 @@ export default connect(
                     </Container>
                   </Segment.Group>
                   <Segment.Group
-                    vertical
-                    center
                     className="App-header"
                     style={{ borderRadius: 0, margin: 0 }}
                   >
-                    <Container inverted textAlign={"center"}>
+                    <Container textAlign={"center"}>
                       <Header inverted size="huge">
                         CarML
                       </Header>
@@ -112,8 +108,6 @@ export default connect(
                     </Container>
                   </Segment.Group>
                   <Segment.Group
-                    vertical
-                    padded
                     className="App-body"
                     style={{ borderRadius: 0, border: 0 }}
                   >

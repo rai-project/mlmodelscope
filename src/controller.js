@@ -12,7 +12,7 @@ const controller = Controller({
     : Devtools({
         // Connect to Electron debugger (external debugger). It will
         // fall back to chrome extension if unable to connect
-        host: "localhost:8585",
+        host: "localhost:8586",
 
         // By default the devtools tries to reconnect
         // to debugger when it can not be reached, but
@@ -32,7 +32,7 @@ const controller = Controller({
         // In addition to these basic JavaScript types: Object, Array, String, Number
         // and Boolean, types of File, FileList, Blob, ImageData and RegExp is allowed to be stored in state
         // tree. You can add additional types if you know what you are doing :)
-        allowedTypes: [Blob]
+        allowedTypes: [File, Blob]
       }),
   modules: {
     useragent: UseragentModule({
@@ -40,6 +40,16 @@ const controller = Controller({
         unsupported: "(max-width: 550px)",
         mobile: "(max-width: 700px)",
         desktop: "(min-width: 701px)"
+      },
+      // check the docs at: https://github.com/HubSpot/offline#advanced
+      offline: {
+        checkOnLoad: false,
+        interceptRequests: true,
+        reconnect: {
+          initialDelay: 3,
+          delay: 1.5
+        },
+        requests: false
       }
     })
   },
