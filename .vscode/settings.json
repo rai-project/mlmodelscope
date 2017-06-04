@@ -26,7 +26,7 @@
   // Enable/disable default JavaScript formatter (For Prettier)
   "javascript.format.enable": false,
   // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   // Indent lines with tabs
   "prettier.useTabs": false,
 
