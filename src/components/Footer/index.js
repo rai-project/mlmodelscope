@@ -8,14 +8,16 @@ export default class Footer extends Component {
 
   render() {
     return (
-      <a href="https://github.com/rai-project/carml">
-        <Header as="h3" inverted>
-          <Icon name="github" />
-          <Header.Content>
-            rai-project/carml
-          </Header.Content>
-        </Header>
-      </a>
+      <footer>
+        <a href="https://github.com/rai-project/carml">
+          <Header as="h3" inverted>
+            <Icon name="github" />
+            <Header.Content>
+              rai-project/carml
+            </Header.Content>
+          </Header>
+        </a>
+      </footer>
     );
   }
 }

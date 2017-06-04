@@ -1,8 +1,25 @@
-.App {}
+.App {
+  color: #333;
+  background-color: #f7f7f7;
+  width: 100%;
+  height: 100%;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+}
+
+.App-content {
+  flex-grow: 1;
+}
+
+.App-menu {
+  background-color: #222;
+  color: white;
+  font-size: 35px;
+  border-radius: 0px;
+  padding-top: 10px;
 }
 
 .App-header {
@@ -31,5 +48,10 @@
   left: 0;
   padding: 1rem;
   background-color: #222;
-  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
