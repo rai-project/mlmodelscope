@@ -23,7 +23,9 @@
     "semantic-ui-react": "^0.68.5",
     "store2": "^2.5.1",
     "styled-jsx": "^1.0.3",
-    "uuid": "^3.0.1"
+    "uppy": "^0.16.2",
+    "uuid": "^3.0.1",
+    "yo-yo": "^1.4.1"
   },
   "devDependencies": {
     "@storybook/react": "^3.0.0",

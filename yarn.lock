@@ -5148,7 +5148,7 @@ miller-rabin@^4.0.0:
   version "1.27.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.27.0.tgz#820f572296bbd20ec25ed55e5b5de869e5436eb1"
 
-mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.11, mime-types@~2.1.15, mime-types@~2.1.7:
+mime-types@^2.1.12, mime-types@~2.1.11, mime-types@~2.1.15, mime-types@~2.1.7:
   version "2.1.15"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.15.tgz#a4ebf5064094569237b8cf70046776d09fc92aed"
   dependencies:
@@ -7873,6 +7873,24 @@ upper-case@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
 
+uppy@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/uppy/-/uppy-0.16.2.tgz#06d22e16d836d454be392cb6d5a51ca6f4ce0f08"
+  dependencies:
+    drag-drop "2.13.2"
+    es6-promise "3.2.1"
+    lodash.throttle "4.1.1"
+    namespace-emitter "1.0.0"
+    nanoraf "3.0.1"
+    on-load "3.2.0"
+    prettier-bytes "1.0.4"
+    socket.io-client "2.0.1"
+    tus-js-client "1.4.3"
+    url-parse "1.1.9"
+    whatwg-fetch "2.0.3"
+    yo-yo "1.4.0"
+    yo-yoify "3.7.2"
+
 urijs@^1.16.1:
   version "1.18.10"
   resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.18.10.tgz#b94463eaba59a1a796036a467bb633c667f221ab"
@@ -8340,6 +8358,13 @@ yeast@0.1.2:
 yo-yo@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/yo-yo/-/yo-yo-1.4.0.tgz#c3291e512bb4743f9eb514b9b6dbb264757e3257"
+  dependencies:
+    bel "^4.0.0"
+    morphdom "^2.1.0"
+
+yo-yo@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/yo-yo/-/yo-yo-1.4.1.tgz#9ce4b00fd880e5533b5e7f46a93d68d914ad6f64"
   dependencies:
     bel "^4.0.0"
     morphdom "^2.1.0"
