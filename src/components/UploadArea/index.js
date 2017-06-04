@@ -30,7 +30,7 @@ export default connect(
         .use(Webcam, { target: Dashboard })
         .use(Informer, { target: Dashboard })
         .use(Tus10, {
-          endpoint: "/api/files/"
+          endpoint: "/api/upload/"
         })
         .run();
 
@@ -75,7 +75,7 @@ export default connect(
 
     render() {
       return (
-        <div style={{ color: "black" }}>
+        <div style={{ color: "black", minWidth: 0 }}>
           <h4>{this.state.progress || null}</h4>
           {this.state.images.map(img => {
             return <img width="300" src={img} alt={img.alt} />;
