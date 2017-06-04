@@ -7,6 +7,7 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/rai-project/uuid"
 )
 
 func Start(addr string) {
@@ -25,7 +26,11 @@ func Start(addr string) {
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 	}))
-
+	e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{
+		Generator: func() string {
+			return uuid.NewV4()
+		},
+	}))
 	if err := assetsRoutes(e); err != nil {
 		panic(err)
 	}
