@@ -1,8 +1,12 @@
 package web
 
 import (
+	"context"
 	"fmt"
+	"os"
+	"os/signal"
 	"strings"
+	"time"
 
 	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
@@ -48,11 +52,25 @@ func Start(addr string) {
 		}
 	}()
 
-	// Setting up the termination timeout to 30 seconds.
-	err := e.Start(addr)
-	if err != nil {
-		log.WithError(err).Errorln("✗ Failed to start web server")
-		return
+	// Start server
+	go func() {
+		// Setting up the termination timeout to 30 seconds.
+		err := e.Start(addr)
+		if err != nil {
+			log.WithError(err).Fatal("✗ Failed to start web server")
+			return
+		}
+	}()
+
+	// Wait for interrupt signal to gracefully shutdown the server with
+	// a timeout of 10 seconds.
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err := e.Shutdown(ctx); err != nil {
+		log.WithError(err).Fatal("✗ Failed to gracefully shutdown server")
 	}
 }
 
