@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "cerebral/react";
 // eslint-disable-next-line
 import { Core, DragDrop, Tus10, Dashboard, Webcam, Informer } from "uppy";
+import Utils from "uppy/src/core/Utils";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import "!style-loader!css-loader!uppy/dist/uppy.min.css";
@@ -39,14 +40,17 @@ export default connect(
       this.upload = this.upload.bind(this);
 
       this.uppy.on("core:upload-success", (fileID, uploadURL) => {
-        console.log(fileID, uploadURL);
-        this.uppy.addThumbnail(fileID);
+        // console.log(fileID, uploadURL);
+        // console.log(uploadURL);
+        // console.log(Utils.getFileType);
+        // console.log(Utils.getFileType(fileID));
+        // this.uppy.addThumbnail(fileID);
         console.log("logging state", this.uppy.state);
-        const newImgArray = this.state.images.slice();
-        newImgArray.push(uploadURL);
-        this.setState({
-          images: newImgArray
-        });
+        // const newImgArray = this.state.images.slice();
+        // newImgArray.push(uploadURL);
+        // this.setState({
+        //   images: newImgArray,
+        // });
       });
 
       this.uppy.on("core:success", () => {
@@ -78,7 +82,6 @@ export default connect(
     render() {
       return (
         <div style={{ color: "black", minWidth: 0 }}>
-          <h4>{this.state.progress || null}</h4>
           {this.state.images.map(img => {
             return <img width="300" src={img} alt={img.alt} />;
           })}
