@@ -29,6 +29,7 @@ func Start(addr string) {
 	e.Pre(middleware.RemoveTrailingSlash())
 
 	assetsRoutes(e)
+	apiRoutes(e)
 
 	fmt.Println("🌎  Webserver started at address", pprintAddr(addr))
 	defer func() {
