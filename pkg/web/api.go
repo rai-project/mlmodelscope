@@ -17,7 +17,7 @@ func apiRoutes(e *echo.Echo) error {
 	if err != nil {
 		return err
 	}
-	api.Any("/upload", uploadHandler)
+	api.Any("/upload/*", uploadHandler)
 
 	return nil
 }

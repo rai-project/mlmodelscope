@@ -35,7 +35,7 @@ func getAssetFS() *assetfs.AssetFS {
 	}
 }
 
-func assetsRoutes(e *echo.Echo) {
+func assetsRoutes(e *echo.Echo) error {
 	index := func(c echo.Context) error {
 		html, err := buildIndexHtmlBytes()
 		if err != nil {
@@ -69,11 +69,13 @@ func assetsRoutes(e *echo.Echo) {
 	e.GET("/", index)
 	e.GET("/index.html", index)
 	e.GET("/favicon.ico", favicon)
+	e.HEAD("/favicon.ico", favicon)
 	e.GET("/uiversion", uiversion)
 	e.GET("/service-worker.js", serviceWorker)
 	e.GET("/vendor/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 	e.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 
+	return nil
 }
 
 func init() {

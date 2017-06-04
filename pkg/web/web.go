@@ -26,10 +26,13 @@ func Start(addr string) {
 		Output:  log.Writer(),
 	}))
 	e.Use(middleware.Recover())
-	e.Pre(middleware.RemoveTrailingSlash())
 
-	assetsRoutes(e)
-	apiRoutes(e)
+	if err := assetsRoutes(e); err != nil {
+		panic(err)
+	}
+	if err := apiRoutes(e); err != nil {
+		panic(err)
+	}
 
 	fmt.Println("🌎  Webserver started at address", pprintAddr(addr))
 	defer func() {

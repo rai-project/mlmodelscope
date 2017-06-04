@@ -30,14 +30,15 @@ export default connect(
         .use(Webcam, { target: Dashboard })
         .use(Informer, { target: Dashboard })
         .use(Tus10, {
-          endpoint: "/api/upload/"
+          endpoint: "/api/upload/",
+          resume: true
         })
         .run();
 
       this.addFile = this.addFile.bind(this);
       this.upload = this.upload.bind(this);
 
-      this.uppy.emitter.on("upload-success", (fileID, uploadURL) => {
+      this.uppy.on("core:upload-success", (fileID, uploadURL) => {
         console.log(fileID, uploadURL);
         this.uppy.addThumbnail(fileID);
         console.log("logging state", this.uppy.state);
@@ -48,8 +49,9 @@ export default connect(
         });
       });
 
-      this.uppy.emitter.on("upload-progress", () => {
+      this.uppy.on("core:success", () => {
         const newProgress = this.uppy.getState().totalProgress;
+        console.log("upload progress = " + newProgress);
         this.setState({
           progress: newProgress
         });
