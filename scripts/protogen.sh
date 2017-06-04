@@ -9,7 +9,7 @@ protoc \
   --proto_path=../../../:../../../github.com:. \
   -I . \
   --gogoslick_out=plugins=grpc:./pkg/protobuf \
-  --js_out=import_style=commonjs,binary:./src/proto \
-  --js_service_out=./src/proto \
-  --ts_out=service=true:./src/proto \
+  --js_out=import_style=commonjs,binary:./src \
+  --js_service_out=./src \
+  --ts_out=service=true:./src \
   ./proto/carml.org/inference/inference.proto

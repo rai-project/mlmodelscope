@@ -1,5 +1,5 @@
 // package: carml.org.docker
-// file: carml.org/inference/inference.proto
+// file: proto/carml.org/inference/inference.proto
 
 import * as jspb from "google-protobuf";
 import * as google_protobuf_any_pb from "google-protobuf/google/protobuf/any_pb";

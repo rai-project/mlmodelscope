@@ -152,8 +152,7 @@ proto.carml.org.docker.InferenceRequest.serializeBinaryToWriter = function(
  * @return {string}
  */
 proto.carml.org.docker.InferenceRequest.prototype.getId = function() {
-  return /** @type {string} */ jspb.Message
-    .getFieldWithDefault(this, 1, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
@@ -321,8 +320,7 @@ proto.carml.org.docker.InferenceResponse.serializeBinaryToWriter = function(
  * @return {string}
  */
 proto.carml.org.docker.InferenceResponse.prototype.getId = function() {
-  return /** @type {string} */ jspb.Message
-    .getFieldWithDefault(this, 1, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
@@ -335,8 +333,11 @@ proto.carml.org.docker.InferenceResponse.prototype.setId = function(value) {
  * @return {?proto.carml.org.docker.ErrorStatus}
  */
 proto.carml.org.docker.InferenceResponse.prototype.getError = function() {
-  return /** @type{?proto.carml.org.docker.ErrorStatus} */ jspb.Message
-    .getWrapperField(this, proto.carml.org.docker.ErrorStatus, 3);
+  return /** @type{?proto.carml.org.docker.ErrorStatus} */ jspb.Message.getWrapperField(
+    this,
+    proto.carml.org.docker.ErrorStatus,
+    3
+  );
 };
 
 /** @param {?proto.carml.org.docker.ErrorStatus|undefined} value */
@@ -525,8 +526,7 @@ proto.carml.org.docker.ErrorStatus.serializeBinaryToWriter = function(
  * @return {string}
  */
 proto.carml.org.docker.ErrorStatus.prototype.getMessage = function() {
-  return /** @type {string} */ jspb.Message
-    .getFieldWithDefault(this, 1, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
@@ -541,8 +541,11 @@ proto.carml.org.docker.ErrorStatus.prototype.setMessage = function(value) {
  * @return {!Array.<!proto.google.protobuf.Any>}
  */
 proto.carml.org.docker.ErrorStatus.prototype.getDetailsList = function() {
-  return /** @type{!Array.<!proto.google.protobuf.Any>} */ jspb.Message
-    .getRepeatedWrapperField(this, google_protobuf_any_pb.Any, 2);
+  return /** @type{!Array.<!proto.google.protobuf.Any>} */ jspb.Message.getRepeatedWrapperField(
+    this,
+    google_protobuf_any_pb.Any,
+    2
+  );
 };
 
 /** @param {!Array.<!proto.google.protobuf.Any>} value */
