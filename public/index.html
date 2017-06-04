@@ -5,12 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
+  <!-- get the required files from 3rd party sources -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
   <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" href="/favicon.ico">
   <!--<script src="%PUBLIC_URL%/vendor/pace.min.js"></script>-->
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -22,6 +24,99 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>CarML</title>
+  <style>
+    /* apply a natural box layout model to all elements, but allowing components to change */
+    /* http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+
+    * {
+      box-sizing: border-box;
+      font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      overflow: hidden;
+      line-height: 1.7em;
+      color: #7f8c8d;
+      font-size: 13px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    label {
+      color: #2d3e50;
+    }
+
+    #app {
+      height: 0%;
+    }
+
+    #loader {
+      height: 100%;
+      width: 100%;
+      background-color: #fff;
+      color: #2d3e50;
+    }
+
+    #loading-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 666px;
+      height: 400px;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      opacity: 0.9;
+      animation: pulse 1s infinite;
+    }
+
+    #loading-message h1 {
+      text-align: center;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
@@ -29,6 +124,12 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <div id="loader">
+    <div id="loading-message">
+      <!--<img id="logo" src="img/dscvr_logo.png"/>-->
+      <h1>Loading CarML...</h1>
+    </div>
+  </div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,6 +140,10 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  <script>
+    currentUiVersion = 'UI_VERSION'
+
+  </script>
 </body>
 
 </html>

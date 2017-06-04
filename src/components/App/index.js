@@ -19,6 +19,8 @@ import Model from "../Model";
 import Upload from "../UploadArea";
 import Footer from "../Footer";
 
+const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
+
 export default connect(
   {
     // eslint-disable-next-line
@@ -69,7 +71,11 @@ export default connect(
                 <div className="App-content">
                   <Segment.Group
                     className="App-menu"
-                    style={{ borderRadius: 0, margin: 0 }}
+                    style={{
+                      borderRadius: 0,
+                      margin: 0,
+                      fontFamily
+                    }}
                   >
                     <Container text fluid>
                       <Menu inverted pointing secondary>
@@ -77,18 +83,37 @@ export default connect(
                           name="home"
                           active={activeItem === "home"}
                           onClick={this.handleItemClick}
+                          style={{
+                            fontFamily
+                          }}
                         />
                         <Menu.Item
                           name="about"
                           active={activeItem === "about"}
                           onClick={this.handleItemClick}
+                          style={{
+                            fontFamily
+                          }}
                         />
                         <Menu.Menu position="right">
                           <Menu.Item>
-                            <Button>Log In</Button>
+                            <Button
+                              style={{
+                                fontFamily
+                              }}
+                            >
+                              Log In
+                            </Button>
                           </Menu.Item>
                           <Menu.Item>
-                            <Button primary>Sign Up</Button>
+                            <Button
+                              primary
+                              style={{
+                                fontFamily
+                              }}
+                            >
+                              Sign Up
+                            </Button>
                           </Menu.Item>
                         </Menu.Menu>
                       </Menu>
@@ -96,22 +121,43 @@ export default connect(
                   </Segment.Group>
                   <Segment.Group
                     className="App-header"
-                    style={{ borderRadius: 0, margin: 0 }}
+                    style={{
+                      borderRadius: 0,
+                      margin: 0,
+                      fontFamily
+                    }}
                   >
                     <Container textAlign={"center"}>
-                      <Header inverted size="huge">
+                      <Header
+                        inverted
+                        size="huge"
+                        style={{
+                          fontFamily
+                        }}
+                      >
                         CarML
                       </Header>
-                      <Header inverted size="small">
+                      <Header
+                        inverted
+                        size="small"
+                        style={{
+                          fontFamily
+                        }}
+                      >
                         Cognitive ARtifacts for Machine Learning
                       </Header>
                     </Container>
                   </Segment.Group>
                   <Segment.Group
                     className="App-body"
-                    style={{ borderRadius: 0, border: 0 }}
+                    style={{ borderRadius: 0, border: 0, fontFamily }}
                   >
-                    <Container text>
+                    <Container
+                      text
+                      style={{
+                        fontFamily
+                      }}
+                    >
                       <Grid.Row centered columns={1}>
                         <Upload />
                       </Grid.Row>
@@ -122,7 +168,12 @@ export default connect(
                     </Container>
                   </Segment.Group>
                 </div>
-                <div className="App-footer">
+                <div
+                  className="App-footer"
+                  style={{
+                    fontFamily
+                  }}
+                >
                   <Footer />
                 </div>
               </main>
