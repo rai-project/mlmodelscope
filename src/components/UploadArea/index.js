@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "cerebral/react";
 // eslint-disable-next-line
 import { Core, DragDrop, Tus10, Dashboard, Webcam, Informer } from "uppy";
-import Utils from "uppy/src/core/Utils";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import "!style-loader!css-loader!uppy/dist/uppy.min.css";
