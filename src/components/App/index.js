@@ -94,6 +94,7 @@ export default connect(
                   </Menu>
                 </Container>
                 <Divider horizontal />
+                <Divider horizontal />
                 <Container inverted textAlign={"center"}>
                   <Header inverted size="huge">
                     Carml
