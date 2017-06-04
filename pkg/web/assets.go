@@ -31,7 +31,7 @@ func getAssetFS() *assetfs.AssetFS {
 		Asset:     Asset,
 		AssetDir:  AssetDir,
 		AssetInfo: AssetInfo,
-		Prefix:    "build",
+		Prefix:    "/build/",
 	}
 }
 
@@ -65,12 +65,28 @@ func assetsRoutes(e *echo.Echo) error {
 		}
 		return c.Blob(http.StatusOK, "image/x-icon", ico)
 	}
+	assetManifest := func(c echo.Context) error {
+		js, err := buildAssetManifestJsonBytes()
+		if err != nil {
+			return err
+		}
+		return c.Blob(http.StatusOK, "application/javascript", js)
+	}
+	manifest := func(c echo.Context) error {
+		js, err := buildManifestJsonBytes()
+		if err != nil {
+			return err
+		}
+		return c.Blob(http.StatusOK, "application/javascript", js)
+	}
 
 	e.GET("/", index)
 	e.GET("/index.html", index)
 	e.GET("/favicon.ico", favicon)
 	e.HEAD("/favicon.ico", favicon)
 	e.GET("/uiversion", uiversion)
+	e.GET("/manifest.json", manifest)
+	e.GET("/asset-manifest.json", assetManifest)
 	e.GET("/service-worker.js", serviceWorker)
 	e.GET("/vendor/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 	e.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
