@@ -23,6 +23,7 @@
     "semantic-ui-react": "^0.68.5",
     "store2": "^2.5.1",
     "styled-jsx": "^1.0.3",
+    "sweetalert-react": "^0.4.10",
     "uppy": "^0.16.2",
     "uuid": "^3.0.1",
     "yeast": "^0.1.2",

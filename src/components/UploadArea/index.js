@@ -3,6 +3,9 @@ import { connect } from "cerebral/react";
 // eslint-disable-next-line
 import { Core, DragDrop, Tus10, Dashboard, Webcam, Informer } from "uppy";
 
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
+
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import "!style-loader!css-loader!uppy/dist/uppy.min.css";
 
@@ -21,7 +24,8 @@ export default connect(
       this.onFileAdd = this.onFileAdd.bind(this);
       this.fileAdded = this.fileAdded.bind(this);
       this.state = {
-        images: []
+        images: [],
+        alert: false
       };
     }
     componentWillUnmount() {
@@ -77,13 +81,17 @@ export default connect(
     }
     addFile(file) {
       console.log("file ", file);
-      this.uppy.addFile2({
-        source: "React input",
-        name: file.name,
-        type: file.type,
-        alt: file.name,
-        data: file.data
-      });
+      if (file.type && file.type.split("/")[0] === "image") {
+        this.uppy.addFile2({
+          source: "React input",
+          name: file.name,
+          type: file.type,
+          alt: file.name,
+          data: file.data
+        });
+      } else {
+        this.setState({ alert: true });
+      }
     }
 
     upload() {
@@ -100,6 +108,12 @@ export default connect(
             ref={node => {
               this.uppyElement = node;
             }}
+          />
+          <SweetAlert
+            show={this.state.alert}
+            title="OOPS!"
+            text="Please upload an image"
+            onConfirm={() => this.setState({ alert: false })}
           />
         </div>
       );
