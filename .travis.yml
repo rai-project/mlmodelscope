@@ -42,12 +42,12 @@ install:
 - go get google.golang.org/grpc
 - go get github.com/gogo/protobuf/{proto,gogoproto,protoc-gen-gofast,protoc-gen-gogoslick}
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
-- go get github.com/goreleaser/goreleaser --snapshot --skip-publish
+- go get github.com/goreleaser/goreleaser
 - yarn install
 - yarn build
 - yarn build:assets
 - glide install
-- goreleaser
+- goreleaser --snapshot --skip-publish
 script:
 - echo "Skip tests..."
 deploy:
