@@ -37,7 +37,14 @@ export default connect(
         .use(Dashboard, {
           target: this.uppyElement,
           maxHeight: 300,
-          inline: true
+          inline: true,
+          locale: {
+            strings: {
+              dropPasteImport:
+                "Drop images here, paste, import from one of the locations above or",
+              dropPaste: "Drop images here, paste or"
+            }
+          }
         })
         .use(Webcam, { target: Dashboard })
         .use(Informer, { target: Dashboard })
