@@ -1,0 +1,34 @@
+settings:
+  resources:
+    outputs: outputs.log
+    logs: logs.log
+    errors: errors.log
+  server:
+    status: true
+    open: true
+    host: localhost
+    port: 5001
+projects:
+- name: carml
+  path: /Users/abduld/.gvm/pkgsets/go1.8.1/global/src/github.com/rai-project/carml
+  fmt: true
+  generate: true
+  test: false
+  bin: true
+  build: true
+  run: true
+  params:
+  - web
+  watcher:
+    preview: true
+    paths:
+    - pkg
+    ignore_paths:
+    - src
+    exts:
+    - .go
+  streams:
+    cli_out: true
+    file_out: true
+    file_log: true
+    file_err: true
