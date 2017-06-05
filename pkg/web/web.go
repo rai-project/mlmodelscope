@@ -27,9 +27,9 @@ func Start(addr string) {
 		Output:  log.Writer(),
 	}))
 	e.Use(middleware.Recover())
-	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
-		Level: 5,
-	}))
+	// e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+	// 	Level: 5,
+	// }))
 	e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{
 		Generator: func() string {
 			return uuid.NewV4()
