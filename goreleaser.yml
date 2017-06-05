@@ -37,7 +37,7 @@ archive:
     - goos: windows
       format: zip
   files:
-    - LICENSE.txt
+    - LICENSE.TXT
 
 # brew:
 #   github:
