@@ -10,7 +10,7 @@ settings:
     port: 5001
 projects:
 - name: carml
-  path: /Users/abduld/.gvm/pkgsets/go1.8.1/global/src/github.com/rai-project/carml
+  path: .
   fmt: true
   generate: true
   test: false

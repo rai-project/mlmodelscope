@@ -23,6 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# realize
 outputs.log
 logs.log
 errors.log
+
+# binary
+carml
