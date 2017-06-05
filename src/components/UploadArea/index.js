@@ -16,6 +16,10 @@ export default connect(
   class UploadArea extends Component {
     constructor() {
       super();
+      this.addFile = this.addFile.bind(this);
+      this.upload = this.upload.bind(this);
+      this.onFileAdd = this.onFileAdd.bind(this);
+      this.fileAdded = this.fileAdded.bind(this);
       this.state = {
         images: []
       };
@@ -39,9 +43,11 @@ export default connect(
         })
         .run();
 
-      this.addFile = this.addFile.bind(this);
-      this.upload = this.upload.bind(this);
+      this.uppy.addFile2 = this.uppy.addFile;
+      this.uppy.addFile = this.addFile;
 
+      this.uppy.on("core:file-add", this.onFileAdd);
+      this.uppy.on("file-added", this.fileAdded);
       this.uppy.on("core:upload-success", (fileID, uploadURL) => {
         // console.log(fileID, uploadURL);
         // console.log(uploadURL);
@@ -65,16 +71,18 @@ export default connect(
       });
     }
 
-    addFile(ev) {
-      const files = Array.from(ev.target.files);
-      files.forEach(file => {
-        this.uppy.addFile({
-          source: "React input",
-          name: file.name,
-          type: file.type,
-          alt: file.name,
-          data: file
-        });
+    onFileAdd(file) {}
+    fileAdded(fileID) {
+      console.log("file added ", fileID);
+    }
+    addFile(file) {
+      console.log("file ", file);
+      this.uppy.addFile2({
+        source: "React input",
+        name: file.name,
+        type: file.type,
+        alt: file.name,
+        data: file.data
       });
     }
 
