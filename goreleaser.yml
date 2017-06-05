@@ -1,0 +1,64 @@
+
+homepage: &homepage http://www.carml.org
+description: &description Cognitive ARtifacts for Machine Learning
+build:
+  main: ./main.go
+  binary: carml
+  goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
+    - ppc64le
+  ignore:
+    - goos: darwin
+      goarch: ppc64le
+    - goos: windows
+      goarch: ppc64le
+    - goos: darwin
+      goarch: 386
+    - goos: darwin
+      goarch: arm
+    - goos: linux
+      goarch: arm
+      goarm: 7
+  hooks:
+    pre: go generate
+    # post: ./script.sh
+archive:
+  name_template: '{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+  format_overrides:
+    - goos: windows
+      format: zip
+  files:
+    - LICENSE.txt
+
+# brew:
+#   github:
+#     owner: rai-project
+#     name: homebrew-tap
+#   folder: Formula
+#   homepage: *homepage
+#   description: *description
+#   dependencies:
+#     - git
+# fpm:
+#   homepage: *homepage
+#   description: *description
+#   maintainer: Carlos Alexandro Becker <root@carlosbecker.com>
+#   license: MIT
+#   vendor: GoReleaser
+#   formats:
+#     - deb
+#   dependencies:
+#     - git

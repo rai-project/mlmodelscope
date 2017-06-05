@@ -23,8 +23,12 @@ addons:
     - glide
     - yarn
     - build-essential
+after_success:
+  - test -n "$TRAVIS_TAG" && curl -sL https://git.io/goreleaser | bash
 before_install:
 - bash scripts/install-protobuf.sh
+install:
+- gem install fpm
 before_script:
 - ls -R $HOME/protobuf
 install:
@@ -44,6 +48,7 @@ install:
 - yarn build
 - yarn build:assets
 - glide install
+- goreleaser
 script:
 - echo "Skip tests..."
 deploy:
