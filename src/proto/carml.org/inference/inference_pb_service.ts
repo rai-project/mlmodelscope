@@ -3,6 +3,7 @@
 
 import * as proto_carml_org_inference_inference_pb from "../../../proto/carml.org/inference/inference_pb";
 import * as google_protobuf_any_pb from "google-protobuf/google/protobuf/any_pb";
+import * as github_com_gogo_protobuf_gogoproto_gogo_pb from "../../../github.com/gogo/protobuf/gogoproto/gogo_pb";
 export class InferenceService {
   static serviceName = "carml.org.docker.InferenceService";
 }
