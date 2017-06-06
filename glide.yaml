@@ -8,7 +8,7 @@ import:
   - spew
 - package: github.com/elazarl/go-bindata-assetfs
 - package: github.com/fatih/color
-  version: ~1.5.0
+  version: master
 - package: github.com/gogo/protobuf
   version: ~0.4.0
   subpackages:
