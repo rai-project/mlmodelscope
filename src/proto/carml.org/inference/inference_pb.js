@@ -5,9 +5,11 @@
  */
 // GENERATED CODE -- DO NOT EDIT!
 
-goog.provide("proto.carml.org.docker.ErrorStatus");
-goog.provide("proto.carml.org.docker.InferenceRequest");
-goog.provide("proto.carml.org.docker.InferenceResponse");
+goog.provide("proto.carml.org.web.ErrorStatus");
+goog.provide("proto.carml.org.web.GetModelInformationRequest");
+goog.provide("proto.carml.org.web.InferenceRequest");
+goog.provide("proto.carml.org.web.InferenceResponse");
+goog.provide("proto.carml.org.web.Null");
 
 goog.require("jspb.Message");
 goog.require("jspb.BinaryReader");
@@ -24,13 +26,13 @@ goog.require("proto.google.protobuf.Any");
  * @extends {jspb.Message}
  * @constructor
  */
-proto.carml.org.docker.InferenceRequest = function(opt_data) {
+proto.carml.org.web.InferenceRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.carml.org.docker.InferenceRequest, jspb.Message);
+goog.inherits(proto.carml.org.web.InferenceRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.carml.org.docker.InferenceRequest.displayName =
-    "proto.carml.org.docker.InferenceRequest";
+  proto.carml.org.web.InferenceRequest.displayName =
+    "proto.carml.org.web.InferenceRequest";
 }
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -44,10 +46,10 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-  proto.carml.org.docker.InferenceRequest.prototype.toObject = function(
+  proto.carml.org.web.InferenceRequest.prototype.toObject = function(
     opt_includeInstance
   ) {
-    return proto.carml.org.docker.InferenceRequest.toObject(
+    return proto.carml.org.web.InferenceRequest.toObject(
       opt_includeInstance,
       this
     );
@@ -58,10 +60,10 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.carml.org.docker.InferenceRequest} msg The msg instance to transform.
+ * @param {!proto.carml.org.web.InferenceRequest} msg The msg instance to transform.
  * @return {!Object}
  */
-  proto.carml.org.docker.InferenceRequest.toObject = function(
+  proto.carml.org.web.InferenceRequest.toObject = function(
     includeInstance,
     msg
   ) {
@@ -80,12 +82,12 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.carml.org.docker.InferenceRequest}
+ * @return {!proto.carml.org.web.InferenceRequest}
  */
-proto.carml.org.docker.InferenceRequest.deserializeBinary = function(bytes) {
+proto.carml.org.web.InferenceRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.carml.org.docker.InferenceRequest();
-  return proto.carml.org.docker.InferenceRequest.deserializeBinaryFromReader(
+  var msg = new proto.carml.org.web.InferenceRequest();
+  return proto.carml.org.web.InferenceRequest.deserializeBinaryFromReader(
     msg,
     reader
   );
@@ -94,11 +96,11 @@ proto.carml.org.docker.InferenceRequest.deserializeBinary = function(bytes) {
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.carml.org.docker.InferenceRequest} msg The message object to deserialize into.
+ * @param {!proto.carml.org.web.InferenceRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.carml.org.docker.InferenceRequest}
+ * @return {!proto.carml.org.web.InferenceRequest}
  */
-proto.carml.org.docker.InferenceRequest.deserializeBinaryFromReader = function(
+proto.carml.org.web.InferenceRequest.deserializeBinaryFromReader = function(
   msg,
   reader
 ) {
@@ -124,19 +126,19 @@ proto.carml.org.docker.InferenceRequest.deserializeBinaryFromReader = function(
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.carml.org.docker.InferenceRequest.prototype.serializeBinary = function() {
+proto.carml.org.web.InferenceRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.carml.org.docker.InferenceRequest.serializeBinaryToWriter(this, writer);
+  proto.carml.org.web.InferenceRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.carml.org.docker.InferenceRequest} message
+ * @param {!proto.carml.org.web.InferenceRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.carml.org.docker.InferenceRequest.serializeBinaryToWriter = function(
+proto.carml.org.web.InferenceRequest.serializeBinaryToWriter = function(
   message,
   writer
 ) {
@@ -151,12 +153,12 @@ proto.carml.org.docker.InferenceRequest.serializeBinaryToWriter = function(
  * optional string id = 1;
  * @return {string}
  */
-proto.carml.org.docker.InferenceRequest.prototype.getId = function() {
+proto.carml.org.web.InferenceRequest.prototype.getId = function() {
   return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
-proto.carml.org.docker.InferenceRequest.prototype.setId = function(value) {
+proto.carml.org.web.InferenceRequest.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -170,13 +172,13 @@ proto.carml.org.docker.InferenceRequest.prototype.setId = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.carml.org.docker.InferenceResponse = function(opt_data) {
+proto.carml.org.web.InferenceResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.carml.org.docker.InferenceResponse, jspb.Message);
+goog.inherits(proto.carml.org.web.InferenceResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.carml.org.docker.InferenceResponse.displayName =
-    "proto.carml.org.docker.InferenceResponse";
+  proto.carml.org.web.InferenceResponse.displayName =
+    "proto.carml.org.web.InferenceResponse";
 }
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -190,10 +192,10 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-  proto.carml.org.docker.InferenceResponse.prototype.toObject = function(
+  proto.carml.org.web.InferenceResponse.prototype.toObject = function(
     opt_includeInstance
   ) {
-    return proto.carml.org.docker.InferenceResponse.toObject(
+    return proto.carml.org.web.InferenceResponse.toObject(
       opt_includeInstance,
       this
     );
@@ -204,10 +206,10 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.carml.org.docker.InferenceResponse} msg The msg instance to transform.
+ * @param {!proto.carml.org.web.InferenceResponse} msg The msg instance to transform.
  * @return {!Object}
  */
-  proto.carml.org.docker.InferenceResponse.toObject = function(
+  proto.carml.org.web.InferenceResponse.toObject = function(
     includeInstance,
     msg
   ) {
@@ -216,7 +218,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
         id: jspb.Message.getFieldWithDefault(msg, 1, ""),
         error:
           (f = msg.getError()) &&
-            proto.carml.org.docker.ErrorStatus.toObject(includeInstance, f)
+            proto.carml.org.web.ErrorStatus.toObject(includeInstance, f)
       };
 
     if (includeInstance) {
@@ -229,12 +231,12 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.carml.org.docker.InferenceResponse}
+ * @return {!proto.carml.org.web.InferenceResponse}
  */
-proto.carml.org.docker.InferenceResponse.deserializeBinary = function(bytes) {
+proto.carml.org.web.InferenceResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.carml.org.docker.InferenceResponse();
-  return proto.carml.org.docker.InferenceResponse.deserializeBinaryFromReader(
+  var msg = new proto.carml.org.web.InferenceResponse();
+  return proto.carml.org.web.InferenceResponse.deserializeBinaryFromReader(
     msg,
     reader
   );
@@ -243,11 +245,11 @@ proto.carml.org.docker.InferenceResponse.deserializeBinary = function(bytes) {
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.carml.org.docker.InferenceResponse} msg The message object to deserialize into.
+ * @param {!proto.carml.org.web.InferenceResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.carml.org.docker.InferenceResponse}
+ * @return {!proto.carml.org.web.InferenceResponse}
  */
-proto.carml.org.docker.InferenceResponse.deserializeBinaryFromReader = function(
+proto.carml.org.web.InferenceResponse.deserializeBinaryFromReader = function(
   msg,
   reader
 ) {
@@ -262,10 +264,10 @@ proto.carml.org.docker.InferenceResponse.deserializeBinaryFromReader = function(
         msg.setId(value);
         break;
       case 3:
-        var value = new proto.carml.org.docker.ErrorStatus();
+        var value = new proto.carml.org.web.ErrorStatus();
         reader.readMessage(
           value,
-          proto.carml.org.docker.ErrorStatus.deserializeBinaryFromReader
+          proto.carml.org.web.ErrorStatus.deserializeBinaryFromReader
         );
         msg.setError(value);
         break;
@@ -281,22 +283,19 @@ proto.carml.org.docker.InferenceResponse.deserializeBinaryFromReader = function(
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.carml.org.docker.InferenceResponse.prototype.serializeBinary = function() {
+proto.carml.org.web.InferenceResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.carml.org.docker.InferenceResponse.serializeBinaryToWriter(
-    this,
-    writer
-  );
+  proto.carml.org.web.InferenceResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.carml.org.docker.InferenceResponse} message
+ * @param {!proto.carml.org.web.InferenceResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.carml.org.docker.InferenceResponse.serializeBinaryToWriter = function(
+proto.carml.org.web.InferenceResponse.serializeBinaryToWriter = function(
   message,
   writer
 ) {
@@ -310,7 +309,7 @@ proto.carml.org.docker.InferenceResponse.serializeBinaryToWriter = function(
     writer.writeMessage(
       3,
       f,
-      proto.carml.org.docker.ErrorStatus.serializeBinaryToWriter
+      proto.carml.org.web.ErrorStatus.serializeBinaryToWriter
     );
   }
 };
@@ -319,33 +318,33 @@ proto.carml.org.docker.InferenceResponse.serializeBinaryToWriter = function(
  * optional string id = 1;
  * @return {string}
  */
-proto.carml.org.docker.InferenceResponse.prototype.getId = function() {
+proto.carml.org.web.InferenceResponse.prototype.getId = function() {
   return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
-proto.carml.org.docker.InferenceResponse.prototype.setId = function(value) {
+proto.carml.org.web.InferenceResponse.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 /**
  * optional ErrorStatus error = 3;
- * @return {?proto.carml.org.docker.ErrorStatus}
+ * @return {?proto.carml.org.web.ErrorStatus}
  */
-proto.carml.org.docker.InferenceResponse.prototype.getError = function() {
-  return /** @type{?proto.carml.org.docker.ErrorStatus} */ jspb.Message.getWrapperField(
+proto.carml.org.web.InferenceResponse.prototype.getError = function() {
+  return /** @type{?proto.carml.org.web.ErrorStatus} */ jspb.Message.getWrapperField(
     this,
-    proto.carml.org.docker.ErrorStatus,
+    proto.carml.org.web.ErrorStatus,
     3
   );
 };
 
-/** @param {?proto.carml.org.docker.ErrorStatus|undefined} value */
-proto.carml.org.docker.InferenceResponse.prototype.setError = function(value) {
+/** @param {?proto.carml.org.web.ErrorStatus|undefined} value */
+proto.carml.org.web.InferenceResponse.prototype.setError = function(value) {
   jspb.Message.setWrapperField(this, 3, value);
 };
 
-proto.carml.org.docker.InferenceResponse.prototype.clearError = function() {
+proto.carml.org.web.InferenceResponse.prototype.clearError = function() {
   this.setError(undefined);
 };
 
@@ -353,7 +352,7 @@ proto.carml.org.docker.InferenceResponse.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.carml.org.docker.InferenceResponse.prototype.hasError = function() {
+proto.carml.org.web.InferenceResponse.prototype.hasError = function() {
   return jspb.Message.getField(this, 3) != null;
 };
 
@@ -367,27 +366,13 @@ proto.carml.org.docker.InferenceResponse.prototype.hasError = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.carml.org.docker.ErrorStatus = function(opt_data) {
-  jspb.Message.initialize(
-    this,
-    opt_data,
-    0,
-    -1,
-    proto.carml.org.docker.ErrorStatus.repeatedFields_,
-    null
-  );
+proto.carml.org.web.Null = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.carml.org.docker.ErrorStatus, jspb.Message);
+goog.inherits(proto.carml.org.web.Null, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.carml.org.docker.ErrorStatus.displayName =
-    "proto.carml.org.docker.ErrorStatus";
+  proto.carml.org.web.Null.displayName = "proto.carml.org.web.Null";
 }
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.carml.org.docker.ErrorStatus.repeatedFields_ = [2];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
   /**
@@ -400,13 +385,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-  proto.carml.org.docker.ErrorStatus.prototype.toObject = function(
-    opt_includeInstance
-  ) {
-    return proto.carml.org.docker.ErrorStatus.toObject(
-      opt_includeInstance,
-      this
-    );
+  proto.carml.org.web.Null.prototype.toObject = function(opt_includeInstance) {
+    return proto.carml.org.web.Null.toObject(opt_includeInstance, this);
   };
 
   /**
@@ -414,10 +394,131 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.carml.org.docker.ErrorStatus} msg The msg instance to transform.
+ * @param {!proto.carml.org.web.Null} msg The msg instance to transform.
  * @return {!Object}
  */
-  proto.carml.org.docker.ErrorStatus.toObject = function(includeInstance, msg) {
+  proto.carml.org.web.Null.toObject = function(includeInstance, msg) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.carml.org.web.Null}
+ */
+proto.carml.org.web.Null.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.carml.org.web.Null();
+  return proto.carml.org.web.Null.deserializeBinaryFromReader(msg, reader);
+};
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.carml.org.web.Null} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.carml.org.web.Null}
+ */
+proto.carml.org.web.Null.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+      default:
+        reader.skipField();
+        break;
+    }
+  }
+  return msg;
+};
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.carml.org.web.Null.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.carml.org.web.Null.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.carml.org.web.Null} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.carml.org.web.Null.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.carml.org.web.ErrorStatus = function(opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.carml.org.web.ErrorStatus.repeatedFields_,
+    null
+  );
+};
+goog.inherits(proto.carml.org.web.ErrorStatus, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.carml.org.web.ErrorStatus.displayName =
+    "proto.carml.org.web.ErrorStatus";
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.carml.org.web.ErrorStatus.repeatedFields_ = [2];
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+  proto.carml.org.web.ErrorStatus.prototype.toObject = function(
+    opt_includeInstance
+  ) {
+    return proto.carml.org.web.ErrorStatus.toObject(opt_includeInstance, this);
+  };
+
+  /**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.carml.org.web.ErrorStatus} msg The msg instance to transform.
+ * @return {!Object}
+ */
+  proto.carml.org.web.ErrorStatus.toObject = function(includeInstance, msg) {
     var f,
       obj = {
         message: jspb.Message.getFieldWithDefault(msg, 1, ""),
@@ -438,12 +539,12 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.carml.org.docker.ErrorStatus}
+ * @return {!proto.carml.org.web.ErrorStatus}
  */
-proto.carml.org.docker.ErrorStatus.deserializeBinary = function(bytes) {
+proto.carml.org.web.ErrorStatus.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.carml.org.docker.ErrorStatus();
-  return proto.carml.org.docker.ErrorStatus.deserializeBinaryFromReader(
+  var msg = new proto.carml.org.web.ErrorStatus();
+  return proto.carml.org.web.ErrorStatus.deserializeBinaryFromReader(
     msg,
     reader
   );
@@ -452,11 +553,11 @@ proto.carml.org.docker.ErrorStatus.deserializeBinary = function(bytes) {
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.carml.org.docker.ErrorStatus} msg The message object to deserialize into.
+ * @param {!proto.carml.org.web.ErrorStatus} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.carml.org.docker.ErrorStatus}
+ * @return {!proto.carml.org.web.ErrorStatus}
  */
-proto.carml.org.docker.ErrorStatus.deserializeBinaryFromReader = function(
+proto.carml.org.web.ErrorStatus.deserializeBinaryFromReader = function(
   msg,
   reader
 ) {
@@ -490,19 +591,19 @@ proto.carml.org.docker.ErrorStatus.deserializeBinaryFromReader = function(
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.carml.org.docker.ErrorStatus.prototype.serializeBinary = function() {
+proto.carml.org.web.ErrorStatus.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.carml.org.docker.ErrorStatus.serializeBinaryToWriter(this, writer);
+  proto.carml.org.web.ErrorStatus.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.carml.org.docker.ErrorStatus} message
+ * @param {!proto.carml.org.web.ErrorStatus} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.carml.org.docker.ErrorStatus.serializeBinaryToWriter = function(
+proto.carml.org.web.ErrorStatus.serializeBinaryToWriter = function(
   message,
   writer
 ) {
@@ -525,12 +626,12 @@ proto.carml.org.docker.ErrorStatus.serializeBinaryToWriter = function(
  * optional string message = 1;
  * @return {string}
  */
-proto.carml.org.docker.ErrorStatus.prototype.getMessage = function() {
+proto.carml.org.web.ErrorStatus.prototype.getMessage = function() {
   return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
 /** @param {string} value */
-proto.carml.org.docker.ErrorStatus.prototype.setMessage = function(value) {
+proto.carml.org.web.ErrorStatus.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -540,7 +641,7 @@ proto.carml.org.docker.ErrorStatus.prototype.setMessage = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.google.protobuf.Any>}
  */
-proto.carml.org.docker.ErrorStatus.prototype.getDetailsList = function() {
+proto.carml.org.web.ErrorStatus.prototype.getDetailsList = function() {
   return /** @type{!Array.<!proto.google.protobuf.Any>} */ jspb.Message.getRepeatedWrapperField(
     this,
     proto.google.protobuf.Any,
@@ -549,7 +650,7 @@ proto.carml.org.docker.ErrorStatus.prototype.getDetailsList = function() {
 };
 
 /** @param {!Array.<!proto.google.protobuf.Any>} value */
-proto.carml.org.docker.ErrorStatus.prototype.setDetailsList = function(value) {
+proto.carml.org.web.ErrorStatus.prototype.setDetailsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
@@ -558,7 +659,7 @@ proto.carml.org.docker.ErrorStatus.prototype.setDetailsList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.google.protobuf.Any}
  */
-proto.carml.org.docker.ErrorStatus.prototype.addDetails = function(
+proto.carml.org.web.ErrorStatus.prototype.addDetails = function(
   opt_value,
   opt_index
 ) {
@@ -571,6 +672,159 @@ proto.carml.org.docker.ErrorStatus.prototype.addDetails = function(
   );
 };
 
-proto.carml.org.docker.ErrorStatus.prototype.clearDetailsList = function() {
+proto.carml.org.web.ErrorStatus.prototype.clearDetailsList = function() {
   this.setDetailsList([]);
+};
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.carml.org.web.GetModelInformationRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.carml.org.web.GetModelInformationRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.carml.org.web.GetModelInformationRequest.displayName =
+    "proto.carml.org.web.GetModelInformationRequest";
+}
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+  proto.carml.org.web.GetModelInformationRequest.prototype.toObject = function(
+    opt_includeInstance
+  ) {
+    return proto.carml.org.web.GetModelInformationRequest.toObject(
+      opt_includeInstance,
+      this
+    );
+  };
+
+  /**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.carml.org.web.GetModelInformationRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+  proto.carml.org.web.GetModelInformationRequest.toObject = function(
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {
+        name: jspb.Message.getFieldWithDefault(msg, 1, "")
+      };
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.carml.org.web.GetModelInformationRequest}
+ */
+proto.carml.org.web.GetModelInformationRequest.deserializeBinary = function(
+  bytes
+) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.carml.org.web.GetModelInformationRequest();
+  return proto.carml.org.web.GetModelInformationRequest.deserializeBinaryFromReader(
+    msg,
+    reader
+  );
+};
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.carml.org.web.GetModelInformationRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.carml.org.web.GetModelInformationRequest}
+ */
+proto.carml.org.web.GetModelInformationRequest.deserializeBinaryFromReader = function(
+  msg,
+  reader
+) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+      case 1:
+        var value /** @type {string} */ = reader.readString();
+        msg.setName(value);
+        break;
+      default:
+        reader.skipField();
+        break;
+    }
+  }
+  return msg;
+};
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.carml.org.web.GetModelInformationRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.carml.org.web.GetModelInformationRequest.serializeBinaryToWriter(
+    this,
+    writer
+  );
+  return writer.getResultBuffer();
+};
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.carml.org.web.GetModelInformationRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.carml.org.web.GetModelInformationRequest.serializeBinaryToWriter = function(
+  message,
+  writer
+) {
+  var f = undefined;
+  f = message.getName();
+  if (f.length > 0) {
+    writer.writeString(1, f);
+  }
+};
+
+/**
+ * optional string name = 1;
+ * @return {string}
+ */
+proto.carml.org.web.GetModelInformationRequest.prototype.getName = function() {
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
+};
+
+/** @param {string} value */
+proto.carml.org.web.GetModelInformationRequest.prototype.setName = function(
+  value
+) {
+  jspb.Message.setField(this, 1, value);
 };

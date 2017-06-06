@@ -1,8 +1,9 @@
-// package: carml.org.docker
+// package: carml.org.web
 // file: proto/carml.org/inference/inference.proto
 
 import * as jspb from "google-protobuf";
 import * as google_protobuf_any_pb from "google-protobuf/google/protobuf/any_pb";
+import * as github_com_rai_project_dlframework_mxnet_model_pb from "../../../github.com/rai-project/dlframework/mxnet/model_pb";
 import * as github_com_gogo_protobuf_gogoproto_gogo_pb from "../../../github.com/gogo/protobuf/gogoproto/gogo_pb";
 
 export class InferenceRequest extends jspb.Message {
@@ -51,6 +52,22 @@ export namespace InferenceResponse {
   }
 }
 
+export class Null extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Null.AsObject;
+  static toObject(includeInstance: boolean, msg: Null): Null.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Null, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Null;
+  static deserializeBinaryFromReader(message: Null, reader: jspb.BinaryReader): Null;
+}
+
+export namespace Null {
+  export type AsObject = {
+  }
+}
+
 export class ErrorStatus extends jspb.Message {
   getMessage(): string;
   setMessage(value: string): void;
@@ -74,6 +91,26 @@ export namespace ErrorStatus {
   export type AsObject = {
     message: string,
     detailsList: Array<google_protobuf_any_pb.Any.AsObject>,
+  }
+}
+
+export class GetModelInformationRequest extends jspb.Message {
+  getName(): string;
+  setName(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetModelInformationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetModelInformationRequest): GetModelInformationRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetModelInformationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetModelInformationRequest;
+  static deserializeBinaryFromReader(message: GetModelInformationRequest, reader: jspb.BinaryReader): GetModelInformationRequest;
+}
+
+export namespace GetModelInformationRequest {
+  export type AsObject = {
+    name: string,
   }
 }
 

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/any.proto";
+import public "github.com/rai-project/dlframework/mxnet/model.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 option (gogoproto.gostring_all) = true;
@@ -15,7 +16,7 @@ option (gogoproto.marshaler_all) = true;
 option (gogoproto.sizer_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
-package carml.org.docker;
+package carml.org.web;
 
 message InferenceRequest {
   string id = 1;
@@ -28,11 +29,18 @@ message InferenceResponse {
   ErrorStatus error = 3;
 }
 
+message Null {}
+
 message ErrorStatus {
   string message = 1;
   repeated google.protobuf.Any details = 2;
 }
 
-service InferenceService {
+message GetModelInformationRequest { string name = 1; }
+
+service Service {
   rpc Infer(InferenceRequest) returns (stream InferenceResponse) {}
+  rpc Models(Null) returns (carml.org.mxnet.ModelInformations) {}
+  rpc GetModelInformation(GetModelInformationRequest)
+      returns (carml.org.mxnet.ModelInformation) {}
 }

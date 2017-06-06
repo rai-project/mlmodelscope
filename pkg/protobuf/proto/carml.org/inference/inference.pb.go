@@ -3,7 +3,7 @@
 // DO NOT EDIT!
 
 /*
-	Package carml_org_docker is a generated protocol buffer package.
+	Package carml_org_web is a generated protocol buffer package.
 
 	It is generated from these files:
 		proto/carml.org/inference/inference.proto
@@ -11,14 +11,17 @@
 	It has these top-level messages:
 		InferenceRequest
 		InferenceResponse
+		Null
 		ErrorStatus
+		GetModelInformationRequest
 */
-package carml_org_docker
+package carml_org_web
 
 import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
 import google_protobuf "github.com/golang/protobuf/ptypes/any"
+import carml_org_mxnet "github.com/rai-project/dlframework/mxnet"
 import _ "github.com/gogo/protobuf/gogoproto"
 
 import strings "strings"
@@ -41,6 +44,51 @@ var _ = math.Inf
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
+
+// ModelInformation from public import github.com/rai-project/dlframework/mxnet/model.proto
+type ModelInformation carml_org_mxnet.ModelInformation
+
+func (m *ModelInformation) Reset()          { (*carml_org_mxnet.ModelInformation)(m).Reset() }
+func (m *ModelInformation) String() string  { return (*carml_org_mxnet.ModelInformation)(m).String() }
+func (*ModelInformation) ProtoMessage()     {}
+func (m *ModelInformation) GetName() string { return (*carml_org_mxnet.ModelInformation)(m).GetName() }
+func (m *ModelInformation) GetFramework() string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetFramework()
+}
+func (m *ModelInformation) GetVersion() string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetVersion()
+}
+func (m *ModelInformation) GetType() string { return (*carml_org_mxnet.ModelInformation)(m).GetType() }
+func (m *ModelInformation) GetDataset() string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetDataset()
+}
+func (m *ModelInformation) GetGraphUrl() string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetGraphUrl()
+}
+func (m *ModelInformation) GetWeightsUrl() string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetWeightsUrl()
+}
+func (m *ModelInformation) GetReferences() []string {
+	return (*carml_org_mxnet.ModelInformation)(m).GetReferences()
+}
+
+// ModelInformations from public import github.com/rai-project/dlframework/mxnet/model.proto
+type ModelInformations carml_org_mxnet.ModelInformations
+
+func (m *ModelInformations) Reset()         { (*carml_org_mxnet.ModelInformations)(m).Reset() }
+func (m *ModelInformations) String() string { return (*carml_org_mxnet.ModelInformations)(m).String() }
+func (*ModelInformations) ProtoMessage()    {}
+func (m *ModelInformations) GetInfo() []*ModelInformation {
+	o := (*carml_org_mxnet.ModelInformations)(m).GetInfo()
+	if o == nil {
+		return nil
+	}
+	s := make([]*ModelInformation, len(o))
+	for i, x := range o {
+		s[i] = (*ModelInformation)(x)
+	}
+	return s
+}
 
 type InferenceRequest struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -81,6 +129,13 @@ func (m *InferenceResponse) GetError() *ErrorStatus {
 	return nil
 }
 
+type Null struct {
+}
+
+func (m *Null) Reset()                    { *m = Null{} }
+func (*Null) ProtoMessage()               {}
+func (*Null) Descriptor() ([]byte, []int) { return fileDescriptorInference, []int{2} }
+
 type ErrorStatus struct {
 	Message string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	Details []*google_protobuf.Any `protobuf:"bytes,2,rep,name=details" json:"details,omitempty"`
@@ -88,7 +143,7 @@ type ErrorStatus struct {
 
 func (m *ErrorStatus) Reset()                    { *m = ErrorStatus{} }
 func (*ErrorStatus) ProtoMessage()               {}
-func (*ErrorStatus) Descriptor() ([]byte, []int) { return fileDescriptorInference, []int{2} }
+func (*ErrorStatus) Descriptor() ([]byte, []int) { return fileDescriptorInference, []int{3} }
 
 func (m *ErrorStatus) GetMessage() string {
 	if m != nil {
@@ -104,10 +159,29 @@ func (m *ErrorStatus) GetDetails() []*google_protobuf.Any {
 	return nil
 }
 
+type GetModelInformationRequest struct {
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (m *GetModelInformationRequest) Reset()      { *m = GetModelInformationRequest{} }
+func (*GetModelInformationRequest) ProtoMessage() {}
+func (*GetModelInformationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptorInference, []int{4}
+}
+
+func (m *GetModelInformationRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
 func init() {
-	proto.RegisterType((*InferenceRequest)(nil), "carml.org.docker.InferenceRequest")
-	proto.RegisterType((*InferenceResponse)(nil), "carml.org.docker.InferenceResponse")
-	proto.RegisterType((*ErrorStatus)(nil), "carml.org.docker.ErrorStatus")
+	proto.RegisterType((*InferenceRequest)(nil), "carml.org.web.InferenceRequest")
+	proto.RegisterType((*InferenceResponse)(nil), "carml.org.web.InferenceResponse")
+	proto.RegisterType((*Null)(nil), "carml.org.web.Null")
+	proto.RegisterType((*ErrorStatus)(nil), "carml.org.web.ErrorStatus")
+	proto.RegisterType((*GetModelInformationRequest)(nil), "carml.org.web.GetModelInformationRequest")
 }
 func (this *InferenceRequest) VerboseEqual(that interface{}) error {
 	if that == nil {
@@ -235,6 +309,60 @@ func (this *InferenceResponse) Equal(that interface{}) bool {
 	}
 	return true
 }
+func (this *Null) VerboseEqual(that interface{}) error {
+	if that == nil {
+		if this == nil {
+			return nil
+		}
+		return fmt.Errorf("that == nil && this != nil")
+	}
+
+	that1, ok := that.(*Null)
+	if !ok {
+		that2, ok := that.(Null)
+		if ok {
+			that1 = &that2
+		} else {
+			return fmt.Errorf("that is not of type *Null")
+		}
+	}
+	if that1 == nil {
+		if this == nil {
+			return nil
+		}
+		return fmt.Errorf("that is type *Null but is nil && this != nil")
+	} else if this == nil {
+		return fmt.Errorf("that is type *Null but is not nil && this == nil")
+	}
+	return nil
+}
+func (this *Null) Equal(that interface{}) bool {
+	if that == nil {
+		if this == nil {
+			return true
+		}
+		return false
+	}
+
+	that1, ok := that.(*Null)
+	if !ok {
+		that2, ok := that.(Null)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		if this == nil {
+			return true
+		}
+		return false
+	} else if this == nil {
+		return false
+	}
+	return true
+}
 func (this *ErrorStatus) VerboseEqual(that interface{}) error {
 	if that == nil {
 		if this == nil {
@@ -311,12 +439,72 @@ func (this *ErrorStatus) Equal(that interface{}) bool {
 	}
 	return true
 }
+func (this *GetModelInformationRequest) VerboseEqual(that interface{}) error {
+	if that == nil {
+		if this == nil {
+			return nil
+		}
+		return fmt.Errorf("that == nil && this != nil")
+	}
+
+	that1, ok := that.(*GetModelInformationRequest)
+	if !ok {
+		that2, ok := that.(GetModelInformationRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return fmt.Errorf("that is not of type *GetModelInformationRequest")
+		}
+	}
+	if that1 == nil {
+		if this == nil {
+			return nil
+		}
+		return fmt.Errorf("that is type *GetModelInformationRequest but is nil && this != nil")
+	} else if this == nil {
+		return fmt.Errorf("that is type *GetModelInformationRequest but is not nil && this == nil")
+	}
+	if this.Name != that1.Name {
+		return fmt.Errorf("Name this(%v) Not Equal that(%v)", this.Name, that1.Name)
+	}
+	return nil
+}
+func (this *GetModelInformationRequest) Equal(that interface{}) bool {
+	if that == nil {
+		if this == nil {
+			return true
+		}
+		return false
+	}
+
+	that1, ok := that.(*GetModelInformationRequest)
+	if !ok {
+		that2, ok := that.(GetModelInformationRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		if this == nil {
+			return true
+		}
+		return false
+	} else if this == nil {
+		return false
+	}
+	if this.Name != that1.Name {
+		return false
+	}
+	return true
+}
 func (this *InferenceRequest) GoString() string {
 	if this == nil {
 		return "nil"
 	}
 	s := make([]string, 0, 5)
-	s = append(s, "&carml_org_docker.InferenceRequest{")
+	s = append(s, "&carml_org_web.InferenceRequest{")
 	s = append(s, "Id: "+fmt.Sprintf("%#v", this.Id)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
@@ -326,11 +514,20 @@ func (this *InferenceResponse) GoString() string {
 		return "nil"
 	}
 	s := make([]string, 0, 6)
-	s = append(s, "&carml_org_docker.InferenceResponse{")
+	s = append(s, "&carml_org_web.InferenceResponse{")
 	s = append(s, "Id: "+fmt.Sprintf("%#v", this.Id)+",\n")
 	if this.Error != nil {
 		s = append(s, "Error: "+fmt.Sprintf("%#v", this.Error)+",\n")
 	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *Null) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 4)
+	s = append(s, "&carml_org_web.Null{")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -339,11 +536,21 @@ func (this *ErrorStatus) GoString() string {
 		return "nil"
 	}
 	s := make([]string, 0, 6)
-	s = append(s, "&carml_org_docker.ErrorStatus{")
+	s = append(s, "&carml_org_web.ErrorStatus{")
 	s = append(s, "Message: "+fmt.Sprintf("%#v", this.Message)+",\n")
 	if this.Details != nil {
 		s = append(s, "Details: "+fmt.Sprintf("%#v", this.Details)+",\n")
 	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *GetModelInformationRequest) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&carml_org_web.GetModelInformationRequest{")
+	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -364,26 +571,28 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for InferenceService service
+// Client API for Service service
 
-type InferenceServiceClient interface {
-	Infer(ctx context.Context, in *InferenceRequest, opts ...grpc.CallOption) (InferenceService_InferClient, error)
+type ServiceClient interface {
+	Infer(ctx context.Context, in *InferenceRequest, opts ...grpc.CallOption) (Service_InferClient, error)
+	Models(ctx context.Context, in *Null, opts ...grpc.CallOption) (*carml_org_mxnet.ModelInformations, error)
+	GetModelInformation(ctx context.Context, in *GetModelInformationRequest, opts ...grpc.CallOption) (*carml_org_mxnet.ModelInformation, error)
 }
 
-type inferenceServiceClient struct {
+type serviceClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewInferenceServiceClient(cc *grpc.ClientConn) InferenceServiceClient {
-	return &inferenceServiceClient{cc}
+func NewServiceClient(cc *grpc.ClientConn) ServiceClient {
+	return &serviceClient{cc}
 }
 
-func (c *inferenceServiceClient) Infer(ctx context.Context, in *InferenceRequest, opts ...grpc.CallOption) (InferenceService_InferClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_InferenceService_serviceDesc.Streams[0], c.cc, "/carml.org.docker.InferenceService/Infer", opts...)
+func (c *serviceClient) Infer(ctx context.Context, in *InferenceRequest, opts ...grpc.CallOption) (Service_InferClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_Service_serviceDesc.Streams[0], c.cc, "/carml.org.web.Service/Infer", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &inferenceServiceInferClient{stream}
+	x := &serviceInferClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -393,16 +602,16 @@ func (c *inferenceServiceClient) Infer(ctx context.Context, in *InferenceRequest
 	return x, nil
 }
 
-type InferenceService_InferClient interface {
+type Service_InferClient interface {
 	Recv() (*InferenceResponse, error)
 	grpc.ClientStream
 }
 
-type inferenceServiceInferClient struct {
+type serviceInferClient struct {
 	grpc.ClientStream
 }
 
-func (x *inferenceServiceInferClient) Recv() (*InferenceResponse, error) {
+func (x *serviceInferClient) Recv() (*InferenceResponse, error) {
 	m := new(InferenceResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -410,45 +619,110 @@ func (x *inferenceServiceInferClient) Recv() (*InferenceResponse, error) {
 	return m, nil
 }
 
-// Server API for InferenceService service
-
-type InferenceServiceServer interface {
-	Infer(*InferenceRequest, InferenceService_InferServer) error
+func (c *serviceClient) Models(ctx context.Context, in *Null, opts ...grpc.CallOption) (*carml_org_mxnet.ModelInformations, error) {
+	out := new(carml_org_mxnet.ModelInformations)
+	err := grpc.Invoke(ctx, "/carml.org.web.Service/Models", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-func RegisterInferenceServiceServer(s *grpc.Server, srv InferenceServiceServer) {
-	s.RegisterService(&_InferenceService_serviceDesc, srv)
+func (c *serviceClient) GetModelInformation(ctx context.Context, in *GetModelInformationRequest, opts ...grpc.CallOption) (*carml_org_mxnet.ModelInformation, error) {
+	out := new(carml_org_mxnet.ModelInformation)
+	err := grpc.Invoke(ctx, "/carml.org.web.Service/GetModelInformation", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-func _InferenceService_Infer_Handler(srv interface{}, stream grpc.ServerStream) error {
+// Server API for Service service
+
+type ServiceServer interface {
+	Infer(*InferenceRequest, Service_InferServer) error
+	Models(context.Context, *Null) (*carml_org_mxnet.ModelInformations, error)
+	GetModelInformation(context.Context, *GetModelInformationRequest) (*carml_org_mxnet.ModelInformation, error)
+}
+
+func RegisterServiceServer(s *grpc.Server, srv ServiceServer) {
+	s.RegisterService(&_Service_serviceDesc, srv)
+}
+
+func _Service_Infer_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(InferenceRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(InferenceServiceServer).Infer(m, &inferenceServiceInferServer{stream})
+	return srv.(ServiceServer).Infer(m, &serviceInferServer{stream})
 }
 
-type InferenceService_InferServer interface {
+type Service_InferServer interface {
 	Send(*InferenceResponse) error
 	grpc.ServerStream
 }
 
-type inferenceServiceInferServer struct {
+type serviceInferServer struct {
 	grpc.ServerStream
 }
 
-func (x *inferenceServiceInferServer) Send(m *InferenceResponse) error {
+func (x *serviceInferServer) Send(m *InferenceResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-var _InferenceService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "carml.org.docker.InferenceService",
-	HandlerType: (*InferenceServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+func _Service_Models_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Null)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).Models(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/carml.org.web.Service/Models",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).Models(ctx, req.(*Null))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Service_GetModelInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetModelInformationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GetModelInformation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/carml.org.web.Service/GetModelInformation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GetModelInformation(ctx, req.(*GetModelInformationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Service_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "carml.org.web.Service",
+	HandlerType: (*ServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Models",
+			Handler:    _Service_Models_Handler,
+		},
+		{
+			MethodName: "GetModelInformation",
+			Handler:    _Service_GetModelInformation_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "Infer",
-			Handler:       _InferenceService_Infer_Handler,
+			Handler:       _Service_Infer_Handler,
 			ServerStreams: true,
 		},
 	},
@@ -513,6 +787,24 @@ func (m *InferenceResponse) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+func (m *Null) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Null) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	return i, nil
+}
+
 func (m *ErrorStatus) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -545,6 +837,30 @@ func (m *ErrorStatus) MarshalTo(dAtA []byte) (int, error) {
 			}
 			i += n
 		}
+	}
+	return i, nil
+}
+
+func (m *GetModelInformationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetModelInformationRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Name) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintInference(dAtA, i, uint64(len(m.Name)))
+		i += copy(dAtA[i:], m.Name)
 	}
 	return i, nil
 }
@@ -595,6 +911,13 @@ func NewPopulatedInferenceResponse(r randyInference, easy bool) *InferenceRespon
 	return this
 }
 
+func NewPopulatedNull(r randyInference, easy bool) *Null {
+	this := &Null{}
+	if !easy && r.Intn(10) != 0 {
+	}
+	return this
+}
+
 func NewPopulatedErrorStatus(r randyInference, easy bool) *ErrorStatus {
 	this := &ErrorStatus{}
 	this.Message = string(randStringInference(r))
@@ -605,6 +928,14 @@ func NewPopulatedErrorStatus(r randyInference, easy bool) *ErrorStatus {
 			this.Details[i] = google_protobuf.NewPopulatedAny(r, easy)
 		}
 	}
+	if !easy && r.Intn(10) != 0 {
+	}
+	return this
+}
+
+func NewPopulatedGetModelInformationRequest(r randyInference, easy bool) *GetModelInformationRequest {
+	this := &GetModelInformationRequest{}
+	this.Name = string(randStringInference(r))
 	if !easy && r.Intn(10) != 0 {
 	}
 	return this
@@ -706,6 +1037,12 @@ func (m *InferenceResponse) Size() (n int) {
 	return n
 }
 
+func (m *Null) Size() (n int) {
+	var l int
+	_ = l
+	return n
+}
+
 func (m *ErrorStatus) Size() (n int) {
 	var l int
 	_ = l
@@ -718,6 +1055,16 @@ func (m *ErrorStatus) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovInference(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *GetModelInformationRequest) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovInference(uint64(l))
 	}
 	return n
 }
@@ -756,6 +1103,15 @@ func (this *InferenceResponse) String() string {
 	}, "")
 	return s
 }
+func (this *Null) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&Null{`,
+		`}`,
+	}, "")
+	return s
+}
 func (this *ErrorStatus) String() string {
 	if this == nil {
 		return "nil"
@@ -763,6 +1119,16 @@ func (this *ErrorStatus) String() string {
 	s := strings.Join([]string{`&ErrorStatus{`,
 		`Message:` + fmt.Sprintf("%v", this.Message) + `,`,
 		`Details:` + strings.Replace(fmt.Sprintf("%v", this.Details), "Any", "google_protobuf.Any", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *GetModelInformationRequest) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&GetModelInformationRequest{`,
+		`Name:` + fmt.Sprintf("%v", this.Name) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -966,6 +1332,56 @@ func (m *InferenceResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *Null) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowInference
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Null: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Null: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipInference(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthInference
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *ErrorStatus) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1054,6 +1470,85 @@ func (m *ErrorStatus) Unmarshal(dAtA []byte) error {
 			if err := m.Details[len(m.Details)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipInference(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthInference
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetModelInformationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowInference
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetModelInformationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetModelInformationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowInference
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthInference
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1184,27 +1679,34 @@ var (
 func init() { proto.RegisterFile("proto/carml.org/inference/inference.proto", fileDescriptorInference) }
 
 var fileDescriptorInference = []byte{
-	// 340 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x90, 0x3f, 0x4f, 0xf2, 0x50,
-	0x14, 0xc6, 0x7b, 0x20, 0xbc, 0xe4, 0xbd, 0x24, 0x06, 0x1b, 0x87, 0x4a, 0xe2, 0x09, 0xa9, 0x0b,
-	0x0e, 0xde, 0x1a, 0x58, 0x5d, 0x34, 0x71, 0x70, 0x2d, 0x26, 0xba, 0x96, 0xf6, 0x50, 0x1a, 0xa1,
-	0x17, 0xef, 0x6d, 0x4d, 0xd8, 0xfc, 0x08, 0x7e, 0x0c, 0x3f, 0x82, 0xa3, 0xa3, 0x23, 0xa3, 0x23,
-	0xbd, 0x2e, 0x8e, 0x8c, 0x8e, 0x86, 0xd6, 0x0a, 0xc1, 0xc4, 0xed, 0xfc, 0xf9, 0xe5, 0x9c, 0xe7,
-	0x79, 0xd8, 0xd1, 0x54, 0x8a, 0x44, 0x38, 0xbe, 0x27, 0x27, 0x63, 0x2e, 0x64, 0xe8, 0x44, 0xf1,
-	0x90, 0x24, 0xc5, 0x3e, 0xad, 0x2b, 0x9e, 0x33, 0x66, 0xf3, 0x07, 0xe2, 0x81, 0xf0, 0x6f, 0x49,
-	0xb6, 0xf6, 0x43, 0x21, 0xc2, 0x31, 0x39, 0xf9, 0x7e, 0x90, 0x0e, 0x1d, 0x2f, 0x9e, 0x15, 0x70,
-	0xeb, 0x38, 0x8c, 0x92, 0x51, 0x3a, 0xe0, 0xbe, 0x98, 0x38, 0xa1, 0x08, 0xc5, 0x9a, 0x59, 0x75,
-	0xc5, 0xd3, 0x55, 0x55, 0xe0, 0xb6, 0xcd, 0x9a, 0x97, 0xe5, 0x3b, 0x97, 0xee, 0x52, 0x52, 0x89,
-	0xb9, 0xc3, 0x2a, 0x51, 0x60, 0x41, 0x1b, 0x3a, 0xff, 0xdd, 0x4a, 0x14, 0xd8, 0x37, 0x6c, 0x77,
-	0x83, 0x51, 0x53, 0x11, 0x2b, 0xda, 0x86, 0xcc, 0x1e, 0xab, 0x91, 0x94, 0x42, 0x5a, 0xd5, 0x36,
-	0x74, 0x1a, 0xdd, 0x03, 0xbe, 0x2d, 0x9a, 0x5f, 0xac, 0xd6, 0xfd, 0xc4, 0x4b, 0x52, 0xe5, 0x16,
-	0xac, 0x7d, 0xcd, 0x1a, 0x1b, 0x53, 0xd3, 0x62, 0xf5, 0x09, 0x29, 0xe5, 0x85, 0xf4, 0x7d, 0xb8,
-	0x6c, 0x4d, 0xce, 0xea, 0x01, 0x25, 0x5e, 0x34, 0x56, 0x56, 0xa5, 0x5d, 0xed, 0x34, 0xba, 0x7b,
-	0xbc, 0x88, 0x80, 0x97, 0xf6, 0xf8, 0x59, 0x3c, 0x73, 0x4b, 0xa8, 0x3b, 0xda, 0xb0, 0xd5, 0x27,
-	0x79, 0x1f, 0xf9, 0x64, 0x5e, 0xb1, 0x5a, 0x3e, 0x33, 0xed, 0xdf, 0xda, 0xb6, 0x33, 0x68, 0x1d,
-	0xfe, 0xc9, 0x14, 0x19, 0xd8, 0xc6, 0x09, 0x9c, 0x9f, 0xce, 0x33, 0x34, 0xde, 0x32, 0x34, 0x16,
-	0x19, 0xc2, 0x32, 0x43, 0xf8, 0xcc, 0x10, 0x1e, 0x34, 0xc2, 0x93, 0x46, 0x78, 0xd6, 0x08, 0x2f,
-	0x1a, 0xe1, 0x55, 0x23, 0xcc, 0x35, 0xc2, 0x42, 0x23, 0x7c, 0x68, 0x34, 0x96, 0x1a, 0xe1, 0xf1,
-	0x1d, 0x8d, 0xc1, 0xbf, 0x5c, 0x7e, 0xef, 0x2b, 0x00, 0x00, 0xff, 0xff, 0xa3, 0x06, 0xdb, 0xd8,
-	0x0e, 0x02, 0x00, 0x00,
+	// 451 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x91, 0xb1, 0x73, 0xd3, 0x30,
+	0x14, 0xc6, 0xad, 0xb4, 0x4d, 0x0e, 0xe5, 0xe0, 0x40, 0x65, 0x08, 0x1e, 0x44, 0xd0, 0x94, 0x0e,
+	0x95, 0x73, 0x81, 0x91, 0x05, 0x38, 0x8e, 0xeb, 0x40, 0x8f, 0x4b, 0x8f, 0x63, 0x56, 0xec, 0x17,
+	0x63, 0xb0, 0xa4, 0x20, 0xc9, 0x94, 0x6e, 0x2c, 0xec, 0xfc, 0x19, 0xfc, 0x09, 0x8c, 0x8c, 0x8c,
+	0x1d, 0x19, 0x6b, 0xb1, 0x30, 0x76, 0x64, 0xe4, 0x6c, 0xd7, 0x34, 0xf8, 0xc8, 0x75, 0x7b, 0xd2,
+	0xfb, 0xe9, 0xe9, 0xfb, 0xbe, 0x87, 0xf7, 0x56, 0x46, 0x3b, 0x1d, 0xc5, 0xc2, 0xc8, 0x9c, 0x6b,
+	0x93, 0x46, 0x99, 0x5a, 0x82, 0x01, 0x15, 0xc3, 0x65, 0xc5, 0x6b, 0x86, 0x5c, 0xff, 0x0b, 0xf1,
+	0x63, 0x58, 0x84, 0x77, 0x52, 0xad, 0xd3, 0x1c, 0xa2, 0xba, 0xb9, 0x28, 0x96, 0x91, 0x50, 0x27,
+	0x0d, 0x19, 0x3e, 0x48, 0x33, 0xf7, 0xba, 0x58, 0xf0, 0x58, 0xcb, 0xc8, 0x88, 0x6c, 0x7f, 0x65,
+	0xf4, 0x1b, 0x88, 0x5d, 0x94, 0xe4, 0x4b, 0x23, 0x24, 0x1c, 0x6b, 0xf3, 0x36, 0x92, 0x1f, 0x14,
+	0xb8, 0x48, 0xea, 0x04, 0xf2, 0x8b, 0x57, 0xfb, 0x6b, 0xaf, 0x52, 0x9d, 0xea, 0xcb, 0xc9, 0xd5,
+	0xa9, 0xd1, 0x59, 0x55, 0x0d, 0xce, 0x18, 0xbe, 0x79, 0xd0, 0x2a, 0x9c, 0xc3, 0xbb, 0x02, 0xac,
+	0x23, 0x37, 0x70, 0x2f, 0x4b, 0x46, 0x68, 0x8c, 0x26, 0xd7, 0xe6, 0xbd, 0x2c, 0x61, 0x2f, 0xf1,
+	0xad, 0x35, 0xc6, 0xae, 0xb4, 0xb2, 0xd0, 0x85, 0xc8, 0x14, 0xef, 0x80, 0x31, 0xda, 0x8c, 0xb6,
+	0xc6, 0x68, 0x32, 0x9c, 0x85, 0xfc, 0x1f, 0x9f, 0xfc, 0x69, 0xd5, 0x3b, 0x72, 0xc2, 0x15, 0x76,
+	0xde, 0x80, 0xac, 0x8f, 0xb7, 0x0f, 0x8b, 0x3c, 0x67, 0xaf, 0xf0, 0x70, 0xad, 0x4b, 0x46, 0x78,
+	0x20, 0xc1, 0x5a, 0x91, 0xc2, 0xc5, 0xf4, 0xf6, 0x48, 0x38, 0x1e, 0x24, 0xe0, 0x44, 0x96, 0xdb,
+	0x51, 0x6f, 0xbc, 0x35, 0x19, 0xce, 0x6e, 0xf3, 0x26, 0x3d, 0xde, 0x7a, 0xe4, 0x8f, 0xd4, 0xc9,
+	0xbc, 0x85, 0xd8, 0x14, 0x87, 0xcf, 0xc0, 0x3d, 0xaf, 0xc2, 0x39, 0x50, 0x4b, 0x6d, 0xa4, 0x70,
+	0x99, 0x56, 0xad, 0x4b, 0x82, 0xb7, 0x95, 0x90, 0xed, 0x27, 0x75, 0x3d, 0xfb, 0xd4, 0xc3, 0x83,
+	0x23, 0x30, 0xef, 0xb3, 0x18, 0xc8, 0x21, 0xde, 0xa9, 0x5d, 0x93, 0xbb, 0x1d, 0x2b, 0xdd, 0xbc,
+	0xc2, 0xf1, 0x66, 0xa0, 0x09, 0x8b, 0x05, 0x53, 0x44, 0x9e, 0xe0, 0x7e, 0x2d, 0xc5, 0x92, 0xdd,
+	0x0e, 0x5f, 0xa5, 0x10, 0xb2, 0xb5, 0xcb, 0x7a, 0xab, 0xbc, 0x2b, 0xdc, 0xb2, 0x80, 0x00, 0xde,
+	0xfd, 0x8f, 0x25, 0xb2, 0xd7, 0x99, 0xb8, 0xd9, 0x76, 0x78, 0xef, 0xca, 0x7f, 0x58, 0xf0, 0xf8,
+	0xe1, 0x69, 0x49, 0x83, 0x1f, 0x25, 0x0d, 0xce, 0x4a, 0x8a, 0xce, 0x4b, 0x8a, 0x7e, 0x97, 0x14,
+	0x7d, 0xf4, 0x14, 0x7d, 0xf1, 0x14, 0x7d, 0xf5, 0x14, 0x7d, 0xf3, 0x14, 0x7d, 0xf7, 0x14, 0x9d,
+	0x7a, 0x8a, 0xce, 0x3c, 0x45, 0xbf, 0x3c, 0x0d, 0xce, 0x3d, 0x45, 0x9f, 0x7f, 0xd2, 0xe0, 0x05,
+	0x5a, 0xf4, 0xeb, 0x85, 0xdc, 0xff, 0x13, 0x00, 0x00, 0xff, 0xff, 0x0c, 0x8c, 0x5c, 0xe6, 0x18,
+	0x03, 0x00, 0x00,
 }
