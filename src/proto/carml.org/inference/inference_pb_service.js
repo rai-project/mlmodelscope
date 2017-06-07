@@ -36,6 +36,15 @@ Service.GetModelInformation = {
   responseType:
     github_com_rai_project_dlframework_mxnet_model_pb.ModelInformation
 };
+Service.GetModelGraph = {
+  methodName: "GetModelGraph",
+  service: Service,
+  requestStream: false,
+  responseStream: false,
+  requestType:
+    proto_carml_org_inference_inference_pb.GetModelInformationRequest,
+  responseType: github_com_rai_project_dlframework_mxnet_model_pb.Graph
+};
 module.exports = {
   Service: Service
 };

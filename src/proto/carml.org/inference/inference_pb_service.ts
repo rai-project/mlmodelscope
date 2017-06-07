@@ -33,4 +33,12 @@ export namespace Service {
     static readonly requestType = proto_carml_org_inference_inference_pb.GetModelInformationRequest;
     static readonly responseType = github_com_rai_project_dlframework_mxnet_model_pb.ModelInformation;
   }
+  export class GetModelGraph {
+    static readonly methodName = "GetModelGraph";
+    static readonly service = Service;
+    static readonly requestStream = false;
+    static readonly responseStream = false;
+    static readonly requestType = proto_carml_org_inference_inference_pb.GetModelInformationRequest;
+    static readonly responseType = github_com_rai_project_dlframework_mxnet_model_pb.Graph;
+  }
 }

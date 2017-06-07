@@ -43,4 +43,6 @@ service Service {
   rpc Models(Null) returns (carml.org.mxnet.ModelInformations) {}
   rpc GetModelInformation(GetModelInformationRequest)
       returns (carml.org.mxnet.ModelInformation) {}
+  rpc GetModelGraph(GetModelInformationRequest)
+      returns (carml.org.mxnet.Graph) {}
 }
