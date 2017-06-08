@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import public "github.com/rai-project/dlframework/mxnet/model.proto";
+import "github.com/rai-project/dlframework/mxnet/mxnet.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 option (gogoproto.gostring_all) = true;

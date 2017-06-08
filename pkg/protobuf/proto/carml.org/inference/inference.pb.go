@@ -3,20 +3,29 @@
 // DO NOT EDIT!
 
 /*
-	Package carml_org_web is a generated protocol buffer package.
+	Package mxnet is a generated protocol buffer package.
 
 	It is generated from these files:
 		proto/carml.org/inference/inference.proto
+		github.com/gogo/protobuf/gogoproto/gogo.proto
+		github.com/rai-project/dlframework/mxnet/mxnet.proto
 
 	It has these top-level messages:
+		ErrorStatus
+		ContainerArchicture
+		Model
+		ModelInformations
+		MXNetInferenceRequest
+		Feature
+		MXNetInferenceResponse
+		MXNetModelInformationRequest
+		Null
 */
-package carml_org_web
+package mxnet
 
 import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import carml_org_mxnet "github.com/rai-project/dlframework/mxnet"
-import _ "github.com/gogo/protobuf/gogoproto"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -29,313 +38,21 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
-// ErrorStatus from public import github.com/rai-project/dlframework/mxnet/model.proto
-type ErrorStatus carml_org_mxnet.ErrorStatus
-
-func (m *ErrorStatus) Reset()             { (*carml_org_mxnet.ErrorStatus)(m).Reset() }
-func (m *ErrorStatus) String() string     { return (*carml_org_mxnet.ErrorStatus)(m).String() }
-func (*ErrorStatus) ProtoMessage()        {}
-func (m *ErrorStatus) GetOk() bool        { return (*carml_org_mxnet.ErrorStatus)(m).GetOk() }
-func (m *ErrorStatus) GetMessage() string { return (*carml_org_mxnet.ErrorStatus)(m).GetMessage() }
-
-// ContainerArchicture from public import github.com/rai-project/dlframework/mxnet/model.proto
-type ContainerArchicture carml_org_mxnet.ContainerArchicture
-
-func (m *ContainerArchicture) Reset() { (*carml_org_mxnet.ContainerArchicture)(m).Reset() }
-func (m *ContainerArchicture) String() string {
-	return (*carml_org_mxnet.ContainerArchicture)(m).String()
-}
-func (*ContainerArchicture) ProtoMessage() {}
-func (m *ContainerArchicture) GetGpu() string {
-	return (*carml_org_mxnet.ContainerArchicture)(m).GetGpu()
-}
-func (m *ContainerArchicture) GetCpu() string {
-	return (*carml_org_mxnet.ContainerArchicture)(m).GetCpu()
-}
-
-// Model from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model carml_org_mxnet.Model
-
-func (m *Model) Reset()         { (*carml_org_mxnet.Model)(m).Reset() }
-func (m *Model) String() string { return (*carml_org_mxnet.Model)(m).String() }
-func (*Model) ProtoMessage()    {}
-
-// Input from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Input carml_org_mxnet.Model_Input
-
-func (m *Model_Input) Reset()          { (*carml_org_mxnet.Model_Input)(m).Reset() }
-func (m *Model_Input) String() string  { return (*carml_org_mxnet.Model_Input)(m).String() }
-func (*Model_Input) ProtoMessage()     {}
-func (m *Model_Input) GetType() string { return (*carml_org_mxnet.Model_Input)(m).GetType() }
-func (m *Model_Input) GetDimensions() []int64 {
-	return (*carml_org_mxnet.Model_Input)(m).GetDimensions()
-}
-
-// Output from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Output carml_org_mxnet.Model_Output
-
-func (m *Model_Output) Reset()              { (*carml_org_mxnet.Model_Output)(m).Reset() }
-func (m *Model_Output) String() string      { return (*carml_org_mxnet.Model_Output)(m).String() }
-func (*Model_Output) ProtoMessage()         {}
-func (m *Model_Output) GetLabels() []string { return (*carml_org_mxnet.Model_Output)(m).GetLabels() }
-
-// Information from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Information carml_org_mxnet.Model_Information
-
-func (m *Model_Information) Reset()          { (*carml_org_mxnet.Model_Information)(m).Reset() }
-func (m *Model_Information) String() string  { return (*carml_org_mxnet.Model_Information)(m).String() }
-func (*Model_Information) ProtoMessage()     {}
-func (m *Model_Information) GetName() string { return (*carml_org_mxnet.Model_Information)(m).GetName() }
-func (m *Model_Information) GetContainer() map[string]*carml_org_mxnet.ContainerArchicture {
-	o := (*carml_org_mxnet.Model_Information)(m).GetContainer()
-	if o == nil {
-		return nil
-	}
-	s := make(map[string]*ContainerArchicture, len(o))
-	for k, v := range o {
-		s[k] = (*ContainerArchicture)(v)
-	}
-	return s
-}
-func (m *Model_Information) GetFramework() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetFramework()
-}
-func (m *Model_Information) GetVersion() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetVersion()
-}
-func (m *Model_Information) GetType() string { return (*carml_org_mxnet.Model_Information)(m).GetType() }
-func (m *Model_Information) GetDataset() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetDataset()
-}
-func (m *Model_Information) GetGraphUrl() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetGraphUrl()
-}
-func (m *Model_Information) GetWeightsUrl() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetWeightsUrl()
-}
-func (m *Model_Information) GetFeaturesUrl() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetFeaturesUrl()
-}
-func (m *Model_Information) GetInput() *Model_Input {
-	return (*Model_Input)((*carml_org_mxnet.Model_Information)(m).GetInput())
-}
-func (m *Model_Information) GetMeanImage() []float32 {
-	return (*carml_org_mxnet.Model_Information)(m).GetMeanImage()
-}
-func (m *Model_Information) GetReferences() []string {
-	return (*carml_org_mxnet.Model_Information)(m).GetReferences()
-}
-
-// Graph from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Graph carml_org_mxnet.Model_Graph
-
-func (m *Model_Graph) Reset()         { (*carml_org_mxnet.Model_Graph)(m).Reset() }
-func (m *Model_Graph) String() string { return (*carml_org_mxnet.Model_Graph)(m).String() }
-func (*Model_Graph) ProtoMessage()    {}
-func (m *Model_Graph) GetNodes() []*Model_Graph_Node {
-	o := (*carml_org_mxnet.Model_Graph)(m).GetNodes()
-	if o == nil {
-		return nil
-	}
-	s := make([]*Model_Graph_Node, len(o))
-	for i, x := range o {
-		s[i] = (*Model_Graph_Node)(x)
-	}
-	return s
-}
-func (m *Model_Graph) GetArgNodes() []int64 { return (*carml_org_mxnet.Model_Graph)(m).GetArgNodes() }
-func (m *Model_Graph) GetNodeRowPtr() []int64 {
-	return (*carml_org_mxnet.Model_Graph)(m).GetNodeRowPtr()
-}
-func (m *Model_Graph) GetHeads() []*Model_Graph_NodeEntry {
-	o := (*carml_org_mxnet.Model_Graph)(m).GetHeads()
-	if o == nil {
-		return nil
-	}
-	s := make([]*Model_Graph_NodeEntry, len(o))
-	for i, x := range o {
-		s[i] = (*Model_Graph_NodeEntry)(x)
-	}
-	return s
-}
-func (m *Model_Graph) GetAttrs() map[string]string {
-	o := (*carml_org_mxnet.Model_Graph)(m).GetAttrs()
-	if o == nil {
-		return nil
-	}
-	s := make(map[string]string, len(o))
-	for k, v := range o {
-		s[k] = (string)(v)
-	}
-	return s
-}
-
-// NodeEntry from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Graph_NodeEntry carml_org_mxnet.Model_Graph_NodeEntry
-
-func (m *Model_Graph_NodeEntry) Reset() { (*carml_org_mxnet.Model_Graph_NodeEntry)(m).Reset() }
-func (m *Model_Graph_NodeEntry) String() string {
-	return (*carml_org_mxnet.Model_Graph_NodeEntry)(m).String()
-}
-func (*Model_Graph_NodeEntry) ProtoMessage() {}
-func (m *Model_Graph_NodeEntry) GetNodeId() int64 {
-	return (*carml_org_mxnet.Model_Graph_NodeEntry)(m).GetNodeId()
-}
-func (m *Model_Graph_NodeEntry) GetIndex() int64 {
-	return (*carml_org_mxnet.Model_Graph_NodeEntry)(m).GetIndex()
-}
-func (m *Model_Graph_NodeEntry) GetVersion() int64 {
-	return (*carml_org_mxnet.Model_Graph_NodeEntry)(m).GetVersion()
-}
-
-// Node from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Graph_Node carml_org_mxnet.Model_Graph_Node
-
-func (m *Model_Graph_Node) Reset()         { (*carml_org_mxnet.Model_Graph_Node)(m).Reset() }
-func (m *Model_Graph_Node) String() string { return (*carml_org_mxnet.Model_Graph_Node)(m).String() }
-func (*Model_Graph_Node) ProtoMessage()    {}
-func (m *Model_Graph_Node) GetOp() string  { return (*carml_org_mxnet.Model_Graph_Node)(m).GetOp() }
-func (m *Model_Graph_Node) GetParam() map[string]string {
-	o := (*carml_org_mxnet.Model_Graph_Node)(m).GetParam()
-	if o == nil {
-		return nil
-	}
-	s := make(map[string]string, len(o))
-	for k, v := range o {
-		s[k] = (string)(v)
-	}
-	return s
-}
-func (m *Model_Graph_Node) GetName() string { return (*carml_org_mxnet.Model_Graph_Node)(m).GetName() }
-func (m *Model_Graph_Node) GetInputs() []*Model_Graph_NodeEntry {
-	o := (*carml_org_mxnet.Model_Graph_Node)(m).GetInputs()
-	if o == nil {
-		return nil
-	}
-	s := make([]*Model_Graph_NodeEntry, len(o))
-	for i, x := range o {
-		s[i] = (*Model_Graph_NodeEntry)(x)
-	}
-	return s
-}
-func (m *Model_Graph_Node) GetBackwardSourceId() int64 {
-	return (*carml_org_mxnet.Model_Graph_Node)(m).GetBackwardSourceId()
-}
-func (m *Model_Graph_Node) GetControlDeps() []int64 {
-	return (*carml_org_mxnet.Model_Graph_Node)(m).GetControlDeps()
-}
-
-// ModelInformations from public import github.com/rai-project/dlframework/mxnet/model.proto
-type ModelInformations carml_org_mxnet.ModelInformations
-
-func (m *ModelInformations) Reset()         { (*carml_org_mxnet.ModelInformations)(m).Reset() }
-func (m *ModelInformations) String() string { return (*carml_org_mxnet.ModelInformations)(m).String() }
-func (*ModelInformations) ProtoMessage()    {}
-func (m *ModelInformations) GetInfo() []*Model_Information {
-	o := (*carml_org_mxnet.ModelInformations)(m).GetInfo()
-	if o == nil {
-		return nil
-	}
-	s := make([]*Model_Information, len(o))
-	for i, x := range o {
-		s[i] = (*Model_Information)(x)
-	}
-	return s
-}
-
-// MXNetInferenceRequest from public import github.com/rai-project/dlframework/mxnet/model.proto
-type MXNetInferenceRequest carml_org_mxnet.MXNetInferenceRequest
-
-func (m *MXNetInferenceRequest) Reset() { (*carml_org_mxnet.MXNetInferenceRequest)(m).Reset() }
-func (m *MXNetInferenceRequest) String() string {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).String()
-}
-func (*MXNetInferenceRequest) ProtoMessage() {}
-func (m *MXNetInferenceRequest) GetId() string {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetId()
-}
-func (m *MXNetInferenceRequest) GetModelName() string {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetModelName()
-}
-func (m *MXNetInferenceRequest) GetUrl() string {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetUrl()
-}
-func (m *MXNetInferenceRequest) GetData() []byte {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetData()
-}
-
-// Feature from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Feature carml_org_mxnet.Feature
-
-func (m *Feature) Reset()                  { (*carml_org_mxnet.Feature)(m).Reset() }
-func (m *Feature) String() string          { return (*carml_org_mxnet.Feature)(m).String() }
-func (*Feature) ProtoMessage()             {}
-func (m *Feature) GetIndex() int64         { return (*carml_org_mxnet.Feature)(m).GetIndex() }
-func (m *Feature) GetName() string         { return (*carml_org_mxnet.Feature)(m).GetName() }
-func (m *Feature) GetProbability() float32 { return (*carml_org_mxnet.Feature)(m).GetProbability() }
-
-// MXNetInferenceResponse from public import github.com/rai-project/dlframework/mxnet/model.proto
-type MXNetInferenceResponse carml_org_mxnet.MXNetInferenceResponse
-
-func (m *MXNetInferenceResponse) Reset() { (*carml_org_mxnet.MXNetInferenceResponse)(m).Reset() }
-func (m *MXNetInferenceResponse) String() string {
-	return (*carml_org_mxnet.MXNetInferenceResponse)(m).String()
-}
-func (*MXNetInferenceResponse) ProtoMessage() {}
-func (m *MXNetInferenceResponse) GetId() string {
-	return (*carml_org_mxnet.MXNetInferenceResponse)(m).GetId()
-}
-func (m *MXNetInferenceResponse) GetFeatures() []*Feature {
-	o := (*carml_org_mxnet.MXNetInferenceResponse)(m).GetFeatures()
-	if o == nil {
-		return nil
-	}
-	s := make([]*Feature, len(o))
-	for i, x := range o {
-		s[i] = (*Feature)(x)
-	}
-	return s
-}
-func (m *MXNetInferenceResponse) GetError() *ErrorStatus {
-	return (*ErrorStatus)((*carml_org_mxnet.MXNetInferenceResponse)(m).GetError())
-}
-
-// MXNetModelInformationRequest from public import github.com/rai-project/dlframework/mxnet/model.proto
-type MXNetModelInformationRequest carml_org_mxnet.MXNetModelInformationRequest
-
-func (m *MXNetModelInformationRequest) Reset() {
-	(*carml_org_mxnet.MXNetModelInformationRequest)(m).Reset()
-}
-func (m *MXNetModelInformationRequest) String() string {
-	return (*carml_org_mxnet.MXNetModelInformationRequest)(m).String()
-}
-func (*MXNetModelInformationRequest) ProtoMessage() {}
-func (m *MXNetModelInformationRequest) GetModelName() string {
-	return (*carml_org_mxnet.MXNetModelInformationRequest)(m).GetModelName()
-}
-
-// Null from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Null carml_org_mxnet.Null
-
-func (m *Null) Reset()         { (*carml_org_mxnet.Null)(m).Reset() }
-func (m *Null) String() string { return (*carml_org_mxnet.Null)(m).String() }
-func (*Null) ProtoMessage()    {}
-
 func init() { proto.RegisterFile("proto/carml.org/inference/inference.proto", fileDescriptorInference) }
 
 var fileDescriptorInference = []byte{
-	// 206 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0x8e, 0xa1, 0x52, 0xc4, 0x30,
-	0x10, 0x40, 0xb3, 0x06, 0xc1, 0x0c, 0x06, 0x79, 0x62, 0x3d, 0xe2, 0x12, 0x01, 0x12, 0xc5, 0x17,
-	0xf0, 0x0b, 0x4d, 0x6e, 0x1b, 0x0a, 0x4d, 0xf7, 0x66, 0x27, 0x37, 0x45, 0xf2, 0x09, 0x7c, 0x06,
-	0x9f, 0x80, 0x44, 0x22, 0x2b, 0x91, 0xcd, 0x62, 0x90, 0x95, 0x48, 0x86, 0x74, 0x06, 0xce, 0xbd,
-	0xdd, 0x79, 0xfb, 0x66, 0x4f, 0x2f, 0xf6, 0xc2, 0x99, 0x5d, 0x68, 0x24, 0xf5, 0x96, 0x25, 0xba,
-	0x6e, 0x68, 0x49, 0x68, 0x08, 0xf4, 0x4f, 0xb6, 0x3a, 0xe7, 0x67, 0x7f, 0x92, 0x1d, 0xc9, 0x6f,
-	0xae, 0x62, 0x97, 0xef, 0x0e, 0xde, 0x06, 0x4e, 0x4e, 0x9a, 0x6e, 0xbb, 0x17, 0xbe, 0xa7, 0x90,
-	0xdd, 0xae, 0x6f, 0xa5, 0x49, 0x34, 0xb2, 0x3c, 0xb8, 0xf4, 0x38, 0x50, 0x76, 0x89, 0x77, 0xd4,
-	0xaf, 0x91, 0xcd, 0xf6, 0xe8, 0x2a, 0x72, 0x64, 0x57, 0xd7, 0xfe, 0xd0, 0xd6, 0x69, 0x7d, 0xe6,
-	0x97, 0x56, 0xfd, 0xe6, 0x7a, 0x2a, 0x68, 0x3e, 0x0a, 0x9a, 0xb9, 0x20, 0x2c, 0x05, 0xe1, 0xbb,
-	0x20, 0x3c, 0x29, 0xc2, 0x8b, 0x22, 0xbc, 0x2a, 0xc2, 0x9b, 0x22, 0xbc, 0x2b, 0xc2, 0xa4, 0x08,
-	0xb3, 0x22, 0x7c, 0x29, 0x9a, 0x45, 0x11, 0x9e, 0x3f, 0xd1, 0xdc, 0x1a, 0x7f, 0x52, 0x33, 0x97,
-	0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x57, 0x7a, 0x48, 0x06, 0xe7, 0x00, 0x00, 0x00,
+	// 200 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0x8e, 0xa1, 0x4e, 0xc6, 0x30,
+	0x10, 0xc7, 0x7b, 0x06, 0x41, 0x82, 0x41, 0x7e, 0xe2, 0x3c, 0x62, 0xad, 0x00, 0x89, 0xe2, 0x4d,
+	0xd6, 0xd2, 0x95, 0xc1, 0xba, 0x5b, 0x2e, 0x5d, 0x86, 0xe4, 0x11, 0x78, 0x0c, 0x1e, 0x01, 0x89,
+	0x44, 0x4e, 0x22, 0xd7, 0xc3, 0x20, 0x27, 0x91, 0x84, 0x36, 0x81, 0xcf, 0x5c, 0xfe, 0x77, 0xf9,
+	0xdd, 0x2f, 0xff, 0xd3, 0x8b, 0x89, 0x29, 0x91, 0x71, 0x2d, 0xc7, 0x41, 0x13, 0x07, 0xd3, 0x8f,
+	0x9d, 0x67, 0x3f, 0x3a, 0xff, 0x9f, 0x74, 0x61, 0xce, 0xcf, 0xfe, 0x20, 0xbd, 0x78, 0x7b, 0xb8,
+	0x0a, 0x7d, 0xba, 0x9b, 0xad, 0x76, 0x14, 0x0d, 0xb7, 0x7d, 0x33, 0x31, 0xdd, 0x7b, 0x97, 0xcc,
+	0xed, 0xd0, 0x71, 0x1b, 0xfd, 0x42, 0xfc, 0x60, 0xe2, 0xe3, 0xe8, 0x53, 0x9d, 0x55, 0x72, 0x68,
+	0x8e, 0xbe, 0x02, 0x05, 0x32, 0xe5, 0x6c, 0xe7, 0xae, 0x6c, 0xb5, 0xcc, 0x6f, 0xaa, 0xf8, 0xcd,
+	0xf5, 0x9a, 0x51, 0x7d, 0x64, 0x54, 0x5b, 0x46, 0xd8, 0x33, 0xc2, 0x77, 0x46, 0x78, 0x12, 0x84,
+	0x17, 0x41, 0x78, 0x15, 0x84, 0x37, 0x41, 0x78, 0x17, 0x84, 0x55, 0x10, 0x36, 0x41, 0xf8, 0x12,
+	0x54, 0xbb, 0x20, 0x3c, 0x7f, 0xa2, 0xb2, 0x27, 0x45, 0x72, 0xf9, 0x13, 0x00, 0x00, 0xff, 0xff,
+	0xff, 0xb8, 0x57, 0x57, 0xe5, 0x00, 0x00, 0x00,
 }

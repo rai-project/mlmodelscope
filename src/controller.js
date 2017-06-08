@@ -6,6 +6,8 @@ import StorageProvider from "@cerebral/storage";
 import UseragentModule from "@cerebral/useragent";
 import HttpProvider from "@cerebral/http";
 
+import app from "./modules/app";
+
 const controller = Controller({
   devtools: process.env.NODE_ENV === "production"
     ? null
@@ -34,7 +36,9 @@ const controller = Controller({
         // tree. You can add additional types if you know what you are doing :)
         allowedTypes: [File, Blob]
       }),
+  state: {},
   modules: {
+    app,
     useragent: UseragentModule({
       media: {
         unsupported: "(max-width: 550px)",

@@ -4,5 +4,8 @@
     "prettier",
     "prettier/flowtype",
     "prettier/react"
-  ]
+  ],
+  "rules": {
+    "no-undef": "off"
+  }
 }

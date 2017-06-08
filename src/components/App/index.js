@@ -1,5 +1,5 @@
 import { connect } from "cerebral/react";
-import { state } from "cerebral/tags";
+import { state, signal } from "cerebral/tags";
 import React from "react";
 import {
   Header,
@@ -26,11 +26,15 @@ export default connect(
     // eslint-disable-next-line
     isLoggedIn: state`app.userIsLoggedIn`,
     // eslint-disable-next-line
-    activePage: state`app.activePage`
+    activePage: state`app.activePage`,
+    modelInformationsRequest: signal`app.modelInformationsRequest`
   },
   class App extends React.Component {
     state = { activeItem: "home", visible: false };
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    handleItemClick = (e, { name }) => {
+      this.props.modelInformationsRequest();
+      this.setState({ activeItem: name });
+    };
     toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
     render() {
