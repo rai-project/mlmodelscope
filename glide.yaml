@@ -1,6 +1,6 @@
 package: github.com/rai-project/carml
 import:
-- package: github.com/Sirupsen/logrus
+- package: github.com/sirupsen/logrus
   version: ~0.11.5
 - package: github.com/Unknwon/com
   version: ~1.0.0

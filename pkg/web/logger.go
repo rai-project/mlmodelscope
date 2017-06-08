@@ -3,7 +3,7 @@ package web
 import (
 	"io"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/davecgh/go-spew/spew"
 	glog "github.com/labstack/gommon/log"
 )
