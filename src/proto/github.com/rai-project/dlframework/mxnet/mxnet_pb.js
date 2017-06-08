@@ -1,10 +1,11 @@
+/* eslint-disable */
 /**
  * @fileoverview
  * @enhanceable
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
-/* eslint-disable */
+
 var jspb = require("google-protobuf");
 var goog = jspb;
 var global = Function("return this")();
@@ -931,7 +932,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
         framework: jspb.Message.getFieldWithDefault(msg, 3, ""),
         version: jspb.Message.getFieldWithDefault(msg, 4, ""),
         type: jspb.Message.getFieldWithDefault(msg, 5, ""),
-        dataset: jspb.Message.getFieldWithDefault(msg, 6, ""),
+        datasetName: jspb.Message.getFieldWithDefault(msg, 6, ""),
         graphUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
         weightsUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
         featuresUrl: jspb.Message.getFieldWithDefault(msg, 9, ""),
@@ -1011,7 +1012,7 @@ proto.carml.org.mxnet.Model.Information.deserializeBinaryFromReader = function(
         break;
       case 6:
         var value /** @type {string} */ = reader.readString();
-        msg.setDataset(value);
+        msg.setDatasetName(value);
         break;
       case 7:
         var value /** @type {string} */ = reader.readString();
@@ -1096,7 +1097,7 @@ proto.carml.org.mxnet.Model.Information.serializeBinaryToWriter = function(
   if (f.length > 0) {
     writer.writeString(5, f);
   }
-  f = message.getDataset();
+  f = message.getDatasetName();
   if (f.length > 0) {
     writer.writeString(6, f);
   }
@@ -1206,15 +1207,17 @@ proto.carml.org.mxnet.Model.Information.prototype.setType = function(value) {
 };
 
 /**
- * optional string dataset = 6;
+ * optional string dataset_name = 6;
  * @return {string}
  */
-proto.carml.org.mxnet.Model.Information.prototype.getDataset = function() {
+proto.carml.org.mxnet.Model.Information.prototype.getDatasetName = function() {
   return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 6, "");
 };
 
 /** @param {string} value */
-proto.carml.org.mxnet.Model.Information.prototype.setDataset = function(value) {
+proto.carml.org.mxnet.Model.Information.prototype.setDatasetName = function(
+  value
+) {
   jspb.Message.setField(this, 6, value);
 };
 

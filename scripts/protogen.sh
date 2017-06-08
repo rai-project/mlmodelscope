@@ -18,12 +18,21 @@ protoc \
 
 echo "**/*js" >> ./src/proto/.eslintignore
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  SED='gsed'
+else
+  SED="sed"
+fi
+
+echo ${SED}
+
 # Insert "/* eslint-disable */"
 for f in $(find ./src/proto -name "*.js"); do
-  sed -i '1i /* eslint-disable */' $f
+  echo $f
+  ${SED} -i'' -e '1i /* eslint-disable */' $f
 done
 for f in $(find ./src/proto -type f); do
-  cat $f | grep "var github\.com"
-  sed -i -e 's/var github.com/var github_com/g' $f
-  cat $f | grep "var github_com"
+  # cat $f | grep "var github\.com"
+  ${SED} -i'' -e 's/var github.com/var github_com/g' $f
+  # cat $f | grep "var github_com"
 done

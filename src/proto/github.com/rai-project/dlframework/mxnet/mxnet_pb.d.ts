@@ -130,8 +130,8 @@ export namespace Model {
     getType(): string;
     setType(value: string): void;
 
-    getDataset(): string;
-    setDataset(value: string): void;
+    getDatasetName(): string;
+    setDatasetName(value: string): void;
 
     getGraphUrl(): string;
     setGraphUrl(value: string): void;
@@ -174,7 +174,7 @@ export namespace Model {
       framework: string,
       version: string,
       type: string,
-      dataset: string,
+      datasetName: string,
       graphUrl: string,
       weightsUrl: string,
       featuresUrl: string,

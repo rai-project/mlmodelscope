@@ -1,7 +1,7 @@
+/* eslint-disable */
 // package: carml.org.mxnet
 // file: github.com/rai-project/dlframework/mxnet/mxnet.proto
 
-/* eslint-disable */
 var jspb = require("google-protobuf");
 var github_com_rai_project_dlframework_mxnet_mxnet_pb = require("../../../../github.com/rai-project/dlframework/mxnet/mxnet_pb");
 var github_com_gogo_protobuf_gogoproto_gogo_pb = require("../../../../github.com/gogo/protobuf/gogoproto/gogo_pb");
