@@ -13,9 +13,12 @@ func StripPrefix(prefix string, h echo.HandlerFunc) echo.HandlerFunc {
 		return h
 	}
 	return func(c echo.Context) error {
-		path := c.Path()
+		req := c.Request()
+		url := req.URL
+		path := url.Path
+		pp.Println("res = ", strings.TrimPrefix(path, prefix))
 		if p := strings.TrimPrefix(path, prefix); len(p) < len(path) {
-			c.SetPath(p)
+			url.Path = p
 			return h(c)
 		} else {
 			pp.Println("Cannot find " + path)
