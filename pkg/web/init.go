@@ -16,7 +16,7 @@ func init() {
 	config.AfterInit(func() {
 		log = logger.New().WithField("pkg", "carml/web")
 		if tracer.Enabled() && tracer.Backend() == "zipkin" {
-			t, err := zipkin.NewTracer("webserver")
+			t, err := zipkin.New("webserver")
 			if err != nil {
 				log.WithError(err).Error("failed to create a new zipkin tracer")
 				return

@@ -23,6 +23,8 @@ projects:
     preview: true
     paths:
     - pkg
+    - ../dlframework
+    - ../grpc
     ignore_paths:
     - src
     exts:

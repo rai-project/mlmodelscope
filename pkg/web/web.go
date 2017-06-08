@@ -46,7 +46,7 @@ func Start(addr string) {
 		panic(err)
 	}
 
-	log.Debug(pp.Sprint(e.Routes()))
+	// log.Debug(pp.Sprint(e.Routes()))
 
 	fmt.Println("🌎  Webserver started at address", pprintAddr(addr))
 	defer func() {
