@@ -1,11 +1,11 @@
 package web
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/rai-project/config"
 	"github.com/rai-project/logger"
 	"github.com/rai-project/tracer"
 	"github.com/rai-project/tracer/zipkin"
+	"github.com/sirupsen/logrus"
 )
 
 var (

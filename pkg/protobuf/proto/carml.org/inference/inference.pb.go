@@ -38,12 +38,46 @@ func (*ErrorStatus) ProtoMessage()        {}
 func (m *ErrorStatus) GetOk() bool        { return (*carml_org_mxnet.ErrorStatus)(m).GetOk() }
 func (m *ErrorStatus) GetMessage() string { return (*carml_org_mxnet.ErrorStatus)(m).GetMessage() }
 
+// ContainerArchicture from public import github.com/rai-project/dlframework/mxnet/model.proto
+type ContainerArchicture carml_org_mxnet.ContainerArchicture
+
+func (m *ContainerArchicture) Reset() { (*carml_org_mxnet.ContainerArchicture)(m).Reset() }
+func (m *ContainerArchicture) String() string {
+	return (*carml_org_mxnet.ContainerArchicture)(m).String()
+}
+func (*ContainerArchicture) ProtoMessage() {}
+func (m *ContainerArchicture) GetGpu() string {
+	return (*carml_org_mxnet.ContainerArchicture)(m).GetGpu()
+}
+func (m *ContainerArchicture) GetCpu() string {
+	return (*carml_org_mxnet.ContainerArchicture)(m).GetCpu()
+}
+
 // Model from public import github.com/rai-project/dlframework/mxnet/model.proto
 type Model carml_org_mxnet.Model
 
 func (m *Model) Reset()         { (*carml_org_mxnet.Model)(m).Reset() }
 func (m *Model) String() string { return (*carml_org_mxnet.Model)(m).String() }
 func (*Model) ProtoMessage()    {}
+
+// Input from public import github.com/rai-project/dlframework/mxnet/model.proto
+type Model_Input carml_org_mxnet.Model_Input
+
+func (m *Model_Input) Reset()          { (*carml_org_mxnet.Model_Input)(m).Reset() }
+func (m *Model_Input) String() string  { return (*carml_org_mxnet.Model_Input)(m).String() }
+func (*Model_Input) ProtoMessage()     {}
+func (m *Model_Input) GetType() string { return (*carml_org_mxnet.Model_Input)(m).GetType() }
+func (m *Model_Input) GetDimensions() []int64 {
+	return (*carml_org_mxnet.Model_Input)(m).GetDimensions()
+}
+
+// Output from public import github.com/rai-project/dlframework/mxnet/model.proto
+type Model_Output carml_org_mxnet.Model_Output
+
+func (m *Model_Output) Reset()              { (*carml_org_mxnet.Model_Output)(m).Reset() }
+func (m *Model_Output) String() string      { return (*carml_org_mxnet.Model_Output)(m).String() }
+func (*Model_Output) ProtoMessage()         {}
+func (m *Model_Output) GetLabels() []string { return (*carml_org_mxnet.Model_Output)(m).GetLabels() }
 
 // Information from public import github.com/rai-project/dlframework/mxnet/model.proto
 type Model_Information carml_org_mxnet.Model_Information
@@ -52,8 +86,16 @@ func (m *Model_Information) Reset()          { (*carml_org_mxnet.Model_Informati
 func (m *Model_Information) String() string  { return (*carml_org_mxnet.Model_Information)(m).String() }
 func (*Model_Information) ProtoMessage()     {}
 func (m *Model_Information) GetName() string { return (*carml_org_mxnet.Model_Information)(m).GetName() }
-func (m *Model_Information) GetContainer() string {
-	return (*carml_org_mxnet.Model_Information)(m).GetContainer()
+func (m *Model_Information) GetContainer() map[string]*carml_org_mxnet.ContainerArchicture {
+	o := (*carml_org_mxnet.Model_Information)(m).GetContainer()
+	if o == nil {
+		return nil
+	}
+	s := make(map[string]*ContainerArchicture, len(o))
+	for k, v := range o {
+		s[k] = (*ContainerArchicture)(v)
+	}
+	return s
 }
 func (m *Model_Information) GetFramework() string {
 	return (*carml_org_mxnet.Model_Information)(m).GetFramework()
@@ -70,6 +112,15 @@ func (m *Model_Information) GetGraphUrl() string {
 }
 func (m *Model_Information) GetWeightsUrl() string {
 	return (*carml_org_mxnet.Model_Information)(m).GetWeightsUrl()
+}
+func (m *Model_Information) GetFeaturesUrl() string {
+	return (*carml_org_mxnet.Model_Information)(m).GetFeaturesUrl()
+}
+func (m *Model_Information) GetInput() *Model_Input {
+	return (*Model_Input)((*carml_org_mxnet.Model_Information)(m).GetInput())
+}
+func (m *Model_Information) GetMeanImage() []float32 {
+	return (*carml_org_mxnet.Model_Information)(m).GetMeanImage()
 }
 func (m *Model_Information) GetReferences() []string {
 	return (*carml_org_mxnet.Model_Information)(m).GetReferences()
@@ -174,25 +225,6 @@ func (m *Model_Graph_Node) GetControlDeps() []int64 {
 	return (*carml_org_mxnet.Model_Graph_Node)(m).GetControlDeps()
 }
 
-// Input from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Input carml_org_mxnet.Model_Input
-
-func (m *Model_Input) Reset()          { (*carml_org_mxnet.Model_Input)(m).Reset() }
-func (m *Model_Input) String() string  { return (*carml_org_mxnet.Model_Input)(m).String() }
-func (*Model_Input) ProtoMessage()     {}
-func (m *Model_Input) GetType() string { return (*carml_org_mxnet.Model_Input)(m).GetType() }
-func (m *Model_Input) GetDimensions() []int64 {
-	return (*carml_org_mxnet.Model_Input)(m).GetDimensions()
-}
-
-// Output from public import github.com/rai-project/dlframework/mxnet/model.proto
-type Model_Output carml_org_mxnet.Model_Output
-
-func (m *Model_Output) Reset()              { (*carml_org_mxnet.Model_Output)(m).Reset() }
-func (m *Model_Output) String() string      { return (*carml_org_mxnet.Model_Output)(m).String() }
-func (*Model_Output) ProtoMessage()         {}
-func (m *Model_Output) GetLabels() []string { return (*carml_org_mxnet.Model_Output)(m).GetLabels() }
-
 // ModelInformations from public import github.com/rai-project/dlframework/mxnet/model.proto
 type ModelInformations carml_org_mxnet.ModelInformations
 
@@ -232,6 +264,16 @@ func (m *MXNetInferenceRequest) GetData() []byte {
 	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetData()
 }
 
+// Feature from public import github.com/rai-project/dlframework/mxnet/model.proto
+type Feature carml_org_mxnet.Feature
+
+func (m *Feature) Reset()                  { (*carml_org_mxnet.Feature)(m).Reset() }
+func (m *Feature) String() string          { return (*carml_org_mxnet.Feature)(m).String() }
+func (*Feature) ProtoMessage()             {}
+func (m *Feature) GetIndex() int64         { return (*carml_org_mxnet.Feature)(m).GetIndex() }
+func (m *Feature) GetName() string         { return (*carml_org_mxnet.Feature)(m).GetName() }
+func (m *Feature) GetProbability() float32 { return (*carml_org_mxnet.Feature)(m).GetProbability() }
+
 // MXNetInferenceResponse from public import github.com/rai-project/dlframework/mxnet/model.proto
 type MXNetInferenceResponse carml_org_mxnet.MXNetInferenceResponse
 
@@ -243,8 +285,16 @@ func (*MXNetInferenceResponse) ProtoMessage() {}
 func (m *MXNetInferenceResponse) GetId() string {
 	return (*carml_org_mxnet.MXNetInferenceResponse)(m).GetId()
 }
-func (m *MXNetInferenceResponse) GetFeatures() []float32 {
-	return (*carml_org_mxnet.MXNetInferenceResponse)(m).GetFeatures()
+func (m *MXNetInferenceResponse) GetFeatures() []*Feature {
+	o := (*carml_org_mxnet.MXNetInferenceResponse)(m).GetFeatures()
+	if o == nil {
+		return nil
+	}
+	s := make([]*Feature, len(o))
+	for i, x := range o {
+		s[i] = (*Feature)(x)
+	}
+	return s
 }
 func (m *MXNetInferenceResponse) GetError() *ErrorStatus {
 	return (*ErrorStatus)((*carml_org_mxnet.MXNetInferenceResponse)(m).GetError())
@@ -260,8 +310,8 @@ func (m *MXNetModelInformationRequest) String() string {
 	return (*carml_org_mxnet.MXNetModelInformationRequest)(m).String()
 }
 func (*MXNetModelInformationRequest) ProtoMessage() {}
-func (m *MXNetModelInformationRequest) GetName() string {
-	return (*carml_org_mxnet.MXNetModelInformationRequest)(m).GetName()
+func (m *MXNetModelInformationRequest) GetModelName() string {
+	return (*carml_org_mxnet.MXNetModelInformationRequest)(m).GetModelName()
 }
 
 // Null from public import github.com/rai-project/dlframework/mxnet/model.proto

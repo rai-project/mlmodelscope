@@ -1,7 +1,5 @@
 package: github.com/rai-project/carml
 import:
-- package: github.com/sirupsen/logrus
-  version: ~0.11.5
 - package: github.com/Unknwon/com
   version: ~1.0.0
 - package: github.com/davecgh/go-spew
@@ -16,9 +14,9 @@ import:
   subpackages:
   - gogoproto
   - proto
-- package: github.com/golang/protobuf
+- package: github.com/improbable-eng/grpc-web
   subpackages:
-  - ptypes/any
+  - go/grpcweb
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/labstack/echo
@@ -30,8 +28,17 @@ import:
   subpackages:
   - log
 - package: github.com/rai-project/config
+- package: github.com/rai-project/dlframework
+  subpackages:
+  - mxnet
+  - mxnet/agent
 - package: github.com/rai-project/logger
+- package: github.com/rai-project/tracer
+  subpackages:
+  - middleware
+  - zipkin
 - package: github.com/rai-project/uuid
+- package: github.com/sirupsen/logrus
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
 - package: github.com/tus/tusd
@@ -39,9 +46,7 @@ import:
   subpackages:
   - filestore
   - memorylocker
-- package: golang.org/x/net
+testImport:
+- package: github.com/golang/protobuf
   subpackages:
-  - context
-- package: google.golang.org/grpc
-  version: ~1.3.0
-- package: github.com/inconshreveable/mousetrap
+  - ptypes/any

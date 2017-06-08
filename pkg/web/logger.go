@@ -3,9 +3,9 @@ package web
 import (
 	"io"
 
-	"github.com/sirupsen/logrus"
 	"github.com/davecgh/go-spew/spew"
 	glog "github.com/labstack/gommon/log"
+	"github.com/sirupsen/logrus"
 )
 
 type echoLogger struct {

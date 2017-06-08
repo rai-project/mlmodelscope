@@ -19,5 +19,11 @@ func apiRoutes(e *echo.Echo) error {
 	}
 	api.Any("/upload/*", uploadHandler)
 
+	mxnet, err := wrappedMxnetGrpc()
+	if err != nil {
+		return err
+	}
+	api.Any("/mxnet", StripPrefix("/api/mxnet", mxnet))
+
 	return nil
 }
