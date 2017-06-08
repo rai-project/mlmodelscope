@@ -5,7 +5,7 @@ settings:
     errors: errors.log
   server:
     status: true
-    open: true
+    open: false
     host: localhost
     port: 5001
 projects:
@@ -18,7 +18,7 @@ projects:
   build: true
   run: true
   params:
-  - web
+  - web -d -v
   watcher:
     preview: true
     paths:

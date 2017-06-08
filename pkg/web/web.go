@@ -37,7 +37,7 @@ func Start(addr string) {
 			return uuid.NewV4()
 		},
 	}))
-	e.Use(echo.WrapMiddleware(tracermiddleware.FromHTTPRequest(tracer.Global(), "serve HTTP")))
+	e.Use(tracermiddleware.FromHTTPRequest(tracer.Std(), "web"))
 
 	if err := assetsRoutes(e); err != nil {
 		panic(err)

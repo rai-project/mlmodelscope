@@ -52,6 +52,9 @@ func (m *Model_Information) Reset()          { (*carml_org_mxnet.Model_Informati
 func (m *Model_Information) String() string  { return (*carml_org_mxnet.Model_Information)(m).String() }
 func (*Model_Information) ProtoMessage()     {}
 func (m *Model_Information) GetName() string { return (*carml_org_mxnet.Model_Information)(m).GetName() }
+func (m *Model_Information) GetContainer() string {
+	return (*carml_org_mxnet.Model_Information)(m).GetContainer()
+}
 func (m *Model_Information) GetFramework() string {
 	return (*carml_org_mxnet.Model_Information)(m).GetFramework()
 }
@@ -222,8 +225,11 @@ func (m *MXNetInferenceRequest) GetId() string {
 func (m *MXNetInferenceRequest) GetModelName() string {
 	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetModelName()
 }
-func (m *MXNetInferenceRequest) GetDataUrl() string {
-	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetDataUrl()
+func (m *MXNetInferenceRequest) GetUrl() string {
+	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetUrl()
+}
+func (m *MXNetInferenceRequest) GetData() []byte {
+	return (*carml_org_mxnet.MXNetInferenceRequest)(m).GetData()
 }
 
 // MXNetInferenceResponse from public import github.com/rai-project/dlframework/mxnet/model.proto

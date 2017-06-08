@@ -16,7 +16,12 @@ func init() {
 	config.AfterInit(func() {
 		log = logger.New().WithField("pkg", "carml/web")
 		if tracer.Enabled() && tracer.Backend() == "zipkin" {
-			tracer.SetGlobal(zipkin.NewTracer("webserver"))
+			t, err := zipkin.NewTracer("webserver")
+			if err != nil {
+				log.WithError(err).Error("failed to create a new zipkin tracer")
+				return
+			}
+			tracer.SetStd(t)
 		}
 	})
 
