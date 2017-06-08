@@ -23,7 +23,6 @@ func apiRoutes(e *echo.Echo) error {
 	if err != nil {
 		return err
 	}
-	api.Any("/mxnet", StripPrefix("/api/mxnet", mxnet))
-
+	api.Any("/mxnet/*", StripPrefix("/api/mxnet", mxnet))
 	return nil
 }
