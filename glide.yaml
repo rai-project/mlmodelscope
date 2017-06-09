@@ -43,7 +43,7 @@ import:
 - package: github.com/Sirupsen/logrus
   repo: git@github.com:/sirupsen/logrus
   vcs: git
-  version: ~0.11.5
+  version: ~1.0.0
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
 - package: github.com/tus/tusd
