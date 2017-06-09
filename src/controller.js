@@ -7,6 +7,7 @@ import UseragentModule from "@cerebral/useragent";
 import HttpProvider from "@cerebral/http";
 
 import app from "./modules/app";
+import models from "./modules/models";
 
 const controller = Controller({
   devtools: process.env.NODE_ENV === "production"
@@ -39,6 +40,7 @@ const controller = Controller({
   state: {},
   modules: {
     app,
+    models,
     useragent: UseragentModule({
       media: {
         unsupported: "(max-width: 550px)",

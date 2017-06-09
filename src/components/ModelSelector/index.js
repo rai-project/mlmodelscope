@@ -6,7 +6,7 @@ import { Dropdown } from "semantic-ui-react";
 
 export default connect(
   {
-    models: state`app.models`
+    models: state`models.data`
   },
   function ModelSelector({ models }) {
     if (!models || models.length === 0) {

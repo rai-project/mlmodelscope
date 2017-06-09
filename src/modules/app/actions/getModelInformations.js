@@ -10,11 +10,9 @@ function getModelInformations({ state, uuid, controller, props }) {
     host: "/api/mxnet",
     onMessage: message => {
       const infoList = message.getInfoList().map(e => e.toObject());
-      state.set("app.models", infoList);
+      state.set("models.data", infoList);
     },
-    onEnd: (code, message, trailers) => {
-      console.log("onEnd", { code, message, trailers });
-    }
+    onEnd: (code, message, trailers) => {}
   });
 }
 

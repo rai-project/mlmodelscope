@@ -19,6 +19,7 @@ import "./App.css";
 import Upload from "../UploadArea";
 import Footer from "../Footer";
 import ModelSelector from "../ModelSelector";
+import ModelInformations from "../ModelInformations";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -27,7 +28,7 @@ export default connect(
     // eslint-disable-next-line
     isLoggedIn: state`app.userIsLoggedIn`,
     // eslint-disable-next-line
-    activePage: state`app.activePage`,
+    currentPage: state`app.currentPage`,
     appLoaded: signal`app.appLoaded`,
     modelInformationsRequest: signal`app.modelInformationsRequest`
   },
@@ -172,6 +173,10 @@ export default connect(
                       <Divider horizontal />
                       <Grid.Row centered columns={1}>
                         <ModelSelector />
+                      </Grid.Row>
+                      <Divider horizontal />
+                      <Grid.Row centered columns={1}>
+                        <ModelInformations />
                       </Grid.Row>
                     </Container>
                   </Segment.Group>
