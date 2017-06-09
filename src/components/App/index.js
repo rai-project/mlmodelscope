@@ -15,9 +15,10 @@ import {
 
 import "./App.css";
 
-import Model from "../Model";
+// import Model from "../Model";
 import Upload from "../UploadArea";
 import Footer from "../Footer";
+import ModelSelector from "../ModelSelector";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -27,6 +28,7 @@ export default connect(
     isLoggedIn: state`app.userIsLoggedIn`,
     // eslint-disable-next-line
     activePage: state`app.activePage`,
+    appLoaded: signal`app.appLoaded`,
     modelInformationsRequest: signal`app.modelInformationsRequest`
   },
   class App extends React.Component {
@@ -36,7 +38,9 @@ export default connect(
       this.setState({ activeItem: name });
     };
     toggleVisibility = () => this.setState({ visible: !this.state.visible });
-
+    componentDidMount() {
+      this.props.appLoaded();
+    }
     render() {
       // const { isLoggedIn } = this.props;
       const { activeItem, visible } = this.state;
@@ -167,7 +171,7 @@ export default connect(
                       </Grid.Row>
                       <Divider horizontal />
                       <Grid.Row centered columns={1}>
-                        <Model />
+                        <ModelSelector />
                       </Grid.Row>
                     </Container>
                   </Segment.Group>

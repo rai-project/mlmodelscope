@@ -1,3 +1,4 @@
+import appLoaded from "./signals/appLoaded";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
 
 export default {
@@ -9,6 +10,7 @@ export default {
     models: []
   },
   signals: {
+    appLoaded,
     modelInformationsRequest
   }
 };
