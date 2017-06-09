@@ -17,7 +17,6 @@ export default connect(
     });
     return (
       <Dropdown
-        placeholder="Select Model"
         fluid
         search
         selection
