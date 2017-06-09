@@ -19,6 +19,7 @@ import Upload from "../UploadArea";
 import Footer from "../Footer";
 import ModelSelector from "../ModelSelector";
 import ModelInformations from "../ModelInformations";
+import Features from "../Features";
 // import ModelGraph from "../ModelGraph";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
@@ -86,7 +87,7 @@ export default connect(
                       fontFamily
                     }}
                   >
-                    <Container text fluid>
+                    <Container>
                       <Menu inverted pointing secondary>
                         <Menu.Item
                           name="home"
@@ -174,9 +175,28 @@ export default connect(
                       <Grid.Row centered columns={1}>
                         <ModelSelector />
                       </Grid.Row>
-                      <Divider horizontal />
+                    </Container>
+                    <Divider horizontal />
+                    <Container
+                      style={{
+                        fontFamily
+                      }}
+                    >
                       <Grid.Row centered columns={1}>
                         <ModelInformations />
+                      </Grid.Row>
+                    </Container>
+
+                    <Divider horizontal />
+                    <Divider horizontal />
+                    <Container
+                      text
+                      style={{
+                        fontFamily
+                      }}
+                    >
+                      <Grid.Row centered columns={1}>
+                        <Features />
                       </Grid.Row>
                     </Container>
                   </Segment.Group>
