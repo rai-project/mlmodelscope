@@ -61,7 +61,7 @@ func Start(addr string) {
 	// Start server
 	go func() {
 		// Setting up the termination timeout to 30 seconds.
-		err := e.Start(addr)
+		err := e.StartAutoTLS(addr)
 		if err != nil {
 			log.WithError(err).Fatal("✗ Failed to start web server")
 			return
