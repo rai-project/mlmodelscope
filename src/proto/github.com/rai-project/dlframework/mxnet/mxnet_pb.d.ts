@@ -119,6 +119,9 @@ export namespace Model {
     getName(): string;
     setName(value: string): void;
 
+    getDescription(): string;
+    setDescription(value: string): void;
+
     getContainerMap(): jspb.Map<string, ContainerArchicture>;
     clearContainerMap(): void;
     getFramework(): string;
@@ -170,6 +173,7 @@ export namespace Model {
   export namespace Information {
     export type AsObject = {
       name: string,
+      description: string,
       containerMap: Array<[string, ContainerArchicture.AsObject]>,
       framework: string,
       version: string,

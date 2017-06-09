@@ -15,12 +15,11 @@ import {
 
 import "./App.css";
 
-// import Model from "../Model";
 import Upload from "../UploadArea";
 import Footer from "../Footer";
 import ModelSelector from "../ModelSelector";
 import ModelInformations from "../ModelInformations";
-import ModelGraph from "../ModelGraph";
+// import ModelGraph from "../ModelGraph";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -169,7 +168,6 @@ export default connect(
                       }}
                     >
                       <Grid.Row centered columns={1}>
-                        <ModelGraph />
                         <Upload />
                       </Grid.Row>
                       <Divider horizontal />

@@ -887,7 +887,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.carml.org.mxnet.Model.Information.repeatedFields_ = [11, 12];
+proto.carml.org.mxnet.Model.Information.repeatedFields_ = [12, 13];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
   /**
@@ -924,24 +924,25 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
     var f,
       obj = {
         name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+        description: jspb.Message.getFieldWithDefault(msg, 2, ""),
         containerMap: (f = msg.getContainerMap())
           ? f.toObject(
               includeInstance,
               proto.carml.org.mxnet.ContainerArchicture.toObject
             )
           : [],
-        framework: jspb.Message.getFieldWithDefault(msg, 3, ""),
-        version: jspb.Message.getFieldWithDefault(msg, 4, ""),
-        type: jspb.Message.getFieldWithDefault(msg, 5, ""),
-        datasetName: jspb.Message.getFieldWithDefault(msg, 6, ""),
-        graphUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
-        weightsUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
-        featuresUrl: jspb.Message.getFieldWithDefault(msg, 9, ""),
+        framework: jspb.Message.getFieldWithDefault(msg, 4, ""),
+        version: jspb.Message.getFieldWithDefault(msg, 5, ""),
+        type: jspb.Message.getFieldWithDefault(msg, 6, ""),
+        datasetName: jspb.Message.getFieldWithDefault(msg, 7, ""),
+        graphUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
+        weightsUrl: jspb.Message.getFieldWithDefault(msg, 9, ""),
+        featuresUrl: jspb.Message.getFieldWithDefault(msg, 10, ""),
         input:
           (f = msg.getInput()) &&
             proto.carml.org.mxnet.Model.Input.toObject(includeInstance, f),
-        meanImageList: jspb.Message.getRepeatedFloatingPointField(msg, 11),
-        referencesList: jspb.Message.getField(msg, 12)
+        meanImageList: jspb.Message.getRepeatedFloatingPointField(msg, 12),
+        referencesList: jspb.Message.getField(msg, 13)
       };
 
     if (includeInstance) {
@@ -987,6 +988,10 @@ proto.carml.org.mxnet.Model.Information.deserializeBinaryFromReader = function(
         msg.setName(value);
         break;
       case 2:
+        var value /** @type {string} */ = reader.readString();
+        msg.setDescription(value);
+        break;
+      case 3:
         var value = msg.getContainerMap();
         reader.readMessage(value, function(message, reader) {
           jspb.Map.deserializeBinary(
@@ -999,35 +1004,35 @@ proto.carml.org.mxnet.Model.Information.deserializeBinaryFromReader = function(
           );
         });
         break;
-      case 3:
+      case 4:
         var value /** @type {string} */ = reader.readString();
         msg.setFramework(value);
         break;
-      case 4:
+      case 5:
         var value /** @type {string} */ = reader.readString();
         msg.setVersion(value);
         break;
-      case 5:
+      case 6:
         var value /** @type {string} */ = reader.readString();
         msg.setType(value);
         break;
-      case 6:
+      case 7:
         var value /** @type {string} */ = reader.readString();
         msg.setDatasetName(value);
         break;
-      case 7:
+      case 8:
         var value /** @type {string} */ = reader.readString();
         msg.setGraphUrl(value);
         break;
-      case 8:
+      case 9:
         var value /** @type {string} */ = reader.readString();
         msg.setWeightsUrl(value);
         break;
-      case 9:
+      case 10:
         var value /** @type {string} */ = reader.readString();
         msg.setFeaturesUrl(value);
         break;
-      case 10:
+      case 11:
         var value = new proto.carml.org.mxnet.Model.Input();
         reader.readMessage(
           value,
@@ -1035,11 +1040,11 @@ proto.carml.org.mxnet.Model.Information.deserializeBinaryFromReader = function(
         );
         msg.setInput(value);
         break;
-      case 11:
+      case 12:
         var value /** @type {!Array.<number>} */ = reader.readPackedFloat();
         msg.setMeanImageList(value);
         break;
-      case 12:
+      case 13:
         var value /** @type {string} */ = reader.readString();
         msg.addReferences(value);
         break;
@@ -1076,10 +1081,14 @@ proto.carml.org.mxnet.Model.Information.serializeBinaryToWriter = function(
   if (f.length > 0) {
     writer.writeString(1, f);
   }
+  f = message.getDescription();
+  if (f.length > 0) {
+    writer.writeString(2, f);
+  }
   f = message.getContainerMap(true);
   if (f && f.getLength() > 0) {
     f.serializeBinary(
-      2,
+      3,
       writer,
       jspb.BinaryWriter.prototype.writeString,
       jspb.BinaryWriter.prototype.writeMessage,
@@ -1088,47 +1097,47 @@ proto.carml.org.mxnet.Model.Information.serializeBinaryToWriter = function(
   }
   f = message.getFramework();
   if (f.length > 0) {
-    writer.writeString(3, f);
+    writer.writeString(4, f);
   }
   f = message.getVersion();
   if (f.length > 0) {
-    writer.writeString(4, f);
+    writer.writeString(5, f);
   }
   f = message.getType();
   if (f.length > 0) {
-    writer.writeString(5, f);
+    writer.writeString(6, f);
   }
   f = message.getDatasetName();
   if (f.length > 0) {
-    writer.writeString(6, f);
+    writer.writeString(7, f);
   }
   f = message.getGraphUrl();
   if (f.length > 0) {
-    writer.writeString(7, f);
+    writer.writeString(8, f);
   }
   f = message.getWeightsUrl();
   if (f.length > 0) {
-    writer.writeString(8, f);
+    writer.writeString(9, f);
   }
   f = message.getFeaturesUrl();
   if (f.length > 0) {
-    writer.writeString(9, f);
+    writer.writeString(10, f);
   }
   f = message.getInput();
   if (f != null) {
     writer.writeMessage(
-      10,
+      11,
       f,
       proto.carml.org.mxnet.Model.Input.serializeBinaryToWriter
     );
   }
   f = message.getMeanImageList();
   if (f.length > 0) {
-    writer.writePackedFloat(11, f);
+    writer.writePackedFloat(12, f);
   }
   f = message.getReferencesList();
   if (f.length > 0) {
-    writer.writeRepeatedString(12, f);
+    writer.writeRepeatedString(13, f);
   }
 };
 
@@ -1146,7 +1155,22 @@ proto.carml.org.mxnet.Model.Information.prototype.setName = function(value) {
 };
 
 /**
- * map<string, ContainerArchicture> container = 2;
+ * optional string description = 2;
+ * @return {string}
+ */
+proto.carml.org.mxnet.Model.Information.prototype.getDescription = function() {
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 2, "");
+};
+
+/** @param {string} value */
+proto.carml.org.mxnet.Model.Information.prototype.setDescription = function(
+  value
+) {
+  jspb.Message.setField(this, 2, value);
+};
+
+/**
+ * map<string, ContainerArchicture> container = 3;
  * @param {boolean=} opt_noLazyCreate Do not create the map if
  * empty, instead returning `undefined`
  * @return {!jspb.Map<string,!proto.carml.org.mxnet.ContainerArchicture>}
@@ -1156,7 +1180,7 @@ proto.carml.org.mxnet.Model.Information.prototype.getContainerMap = function(
 ) {
   return /** @type {!jspb.Map<string,!proto.carml.org.mxnet.ContainerArchicture>} */ jspb.Message.getMapField(
     this,
-    2,
+    3,
     opt_noLazyCreate,
     proto.carml.org.mxnet.ContainerArchicture
   );
@@ -1167,121 +1191,121 @@ proto.carml.org.mxnet.Model.Information.prototype.clearContainerMap = function()
 };
 
 /**
- * optional string framework = 3;
+ * optional string framework = 4;
  * @return {string}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getFramework = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 3, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 4, "");
 };
 
 /** @param {string} value */
 proto.carml.org.mxnet.Model.Information.prototype.setFramework = function(
   value
 ) {
-  jspb.Message.setField(this, 3, value);
-};
-
-/**
- * optional string version = 4;
- * @return {string}
- */
-proto.carml.org.mxnet.Model.Information.prototype.getVersion = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 4, "");
-};
-
-/** @param {string} value */
-proto.carml.org.mxnet.Model.Information.prototype.setVersion = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
 /**
- * optional string type = 5;
+ * optional string version = 5;
  * @return {string}
  */
-proto.carml.org.mxnet.Model.Information.prototype.getType = function() {
+proto.carml.org.mxnet.Model.Information.prototype.getVersion = function() {
   return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 5, "");
 };
 
 /** @param {string} value */
-proto.carml.org.mxnet.Model.Information.prototype.setType = function(value) {
+proto.carml.org.mxnet.Model.Information.prototype.setVersion = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
 /**
- * optional string dataset_name = 6;
+ * optional string type = 6;
+ * @return {string}
+ */
+proto.carml.org.mxnet.Model.Information.prototype.getType = function() {
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 6, "");
+};
+
+/** @param {string} value */
+proto.carml.org.mxnet.Model.Information.prototype.setType = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+/**
+ * optional string dataset_name = 7;
  * @return {string}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getDatasetName = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 6, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 7, "");
 };
 
 /** @param {string} value */
 proto.carml.org.mxnet.Model.Information.prototype.setDatasetName = function(
   value
 ) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 7, value);
 };
 
 /**
- * optional string graph_url = 7;
+ * optional string graph_url = 8;
  * @return {string}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getGraphUrl = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 7, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 8, "");
 };
 
 /** @param {string} value */
 proto.carml.org.mxnet.Model.Information.prototype.setGraphUrl = function(
   value
 ) {
-  jspb.Message.setField(this, 7, value);
+  jspb.Message.setField(this, 8, value);
 };
 
 /**
- * optional string weights_url = 8;
+ * optional string weights_url = 9;
  * @return {string}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getWeightsUrl = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 8, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 9, "");
 };
 
 /** @param {string} value */
 proto.carml.org.mxnet.Model.Information.prototype.setWeightsUrl = function(
   value
 ) {
-  jspb.Message.setField(this, 8, value);
+  jspb.Message.setField(this, 9, value);
 };
 
 /**
- * optional string features_url = 9;
+ * optional string features_url = 10;
  * @return {string}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getFeaturesUrl = function() {
-  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 9, "");
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 10, "");
 };
 
 /** @param {string} value */
 proto.carml.org.mxnet.Model.Information.prototype.setFeaturesUrl = function(
   value
 ) {
-  jspb.Message.setField(this, 9, value);
+  jspb.Message.setField(this, 10, value);
 };
 
 /**
- * optional Input input = 10;
+ * optional Input input = 11;
  * @return {?proto.carml.org.mxnet.Model.Input}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getInput = function() {
   return /** @type{?proto.carml.org.mxnet.Model.Input} */ jspb.Message.getWrapperField(
     this,
     proto.carml.org.mxnet.Model.Input,
-    10
+    11
   );
 };
 
 /** @param {?proto.carml.org.mxnet.Model.Input|undefined} value */
 proto.carml.org.mxnet.Model.Information.prototype.setInput = function(value) {
-  jspb.Message.setWrapperField(this, 10, value);
+  jspb.Message.setWrapperField(this, 11, value);
 };
 
 proto.carml.org.mxnet.Model.Information.prototype.clearInput = function() {
@@ -1293,11 +1317,11 @@ proto.carml.org.mxnet.Model.Information.prototype.clearInput = function() {
  * @return {!boolean}
  */
 proto.carml.org.mxnet.Model.Information.prototype.hasInput = function() {
-  return jspb.Message.getField(this, 10) != null;
+  return jspb.Message.getField(this, 11) != null;
 };
 
 /**
- * repeated float mean_image = 11;
+ * repeated float mean_image = 12;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
@@ -1305,7 +1329,7 @@ proto.carml.org.mxnet.Model.Information.prototype.hasInput = function() {
 proto.carml.org.mxnet.Model.Information.prototype.getMeanImageList = function() {
   return /** @type {!Array.<number>} */ jspb.Message.getRepeatedFloatingPointField(
     this,
-    11
+    12
   );
 };
 
@@ -1313,7 +1337,7 @@ proto.carml.org.mxnet.Model.Information.prototype.getMeanImageList = function() 
 proto.carml.org.mxnet.Model.Information.prototype.setMeanImageList = function(
   value
 ) {
-  jspb.Message.setField(this, 11, value || []);
+  jspb.Message.setField(this, 12, value || []);
 };
 
 /**
@@ -1324,7 +1348,7 @@ proto.carml.org.mxnet.Model.Information.prototype.addMeanImage = function(
   value,
   opt_index
 ) {
-  jspb.Message.addToRepeatedField(this, 11, value, opt_index);
+  jspb.Message.addToRepeatedField(this, 12, value, opt_index);
 };
 
 proto.carml.org.mxnet.Model.Information.prototype.clearMeanImageList = function() {
@@ -1332,20 +1356,20 @@ proto.carml.org.mxnet.Model.Information.prototype.clearMeanImageList = function(
 };
 
 /**
- * repeated string references = 12;
+ * repeated string references = 13;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<string>}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getReferencesList = function() {
-  return /** @type {!Array.<string>} */ jspb.Message.getField(this, 12);
+  return /** @type {!Array.<string>} */ jspb.Message.getField(this, 13);
 };
 
 /** @param {!Array.<string>} value */
 proto.carml.org.mxnet.Model.Information.prototype.setReferencesList = function(
   value
 ) {
-  jspb.Message.setField(this, 12, value || []);
+  jspb.Message.setField(this, 13, value || []);
 };
 
 /**
@@ -1356,7 +1380,7 @@ proto.carml.org.mxnet.Model.Information.prototype.addReferences = function(
   value,
   opt_index
 ) {
-  jspb.Message.addToRepeatedField(this, 12, value, opt_index);
+  jspb.Message.addToRepeatedField(this, 13, value, opt_index);
 };
 
 proto.carml.org.mxnet.Model.Information.prototype.clearReferencesList = function() {

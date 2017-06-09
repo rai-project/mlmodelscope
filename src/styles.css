@@ -1,6 +1,5 @@
 /* apply a natural box layout model to all elements, but allowing components to change */
 
-
 /* http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 
 * {
@@ -8,9 +7,7 @@
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
@@ -21,7 +18,6 @@ html {
 body {
   box-sizing: border-box;
   margin: 0;
-  overflow: hidden;
   line-height: 1.7em;
   color: #7f8c8d;
   font-size: 13px;
@@ -30,13 +26,7 @@ body {
   flex-direction: column;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label {
+h1, h2, h3, h4, h5, h6, label {
   color: #2d3e50;
 }
 

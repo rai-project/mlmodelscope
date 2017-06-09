@@ -14,10 +14,17 @@ export default function ModelInformation(params) {
     datasetName,
     graphUrl,
     featuresUrl,
-    input
+    input,
+    description
   } = model;
 
-  // const placeholder = <ReactPlaceholder type="media" rows={7} />;
+  const shorten = str => {
+    if (str.length > 120) {
+      return str.substr(0, 120) + "...";
+    }
+    return str;
+  };
+
   return (
     <Card>
       <Card.Content>
@@ -26,10 +33,9 @@ export default function ModelInformation(params) {
         </Image>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{framework}</Card.Meta>
-        <Card.Description>description</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        stuff
+        {shorten(description)}
       </Card.Content>
     </Card>
   );
