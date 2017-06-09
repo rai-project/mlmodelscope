@@ -41,7 +41,7 @@ import:
 - package: github.com/sirupsen/logrus
   version: ~0.1..5
 - package: github.com/Sirupsen/logrus
-  repo: git@github.com:/sirupsen/logrus
+  repo: https://github.com/sirupsen/logrus.git
   vcs: git
   version: ^1.0.0
 - package: github.com/spf13/cobra
