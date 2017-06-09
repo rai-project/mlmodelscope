@@ -7,12 +7,28 @@ import getModelGraph from "../../model/actions/getModelGraph";
 
 function getModelInformations(ctx) {
   const { state, uuid, controller, props } = ctx;
-  var req = new Null();
+  const req = new Null();
   grpc.invoke(MXNet.GetModelInformations, {
     request: req,
     host: "/api/mxnet",
     onMessage: message => {
-      const infoList = message.getInfoList().map(e => e.toObject());
+      const infoList = message
+        .getInfoList()
+        .map(e => e.toObject())
+        .sort(function(a, b) {
+          // sort by name;
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        });
       state.set("models.data", infoList);
       if (infoList.length !== 0) {
         state.set("models.currentModel", infoList[0].name);
