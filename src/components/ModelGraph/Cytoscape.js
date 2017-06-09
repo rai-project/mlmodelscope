@@ -20,7 +20,7 @@ export default connect(
     update(props) {
       let cy = cytoscape({
         container: this.refs.cyelement,
-        layout: { name: "cola", flow: { axis: "y" } },
+        layout: { name: "dagre", flow: { axis: "y" } },
         boxSelectionEnabled: false,
         autounselectify: true,
 
