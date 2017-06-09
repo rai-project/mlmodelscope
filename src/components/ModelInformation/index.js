@@ -1,23 +1,7 @@
 import React from "react";
-import yeast from "yeast";
-import { connect } from "cerebral/react";
-import { state } from "cerebral/tags";
-import ReactPlaceholder from "react-placeholder";
-import {
-  Header,
-  Divider,
-  Container,
-  Menu,
-  Button,
-  Segment,
-  Grid,
-  Sidebar,
-  Image,
-  Card,
-  Icon
-} from "semantic-ui-react";
+import { Image, Card, Icon } from "semantic-ui-react";
 
-export default connect({}, function ModelInformation(params) {
+export default function ModelInformation(params) {
   const model = params.model;
   if (!model) {
     return <div />;
@@ -49,4 +33,4 @@ export default connect({}, function ModelInformation(params) {
       </Card.Content>
     </Card>
   );
-});
+}

@@ -205,8 +205,11 @@ export namespace Model {
     setHeadsList(value: Array<Model.Graph.NodeEntry>): void;
     addHeads(value?: Model.Graph.NodeEntry, index?: number): Model.Graph.NodeEntry;
 
-    getAttrsMap(): jspb.Map<string, string>;
-    clearAttrsMap(): void;
+    hasAttrs(): boolean;
+    clearAttrs(): void;
+    getAttrs(): Model.Graph.Attributes | undefined;
+    setAttrs(value?: Model.Graph.Attributes): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Graph.AsObject;
     static toObject(includeInstance: boolean, msg: Graph): Graph.AsObject;
@@ -223,7 +226,7 @@ export namespace Model {
       argNodesList: Array<number>,
       nodeRowPtrList: Array<number>,
       headsList: Array<Model.Graph.NodeEntry.AsObject>,
-      attrsMap: Array<[string, string]>,
+      attrs?: Model.Graph.Attributes.AsObject,
     }
 
     export class NodeEntry extends jspb.Message {
@@ -294,6 +297,25 @@ export namespace Model {
         inputsList: Array<Model.Graph.NodeEntry.AsObject>,
         backwardSourceId: number,
         controlDepsList: Array<number>,
+      }
+    }
+
+    export class Attributes extends jspb.Message {
+      getAttrsMap(): jspb.Map<string, string>;
+      clearAttrsMap(): void;
+      serializeBinary(): Uint8Array;
+      toObject(includeInstance?: boolean): Attributes.AsObject;
+      static toObject(includeInstance: boolean, msg: Attributes): Attributes.AsObject;
+      static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+      static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+      static serializeBinaryToWriter(message: Attributes, writer: jspb.BinaryWriter): void;
+      static deserializeBinary(bytes: Uint8Array): Attributes;
+      static deserializeBinaryFromReader(message: Attributes, reader: jspb.BinaryReader): Attributes;
+    }
+
+    export namespace Attributes {
+      export type AsObject = {
+        attrsMap: Array<[string, string]>,
       }
     }
   }

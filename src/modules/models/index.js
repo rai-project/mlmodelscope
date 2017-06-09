@@ -1,9 +1,9 @@
-import models from "../models";
+import model from "../model";
 
 export default {
   state: {
     currentModel: null,
-    models,
+    model: model.state,
     data: []
   },
   signals: {}

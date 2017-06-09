@@ -6,8 +6,7 @@ export default {
     currentPage: "Home",
     name: "Dockerfile Builder for Power",
     isInferring: true,
-    isBusy: true,
-    models: []
+    isBusy: true
   },
   signals: {
     appLoaded,
