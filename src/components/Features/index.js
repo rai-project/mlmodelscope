@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import yeast from "yeast";
+import { state, signal } from "cerebral/tags";
 import {
   Image,
   Progress,
@@ -9,19 +10,15 @@ import {
   Divider
 } from "semantic-ui-react";
 
-export default class Features extends Component {
-  shouldComponentUpdate() {
-    return false;
-  }
+export default connect(
+  {
+    featureList: state`models.model.features`
+  },
+  function Features({ featureList }) {
+    featureList = featureList.slice(0, 5);
+    const top = featureList[0];
+    const rest = featureList.slice(1);
 
-  render() {
-    const features = [
-      { idx: 1, name: "dog", prob: "0.91" },
-      { idx: 2, name: "doggy", prob: "0.75" },
-      { idx: 3, name: "cat", prob: "0.15" }
-    ];
-    const top = features[0];
-    const rest = features.slice(1);
     return (
       <Container>
         <Grid.Row divided>
@@ -72,4 +69,4 @@ export default class Features extends Component {
       </Container>
     );
   }
-}
+);
