@@ -3,8 +3,7 @@ import { grpc } from "grpc-web-client";
 import { MXNet } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb_service";
 import { MXNetInferenceRequest } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb";
 
-function getInferenceResults(ctx) {
-  const { uuid, path } = ctx;
+function getInferenceResults({ state, uuid, controller, props }) {
   const modelName = state.get("models.currentModel");
   var req = new MXNetInferenceRequest();
   req.setModelName(modelName);
