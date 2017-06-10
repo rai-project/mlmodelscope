@@ -3,16 +3,24 @@ import React from "react";
 import Cytoscape from "./Cytoscape";
 
 // eslint-disable-next-line
-const fillcolors = [
-  "#8dd3c7",
-  "#fb8072",
-  "#ffffb3",
-  "#bebada",
-  "#80b1d3",
-  "#fdb462",
-  "#b3de69",
-  "#fccde5"
-];
+const fillcolors = {
+  data: "#8dd3c7",
+  FullyConnected: "#fb8072",
+  Convolution: "#fb8072",
+  LeakyReLU: "#0fffb3",
+  Activation: "#0fffb3",
+  BatchNorm: "#bebada",
+  Pooling: "#80b1d3",
+  Flatten: "#fdb462",
+  Reshape: "#fdb462",
+  Concat: "#fdb462",
+  LinearRegressionOutput: "#b3de69",
+  MAERegressionOutput: "#b3de69",
+  SVMOutput: "#b3de69",
+  LogisticRegressionOutput: "#b3de69",
+  SoftmaxOutput: "#b3de69",
+  any: "#fccde5" // default value
+};
 // eslint-disable-next-line
 const edgecolors = [
   "#245b51",
@@ -67,10 +75,15 @@ export default function ModelGraph({ graph }) {
         hidden[nd.name] = true;
         return [];
       }
+      let color = fillcolors[nd.op];
+      if (!color) {
+        color = fillcolors.any;
+      }
       return [
         {
           data: {
-            id: nd.name
+            id: nd.name,
+            faveColor: color
           }
         }
       ];

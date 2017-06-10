@@ -28,7 +28,7 @@ export default class Cytoscape extends React.Component {
             "text-opacity": 0.5,
             "text-valign": "center",
             "text-halign": "right",
-            "background-color": "#11479e",
+            "background-color": "data(faveColor)",
             shape: "rectangle"
           }
         },
