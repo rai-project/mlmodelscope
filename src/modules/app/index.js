@@ -1,5 +1,3 @@
-import { state } from "cerebral/tags";
-
 import appLoaded from "./signals/appLoaded";
 import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";

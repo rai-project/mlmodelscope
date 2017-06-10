@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, compute } from "cerebral/react";
+import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 
 import { Header as UIHeader, Segment, Container } from "semantic-ui-react";
