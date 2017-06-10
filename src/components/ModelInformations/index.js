@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
-import ModelInformation from "../ModelInformation";
 import { Container, Grid, Card } from "semantic-ui-react";
+
+import ModelInformationSummary from "../ModelInformationSummary";
 
 export default connect(
   {
@@ -13,7 +14,7 @@ export default connect(
       return <div />;
     }
     const body = models.map(m => {
-      return <ModelInformation key={"info-" + m.uuid} model={m} />;
+      return <ModelInformationSummary key={"info-" + m.uuid} model={m} />;
     });
     return (
       <Container>

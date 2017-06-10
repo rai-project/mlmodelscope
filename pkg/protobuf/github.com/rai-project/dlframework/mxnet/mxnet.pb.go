@@ -1893,7 +1893,7 @@ func (this *Model_Information) GoString() string {
 	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
 	s = append(s, "Description: "+fmt.Sprintf("%#v", this.Description)+",\n")
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -1960,7 +1960,7 @@ func (this *Model_Graph_Node) GoString() string {
 	s = append(s, "&mxnet.Model_Graph_Node{")
 	s = append(s, "Op: "+fmt.Sprintf("%#v", this.Op)+",\n")
 	keysForParam := make([]string, 0, len(this.Param))
-	for k, _ := range this.Param {
+	for k := range this.Param {
 		keysForParam = append(keysForParam, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForParam)
@@ -1988,7 +1988,7 @@ func (this *Model_Graph_Attributes) GoString() string {
 	s := make([]string, 0, 5)
 	s = append(s, "&mxnet.Model_Graph_Attributes{")
 	keysForAttrs := make([]string, 0, len(this.Attrs))
-	for k, _ := range this.Attrs {
+	for k := range this.Attrs {
 		keysForAttrs = append(keysForAttrs, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForAttrs)
@@ -2528,7 +2528,7 @@ func (m *Model_Information) MarshalTo(dAtA []byte) (int, error) {
 		i += copy(dAtA[i:], m.Description)
 	}
 	if len(m.Container) > 0 {
-		for k, _ := range m.Container {
+		for k := range m.Container {
 			dAtA[i] = 0x1a
 			i++
 			v := m.Container[k]
@@ -2784,7 +2784,7 @@ func (m *Model_Graph_Node) MarshalTo(dAtA []byte) (int, error) {
 		i += copy(dAtA[i:], m.Op)
 	}
 	if len(m.Param) > 0 {
-		for k, _ := range m.Param {
+		for k := range m.Param {
 			dAtA[i] = 0x12
 			i++
 			v := m.Param[k]
@@ -2860,7 +2860,7 @@ func (m *Model_Graph_Attributes) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Attrs) > 0 {
-		for k, _ := range m.Attrs {
+		for k := range m.Attrs {
 			dAtA[i] = 0xa
 			i++
 			v := m.Attrs[k]
@@ -3839,7 +3839,7 @@ func (this *Model_Information) String() string {
 		return "nil"
 	}
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -3897,7 +3897,7 @@ func (this *Model_Graph_Node) String() string {
 		return "nil"
 	}
 	keysForParam := make([]string, 0, len(this.Param))
-	for k, _ := range this.Param {
+	for k := range this.Param {
 		keysForParam = append(keysForParam, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForParam)
@@ -3922,7 +3922,7 @@ func (this *Model_Graph_Attributes) String() string {
 		return "nil"
 	}
 	keysForAttrs := make([]string, 0, len(this.Attrs))
-	for k, _ := range this.Attrs {
+	for k := range this.Attrs {
 		keysForAttrs = append(keysForAttrs, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForAttrs)

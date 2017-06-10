@@ -1,33 +1,24 @@
 import React from "react";
-import { capitalize } from "lodash";
-import { Card, Icon, Label } from "semantic-ui-react";
+import { connect } from "cerebral/react";
+import { state } from "cerebral/tags";
+import { Container, Grid, Card } from "semantic-ui-react";
 
-export default function ModelInformation({ model }) {
-  if (!model) {
-    return <div />;
-  }
-  const { name, framework, version, input, description } = model;
+import ModelGraph from "../ModelGraph";
 
-  const shorten = str => {
-    if (str.length > 120) {
-      return str.substr(0, 120) + "...";
+export default connect(
+  {
+    model: state`model.data`,
+    graph: state`model.graph`
+  },
+  function Models({ model, graph }) {
+    if (!model) {
+      return <div />;
     }
-    return str;
-  };
-
-  return (
-    <Card>
-      <Card.Content>
-        <Label color="teal" ribbon="right">
-          <Icon name={input.type} />
-          {capitalize(input.type)}
-        </Label>
-        <Card.Header>{name}</Card.Header>
-        <Card.Meta>{framework} ({version})</Card.Meta>
-      </Card.Content>
-      <Card.Content extra>
-        {shorten(description)}
-      </Card.Content>
-    </Card>
-  );
-}
+    return (
+      <Container>
+        <h1>{model.name}</h1>
+        <ModelGraph graph={graph} />
+      </Container>
+    );
+  }
+);

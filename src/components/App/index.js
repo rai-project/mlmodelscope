@@ -9,9 +9,10 @@ import Header from "../Header";
 import Home from "../Home";
 import Footer from "../Footer";
 import ModelInformations from "../ModelInformations";
+import ModelInformation from "../ModelInformation";
+
 // import Features from "../Features";
 // import LocationFeature from "../LocationFeature";
-// import ModelGraph from "../ModelGraph";
 
 import "./App.css";
 
@@ -25,12 +26,20 @@ export default connect(
   },
   class App extends React.Component {
     componentDidMount() {
-      this.props.appLoaded();
+      // this.props.appLoaded();
     }
     render() {
       let page = <Home />;
-      if (this.props.currentPage === "Models") {
-        page = <ModelInformations />;
+      switch (this.props.currentPage) {
+        case "Models":
+          page = <ModelInformations />;
+          break;
+        case "ModelInformation":
+          page = <ModelInformation />;
+          break;
+        default:
+          page = <Home />;
+          break;
       }
 
       return (
