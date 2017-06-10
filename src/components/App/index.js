@@ -20,6 +20,7 @@ import Footer from "../Footer";
 import ModelSelector from "../ModelSelector";
 import ModelInformations from "../ModelInformations";
 import Features from "../Features";
+import LocationFeature from "../LocationFeature";
 // import ModelGraph from "../ModelGraph";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
@@ -205,6 +206,10 @@ export default connect(
                       }}
                     >
                       <Grid.Row centered columns={1}>
+                        <LocationFeature
+                          lat={-0.481747846041145}
+                          long={51.3233379650232}
+                        />
                         <Features />
                       </Grid.Row>
                     </Container>

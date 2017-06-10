@@ -174,6 +174,20 @@
     address "^1.0.1"
     debug "^2.6.0"
 
+"@turf/bbox@^4.3.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-4.4.0.tgz#3149458eb41404427cf786a90fb3680a0e8aab55"
+  dependencies:
+    "@turf/meta" "^4.4.0"
+
+"@turf/helpers@^4.3.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.4.0.tgz#c83112f7fbe6ed183c7c0c2f776481b94d1cbd01"
+
+"@turf/meta@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-4.4.0.tgz#4fa25d4cc0525bd4cdbaf4ff68a6f8ae81f1975f"
+
 "@types/google-protobuf@^3.2.6":
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/@types/google-protobuf/-/google-protobuf-3.2.6.tgz#b225169f285cbaccc9bea541b2ca11b46d110df8"
@@ -3803,7 +3817,7 @@ for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
 
-for-own@^0.1.4:
+for-own@^0.1.1, for-own@^0.1.4:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/for-own/-/for-own-0.1.5.tgz#5265c681a4f294dabbf17c9509b6763aa84510ce"
   dependencies:
@@ -7363,6 +7377,16 @@ react-map-gl@^2.0.3:
     svg-transform "0.0.3"
     viewport-mercator-project "^2.0.1"
 
+react-mapbox-gl@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/react-mapbox-gl/-/react-mapbox-gl-1.12.0.tgz#5f2c74533eb399d320eae36c50b9f5ab31513a60"
+  dependencies:
+    "@turf/bbox" "^4.3.0"
+    "@turf/helpers" "^4.3.0"
+    deep-equal "^1.0.1"
+    reduce-object "^0.1.3"
+    supercluster "^2.3.0"
+
 react-modal@^1.7.6, react-modal@^1.7.7:
   version "1.7.12"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-1.7.12.tgz#d3e29c07ddff8cd44c723a92dcd15e66a51a95bc"
@@ -7624,6 +7648,12 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+reduce-object@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/reduce-object/-/reduce-object-0.1.3.tgz#d549d40a6c2936fa4e3e9b78ca89c93314594218"
+  dependencies:
+    for-own "^0.1.1"
 
 redux@^3.6.0:
   version "3.6.0"
@@ -8508,7 +8538,7 @@ stylis@3.0.15:
   version "3.0.15"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.0.15.tgz#e0f9bf403048511043b479d39422c835141e0fbb"
 
-supercluster@^2.0.1:
+supercluster@^2.0.1, supercluster@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-2.3.0.tgz#87ab56081bbea9a1d724df5351ee9e8c3af2f48b"
   dependencies:
