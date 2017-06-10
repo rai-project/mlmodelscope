@@ -22,7 +22,7 @@ export default function ModelInformationSummary({ model }) {
           <Icon name={input.type} />
           {capitalize(input.type)}
         </Label>
-        <Card.Header>{name}</Card.Header>
+        <Card.Header><a href={`/model/${name}`}>{name}</a></Card.Header>
         <Card.Meta>{framework} ({version})</Card.Meta>
       </Card.Content>
       <Card.Content extra>

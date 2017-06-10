@@ -1,12 +1,21 @@
 import { lowerCase, replace, first, filter } from "lodash";
 
 export default function populateModelData({ state, props }) {
-  const data = filter(state.get("models.data"), m => {
+  const p = replace(lowerCase(props.name), " ", "");
+  let data = filter(state.get("models.data"), m => {
     const name = replace(lowerCase(m.name), " ", "");
-    return name === lowerCase(props.name);
+    return name === p;
   });
-  if (data.length === 0) {
+  if (data.length !== 0) {
+    state.set("model.data", first(data));
     return;
   }
-  state.set("model.data", first(data));
+  data = filter(state.get("models.data"), m => {
+    const name = replace(lowerCase(m.name), " ", "");
+    return name.includes(p) || p.includes(name);
+  });
+  if (data.length !== 0) {
+    state.set("model.data", first(data));
+    return;
+  }
 }
