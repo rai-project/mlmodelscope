@@ -46,7 +46,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem;
+  flex: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
   background-color: teal;
 }
 

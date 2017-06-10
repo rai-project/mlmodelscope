@@ -1,4 +1,5 @@
 import { grpc } from "grpc-web-client";
+import { assign, sortBy } from "lodash";
 
 import { MXNet } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb_service";
 import { Null } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb";
@@ -11,23 +12,12 @@ function getModelInformations(ctx) {
       request: req,
       host: "/api/mxnet",
       onMessage: message => {
-        const infoList = message
-          .getInfoList()
-          .map(e => Object.assign({ uuid: uuid() }, e.toObject()))
-          .sort(function(a, b) {
-            // sort by name;
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-
-            // names must be equal
-            return 0;
-          });
+        const infoList = sortBy(
+          message
+            .getInfoList()
+            .map(e => assign({ uuid: uuid() }, e.toObject())),
+          ["name"]
+        );
         return resolve(
           path.onMessage({
             models: infoList
@@ -35,7 +25,7 @@ function getModelInformations(ctx) {
         );
       },
       onEnd: (code, message, trailers) => {
-        return resolve(path.onEnd());
+        return resolve(path.onEnd({ code, message }));
       }
     });
   });

@@ -24,6 +24,14 @@ export default [
         false: []
       }
     ],
-    onError: [set(state`app.isError`, true)]
+    onError: [
+      when(props`code`),
+      {
+        true: [
+          set(state`app.isError`, true),
+          set(state`app.errorMessage`, props`message`)
+        ]
+      }
+    ]
   }
 ];

@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalize } from "lodash";
 import { Card, Icon, Label } from "semantic-ui-react";
 
 export default function ModelInformation(params) {
@@ -20,6 +21,7 @@ export default function ModelInformation(params) {
       <Card.Content>
         <Label color="teal" ribbon="right">
           <Icon name={input.type} />
+          {capitalize(input.type)}
         </Label>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{framework} ({version})</Card.Meta>
