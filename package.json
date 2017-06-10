@@ -22,6 +22,7 @@
     "grpc-web-client": "^0.2.1",
     "halogen": "^0.2.0",
     "js-joda": "^1.5.2",
+    "lodash": "^4.17.4",
     "mapbox-gl": "^0.37.0",
     "marksy": "^1.0.1",
     "moment": "^2.18.1",

@@ -1,12 +1,12 @@
 import React from "react";
-import { Image, Card, Icon, Label } from "semantic-ui-react";
+import { Card, Icon, Label } from "semantic-ui-react";
 
 export default function ModelInformation(params) {
   const model = params.model;
   if (!model) {
     return <div />;
   }
-  const { name, framework, version, type, input, description } = model;
+  const { name, framework, version, input, description } = model;
 
   const shorten = str => {
     if (str.length > 120) {
@@ -21,9 +21,6 @@ export default function ModelInformation(params) {
         <Label color="teal" ribbon="right">
           <Icon name={input.type} />
         </Label>
-        {/*<Image floated="left">
-          <Icon fitted name={input.type} />
-        </Image>*/}
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{framework} ({version})</Card.Meta>
       </Card.Content>

@@ -2,7 +2,7 @@ import model from "../model";
 
 export default {
   state: {
-    currentModel: null,
+    current: null,
     model: model.state,
     data: []
   },

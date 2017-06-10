@@ -1,5 +1,4 @@
 import React from "react";
-import yeast from "yeast";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import ModelInformation from "../ModelInformation";
