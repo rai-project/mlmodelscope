@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Header, Icon, Image } from "semantic-ui-react";
 
 import c3srImage from "../../assets/images/C3SR_color.jpg";

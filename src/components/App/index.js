@@ -1,26 +1,17 @@
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import React from "react";
-import {
-  Header,
-  Divider,
-  Container,
-  Menu,
-  Button,
-  Segment,
-  Grid,
-  Sidebar,
-  Icon
-} from "semantic-ui-react";
+import { Segment, Sidebar } from "semantic-ui-react";
 
 import "./App.css";
 
-import Upload from "../UploadArea";
+import Navbar from "../Navbar";
+import Header from "../Header";
+import Home from "../Home";
 import Footer from "../Footer";
-import ModelSelector from "../ModelSelector";
 import ModelInformations from "../ModelInformations";
-import Features from "../Features";
-import LocationFeature from "../LocationFeature";
+// import Features from "../Features";
+// import LocationFeature from "../LocationFeature";
 // import ModelGraph from "../ModelGraph";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
@@ -28,204 +19,44 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export default connect(
   {
     // eslint-disable-next-line
-    isLoggedIn: state`app.userIsLoggedIn`,
-    // eslint-disable-next-line
     currentPage: state`app.currentPage`,
-    appLoaded: signal`app.appLoaded`,
-    modelInformationsRequest: signal`app.modelInformationsRequest`
+    appLoaded: signal`app.appLoaded`
   },
   class App extends React.Component {
-    state = { activeItem: "home", visible: false };
-    handleItemClick = (e, { name }) => {
-      this.props.modelInformationsRequest();
-      this.setState({ activeItem: name });
-    };
-    toggleVisibility = () => this.setState({ visible: !this.state.visible });
     componentDidMount() {
       this.props.appLoaded();
     }
     render() {
-      // const { isLoggedIn } = this.props;
-      const { activeItem, visible } = this.state;
-      const showButton = false;
+      let page = <Home />;
+      if (this.props.currentPage === "Models") {
+        page = <ModelInformations />;
+      }
 
       return (
         <div className="App">
-          {showButton
-            ? <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
-            : null}
-          <Sidebar.Pushable as={Segment} style={{ border: 0, borderRadius: 0 }}>
-            <Sidebar
-              as={Menu}
-              animation="overlay"
-              width="thin"
-              visible={visible}
-              icon="labeled"
-              vertical
-              inverted
-            >
-              <Menu.Item name="home">
-                <Icon name="home" />
-                Home
-              </Menu.Item>
-              <Menu.Item name="frameworks">
-                <Icon name="bars" />
-                Frameworks
-              </Menu.Item>
-              <Menu.Item name="jobs">
-                <Icon name="lab" />
-                Jobs
-              </Menu.Item>
-            </Sidebar>
-            <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
-              <main>
-                <div className="App-content">
-                  <Segment.Group
-                    className="App-menu"
-                    style={{
-                      borderRadius: 0,
-                      borderColor: "teal",
-                      margin: 0,
-                      fontFamily
-                    }}
-                  >
-                    <Container>
-                      <Menu
-                        inverted
-                        pointing
-                        secondary
-                        style={{
-                          borderColor: "teal"
-                        }}
-                      >
-                        <Menu.Item
-                          name="home"
-                          active={activeItem === "home"}
-                          onClick={this.handleItemClick}
-                          style={{
-                            fontFamily
-                          }}
-                        />
-                        <Menu.Item
-                          name="about"
-                          active={activeItem === "about"}
-                          onClick={this.handleItemClick}
-                          style={{
-                            fontFamily
-                          }}
-                        />
-                        <Menu.Menu position="right">
-                          <Menu.Item>
-                            <Button
-                              style={{
-                                fontFamily
-                              }}
-                            >
-                              Log In
-                            </Button>
-                          </Menu.Item>
-                          <Menu.Item>
-                            <Button
-                              primary
-                              style={{
-                                fontFamily
-                              }}
-                            >
-                              Sign Up
-                            </Button>
-                          </Menu.Item>
-                        </Menu.Menu>
-                      </Menu>
-                    </Container>
-                  </Segment.Group>
-                  <Segment.Group
-                    className="App-header"
-                    style={{
-                      borderRadius: 0,
-                      borderColor: "teal",
-                      margin: 0,
-                      fontFamily
-                    }}
-                  >
-                    <Container textAlign={"center"}>
-                      <Header
-                        inverted
-                        size="huge"
-                        style={{
-                          fontFamily
-                        }}
-                      >
-                        CarML
-                      </Header>
-                      <Header
-                        inverted
-                        size="small"
-                        style={{
-                          fontFamily
-                        }}
-                      >
-                        Cognitive ARtifacts for Machine Learning
-                      </Header>
-                    </Container>
-                  </Segment.Group>
-                  <Segment.Group
-                    className="App-body"
-                    style={{ borderRadius: 0, border: 0, fontFamily }}
-                  >
-                    <Container
-                      text
-                      style={{
-                        fontFamily
-                      }}
-                    >
-                      <Grid.Row centered columns={1}>
-                        <Upload />
-                      </Grid.Row>
-                      <Divider horizontal />
-                      <Grid.Row centered columns={1}>
-                        <ModelSelector />
-                      </Grid.Row>
-                    </Container>
-                    <Divider horizontal />
-                    <Container
-                      style={{
-                        fontFamily
-                      }}
-                    >
-                      <Grid.Row centered columns={1}>
-                        <ModelInformations />
-                      </Grid.Row>
-                    </Container>
-
-                    <Divider horizontal />
-                    <Divider horizontal />
-                    <Container
-                      text
-                      style={{
-                        fontFamily
-                      }}
-                    >
-                      <Grid.Row centered columns={1}>
-                        <LocationFeature
-                          lat={-0.481747846041145}
-                          long={51.3233379650232}
-                        />
-                        <Features />
-                      </Grid.Row>
-                    </Container>
-                  </Segment.Group>
-                </div>
-                <div
-                  className="App-footer"
-                  style={{
-                    fontFamily
-                  }}
+          <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
+            <main>
+              <div className="App-content">
+                <Navbar />
+                <Header />
+                <Segment.Group
+                  className="App-body"
+                  style={{ borderRadius: 0, border: 0, fontFamily }}
                 >
-                  <Footer />
-                </div>
-              </main>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
+
+                  {page}
+                </Segment.Group>
+              </div>
+              <div
+                className="App-footer"
+                style={{
+                  fontFamily
+                }}
+              >
+                <Footer />
+              </div>
+            </main>
+          </Sidebar.Pusher>
         </div>
       );
     }

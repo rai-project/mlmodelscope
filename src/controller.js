@@ -5,6 +5,7 @@ import Devtools from "cerebral/devtools";
 import StorageProvider from "@cerebral/storage";
 import UseragentModule from "@cerebral/useragent";
 import HttpProvider from "@cerebral/http";
+import Router from "@cerebral/router";
 
 import app from "./modules/app";
 import models from "./modules/models";
@@ -41,6 +42,14 @@ const controller = Controller({
   modules: {
     app,
     models,
+    router: Router({
+      routes: {
+        "/": "app.homeRouted",
+        "/models": "app.modelsRouted"
+      }, // Route definitions
+      query: false, // Query support
+      onlyHash: false // Use hash urls
+    }),
     useragent: UseragentModule({
       media: {
         unsupported: "(max-width: 550px)",
