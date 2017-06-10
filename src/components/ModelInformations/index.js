@@ -14,7 +14,7 @@ export default connect(
       return <div />;
     }
     const body = models.map(m => {
-      return <ModelInformation key={m.name} model={m} />;
+      return <ModelInformation key={"info-" + m.uuid} model={m} />;
     });
     return <Card.Group itemsPerRow={4}>{body}</Card.Group>;
   }

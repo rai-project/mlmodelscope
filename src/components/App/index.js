@@ -83,12 +83,20 @@ export default connect(
                     className="App-menu"
                     style={{
                       borderRadius: 0,
+                      borderColor: "teal",
                       margin: 0,
                       fontFamily
                     }}
                   >
                     <Container>
-                      <Menu inverted pointing secondary>
+                      <Menu
+                        inverted
+                        pointing
+                        secondary
+                        style={{
+                          borderColor: "teal"
+                        }}
+                      >
                         <Menu.Item
                           name="home"
                           active={activeItem === "home"}
@@ -133,6 +141,7 @@ export default connect(
                     className="App-header"
                     style={{
                       borderRadius: 0,
+                      borderColor: "teal",
                       margin: 0,
                       fontFamily
                     }}

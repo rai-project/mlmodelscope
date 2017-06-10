@@ -6,7 +6,7 @@ import { Null } from "../../../proto/github.com/rai-project/dlframework/mxnet/mx
 import getModelGraph from "../../model/actions/getModelGraph";
 
 function getModelInformations(ctx) {
-  const { state, uuid, controller, props } = ctx;
+  const { state, uuid } = ctx;
   const req = new Null();
   grpc.invoke(MXNet.GetModelInformations, {
     request: req,
@@ -14,7 +14,7 @@ function getModelInformations(ctx) {
     onMessage: message => {
       const infoList = message
         .getInfoList()
-        .map(e => e.toObject())
+        .map(e => Object.assign({ uuid: uuid() }, e.toObject()))
         .sort(function(a, b) {
           // sort by name;
           const nameA = a.name.toUpperCase(); // ignore upper and lowercase

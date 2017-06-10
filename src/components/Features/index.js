@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import yeast from "yeast";
 import {
   Image,
   Progress,
@@ -37,6 +38,7 @@ export default class Features extends Component {
                 <Progress
                   value={top.prob}
                   total={1}
+                  size="tiny"
                   color={top.prob > 0.8 ? "green" : "orange"}
                 />
               </Grid.Column>
@@ -49,7 +51,7 @@ export default class Features extends Component {
         <Divider horizontal />
         <Grid.Row>
           {rest.map(feature =>
-            <Grid columns={3}>
+            <Grid columns={3} key={"feature-" + yeast()}>
               <Grid.Column textAlign="center" width={2}>
                 {feature.name}
               </Grid.Column>
@@ -57,6 +59,7 @@ export default class Features extends Component {
                 <Progress
                   value={feature.prob}
                   total={1}
+                  size="tiny"
                   color={feature.prob > 0.8 ? "green" : "orange"}
                 />
               </Grid.Column>
