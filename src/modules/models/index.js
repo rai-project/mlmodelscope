@@ -1,4 +1,5 @@
 import model from "../model";
+import modelsRouted from "./signals/modelsRouted";
 
 export default {
   state: {
@@ -6,5 +7,7 @@ export default {
     model: model.state,
     data: []
   },
-  signals: {}
+  signals: {
+    modelsRouted
+  }
 };

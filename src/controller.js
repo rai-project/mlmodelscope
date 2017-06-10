@@ -9,6 +9,7 @@ import Router from "@cerebral/router";
 
 import app from "./modules/app";
 import models from "./modules/models";
+import model from "./modules/model";
 
 const controller = Controller({
   devtools: process.env.NODE_ENV === "production"
@@ -42,10 +43,12 @@ const controller = Controller({
   modules: {
     app,
     models,
+    model,
     router: Router({
       routes: {
         "/": "app.homeRouted",
-        "/models": "app.modelsRouted"
+        "/models": "models.modelsRouted",
+        "/model/:name": "model.modelRouted"
       }, // Route definitions
       query: false, // Query support
       onlyHash: false // Use hash urls
