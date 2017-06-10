@@ -6,6 +6,7 @@ import modelInformationsRequest from "./signals/modelInformationsRequest";
 export default {
   state: {
     currentPage: "Home",
+    name: "CarML",
     isInferring: true,
     isBusy: true
   },

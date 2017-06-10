@@ -5,5 +5,6 @@ import modelInformationChain from "../../common/chains/modelInformationChain";
 
 export default [
   set(state`app.currentPage`, "Models"),
+  set(state`app.name`, "CarML Models"),
   ...modelInformationChain
 ];

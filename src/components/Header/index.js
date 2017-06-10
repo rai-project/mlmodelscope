@@ -8,9 +8,10 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
   {
-    currentPage: state`app.currentPage`
+    currentPage: state`app.currentPage`,
+    appName: state`app.name`
   },
-  function Header({ currentPage }) {
+  function Header({ appName, currentPage }) {
     const showTagLine = currentPage === "Home";
     return (
       <Segment.Group
@@ -30,7 +31,7 @@ export default connect(
               fontFamily
             }}
           >
-            CarML
+            {appName}
           </UIHeader>
           {showTagLine
             ? <UIHeader

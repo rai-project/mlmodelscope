@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
-import { Container, Grid, Card } from "semantic-ui-react";
+import { Container, Header, Divider, List } from "semantic-ui-react";
 
 import ModelGraph from "../ModelGraph";
 
@@ -15,10 +15,28 @@ export default connect(
       return <div />;
     }
     return (
-      <Container>
-        <h1>{model.name}</h1>
-        <ModelGraph graph={graph} />
-      </Container>
+      <div>
+        <Container inverted text style={{ paddingTop: "2em" }}>
+          <Header size="large">Description</Header>
+          <p style={{ color: "black" }}>{model.description}</p>
+          <Divider />
+        </Container>
+        <Container inverted text>
+          <Header size="large">References</Header>
+          <List bulleted>
+            {model.referencesList.map(ref =>
+              <List.Item style={{ color: "black" }}>
+                <a href={ref}>{ref}</a>
+              </List.Item>
+            )}
+          </List>
+          <Divider />
+        </Container>
+        <Container inverted text>
+          <Header size="large">Graph</Header>
+          <ModelGraph graph={graph} />
+        </Container>
+      </div>
     );
   }
 );

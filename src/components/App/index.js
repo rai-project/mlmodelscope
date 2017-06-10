@@ -53,7 +53,6 @@ export default connect(
                   className="App-body"
                   style={{ borderRadius: 0, border: 0, fontFamily }}
                 >
-
                   {page}
                 </Segment.Group>
               </div>

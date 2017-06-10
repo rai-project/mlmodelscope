@@ -9,6 +9,7 @@ export default [
   set(state`app.currentPage`, "ModelInformation"),
   ...modelInformationChain,
   set(state`models.currentModel`, props`name`),
+  set(state`app.name`, props`name`),
   populateModelData,
   getModelGraph,
   {
