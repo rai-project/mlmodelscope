@@ -2,8 +2,7 @@ import React from "react";
 import { capitalize } from "lodash";
 import { Card, Icon, Label } from "semantic-ui-react";
 
-export default function ModelInformation(params) {
-  const model = params.model;
+export default function ModelInformation({ model }) {
   if (!model) {
     return <div />;
   }

@@ -24,7 +24,7 @@ export default [
         false: []
       }
     ],
-    onError: [
+    onEnd: [
       when(props`code`),
       {
         true: [

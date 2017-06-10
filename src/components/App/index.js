@@ -1,9 +1,8 @@
+import React from "react";
+
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import React from "react";
 import { Segment, Sidebar } from "semantic-ui-react";
-
-import "./App.css";
 
 import Navbar from "../Navbar";
 import Header from "../Header";
@@ -13,6 +12,8 @@ import ModelInformations from "../ModelInformations";
 // import Features from "../Features";
 // import LocationFeature from "../LocationFeature";
 // import ModelGraph from "../ModelGraph";
+
+import "./App.css";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
