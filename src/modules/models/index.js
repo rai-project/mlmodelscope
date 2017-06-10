@@ -3,7 +3,7 @@ import modelsRouted from "./signals/modelsRouted";
 
 export default {
   state: {
-    current: null,
+    currentModel: null,
     model: model.state,
     data: []
   },
