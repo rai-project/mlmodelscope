@@ -1,18 +1,15 @@
-import { compute } from "cerebral";
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
-import { first, filter } from "lodash";
 
 import getModelGraph from "../actions/getModelGraph";
+import populateModelData from "../actions/populateModelData";
 import modelInformationChain from "../../common/chains/modelInformationChain";
 
 export default [
   set(state`app.currentPage`, "ModelInformation"),
   ...modelInformationChain,
   set(state`models.currentModel`, props`name`),
-  set(state`model.data`, compute(props`name`), name =>
-    first(filter(state`models.data`, m => m.name === name))
-  ),
+  populateModelData,
   getModelGraph,
   {
     onMessage: [set(state`model.graph`, props`model`)],

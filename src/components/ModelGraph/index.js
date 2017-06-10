@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "cerebral/react";
-import { state, signal } from "cerebral/tags";
 
 import Cytoscape from "./Cytoscape";
 
-// color map
+// eslint-disable-next-line
 const fillcolors = [
   "#8dd3c7",
   "#fb8072",
@@ -15,6 +13,7 @@ const fillcolors = [
   "#b3de69",
   "#fccde5"
 ];
+// eslint-disable-next-line
 const edgecolors = [
   "#245b51",
   "#941305",
@@ -85,7 +84,7 @@ export default function ModelGraph({ graph }) {
       }
       const name = nd.name;
       const inputs = nd.inputsList;
-      return nd.inputsList.map(item => {
+      return inputs.map(item => {
         const inputNode = nodeList[item.nodeId];
         const inputName = inputNode.name;
         if (hidden[inputName]) {

@@ -1,7 +1,5 @@
-import { compute } from "cerebral";
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
-import { first } from "lodash";
 
 import getModelInformations from "../../models/actions/getModelInformations";
 

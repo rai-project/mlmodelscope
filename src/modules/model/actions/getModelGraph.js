@@ -11,7 +11,7 @@ function getModelGraph({ state, uuid, controller, props: { name }, path }) {
       request: req,
       host: "/api/mxnet",
       onMessage: message => {
-        console.log(message.toObject());
+        // console.log(message.toObject());
         return resolve(
           path.onMessage({
             model: message.toObject()
