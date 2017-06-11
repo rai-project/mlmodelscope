@@ -5,20 +5,20 @@ import { head, tail, join } from "lodash";
 
 export default function LabelFeature({ feature }) {
   const cleanupName = name => {
-    return head(join(tail(name.split(" ")), " ").split(",")).trim();
+    return head(join(tail(name.match(/\S+/g)), " ").split(",")).trim();
   };
   return (
     <Grid columns={3}>
       <Popup
         trigger={
-          <Grid.Column textAlign="center" width={4}>
+          <Grid.Column textAlign="center" width={6}>
             {cleanupName(feature.name)}
           </Grid.Column>
         }
         content={feature.name}
         position="left center"
       />
-      <Grid.Column width={6}>
+      <Grid.Column width={8}>
         <Progress
           value={feature.probability}
           total={1}
