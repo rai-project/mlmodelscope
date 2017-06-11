@@ -71,7 +71,7 @@ export default function ModelGraph({ graph }) {
   const nodeList = graph.nodesList;
   nodes = flatten(
     nodeList.map(nd => {
-      if (nd.op === "null" && isLikeWeight(nd.name)) {
+      if (nd.op === "null" || isLikeWeight(nd.name)) {
         hidden[nd.name] = true;
         return [];
       }

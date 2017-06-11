@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 
-import { Container, Menu, Segment } from "semantic-ui-react";
+import { Container, Menu } from "semantic-ui-react";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
