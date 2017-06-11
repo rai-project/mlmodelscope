@@ -11,9 +11,7 @@ import Footer from "../Footer";
 import ModelInformations from "../ModelInformations";
 import ModelInformation from "../ModelInformation";
 import InferenceResults from "../InferenceResults";
-
-// import Features from "../Features";
-// import LocationFeature from "../LocationFeature";
+import Snackbar from "../Snackbar";
 
 import "./App.css";
 
@@ -50,6 +48,7 @@ export default connect(
         <div className="App">
           <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
             <main>
+              <Snackbar />
               <div className="App-content">
                 <Navbar />
                 <Header />
