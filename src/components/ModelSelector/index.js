@@ -7,7 +7,7 @@ import { Dropdown } from "semantic-ui-react";
 export default connect(
   {
     models: state`models.data`,
-    modelSelected: signal`app.modelSelected`
+    modelSelected: signal`model.modelSelected`
   },
   function ModelSelector({ models, modelSelected }) {
     if (!models || models.length === 0) {
@@ -24,7 +24,7 @@ export default connect(
         selection
         placeholder={"Select your Neural Network Model"}
         options={selectors}
-        onChange={(e, data) => modelSelected({ currentModel: data.value })}
+        onChange={(e, data) => modelSelected({ name: data.value })}
       />
     );
   }

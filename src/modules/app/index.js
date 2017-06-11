@@ -2,8 +2,6 @@ import appLoaded from "./signals/appLoaded";
 import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
-import modelSelected from "./signals/modelSelected";
-//import urlTyped from "./signals/urlTyped";
 
 export default {
   state: {
@@ -16,7 +14,6 @@ export default {
     appLoaded,
     homeRouted,
     modelInformationsRequest,
-    navbarClicked,
-    modelSelected
+    navbarClicked
   }
 };
