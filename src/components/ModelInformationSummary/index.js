@@ -18,7 +18,14 @@ export default function ModelInformationSummary({ model }) {
   return (
     <Card>
       <Card.Content>
-        <Label ribbon="right">
+        <Label
+          ribbon="right"
+          style={{
+            color: "white",
+            backgroundColor: "#0DB7C4",
+            borderColor: "#0DB7C4"
+          }}
+        >
           <Icon name={input.type} />
           {capitalize(input.type)}
         </Label>
