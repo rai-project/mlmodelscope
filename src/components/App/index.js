@@ -10,6 +10,7 @@ import Home from "../Home";
 import Footer from "../Footer";
 import ModelInformations from "../ModelInformations";
 import ModelInformation from "../ModelInformation";
+import InferenceResults from "../InferenceResults";
 
 // import Features from "../Features";
 // import LocationFeature from "../LocationFeature";
@@ -36,6 +37,9 @@ export default connect(
           break;
         case "ModelInformation":
           page = <ModelInformation />;
+          break;
+        case "InferenceResults":
+          page = <InferenceResults />;
           break;
         default:
           page = <Home />;

@@ -48,8 +48,7 @@ const controller = Controller({
       routes: {
         "/": "app.homeRouted",
         "/models": "models.modelsRouted",
-        "/model/:name": "model.modelRouted",
-        "/inference/:name": "model.inferenceRouted"
+        "/model/:name": "model.modelRouted"
       }, // Route definitions
       query: true, // Query support
       onlyHash: false // Use hash urls

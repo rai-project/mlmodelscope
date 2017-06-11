@@ -1,6 +1,5 @@
 import modelRouted from "./signals/modelRouted";
 import modelSelected from "./signals/modelSelected";
-import inferenceRouted from "./signals/inferenceRouted";
 
 export default {
   state: {
@@ -8,7 +7,6 @@ export default {
   },
   signals: {
     modelRouted,
-    modelSelected,
-    inferenceRouted
+    modelSelected
   }
 };

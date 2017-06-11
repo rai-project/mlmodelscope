@@ -3,9 +3,11 @@ import { state, props } from "cerebral/tags";
 
 import getModelGraph from "../actions/getModelGraph";
 import populateModelData from "../actions/populateModelData";
+import resetError from "../../common/chains/resetError";
 import modelInformationChain from "../../common/chains/modelInformationChain";
 
 export default [
+  ...resetError,
   set(state`app.currentPage`, "ModelInformation"),
   ...modelInformationChain,
   set(state`models.currentModel`, props`name`),
