@@ -5,9 +5,7 @@ import Alert from "react-s-alert";
 
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-
-// eslint-disable-next-line import/no-webpack-loader-syntax
-// import "!style-loader!css-loader!font-awesome/css/font-awesome.min.css";
+import "react-s-alert/dist/s-alert-css-effects/flip.css";
 
 class ErrorTemplate extends React.Component {
   handleConfirm() {
@@ -20,7 +18,6 @@ class ErrorTemplate extends React.Component {
         id={this.props.id}
         style={this.props.styles}
       >
-        <h1>Error</h1>
         <div className="s-alert-box-inner">
           <code>{this.props.message}</code>
         </div>
@@ -41,9 +38,7 @@ export default connect(
       if (!this.props.isError) {
         return;
       }
-      Alert.error(this.props.errorMessage, {
-        effect: "slide"
-      });
+      Alert.error(this.props.errorMessage);
     }
     render() {
       return (
@@ -51,7 +46,8 @@ export default connect(
           <Alert
             stack={{ limit: 3 }}
             position="top"
-            timeout={5000}
+            timeout={2000}
+            effect="flip"
             contentTemplate={ErrorTemplate}
           />
         </div>
