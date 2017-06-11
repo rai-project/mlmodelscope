@@ -13,22 +13,14 @@ export default connect(
   },
   function NavBar({ navbarClicked, currentPage }) {
     return (
-      <Segment.Group
-        className="App-menu"
-        style={{
-          borderRadius: 0,
-          borderColor: "teal",
-          margin: 0,
-          fontFamily
-        }}
-      >
+      <div className="App-menu">
         <Container>
           <Menu
             inverted
             pointing
             secondary
             style={{
-              borderColor: "teal"
+              borderColor: "#0DB7C4"
             }}
           >
             <Menu.Item
@@ -70,7 +62,7 @@ export default connect(
             </Menu.Menu>*/}
           </Menu>
         </Container>
-      </Segment.Group>
+      </div>
     );
   }
 );

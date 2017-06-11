@@ -18,7 +18,7 @@ export default connect(
         className="App-header"
         style={{
           borderRadius: 0,
-          borderColor: "teal",
+          borderColor: "#0DB7C4",
           margin: 0,
           fontFamily
         }}

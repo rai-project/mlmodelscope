@@ -18,11 +18,11 @@ export default function ModelInformationSummary({ model }) {
   return (
     <Card>
       <Card.Content>
-        <Label color="teal" ribbon="right">
+        <Label ribbon="right">
           <Icon name={input.type} />
           {capitalize(input.type)}
         </Label>
-        <Card.Header><a href={`/model/${name}`}>{name}</a></Card.Header>
+        <Card.Header as="a" href={`/model/${name}`}>{name}</Card.Header>
         <Card.Meta>{framework} ({version})</Card.Meta>
       </Card.Content>
       <Card.Content extra>
