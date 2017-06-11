@@ -11,7 +11,7 @@ function getInferenceResults({ state, uuid, controller, props }) {
     request: req,
     host: "/api/mxnet",
     onMessage: message => {
-      state.set("models.model.features", message.getFeaturesList());
+      state.set("app.features", message.getFeaturesList());
     },
     onEnd: (code, message, trailers) => {
       // console.log({ code, message, trailers });
