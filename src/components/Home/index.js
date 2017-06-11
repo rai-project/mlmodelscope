@@ -1,14 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import {
-  Container,
-  Grid,
-  Divider,
-  Button,
-  Form,
-  Checkbox
-} from "semantic-ui-react";
+import { Container, Grid, Divider, Label, Input } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import ModelSelector from "../ModelSelector";
@@ -16,12 +9,21 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
   {
-    models: state`models.currentModel`,
-    url: state`app.url`,
-    urlChanged: signal`app.urlChanged`,
-    modelInferRequest: signal`app.modelInferRequest`
+    inferenceUrl: state`app.inferenceUrl`,
+    model: state`models.currentModel`,
+    inferenceUrlChanged: signal`app.inferenceUrlChanged`,
+    infrenceButtonClicked: signal`app.infrenceButtonClicked`
   },
-  function Home({ models, url, urlChanged, modelInferRequest }) {
+  function Home({
+    model,
+    inferenceUrl,
+    inferenceUrlChanged,
+    infrenceButtonClicked
+  }) {
+    if (!inferenceUrl) {
+      inferenceUrl =
+        "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+    }
     return (
       <div>
         <Container
@@ -39,23 +41,26 @@ export default connect(
           </Grid.Row>
           <Divider horizontal />
           <Grid.Row centered columns={1}>
-            <Form>
-              <Form.Field>
-                <input
-                  placeholder="Image URL"
-                  onChange={e => urlChanged({ url: e.target.value })}
-                />
-              </Form.Field>
-              <Button
-                type="submit"
-                floated="right"
+            <Input
+              fluid
+              placeholder="Image URL"
+              value={inferenceUrl}
+              onChange={e => inferenceUrlChanged({ url: e.target.value })}
+            />
+          </Grid.Row>
+          <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
+            <Container textAlign="right">
+              <Label
+                as="a"
+                size="massive"
                 color="teal"
-                disabled={!(models && url)}
-                onClick={modelInferRequest}
+                onClick={e => {
+                  infrenceButtonClicked({ model: model, url: inferenceUrl });
+                }}
               >
                 Infer
-              </Button>
-            </Form>
+              </Label>
+            </Container>
           </Grid.Row>
 
         </Container>

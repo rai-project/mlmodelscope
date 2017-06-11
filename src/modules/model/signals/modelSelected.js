@@ -1,6 +1,5 @@
-import { redirect } from "@cerebral/router/operators";
-import { set, equals } from "cerebral/operators";
-import { state, props, string } from "cerebral/tags";
+import { set } from "cerebral/operators";
+import { state, props } from "cerebral/tags";
 
 import populateModelData from "../actions/populateModelData";
 

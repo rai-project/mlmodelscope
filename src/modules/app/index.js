@@ -2,23 +2,23 @@ import appLoaded from "./signals/appLoaded";
 import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
-import urlChanged from "./signals/urlChanged";
-import modelInferRequest from "./signals/modelInferRequest";
+import inferenceUrlChanged from "./signals/inferenceUrlChanged";
+import infrenceButtonClicked from "./signals/infrenceButtonClicked";
 
 export default {
   state: {
     currentPage: "Home",
     name: "CarML",
     isInferring: false,
-    isBusy: true,
-    url: ""
+    isBusy: false,
+    inferenceURL: null
   },
   signals: {
     appLoaded,
     homeRouted,
-    modelInformationsRequest,
     navbarClicked,
-    urlChanged,
-    modelInferRequest
+    inferenceUrlChanged,
+    modelInformationsRequest,
+    infrenceButtonClicked
   }
 };
