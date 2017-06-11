@@ -49,7 +49,7 @@ export default connect(
             />
           </Grid.Row>
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
-            <Container textAlign="right">
+            <Container textAlign="center">
               <Label
                 as="a"
                 size="massive"
