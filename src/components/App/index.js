@@ -2,7 +2,7 @@ import React from "react";
 
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { Segment, Sidebar } from "semantic-ui-react";
+import { Sidebar, Container } from "semantic-ui-react";
 
 import Navbar from "../Navbar";
 import Header from "../Header";
@@ -49,12 +49,12 @@ export default connect(
               <div className="App-content">
                 <Navbar />
                 <Header />
-                <Segment.Group
+                <Container
                   className="App-body"
                   style={{ borderRadius: 0, border: 0, fontFamily }}
                 >
                   {page}
-                </Segment.Group>
+                </Container>
               </div>
               <div
                 className="App-footer"

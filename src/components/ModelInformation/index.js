@@ -22,6 +22,11 @@ export default connect(
           <Divider />
         </Container>
         <Container inverted text>
+          <Header size="large">Graph</Header>
+          <ModelGraph graph={graph} />
+          <Divider />
+        </Container>
+        <Container inverted text>
           <Header size="large">References</Header>
           <List bulleted>
             {model.referencesList.map(ref =>
@@ -30,11 +35,6 @@ export default connect(
               </List.Item>
             )}
           </List>
-          <Divider />
-        </Container>
-        <Container inverted text>
-          <Header size="large">Graph</Header>
-          <ModelGraph graph={graph} />
         </Container>
       </div>
     );

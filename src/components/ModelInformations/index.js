@@ -19,7 +19,7 @@ export default connect(
     return (
       <Container>
         <Grid.Row centered columns={1}>
-          <Card.Group itemsPerRow={4}>{body}</Card.Group>
+          <Card.Group itemsPerRow={3}>{body}</Card.Group>
         </Grid.Row>
       </Container>
     );
