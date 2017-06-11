@@ -1,11 +1,11 @@
 import { grpc } from "grpc-web-client";
+import yeast from "yeast";
 import { assign, sortBy } from "lodash";
 
 import { MXNet } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb_service";
 import { Null } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb";
 
-function getModelInformations(ctx) {
-  const { uuid, path } = ctx;
+function getModelInformations({ path }) {
   const req = new Null();
   return new Promise(resolve => {
     return grpc.invoke(MXNet.GetModelInformations, {
@@ -15,7 +15,7 @@ function getModelInformations(ctx) {
         const infoList = sortBy(
           message
             .getInfoList()
-            .map(e => assign({ uuid: uuid() }, e.toObject())),
+            .map(e => assign({ uuid: yeast() }, e.toObject())),
           ["name"]
         );
         return resolve(
