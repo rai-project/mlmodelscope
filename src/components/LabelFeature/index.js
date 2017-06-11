@@ -1,26 +1,25 @@
 import React from "react";
-import { Progress, Grid } from "semantic-ui-react";
+import { Popup, Progress, Grid } from "semantic-ui-react";
 
-import { head, findIndex, tail, take, join } from "lodash";
+import { head, tail, join } from "lodash";
 
 export default function LabelFeature({ feature }) {
   const cleanupName = name => {
-    const r = tail(name.split(" "));
-    if (r.length === 1) {
-      return head(r).trim();
-    }
-    const idx = findIndex(r, e => e.endsWith(","));
-    return join(take(r, idx + 1).map(e => e.replace(",", "")), " ").trim();
+    return head(join(tail(name.split(" ")), " ").split(",")).trim();
   };
-  // debugger;
   return (
     <Grid columns={3}>
-      <Grid.Column textAlign="center" width={4}>
-        {cleanupName(feature.name)}
-      </Grid.Column>
+      <Popup
+        trigger={
+          <Grid.Column textAlign="center" width={4}>
+            {cleanupName(feature.name)}
+          </Grid.Column>
+        }
+        content={feature.name}
+        position="left center"
+      />
       <Grid.Column width={6}>
         <Progress
-          fill
           value={feature.probability}
           total={1}
           size="tiny"

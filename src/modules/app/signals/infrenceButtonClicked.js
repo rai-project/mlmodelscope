@@ -1,3 +1,4 @@
+import { compute } from "cerebral";
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 
@@ -8,12 +9,17 @@ export default [
   ...resetError,
   set(state`app.isInferring`, true),
   set(state`models.currentModel`, props`model`),
-  set(state`app.inferenceURL`, props`url`),
   ...modelInferChain,
   set(state`app.isInferring`, false),
   when(state`app.isError`),
   {
-    false: [set(state`app.currentPage`, "InferenceResults")],
+    false: [
+      set(state`app.currentPage`, "InferenceResults"),
+      set(
+        state`app.name`,
+        compute(state`models.currentModel`, val => val + " Model Inference")
+      )
+    ],
     true: [] // nothing
   }
 ];

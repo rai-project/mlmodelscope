@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { Card } from "semantic-ui-react";
 
@@ -5,6 +6,7 @@ import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 
 export default function LocationFeature({ lat, long }) {
   return (
+    // eslint-disable-next-line
     <Card>
       <ReactMapboxGl
         style={"mapbox://styles/mapbox/streets-v8"}

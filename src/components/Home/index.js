@@ -20,10 +20,6 @@ export default connect(
     inferenceUrlChanged,
     infrenceButtonClicked
   }) {
-    if (!inferenceUrl) {
-      inferenceUrl =
-        "https://www.timaru.govt.nz/__data/assets/image/0006/17889/dog.jpg";
-    }
     return (
       <div>
         <Container
@@ -43,9 +39,9 @@ export default connect(
           <Grid.Row centered columns={1}>
             <Input
               fluid
-              placeholder="Image URL"
-              value={inferenceUrl}
-              onChange={e => inferenceUrlChanged({ url: e.target.value })}
+              placeholder={inferenceUrl || "Image URL"}
+              onChange={e =>
+                inferenceUrlChanged({ inferenceURL: e.target.value })}
             />
           </Grid.Row>
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
@@ -59,7 +55,7 @@ export default connect(
                   borderColor: "#0DB7C4"
                 }}
                 onClick={e => {
-                  infrenceButtonClicked({ model: model, url: inferenceUrl });
+                  infrenceButtonClicked({ model: model });
                 }}
               >
                 Infer
