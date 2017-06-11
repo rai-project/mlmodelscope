@@ -53,7 +53,7 @@ export default connect(
               <Label
                 as="a"
                 size="massive"
-                color="#0DB7C4"
+                color="red"
                 onClick={e => {
                   infrenceButtonClicked({ model: model, url: inferenceUrl });
                 }}
