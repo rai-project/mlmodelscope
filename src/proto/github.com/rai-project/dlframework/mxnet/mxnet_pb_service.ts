@@ -11,7 +11,7 @@ export namespace MXNet {
     static readonly methodName = "InferURL";
     static readonly service = MXNet;
     static readonly requestStream = false;
-    static readonly responseStream = true;
+    static readonly responseStream = false;
     static readonly requestType = github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceRequest;
     static readonly responseType = github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceResponse;
   }
@@ -19,7 +19,7 @@ export namespace MXNet {
     static readonly methodName = "InferBytes";
     static readonly service = MXNet;
     static readonly requestStream = false;
-    static readonly responseStream = true;
+    static readonly responseStream = false;
     static readonly requestType = github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceRequest;
     static readonly responseType = github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceResponse;
   }

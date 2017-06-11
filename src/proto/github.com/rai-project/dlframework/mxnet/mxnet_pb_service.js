@@ -12,7 +12,7 @@ MXNet.InferURL = {
   methodName: "InferURL",
   service: MXNet,
   requestStream: false,
-  responseStream: true,
+  responseStream: false,
   requestType:
     github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceRequest,
   responseType:
@@ -22,7 +22,7 @@ MXNet.InferBytes = {
   methodName: "InferBytes",
   service: MXNet,
   requestStream: false,
-  responseStream: true,
+  responseStream: false,
   requestType:
     github_com_rai_project_dlframework_mxnet_mxnet_pb.MXNetInferenceRequest,
   responseType:

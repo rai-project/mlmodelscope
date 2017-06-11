@@ -14,9 +14,10 @@ function getInferenceResults({ state, uuid, controller, props, path }) {
       request: req,
       host: "/api/mxnet",
       onMessage: message => {
+        console.log({ features: message.getFeaturesList() });
         return resolve(
           path.onMessage({
-            features: message.getFeaturesList().toObject()
+            features: message.getFeaturesList()
           })
         );
       },
