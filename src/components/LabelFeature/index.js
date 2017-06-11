@@ -1,11 +1,13 @@
 import React from "react";
 import { Popup, Progress, Grid } from "semantic-ui-react";
 
-import { head, tail, join } from "lodash";
+import { head, tail, join, capitalize } from "lodash";
 
 export default function LabelFeature({ feature }) {
   const cleanupName = name => {
-    return head(join(tail(name.match(/\S+/g)), " ").split(",")).trim();
+    return capitalize(
+      head(join(tail(name.match(/\S+/g)), " ").split(",")).trim()
+    );
   };
   return (
     <Grid columns={3}>

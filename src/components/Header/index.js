@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 
-import { Header as UIHeader, Segment, Container } from "semantic-ui-react";
+import { Header as UIHeader, Container } from "semantic-ui-react";
 
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -14,15 +14,7 @@ export default connect(
   function Header({ appName, currentPage }) {
     const showTagLine = currentPage === "Home";
     return (
-      <Segment.Group
-        className="App-header"
-        style={{
-          borderRadius: 0,
-          borderColor: "#0DB7C4",
-          margin: 0,
-          fontFamily
-        }}
-      >
+      <div className="App-header">
         <Container textAlign={"center"}>
           <UIHeader
             inverted
@@ -45,7 +37,7 @@ export default connect(
               </UIHeader>
             : null}
         </Container>
-      </Segment.Group>
+      </div>
     );
   }
 );

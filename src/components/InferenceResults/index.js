@@ -2,7 +2,7 @@ import yeast from "yeast";
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
-import { Image, Grid, Container, Segment, Divider } from "semantic-ui-react";
+import { Image, Grid, Container, Message, Divider } from "semantic-ui-react";
 
 import { head, tail, lowerCase } from "lodash";
 
@@ -33,12 +33,12 @@ export default connect(
         </Grid.Row>
         <Divider hidden />
         <Grid.Row>
-          <Segment size={"large"}>
+          <Message positive>
             {makeFeatureTag({
               feature: head(features),
               key: "feature-" + yeast()
             })}
-          </Segment>
+          </Message>
         </Grid.Row>
         <Divider horizontal />
         <Grid.Row>
