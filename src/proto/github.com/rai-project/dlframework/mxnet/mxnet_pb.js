@@ -695,26 +695,13 @@ proto.carml.org.mxnet.Model.Input.prototype.clearDimensionsList = function() {
  * @constructor
  */
 proto.carml.org.mxnet.Model.Output = function(opt_data) {
-  jspb.Message.initialize(
-    this,
-    opt_data,
-    0,
-    -1,
-    proto.carml.org.mxnet.Model.Output.repeatedFields_,
-    null
-  );
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.carml.org.mxnet.Model.Output, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.carml.org.mxnet.Model.Output.displayName =
     "proto.carml.org.mxnet.Model.Output";
 }
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.carml.org.mxnet.Model.Output.repeatedFields_ = [1];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
   /**
@@ -747,7 +734,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
   proto.carml.org.mxnet.Model.Output.toObject = function(includeInstance, msg) {
     var f,
       obj = {
-        labelsList: jspb.Message.getField(msg, 1)
+        type: jspb.Message.getFieldWithDefault(msg, 1, "")
       };
 
     if (includeInstance) {
@@ -790,7 +777,7 @@ proto.carml.org.mxnet.Model.Output.deserializeBinaryFromReader = function(
     switch (field) {
       case 1:
         var value /** @type {string} */ = reader.readString();
-        msg.addLabels(value);
+        msg.setType(value);
         break;
       default:
         reader.skipField();
@@ -821,40 +808,23 @@ proto.carml.org.mxnet.Model.Output.serializeBinaryToWriter = function(
   writer
 ) {
   var f = undefined;
-  f = message.getLabelsList();
+  f = message.getType();
   if (f.length > 0) {
-    writer.writeRepeatedString(1, f);
+    writer.writeString(1, f);
   }
 };
 
 /**
- * repeated string labels = 1;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<string>}
+ * optional string type = 1;
+ * @return {string}
  */
-proto.carml.org.mxnet.Model.Output.prototype.getLabelsList = function() {
-  return /** @type {!Array.<string>} */ jspb.Message.getField(this, 1);
+proto.carml.org.mxnet.Model.Output.prototype.getType = function() {
+  return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, "");
 };
 
-/** @param {!Array.<string>} value */
-proto.carml.org.mxnet.Model.Output.prototype.setLabelsList = function(value) {
-  jspb.Message.setField(this, 1, value || []);
-};
-
-/**
- * @param {!string} value
- * @param {number=} opt_index
- */
-proto.carml.org.mxnet.Model.Output.prototype.addLabels = function(
-  value,
-  opt_index
-) {
-  jspb.Message.addToRepeatedField(this, 1, value, opt_index);
-};
-
-proto.carml.org.mxnet.Model.Output.prototype.clearLabelsList = function() {
-  this.setLabelsList([]);
+/** @param {string} value */
+proto.carml.org.mxnet.Model.Output.prototype.setType = function(value) {
+  jspb.Message.setField(this, 1, value);
 };
 
 /**
@@ -887,7 +857,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.carml.org.mxnet.Model.Information.repeatedFields_ = [12, 13];
+proto.carml.org.mxnet.Model.Information.repeatedFields_ = [13, 14];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
   /**
@@ -941,8 +911,11 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
         input:
           (f = msg.getInput()) &&
             proto.carml.org.mxnet.Model.Input.toObject(includeInstance, f),
-        meanImageList: jspb.Message.getRepeatedFloatingPointField(msg, 12),
-        referencesList: jspb.Message.getField(msg, 13)
+        output:
+          (f = msg.getOutput()) &&
+            proto.carml.org.mxnet.Model.Output.toObject(includeInstance, f),
+        meanImageList: jspb.Message.getRepeatedFloatingPointField(msg, 13),
+        referencesList: jspb.Message.getField(msg, 14)
       };
 
     if (includeInstance) {
@@ -1041,10 +1014,18 @@ proto.carml.org.mxnet.Model.Information.deserializeBinaryFromReader = function(
         msg.setInput(value);
         break;
       case 12:
+        var value = new proto.carml.org.mxnet.Model.Output();
+        reader.readMessage(
+          value,
+          proto.carml.org.mxnet.Model.Output.deserializeBinaryFromReader
+        );
+        msg.setOutput(value);
+        break;
+      case 13:
         var value /** @type {!Array.<number>} */ = reader.readPackedFloat();
         msg.setMeanImageList(value);
         break;
-      case 13:
+      case 14:
         var value /** @type {string} */ = reader.readString();
         msg.addReferences(value);
         break;
@@ -1131,13 +1112,21 @@ proto.carml.org.mxnet.Model.Information.serializeBinaryToWriter = function(
       proto.carml.org.mxnet.Model.Input.serializeBinaryToWriter
     );
   }
+  f = message.getOutput();
+  if (f != null) {
+    writer.writeMessage(
+      12,
+      f,
+      proto.carml.org.mxnet.Model.Output.serializeBinaryToWriter
+    );
+  }
   f = message.getMeanImageList();
   if (f.length > 0) {
-    writer.writePackedFloat(12, f);
+    writer.writePackedFloat(13, f);
   }
   f = message.getReferencesList();
   if (f.length > 0) {
-    writer.writeRepeatedString(13, f);
+    writer.writeRepeatedString(14, f);
   }
 };
 
@@ -1321,7 +1310,36 @@ proto.carml.org.mxnet.Model.Information.prototype.hasInput = function() {
 };
 
 /**
- * repeated float mean_image = 12;
+ * optional Output output = 12;
+ * @return {?proto.carml.org.mxnet.Model.Output}
+ */
+proto.carml.org.mxnet.Model.Information.prototype.getOutput = function() {
+  return /** @type{?proto.carml.org.mxnet.Model.Output} */ jspb.Message.getWrapperField(
+    this,
+    proto.carml.org.mxnet.Model.Output,
+    12
+  );
+};
+
+/** @param {?proto.carml.org.mxnet.Model.Output|undefined} value */
+proto.carml.org.mxnet.Model.Information.prototype.setOutput = function(value) {
+  jspb.Message.setWrapperField(this, 12, value);
+};
+
+proto.carml.org.mxnet.Model.Information.prototype.clearOutput = function() {
+  this.setOutput(undefined);
+};
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.carml.org.mxnet.Model.Information.prototype.hasOutput = function() {
+  return jspb.Message.getField(this, 12) != null;
+};
+
+/**
+ * repeated float mean_image = 13;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
@@ -1329,7 +1347,7 @@ proto.carml.org.mxnet.Model.Information.prototype.hasInput = function() {
 proto.carml.org.mxnet.Model.Information.prototype.getMeanImageList = function() {
   return /** @type {!Array.<number>} */ jspb.Message.getRepeatedFloatingPointField(
     this,
-    12
+    13
   );
 };
 
@@ -1337,7 +1355,7 @@ proto.carml.org.mxnet.Model.Information.prototype.getMeanImageList = function() 
 proto.carml.org.mxnet.Model.Information.prototype.setMeanImageList = function(
   value
 ) {
-  jspb.Message.setField(this, 12, value || []);
+  jspb.Message.setField(this, 13, value || []);
 };
 
 /**
@@ -1348,7 +1366,7 @@ proto.carml.org.mxnet.Model.Information.prototype.addMeanImage = function(
   value,
   opt_index
 ) {
-  jspb.Message.addToRepeatedField(this, 12, value, opt_index);
+  jspb.Message.addToRepeatedField(this, 13, value, opt_index);
 };
 
 proto.carml.org.mxnet.Model.Information.prototype.clearMeanImageList = function() {
@@ -1356,20 +1374,20 @@ proto.carml.org.mxnet.Model.Information.prototype.clearMeanImageList = function(
 };
 
 /**
- * repeated string references = 13;
+ * repeated string references = 14;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<string>}
  */
 proto.carml.org.mxnet.Model.Information.prototype.getReferencesList = function() {
-  return /** @type {!Array.<string>} */ jspb.Message.getField(this, 13);
+  return /** @type {!Array.<string>} */ jspb.Message.getField(this, 14);
 };
 
 /** @param {!Array.<string>} value */
 proto.carml.org.mxnet.Model.Information.prototype.setReferencesList = function(
   value
 ) {
-  jspb.Message.setField(this, 13, value || []);
+  jspb.Message.setField(this, 14, value || []);
 };
 
 /**
@@ -1380,7 +1398,7 @@ proto.carml.org.mxnet.Model.Information.prototype.addReferences = function(
   value,
   opt_index
 ) {
-  jspb.Message.addToRepeatedField(this, 13, value, opt_index);
+  jspb.Message.addToRepeatedField(this, 14, value, opt_index);
 };
 
 proto.carml.org.mxnet.Model.Information.prototype.clearReferencesList = function() {

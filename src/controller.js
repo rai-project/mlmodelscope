@@ -51,7 +51,7 @@ const controller = Controller({
         "/model/:name": "model.modelRouted",
         "/inference/:name": "model.inferenceRouted"
       }, // Route definitions
-      query: false, // Query support
+      query: true, // Query support
       onlyHash: false // Use hash urls
     }),
     useragent: UseragentModule({

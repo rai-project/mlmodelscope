@@ -22,7 +22,7 @@ export default connect(
   }) {
     if (!inferenceUrl) {
       inferenceUrl =
-        "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+        "https://www.timaru.govt.nz/__data/assets/image/0006/17889/dog.jpg";
     }
     return (
       <div>

@@ -94,10 +94,8 @@ export namespace Model {
   }
 
   export class Output extends jspb.Message {
-    clearLabelsList(): void;
-    getLabelsList(): Array<string>;
-    setLabelsList(value: Array<string>): void;
-    addLabels(value: string, index?: number): string;
+    getType(): string;
+    setType(value: string): void;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Output.AsObject;
@@ -111,7 +109,7 @@ export namespace Model {
 
   export namespace Output {
     export type AsObject = {
-      labelsList: Array<string>,
+      type: string,
     }
   }
 
@@ -150,6 +148,11 @@ export namespace Model {
     getInput(): Model.Input | undefined;
     setInput(value?: Model.Input): void;
 
+    hasOutput(): boolean;
+    clearOutput(): void;
+    getOutput(): Model.Output | undefined;
+    setOutput(value?: Model.Output): void;
+
     clearMeanImageList(): void;
     getMeanImageList(): Array<number>;
     setMeanImageList(value: Array<number>): void;
@@ -183,6 +186,7 @@ export namespace Model {
       weightsUrl: string,
       featuresUrl: string,
       input?: Model.Input.AsObject,
+      output?: Model.Output.AsObject,
       meanImageList: Array<number>,
       referencesList: Array<string>,
     }

@@ -1,4 +1,5 @@
 import { grpc } from "grpc-web-client";
+import { take, sortBy, reverse } from "lodash";
 
 import { MXNet } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb_service";
 import { MXNetInferenceRequest } from "../../../proto/github.com/rai-project/dlframework/mxnet/mxnet_pb";
@@ -14,10 +15,15 @@ function getInferenceResults({ state, uuid, controller, props, path }) {
       request: req,
       host: "/api/mxnet",
       onMessage: message => {
-        console.log({ features: message.getFeaturesList() });
+        const allFeatures = message.getFeaturesList();
+        const topFeatures = take(
+          reverse(sortBy(allFeatures, f => f.getProbability())),
+          10
+        ).map(f => f.toObject());
+        console.log({ features: topFeatures });
         return resolve(
           path.onMessage({
-            features: message.getFeaturesList()
+            features: topFeatures
           })
         );
       },
