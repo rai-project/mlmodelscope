@@ -8,21 +8,18 @@ cache:
   directories:
   - node_modules
   - "$HOME/protobuf"
-node_js:
-- '7'
 addons:
   apt:
     sources:
     - sourceline: ppa:masterminds/glide
     - sourceline: ppa:ubuntu-toolchain-r/test
-    - sourceline: deb https://deb.nodesource.com/setup_8.x trusty main
-      key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    - sourceline: deb https://dl.yarnpkg.com/debian/ stable main
+      key_url: https://dl.yarnpkg.com/debian/pubkey.gpg
     packages:
     - glide
     - build-essential
-    - nodejs
+    - yarn
 before_install:
-- npm install --global yarn
 - bash scripts/install-protobuf.sh
 install:
 - gem install fpm
