@@ -9,7 +9,7 @@ cache:
   - node_modules
   - "$HOME/protobuf"
 node_js:
-- '8'
+- '7'
 addons:
   apt:
     sources:
