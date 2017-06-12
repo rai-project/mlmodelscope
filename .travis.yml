@@ -13,18 +13,16 @@ addons:
     sources:
     - sourceline: ppa:masterminds/glide
     - sourceline: ppa:ubuntu-toolchain-r/test
-    - sourceline: deb https://dl.yarnpkg.com/debian/ stable main
-      key_url: https://dl.yarnpkg.com/debian/pubkey.gpg
     packages:
     - glide
     - build-essential
-    - yarn
 before_install:
 - echo ${TRAVIS_NODE_VERSION}
 - eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | bash)"
 - go env
 - bash scripts/install-protobuf.sh
 install:
+- npm install -g yarn
 - gem install fpm
 before_script:
 - ls -R $HOME/protobuf
