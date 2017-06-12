@@ -21,6 +21,7 @@ addons:
     - yarn
 before_install:
 - eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | bash)"
+- go env
 - bash scripts/install-protobuf.sh
 install:
 - gem install fpm
