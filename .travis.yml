@@ -23,6 +23,7 @@ addons:
     - glide
     - yarn
     - build-essential
+    - node
 before_install:
 - bash scripts/install-protobuf.sh
 install:
