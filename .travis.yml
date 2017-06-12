@@ -20,6 +20,12 @@ before_install:
 - echo ${TRAVIS_NODE_VERSION}
 - eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | bash)"
 - go env
+- export GOPATH=$HOME/gopath
+- export PATH=$HOME/gopath/bin:$PATH
+- mkdir -p $HOME/gopath/src/github.com/rai-project/carml
+- rsync -az ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/rai-project/carml/
+- export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/rai-project/carml
+- cd $HOME/gopath/src/github.com/rai-project/carml
 - bash scripts/install-protobuf.sh
 install:
 - npm install -g yarn
