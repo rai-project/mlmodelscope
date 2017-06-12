@@ -20,6 +20,7 @@ addons:
     - build-essential
     - yarn
 before_install:
+- echo ${TRAVIS_NODE_VERSION}
 - eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | bash)"
 - go env
 - bash scripts/install-protobuf.sh
