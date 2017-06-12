@@ -1,0 +1,58 @@
+package: github.com/rai-project/carml
+import:
+- package: github.com/Unknwon/com
+  version: ~1.0.0
+- package: github.com/davecgh/go-spew
+  version: ~1.1.0
+  subpackages:
+  - spew
+- package: github.com/elazarl/go-bindata-assetfs
+- package: github.com/fatih/color
+  version: master
+- package: github.com/gogo/protobuf
+  version: ~0.4.0
+  subpackages:
+  - proto
+  - sortkeys
+- package: github.com/golang/protobuf
+  subpackages:
+  - protoc-gen-go/descriptor
+- package: github.com/improbable-eng/grpc-web
+  subpackages:
+  - go/grpcweb
+- package: github.com/k0kubun/pp
+  version: ~2.3.0
+- package: github.com/labstack/echo
+  version: ~3.1.0
+  subpackages:
+  - middleware
+- package: github.com/labstack/gommon
+  version: ~0.2.1
+  subpackages:
+  - log
+- package: github.com/rai-project/config
+- package: github.com/rai-project/dlframework
+  subpackages:
+  - mxnet/agent
+- package: github.com/rai-project/logger
+- package: github.com/rai-project/tracer
+  subpackages:
+  - middleware
+  - zipkin
+- package: github.com/rai-project/uuid
+- package: github.com/sirupsen/logrus
+  version: ~1.0.0
+- package: github.com/spf13/cobra
+- package: github.com/spf13/viper
+- package: github.com/tus/tusd
+  version: ~0.7.2
+  subpackages:
+  - filestore
+  - memorylocker
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: google.golang.org/grpc
+  version: ~1.4.0
+  subpackages:
+  - grpclog
