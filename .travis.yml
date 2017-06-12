@@ -14,17 +14,15 @@ addons:
   apt:
     sources:
     - sourceline: ppa:masterminds/glide
-    - sourceline: deb https://dl.yarnpkg.com/debian/ stable main
-      key_url: https://dl.yarnpkg.com/debian/pubkey.gpg
     - sourceline: ppa:ubuntu-toolchain-r/test
     - sourceline: deb https://deb.nodesource.com/setup_8.x trusty main
       key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     packages:
     - glide
-    - yarn
     - build-essential
     - nodejs
 before_install:
+- npm install --global yarn
 - bash scripts/install-protobuf.sh
 install:
 - gem install fpm
