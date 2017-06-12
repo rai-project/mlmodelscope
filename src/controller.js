@@ -39,7 +39,9 @@ const controller = Controller({
         // tree. You can add additional types if you know what you are doing :)
         allowedTypes: [File, Blob]
       }),
-  state: {},
+  state: {
+    websiteUrl: "http://www.carml.org"
+  },
   modules: {
     app,
     models,

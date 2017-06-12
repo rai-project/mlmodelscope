@@ -3485,6 +3485,10 @@ exenv@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.0.tgz#3835f127abf075bfe082d0aed4484057c78e3c89"
 
+exenv@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -5702,11 +5706,11 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-"mapbox-gl-function@github:mapbox/mapbox-gl-function#41c6724e2bbd7bd1eb5991451bbf118b7d02b525":
+mapbox-gl-function@mapbox/mapbox-gl-function#41c6724e2bbd7bd1eb5991451bbf118b7d02b525:
   version "1.3.0"
   resolved "https://codeload.github.com/mapbox/mapbox-gl-function/tar.gz/41c6724e2bbd7bd1eb5991451bbf118b7d02b525"
 
-"mapbox-gl-style-spec@github:mapbox/mapbox-gl-style-spec#d11f6d2775bf5b22534b3b2fb3410755b2473cdf":
+mapbox-gl-style-spec@mapbox/mapbox-gl-style-spec#d11f6d2775bf5b22534b3b2fb3410755b2473cdf:
   version "8.11.0"
   resolved "https://codeload.github.com/mapbox/mapbox-gl-style-spec/tar.gz/d11f6d2775bf5b22534b3b2fb3410755b2473cdf"
   dependencies:
@@ -7329,6 +7333,15 @@ react-error-overlay@^1.0.7:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+react-helmet@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.1.3.tgz#cd40626593a29eecf684b6d38d711f44c48188af"
+  dependencies:
+    deep-equal "^1.0.1"
+    object-assign "^4.1.1"
+    prop-types "^15.5.4"
+    react-side-effect "^1.1.0"
+
 react-inspector@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-2.0.0.tgz#c945932f2c2bf2fab7873c6e07d83881404b9313"
@@ -7460,6 +7473,13 @@ react-scripts@^1.0.7:
     whatwg-fetch "2.0.3"
   optionalDependencies:
     fsevents "1.0.17"
+
+react-side-effect@^1.1.0:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.3.tgz#512c25abe0dec172834c4001ec5c51e04d41bc5c"
+  dependencies:
+    exenv "^1.2.1"
+    shallowequal "^1.0.1"
 
 react-sigma@^1.2.18:
   version "1.2.19"
@@ -8095,6 +8115,10 @@ shallowequal@0.2.x, shallowequal@^0.2.2:
   dependencies:
     lodash.keys "^3.1.2"
 
+shallowequal@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.0.1.tgz#4349160418200bad3b82d723ded65f2354db2a23"
+
 shebang-command@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
@@ -8118,7 +8142,7 @@ shell-quote@1.6.1, shell-quote@^1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-shelljs@0.7.6, shelljs@^0.7.5:
+shelljs@0.7.6:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.6.tgz#379cccfb56b91c8601e4793356eb5382924de9ad"
   dependencies:
@@ -8126,7 +8150,7 @@ shelljs@0.7.6, shelljs@^0.7.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shelljs@^0.7.7:
+shelljs@^0.7.5, shelljs@^0.7.7:
   version "0.7.8"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.8.tgz#decbcf874b0d1e5fb72e14b164a9683048e9acb3"
   dependencies:

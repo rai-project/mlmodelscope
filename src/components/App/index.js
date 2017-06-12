@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
@@ -21,7 +22,9 @@ export default connect(
   {
     // eslint-disable-next-line
     currentPage: state`app.currentPage`,
-    appLoaded: signal`app.appLoaded`
+    appLoaded: signal`app.appLoaded`,
+    appName: state`app.name`,
+    websiteUrl: state`websiteUrl`
   },
   class App extends React.Component {
     componentDidMount() {
@@ -46,6 +49,11 @@ export default connect(
 
       return (
         <div className="App">
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{this.props.appName}</title>
+            <link rel="canonical" href={this.props.websiteUrl} />
+          </Helmet>
           <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
             <main>
               <Snackbar />
