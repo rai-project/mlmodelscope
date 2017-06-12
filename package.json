@@ -55,6 +55,7 @@
     "@storybook/react": "^3.0.0",
     "babel-eslint": "7.2.3",
     "commitizen": "^2.9.6",
+    "concurrently": "^3.4.0",
     "css-loader": "^0.28.4",
     "cz-customizable": "^5.0.0",
     "cz-customizable-ghooks": "^1.5.0",
