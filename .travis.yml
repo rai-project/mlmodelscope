@@ -45,7 +45,7 @@ install:
 - yarn build:assets
 - glide install --force
 - rm -fr vendor/github.com/Sirupsen
-  - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
+- find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
 script:
 - echo "Skip tests..."
