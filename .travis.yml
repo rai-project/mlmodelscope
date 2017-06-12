@@ -46,7 +46,7 @@ install:
 - yarn install
 - yarn build
 - yarn build:assets
-- glide install --force --debug
+- glide --debug install --force 
 - goreleaser --snapshot --skip-publish --skip-validate
 script:
 - echo "Skip tests..."
