@@ -46,7 +46,7 @@ export default connect(
           <Alert
             stack={{ limit: 3 }}
             position="top"
-            timeout={2000}
+            timeout={5000}
             effect="flip"
             contentTemplate={ErrorTemplate}
           />
