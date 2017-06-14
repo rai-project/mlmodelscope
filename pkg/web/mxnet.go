@@ -9,7 +9,7 @@ import (
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/labstack/echo"
-	"github.com/rai-project/dlframework/frameworks/mxnet/agent"
+	"github.com/rai-project/dlframework/mxnet/agent"
 )
 
 func mxnetRoutes(api *echo.Group) error {
