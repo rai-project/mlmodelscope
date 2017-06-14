@@ -32,6 +32,7 @@ import:
   - log
 - package: github.com/rai-project/config
 - package: github.com/rai-project/dlframework
+  version: d1bc496d774a96cbf419ea74903468e57ce1b4ed
   subpackages:
   - mxnet/agent
 - package: github.com/rai-project/logger
