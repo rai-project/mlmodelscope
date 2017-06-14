@@ -4,6 +4,7 @@ description: &description Cognitive ARtifacts for Machine Learning
 build:
   main: ./main.go
   binary: carml
+  flags: -tags cloudfoundry
   goos:
     - linux
     - darwin

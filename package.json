@@ -43,6 +43,7 @@
     "semantic-ui-react": "^0.68.5",
     "store2": "^2.5.1",
     "styled-jsx": "^1.0.3",
+    "swagger-client": "^3.0.14",
     "sweetalert-react": "^0.4.10",
     "uppy": "^0.16.2",
     "uuid": "^3.0.1",
@@ -76,6 +77,7 @@
     "prettier-eslint": "^6.2.3",
     "react-scripts": "^1.0.7",
     "style-loader": "^0.18.1",
+    "swagger-js-codegen": "^1.10.0",
     "ts-protoc-gen": "^0.3.1",
     "why-did-you-update": "0.0.8"
   },
