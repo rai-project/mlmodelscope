@@ -45,6 +45,9 @@ func Start(addr string) {
 	if err := apiRoutes(e); err != nil {
 		panic(err)
 	}
+	if err := pprofRoutes(e); err != nil {
+		panic(err)
+	}
 
 	// log.Debug(pp.Sprint(e.Routes()))
 

@@ -30,3 +30,6 @@ errors.log
 
 # binary
 carml
+
+#go
+vendor
