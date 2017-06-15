@@ -21,6 +21,7 @@ var serveCmd = &cobra.Command{
 		if !found {
 			port = DEFAULTPORT
 		}
+
 		web.Start(fmt.Sprintf(":%s", port))
 	},
 }
