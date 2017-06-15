@@ -5,14 +5,18 @@ import (
 	"github.com/rai-project/carml/cmd"
 )
 
-func main() {
-	p := profile.Start(
+func pprof() {
+	profile.Start(
 		profile.MemProfile,
 		// profile.CPUProfile,
 		// profile.TraceProfile,
 		profile.ProfilePath("."),
-		profile.NoShutdownHook,
 	)
-	defer p.Stop()
+}
+
+func main() {
+	if false {
+		pprof()
+	}
 	cmd.Execute()
 }
