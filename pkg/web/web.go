@@ -39,13 +39,13 @@ func Start(addr string) {
 	}))
 	e.Use(tracermiddleware.FromHTTPRequest(tracer.Std(), "web"))
 
+	if err := pprofRoutes(e); err != nil {
+		panic(err)
+	}
 	if err := assetsRoutes(e); err != nil {
 		panic(err)
 	}
 	if err := apiRoutes(e); err != nil {
-		panic(err)
-	}
-	if err := pprofRoutes(e); err != nil {
 		panic(err)
 	}
 
