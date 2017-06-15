@@ -1,0 +1,11 @@
+FROM carml/mxnet:base-amd64-cpu
+MAINTAINER Abdul Dakkak <dakkak@illinois.edu>
+
+RUN go get -u -v github.com/rai-project/carml && \
+    cd $GOPATH/src/github.com/rai-project/carml && \
+    glide install && \
+    go install
+
+ENV PORT 80
+ENTRYPOINT ["carml", "web", "--debug", "--verbose"]
+EXPOSE 80
