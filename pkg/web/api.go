@@ -19,6 +19,6 @@ func apiRoutes(e *echo.Echo) error {
 	}
 	api.Any("/upload/*", uploadHandler)
 
-	mxnetRoutes(api)
+	// mxnetRoutes(api)
 	return nil
 }

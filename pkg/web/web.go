@@ -42,6 +42,9 @@ func Start(addr string) {
 	if err := pprofRoutes(e); err != nil {
 		panic(err)
 	}
+	if err := swaggerUIAssets(e); err != nil {
+		panic(err)
+	}
 	if err := assetsRoutes(e); err != nil {
 		panic(err)
 	}

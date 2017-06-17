@@ -2146,7 +2146,7 @@ func (this *FrameworkManifest) GoString() string {
 	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
 	s = append(s, "Version: "+fmt.Sprintf("%#v", this.Version)+",\n")
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -2173,7 +2173,7 @@ func (this *ModelManifest) GoString() string {
 		s = append(s, "Framework: "+fmt.Sprintf("%#v", this.Framework)+",\n")
 	}
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -2204,7 +2204,7 @@ func (this *ModelManifest) GoString() string {
 		s = append(s, "Model: "+fmt.Sprintf("%#v", this.Model)+",\n")
 	}
 	keysForAttributes := make([]string, 0, len(this.Attributes))
-	for k, _ := range this.Attributes {
+	for k := range this.Attributes {
 		keysForAttributes = append(keysForAttributes, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForAttributes)
@@ -2228,7 +2228,7 @@ func (this *ModelManifest_Type) GoString() string {
 	s = append(s, "Type: "+fmt.Sprintf("%#v", this.Type)+",\n")
 	s = append(s, "Description: "+fmt.Sprintf("%#v", this.Description)+",\n")
 	keysForParameters := make([]string, 0, len(this.Parameters))
-	for k, _ := range this.Parameters {
+	for k := range this.Parameters {
 		keysForParameters = append(keysForParameters, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForParameters)
@@ -2799,7 +2799,7 @@ func (m *FrameworkManifest) MarshalTo(dAtA []byte) (int, error) {
 		i += copy(dAtA[i:], m.Version)
 	}
 	if len(m.Container) > 0 {
-		for k, _ := range m.Container {
+		for k := range m.Container {
 			dAtA[i] = 0x1a
 			i++
 			v := m.Container[k]
@@ -2867,7 +2867,7 @@ func (m *ModelManifest) MarshalTo(dAtA []byte) (int, error) {
 		i += n2
 	}
 	if len(m.Container) > 0 {
-		for k, _ := range m.Container {
+		for k := range m.Container {
 			dAtA[i] = 0x22
 			i++
 			v := m.Container[k]
@@ -2992,7 +2992,7 @@ func (m *ModelManifest) MarshalTo(dAtA []byte) (int, error) {
 		i += n5
 	}
 	if len(m.Attributes) > 0 {
-		for k, _ := range m.Attributes {
+		for k := range m.Attributes {
 			dAtA[i] = 0x8a
 			i++
 			dAtA[i] = 0x1
@@ -3041,7 +3041,7 @@ func (m *ModelManifest_Type) MarshalTo(dAtA []byte) (int, error) {
 		i += copy(dAtA[i:], m.Description)
 	}
 	if len(m.Parameters) > 0 {
-		for k, _ := range m.Parameters {
+		for k := range m.Parameters {
 			dAtA[i] = 0x1a
 			i++
 			v := m.Parameters[k]
@@ -4236,7 +4236,7 @@ func (this *FrameworkManifest) String() string {
 		return "nil"
 	}
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -4258,7 +4258,7 @@ func (this *ModelManifest) String() string {
 		return "nil"
 	}
 	keysForContainer := make([]string, 0, len(this.Container))
-	for k, _ := range this.Container {
+	for k := range this.Container {
 		keysForContainer = append(keysForContainer, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForContainer)
@@ -4268,7 +4268,7 @@ func (this *ModelManifest) String() string {
 	}
 	mapStringForContainer += "}"
 	keysForAttributes := make([]string, 0, len(this.Attributes))
-	for k, _ := range this.Attributes {
+	for k := range this.Attributes {
 		keysForAttributes = append(keysForAttributes, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForAttributes)
@@ -4304,7 +4304,7 @@ func (this *ModelManifest_Type) String() string {
 		return "nil"
 	}
 	keysForParameters := make([]string, 0, len(this.Parameters))
-	for k, _ := range this.Parameters {
+	for k := range this.Parameters {
 		keysForParameters = append(keysForParameters, k)
 	}
 	github_com_gogo_protobuf_sortkeys.Strings(keysForParameters)

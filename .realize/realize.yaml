@@ -25,6 +25,7 @@ projects:
     - pkg
     - ../dlframework
     - ../grpc
+    - ../web
     ignore_paths:
     - src
     exts:
