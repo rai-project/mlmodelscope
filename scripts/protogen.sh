@@ -8,13 +8,16 @@ protoc \
   --plugin=protoc-gen-js_service=./node_modules/.bin/protoc-gen-js_service \
   --plugin=protoc-gen-go=${GOPATH}/bin/protoc-gen-go \
   --proto_path=../../..:../:. \
-  --gogoslick_out=plugins=grpc:./pkg/protobuf \
+  -I${GOPATH}/src \
+  -I${GOPATH}/src/github.com/golang/protobuf/proto \
+  -I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --gogofaster_out=Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,plugins=grpc:./pkg/protobuf \
   --js_out=import_style=commonjs,binary:./src/proto \
   --js_service_out=./src/proto \
   --ts_out=service=true:./src/proto \
   ../../../github.com/gogo/protobuf/gogoproto/gogo.proto \
   ../../../github.com/rai-project/carml/proto/carml.org/inference/inference.proto \
-  ../../../github.com/rai-project/dlframework/mxnet/mxnet.proto
+  ../../../github.com/rai-project/dlframework/dlframework.proto
 
 echo "**/*js" >> ./src/proto/.eslintignore
 

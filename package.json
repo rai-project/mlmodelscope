@@ -78,6 +78,7 @@
     "react-scripts": "^1.0.7",
     "style-loader": "^0.18.1",
     "swagger-js-codegen": "^1.10.0",
+    "swagger-ts-generator": "^1.1.17",
     "ts-protoc-gen": "^0.3.1",
     "why-did-you-update": "0.0.8"
   },
