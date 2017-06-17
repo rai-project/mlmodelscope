@@ -48,6 +48,9 @@ func Start(addr string) {
 	if err := assetsRoutes(e); err != nil {
 		panic(err)
 	}
+	if err := registryRoutes(e); err != nil {
+		panic(err)
+	}
 	if err := apiRoutes(e); err != nil {
 		panic(err)
 	}
