@@ -4,22 +4,18 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	dlframework "github.com/rai-project/dlframework/web/restapi"
 	swaggerui "github.com/rai-project/web/swaggerui"
 )
 
 func swaggerUIAssets(e *echo.Echo) error {
-	e.Any("/swagger/*", StripPrefix("/swagger", swaggerui.Handle()))
-	return nil
-}
-
-func swaggerUIAssets2(e *echo.Echo) error {
-	swaggerui.Routes("/swagger", e)
-	e.GET("/swagger", func(ctx echo.Context) error {
-		bts, err := swaggerui.Asset("index.html")
+	e.Any("/api/v1/swagger.json", func(c echo.Context) error {
+		bts, err := dlframework.SwaggerJSON.MarshalJSON()
 		if err != nil {
 			return err
 		}
-		return ctx.HTMLBlob(http.StatusOK, bts)
+		return c.JSONBlob(http.StatusOK, bts)
 	})
+	e.Any("/swagger/*", StripPrefix("/swagger", swaggerui.Handle()))
 	return nil
 }
