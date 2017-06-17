@@ -89,8 +89,6 @@
     "build:proto": "scripts/protogen.sh",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "commit": "git-cz",
-    "commitmsg": "node ./node_modules/cz-customizable-ghooks/lib/index.js .git/COMMIT_EDITMSG",
     "precommit": "lint-staged",
     "flow start": "flow start",
     "flow stop": "flow stop",
