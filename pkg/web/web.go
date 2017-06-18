@@ -51,6 +51,9 @@ func Start(addr string) {
 	if err := registryRoutes(e); err != nil {
 		panic(err)
 	}
+	if err := dlframeworkRoutes(e); err != nil {
+		panic(err)
+	}
 	if err := apiRoutes(e); err != nil {
 		panic(err)
 	}
