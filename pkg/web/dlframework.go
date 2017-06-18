@@ -2,6 +2,7 @@ package web
 
 import (
 	"net/http"
+	"path"
 
 	errors "github.com/go-openapi/errors"
 	"github.com/go-openapi/loads"
@@ -9,14 +10,17 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/labstack/echo"
-	dlframework "github.com/rai-project/dlframework/web/restapi"
+	"github.com/rai-project/config"
+	dlframework "github.com/rai-project/dlframework"
+	restapi "github.com/rai-project/dlframework/web/restapi"
 	"github.com/rai-project/dlframework/web/restapi/operations"
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
 	"github.com/rai-project/dlframework/web/restapi/operations/registry"
+	kv "github.com/rai-project/registry"
 )
 
 func dlframeworkRoutes(e *echo.Echo) error {
-	swaggerSpec, err := loads.Analyzed(dlframework.SwaggerJSON, "")
+	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
 		return err
 	}
@@ -27,19 +31,81 @@ func dlframeworkRoutes(e *echo.Echo) error {
 	api.JSONProducer = runtime.JSONProducer()
 
 	api.RegistryGetFrameworkManifestHandler = registry.GetFrameworkManifestHandlerFunc(func(params registry.GetFrameworkManifestParams) middleware.Responder {
-		return middleware.NotImplemented("operation registry.GetFrameworkManifest has not yet been implemented")
+		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			fn := params.FrameworkName
+			fv := params.FrameworkVersion
+
+			if fv == nil {
+				return
+			}
+
+			rgs, err := kv.New()
+			if err != nil {
+				return
+			}
+			defer rgs.Close()
+
+			key := path.Join(config.App.Name, "registry", fn, *fv, "info")
+			if ok, err := rgs.Exists(key); err != nil || !ok {
+				return
+			}
+			e, err := rgs.Get(key)
+			if err != nil {
+				return
+			}
+			framework := new(dlframework.FrameworkManifest)
+			if err := framework.Unmarshal(e.Value); err != nil {
+				return
+			}
+
+			rw.WriteHeader(http.StatusOK)
+
+			if err := producer.Produce(rw, framework); err != nil {
+				return
+			}
+		})
 	})
 	api.RegistryGetFrameworkManifestsHandler = registry.GetFrameworkManifestsHandlerFunc(func(params registry.GetFrameworkManifestsParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
-			for k, v := range make(http.Header) {
-				for _, val := range v {
-					rw.Header().Add(k, val)
+			rgs, err := kv.New()
+			if err != nil {
+				return
+			}
+			defer rgs.Close()
+
+			frameworkCannonicalNames := []string{}
+
+			dirs := []string{path.Join(config.App.Name, "registry")}
+			for {
+				if len(dirs) == 0 {
+					break
+				}
+				var dir string
+				dir, dirs = dirs[0], dirs[1:]
+				lst, err := rgs.List(dir)
+				if err != nil {
+					continue
+				}
+				for _, e := range lst {
+					if e.Value == nil || len(e.Value) == 0 {
+						dirs = append(dirs, e.Key)
+						continue
+					}
+					framework := new(dlframework.FrameworkManifest)
+					if err := framework.Unmarshal(e.Value); err != nil {
+						continue
+					}
+					cn, err := framework.CanonicalName()
+					if err != nil {
+						continue
+					}
+					frameworkCannonicalNames = append(frameworkCannonicalNames, cn)
 				}
 			}
 
 			rw.WriteHeader(http.StatusOK)
 
-			if err := producer.Produce(rw, "test"); err != nil {
+			if err := producer.Produce(rw, frameworkCannonicalNames); err != nil {
 				return
 			}
 		})
