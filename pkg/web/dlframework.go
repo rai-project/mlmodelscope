@@ -12,6 +12,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/rai-project/config"
 	dlframework "github.com/rai-project/dlframework"
+	"github.com/rai-project/dlframework/web/models"
 	restapi "github.com/rai-project/dlframework/web/restapi"
 	"github.com/rai-project/dlframework/web/restapi/operations"
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
@@ -66,14 +67,15 @@ func dlframeworkRoutes(e *echo.Echo) error {
 		})
 	})
 	api.RegistryGetFrameworkManifestsHandler = registry.GetFrameworkManifestsHandlerFunc(func(params registry.GetFrameworkManifestsParams) middleware.Responder {
+
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
 			rgs, err := kv.New()
 			if err != nil {
-				return
+				panic(err)
 			}
 			defer rgs.Close()
 
-			frameworkCannonicalNames := []string{}
+			manifests := []*models.DlframeworkFrameworkManifest{}
 
 			dirs := []string{path.Join(config.App.Name, "registry")}
 			for {
@@ -95,19 +97,29 @@ func dlframeworkRoutes(e *echo.Echo) error {
 					if err := framework.Unmarshal(e.Value); err != nil {
 						continue
 					}
-					cn, err := framework.CanonicalName()
-					if err != nil {
-						continue
+					container := map[string]models.DlframeworkContainerHardware{}
+					for k, v := range framework.GetContainer() {
+						if v == nil {
+							continue
+						}
+						container[k] = models.DlframeworkContainerHardware{
+							CPU: v.GetCpu(),
+							Gpu: v.GetGpu(),
+						}
 					}
-					frameworkCannonicalNames = append(frameworkCannonicalNames, cn)
+					manifests = append(manifests, &models.DlframeworkFrameworkManifest{
+						Container: container,
+						Name:      framework.GetName(),
+						Version:   framework.GetVersion(),
+					})
 				}
 			}
 
-			rw.WriteHeader(http.StatusOK)
-
-			if err := producer.Produce(rw, frameworkCannonicalNames); err != nil {
-				return
-			}
+			registry.NewGetFrameworkManifestsOK().
+				WithPayload(&models.DlframeworkGetFrameworkManifestsResponse{
+					Manifests: manifests,
+				}).
+				WriteResponse(rw, producer)
 		})
 	})
 	api.RegistryGetFrameworkModelManifestHandler = registry.GetFrameworkModelManifestHandlerFunc(func(params registry.GetFrameworkModelManifestParams) middleware.Responder {
