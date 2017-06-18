@@ -39,23 +39,18 @@ func Start(addr string) {
 	}))
 	e.Use(tracermiddleware.FromHTTPRequest(tracer.Std(), "web"))
 
-	if err := pprofRoutes(e); err != nil {
-		panic(err)
+	chain := []func(*echo.Echo) error{
+		pprofRoutes,
+		swaggerUIAssets,
+		assetsRoutes,
+		registryRoutes,
+		dlframeworkRoutes,
+		apiRoutes,
 	}
-	if err := swaggerUIAssets(e); err != nil {
-		panic(err)
-	}
-	if err := assetsRoutes(e); err != nil {
-		panic(err)
-	}
-	if err := registryRoutes(e); err != nil {
-		panic(err)
-	}
-	if err := dlframeworkRoutes(e); err != nil {
-		panic(err)
-	}
-	if err := apiRoutes(e); err != nil {
-		panic(err)
+	for _, c := range chain {
+		if err := c(e); err != nil {
+			panic(err)
+		}
 	}
 
 	// log.Debug(pp.Sprint(e.Routes()))
