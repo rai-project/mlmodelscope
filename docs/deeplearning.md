@@ -132,10 +132,12 @@ An error occurs if CarML cannot resolve the framework.
 
 !> **Note** the model version is unrelated to the framework version. 
 
-### Containers
+### Docker Containers
 
+A user may wish to run a model within a different container than the one defined for the framework.
+This can be because the model requires extra pieces of software and/or custom layers.
+If a docker container is not specified, then the container defined for the resolved framework is used, otherwise the container specified supersedes the one defined by the framework.
 
-If a container is not specified, then the container defined for the resolved framework is used, otherwise the container specified superseeds the one defined by the framework. 
 The containers currently must be published on the Dockerhub registry.
 An error is returned if no container is found.
 
@@ -160,7 +162,7 @@ A model's inputs and output are defined within the manifest.
 
 #### Image
 
-An image can be in PNG, JPEG, or GIF format.
+An image can be encoded in PNG, JPEG, or GIF format.
 
 An image type can have one or more of the following attributes:
 
