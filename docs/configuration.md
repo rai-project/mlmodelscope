@@ -1,4 +1,4 @@
-# Configuration
+# Server Configuration
 
 The following configuration file can be placed in `$HOME/.carml_config.yml` or can be specified via the `--config="path"` option.
 
