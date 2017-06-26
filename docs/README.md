@@ -1,4 +1,2 @@
-[![Build Status](https://travis-ci.org/rai-project/carml.svg?branch=master)](https://travis-ci.org/rai-project/carml)
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
+The documentation is written so that it can be rendered using [Docsify](https://docsify.js.org/#/).
+Run `yarn docs` in the parent directory to start the documentation webserver. 
