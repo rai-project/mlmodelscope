@@ -44,6 +44,12 @@
   <div data-app id="main">Please wait...</div>
 </body>
 <script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+
+</script>
+<script>
   window.$docsify = {
     name: 'CarML',
     repo: 'rai-project/carml',
