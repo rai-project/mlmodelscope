@@ -1,10 +1,29 @@
 # Deep Learning
 
+![architecture](assets/images/architecture.png|height=200, width=153, align=floated "System Architecture" )
 
 
-## Framework
+As shown in the figure on the right, and discussed in the [architecture](architecture.md) section, Deep learning (DL) is one of the components of CarML.
+Deep learning is a class of machine learning neural network algorithms that uses many hidden layers.
 
-### Specification
+!>  Currently CarML only has the DL component, although other ML components such as SVM, Decision Trees, etc... will follow.
+
+In the past few years quite a few DL _**frameworks**_ have been developed such as Caffe, Tensorflow, MXNet, Torch, and CNTK.
+At the same time, some DL developers have published pre-trained models targeting these frameworks.
+
+The objective of CarML is to make it easier to use DL frameworks and their corresponding models.
+DL developers publish their framework and models through CarML, a user can then browse through the different frameworks and models.
+
+
+Different frameworks and models exhibit different design points --- some being more flexible and/or more low level than others.
+At the user interface level, CarML hides these complexity providing a more holistic view of frameworks.
+
+
+## DL Framework
+
+A DL framework is a library, DSL, and (possibly) programming paradigm that allows one to develop, train, and infer DL models.
+
+### Specification (Manifest)
 
 A framework is specified as a name, version, along with names of the containers the container can run in. 
 This information is stored within a "manifest" file.
@@ -26,12 +45,12 @@ container: # containers used to perform model prediction
 
 ### API
 
-### Advertisements
+### Advertising
 
 
 ## Model
 
-
+A DL model is ...
 
 ### Specification
 
@@ -143,7 +162,11 @@ A model's inputs and output are defined within the manifest.
 
 An image can be in PNG, JPEG, or GIF format.
 
+An image type can have one or more of the following attributes:
 
+1. **`dimensions`** specifies the dimensions of the image. The image is auto-resized to the specified dimensions if no pre- or post-processing code is set.
+1. **`mean`** specifies the mean value (or vector) to be subtracted from each pixel to normalize the image. Zero is used if unspecified.
+1. **`color_space`** TODO
 
 #### Feature
 
@@ -159,3 +182,24 @@ The compatible framework versions is specified in the `framework > version` fiel
 CarML generates a constraint using the semantic version and uses the highest version that satisfies the constraint.
 Although not advised, a model has "latest" value in the `framework > version` field, then the latest advertised framework is used to perform inference on the model.
 
+
+
+## Dataset
+
+!> This is not currently implemented. The following is an example manifest however.
+
+
+```yaml
+name: ImageNet # name of the dataset
+version: 0.1 # dataset version
+license: MIT # license of the dataset
+url: http://example.org/data.tar.gz # url to the dataset
+description: >
+  A description to the dataset
+references: # references to papers / websites / etc.. describing the dataset
+  - https://example.org
+attributes: # extra network attributes 
+  manifest_author: abduld
+``` 
+
+- [ ] A dataset can be mounted within a container by name and version. This would require developing a docker-volume plugin that can mound datasets. See [azurefile-dockervolumedriver](https://github.com/Azure/azurefile-dockervolumedriver) for an example of how to define a docker volume to mount remote data.

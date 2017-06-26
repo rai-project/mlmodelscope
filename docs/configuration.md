@@ -16,7 +16,7 @@ registry:
   username: root
   password: PASSWORD
   timeout: 10s
-  header_timeout_per_request: 2m
+  header_timeout_per_request: 2m # this is important for bluemix
   auto_sync: false
   certificate: BASE64XXXXXXXX
 tracer:
