@@ -125,7 +125,7 @@ Extra meta-information can be specified as a key-value map withing the `attribut
 ### Framework
 
 Each neural network model is associated with a framework.
-The combination of framework name and [semantic version](http://www.semver.org) form a constraint which is solved by the CarML framework (more information is found in the [Resolving Framework](#resolving-framework) section).
+The combination of framework name and [semantic version](http://www.semver.org) form a constraint which is solved by the CarML framework (more information is found in the [Resolving Framework](deeplearning.md#resolving-framework) section).
 This allows models to be vendored for each framework version. 
 This is specifically important to support framework versions which break backward compatibility.
 An error occurs if CarML cannot resolve the framework.
