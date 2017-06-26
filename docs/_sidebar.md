@@ -1,5 +1,6 @@
 <!-- docs/_sidebar.md -->
 
+
 - [Home](/)
 - [Introduction](introduction.md)
 - [Installation](installation.md)
@@ -12,4 +13,4 @@
 - [Web Server](webserver.md)
 - [Web UI](webui.md)
 - [Competitors](competitors.md)
-
+- [References](references.md)

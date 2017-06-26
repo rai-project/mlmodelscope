@@ -1,4 +1,6 @@
-# What is CarML?
+# Introduction
+
+## Purpose
 
 CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models.
 The aim is to bridge the gap between machine learning developer and user. This is done by:
@@ -13,6 +15,6 @@ CarML, as it currently stands, is a deep learning inference paradigm allowing de
 Information about the [architecture](architecture.md) along with the [user interface](ui.md) are discussed in their corresponding sections.
 
 
-# Why?
+## Demand for CarML
 
 Currently there is 
