@@ -12,6 +12,15 @@
       min-width: 100px;
     }
 
+    i.todo-list-item {
+      list-style-type: none;
+    }
+
+    img.center {
+      display: block;
+      margin: 0 auto;
+    }
+
   </style>
 </head>
 
@@ -25,25 +34,94 @@
     el: '#main',
     coverpage: true,
     loadSidebar: true,
-    loadNavbar: true,
     mergeNavbar: true,
     nameLink: '/',
     maxLevel: 4,
-    subMaxLevel: 2,
+    subMaxLevel: 3,
     auto2top: true,
     executeScript: true,
+    routerMode: 'hash',
     search: {
       noData: {
-        '/de-de/': 'Keine Ergebnisse!',
-        '/zh-cn/': '没有结果!',
         '/': 'No results!'
       },
       paths: 'auto',
       placeholder: {
-        '/de-de/': 'Suche',
-        '/zh-cn/': '搜索',
         '/': 'Search'
       }
+    },
+    markdown: function (marked, renderer) {
+      // Tasks list
+      var checkedTaskItemPtn = /^\s*\[(x|X)\]\s*/;
+      var uncheckedTaskItemPtn = /^\s*\[ \]\s*/;
+      renderer.listitem = function (text) {
+        var isCheckedTaskItem = checkedTaskItemPtn.test(text);
+        var isUncheckedTaskItem = uncheckedTaskItemPtn.test(text);
+        if (isCheckedTaskItem) {
+          text = text.replace(checkedTaskItemPtn,
+            '<i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;') + '\n';
+        }
+        if (isUncheckedTaskItem) {
+          text = text.replace(uncheckedTaskItemPtn,
+            '<i class="fa fa-square-o" aria-hidden="true"></i>&nbsp;') + '\n';
+        }
+        var cls = (isCheckedTaskItem || isUncheckedTaskItem) ? ' class="todo-list-item"' : '';
+        return '<li' + cls + '>' + text + '</li>\n';
+      };
+
+      renderer.image = function (href, title, text) {
+        var alignment;
+        var dimensions = [];
+        if (href) {
+          var splitted = href.split('|').map(function (s) {
+            return s.trim();
+          });
+          href = splitted[0];
+          var parameters = splitted[1];
+          if (parameters) {
+            var heightFromParams = /height=(\d+)/.exec(parameters);
+            var widthFromParams = /width=(\d+)/.exec(parameters);
+            var alignFromParams = /align=([a-zA-Z]+)/.exec(parameters);
+            var height = heightFromParams && heightFromParams[1];
+            var width = widthFromParams && widthFromParams[1];
+            var align = alignFromParams && alignFromParams[1];
+            var widthIsFinite = isFinite(parseInt(width));
+            var heightIsFinite = isFinite(parseInt(height));
+            if (widthIsFinite) {
+              dimensions.push('width="' + width + '"');
+            }
+            if (heightIsFinite) {
+              dimensions.push('height="' + height + '"');
+            }
+            alignment = align;
+          }
+        }
+        var attributes = [];
+        if (href) {
+          attributes.push('src="' + href + '"');
+          attributes.push('data-origin="' + href + '"');
+        }
+        if (text) {
+          attributes.push('alt="' + text + '"');
+        }
+        if (alignment) {
+          attributes.push('class="' + alignment + '"');
+        }
+        if (title) {
+          attributes.push('title="' + title + '"');
+        }
+        if (dimensions.length) {
+          attributes = attributes.concat(dimensions);
+        }
+        return '<img ' + attributes.join(' ') + '>';
+      };
+      marked.setOptions({
+        gfm: true,
+        smartLists: true,
+        smartypants: true,
+        renderer: renderer
+      });
+      return marked;
     },
     formatUpdated: '{MM}/{DD} {HH}:{mm}',
     plugins: [
@@ -56,6 +134,18 @@
             '\n----\n' +
             'Last modified {docsify-updated} ' +
             editHtml
+        })
+      },
+      function (hook) {
+        var footer = [
+          '<hr/>',
+          '<footer>',
+          '<span><a href="https://github.com/rai-project">rai-project</a> &copy;2017.</span>',
+          '</footer>'
+        ].join('')
+
+        hook.afterEach(function (html) {
+          return html + footer
         })
       }
     ]
@@ -71,5 +161,6 @@
 <script src="//unpkg.com/prismjs/components/prism-yaml.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-go.min.js"></script>
+<script src="https://use.fontawesome.com/990dab6c40.js"></script>
 
 </html>

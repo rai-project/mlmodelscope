@@ -2,8 +2,9 @@
 
 - [Home](/)
 - [Introduction](introduction.md)
-- [Install](install.md)
+- [Installation](installation.md)
 - [Usage](usage.md)
+- [Configuration](configuration.md)
 - [API](api.md)
 - [Architecture](architecture.md)
 - [Deep Learning](deeplearning.md)
