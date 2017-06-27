@@ -2,7 +2,7 @@
 
 
 CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models.
-It allows machine learning (ML) developers to publish and evaluate their models, users to experiement with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
 
 ## Purpose
 

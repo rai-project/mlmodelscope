@@ -6,7 +6,7 @@
 
 > **__C__ognitive __AR__tifacts for __M__achine __L__earning**
 
-- Simple to use inference system spanning many models and frameworks
+- Simplify developing and deploying machine learning models
 - 
 
 [GitHub](https://github.com/rai-project/carml/)

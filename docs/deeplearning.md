@@ -23,6 +23,8 @@ At the user interface level, CarML hides these complexity providing a more holis
 
 A DL framework is a library, DSL, and (possibly) programming paradigm that allows one to develop, train, and infer DL models.
 
+...TODO...
+
 ### Specification (Manifest)
 
 A framework is specified as a name, version, along with names of the containers the container can run in. 
