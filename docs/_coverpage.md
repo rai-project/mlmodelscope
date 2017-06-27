@@ -2,7 +2,7 @@
 
 <!--![logo](_media/icon.svg)-->
 
-# CarML 
+# CarML <small>0.1.1</small>
 
 > **__C__ognitive __AR__tifacts for __M__achine __L__earning**
 
@@ -16,3 +16,4 @@
 
 <!-- background color -->
 ![color](#f0f0f0)
+

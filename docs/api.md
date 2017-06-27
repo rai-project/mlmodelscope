@@ -3,11 +3,11 @@
 
 ![Swagger UI](assets/images/swaggerui.png|height=300, width=250, align=floated "Swagger UI" )
 
-The CarML webserver exposes REST API endpoints.
-These are the same endpoints used by the javascript client to interact with the system.
+The CarML web-server exposes REST API endpoints.
+These are the same endpoints used by the JavaScript client to interact with the system.
 This section describes the different REST API endpoints along with their purpose.
 
-!> An OpenAPI specification is avaible and can be used in conjunction with tools such [postman](https://www.getpostman.com/) to create requests. The Swagger UI (shown on the left) can also be used to make REST requests.
+!> An OpenAPI specification is available and can be used in conjunction with tools such [postman](https://www.getpostman.com/) to create requests. The Swagger UI (shown on the left) can also be used to make REST requests.
 
 
 ## Protobuf
@@ -18,7 +18,7 @@ The [dlframework.proto](https://github.com/rai-project/dlframework/blob/master/d
 
 ## Registry API
 
-The registery api endpoints allows one to query the frameworks and models known to CarML.
+The registries api endpoints allows one to query the frameworks and models known to CarML.
 This is how CarML advertises the frameworks and models.
 
 - [ ] ...TODO...FILL ME
@@ -35,7 +35,7 @@ An error occurs if CarML is unable to find such agent.
 
 
 
-!> If the webserver is started, then `swagger.json` file is accessible from `/api/v1/swagger.json`. The swagger user interface is accessible at the `/swagger/index.html` endpoint.
+!> If the web-server is started, then `swagger.json` file is accessible from `/api/v1/swagger.json`. The swagger user interface is accessible at the `/swagger/index.html` endpoint.
 
 
 ### Generating the Swagger Definition

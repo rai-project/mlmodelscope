@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
   <style>
-    nav.app-nav li ul {
-      min-width: 100px;
+    .sidebar {
+      width: 15%;
     }
 
     i.todo-list-item {
@@ -44,12 +44,6 @@
   <div data-app id="main">Please wait...</div>
 </body>
 <script>
-  if (typeof navigator.serviceWorker !== 'undefined') {
-    navigator.serviceWorker.register('sw.js')
-  }
-
-</script>
-<script>
   window.$docsify = {
     name: 'CarML',
     repo: 'rai-project/carml',
@@ -59,7 +53,7 @@
     mergeNavbar: true,
     nameLink: '/',
     maxLevel: 4,
-    subMaxLevel: 3,
+    subMaxLevel: 4,
     auto2top: true,
     executeScript: true,
     routerMode: 'hash',
@@ -184,5 +178,12 @@
 <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-go.min.js"></script>
 <script src="https://use.fontawesome.com/990dab6c40.js"></script>
+
+<script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+
+</script>
 
 </html>

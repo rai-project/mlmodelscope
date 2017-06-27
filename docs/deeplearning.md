@@ -19,6 +19,7 @@ Different frameworks and models exhibit different design points --- some being m
 At the user interface level, CarML hides these complexity providing a more holistic view of frameworks.
 
 
+
 ## DL Framework
 
 A DL framework is a library, DSL, and (possibly) programming paradigm that allows one to develop, train, and infer DL models.
@@ -119,12 +120,12 @@ attributes: # extra network attributes
   manifest_author: abduld
 ```
 
-### Meta Information
+#### Meta Information
 
-A model manifest contains some metainformation to identify the model such as: name, description, model version, references, and licence.
+A model manifest contains some meta-information to identify the model such as: name, description, model version, references, and licence.
 Extra meta-information can be specified as a key-value map withing the `attributes` fields.
 
-### Framework
+#### Framework
 
 Each neural network model is associated with a framework.
 The combination of framework name and [semantic version](http://www.semver.org) form a constraint which is solved by the CarML framework (more information is found in the [Resolving Framework](deeplearning.md#resolving-framework) section).
@@ -134,7 +135,7 @@ An error occurs if CarML cannot resolve the framework.
 
 !> **Note** the model version is unrelated to the framework version. 
 
-### Docker Containers
+#### Docker Containers
 
 A user may wish to run a model within a different container than the one defined for the framework.
 This can be because the model requires extra pieces of software and/or custom layers.
@@ -143,46 +144,50 @@ If a docker container is not specified, then the container defined for the resol
 The containers currently must be published on the Dockerhub registry.
 An error is returned if no container is found.
 
-- [ ] Allow one to specify custom docker files and/or registeries.
+- [ ] Allow one to specify custom docker files and/or registries.
 
-### Pre- and Post-Processing Code
+#### Pre- and Post-Processing Code
 
 A model manifest author can specify operations to occur before or after model inference.
-Defining code in the preprocess or postprocess fields nullifies the automatic pre- and post-processing steps that CarML does --- images are not auto-resized for example.
-This allows the manifest author to perform custom operations that are required by the model, without making mondifcations to the inference engine.
+Defining code in the preprocess or post-process fields nullifies the automatic pre- and post-processing steps that CarML does --- images are not auto-resized for example.
+This allows the manifest author to perform custom operations that are required by the model, without making modifications to the inference engine.
 The pre-processing code gets executed on the input code before it's fed into the model inference engine (the same is for the post-processing code).
 
 
 - [ ] This is not currently supported
 - [ ] The language can be inferred using [linguist](https://github.com/rai-project/linguist). See [for example](https://github.com/rai-project/plini/blob/master/pkg/language/detect.go).
 
-### Model Resources
+#### Model Resources
 
-### Input and Output Types
+#### Input and Output Types
 
 A model's inputs and output are defined within the manifest.
 
-#### Image
+##### Image
 
 An image can be encoded in PNG, JPEG, or GIF format.
 
 An image type can have one or more of the following attributes:
 
-1. **`dimensions`** specifies the dimensions of the image. The image is auto-resized to the specified dimensions if no pre- or post-processing code is set.
-1. **`mean`** specifies the mean value (or vector) to be subtracted from each pixel to normalize the image. Zero is used if unspecified.
-1. **`color_space`** TODO
+1. `dimensions` specifies the dimensions of the image. The image is auto-resized to the specified dimensions if no pre- or post-processing code is set.
+1. `mean` specifies the mean value (or vector) to be subtracted from each pixel to normalize the image. Zero is used if unspecified.
+1. `color_space` TODO
 
-#### Feature
+##### Feature
 
 
-#### Coordinate
+##### Coordinate
 
+### Advertising
+
+
+### Publishing
 
 ### Resolving Framework
 
 
 A model requires a compatible framework.
-The compatible framework versions is specified in the `framework > version` field using [sematnic version](http://semver.org/) format.
+The compatible framework versions is specified in the `framework > version` field using [semantic version](http://semver.org/) format.
 CarML generates a constraint using the semantic version and uses the highest version that satisfies the constraint.
 Although not advised, a model has "latest" value in the `framework > version` field, then the latest advertised framework is used to perform inference on the model.
 
