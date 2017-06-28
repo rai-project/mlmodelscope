@@ -1066,7 +1066,7 @@
     coverpage: true,
     loadSidebar: true,
     mergeNavbar: true,
-    nameLink: '/carml',
+    nameLink: '/' + (window.location.hostname !== "localhost" ? "carml" : ""),
     maxLevel: 4,
     subMaxLevel: 4,
     auto2top: true,
@@ -1158,6 +1158,9 @@
     plugins: [
       function (hook, vm) {
         hook.beforeEach(function (html) {
+          if (vm.route && vm.route.path == "/") {
+            return html;
+          }
           var url = 'https://github.com/rai-project/carml/blob/master/docs/' + vm.route.file
           var editHtml = '[:memo: Edit Document](' + url + ')\n'
           return editHtml +
