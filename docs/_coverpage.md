@@ -4,7 +4,7 @@
 
 # CarML <small>0.1.1</small>
 
-> ****C**ognitive **AR**tifacts for **M**achine **L**earning**
+> **C**ognitive **AR**tifacts for **M**achine **L**earning
 
 -   Simplify developing and deploying machine learning models
 -   
