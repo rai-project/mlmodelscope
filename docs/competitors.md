@@ -1,7 +1,5 @@
 # Competitors
 
-
 ## Tensorflow Serving
-
 
 ## PennAI

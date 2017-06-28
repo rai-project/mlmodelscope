@@ -5,7 +5,7 @@ The steps to install CarML agents is similar.
 
 ## Installing from Binary
 
-- [ ] Todo: we currently build the binary, but do not deploy it to any server accessible to users.
+-   [ ] Todo: binary files are built for different platforms but are not deployed to any server accessible to users.
 
 ## Using Docker
 
@@ -41,7 +41,6 @@ Download the required repositories
 ```.bash
 rai-srcmanager update
 ```
-
 
 ### Get Source Using Git
 

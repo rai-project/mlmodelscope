@@ -2,19 +2,15 @@
 
 CarML is a distributed application with backend borrowing many components from RAI.
 
-
-
 ## Download Manager
-
 
 ## Grpc
 
 CarML uses [Grpc](http://www.grpc.io/) along with [Protobuf](https://developers.google.com/protocol-buffers/) as the communication protocol.
 
-
 ### Configuration
 
-- [ ] TODO This is currently hardcoded
+-   [ ] TODO This is currently hardcoded
 
 ```.yaml
 grpc:
@@ -33,27 +29,23 @@ grpc:
 
 ## Store
 
-
-
-
 ## Key/Value Store
-
 
 ### Supported Backends
 
-| Calls                 |   Consul   |  Etcd  |  Zookeeper  |  BoltDB  |
-|-----------------------|:----------:|:------:|:-----------:|:--------:|
-| Put                   |     X      |   X    |      X      |    X     |
-| Get                   |     X      |   X    |      X      |    X     |
-| Delete                |     X      |   X    |      X      |    X     |
-| Exists                |     X      |   X    |      X      |    X     |
-| Watch                 |     X      |   X    |      X      |          |
-| WatchTree             |     X      |   X    |      X      |          |
-| NewLock (Lock/Unlock) |     X      |   X    |      X      |          |
-| List                  |     X      |   X    |      X      |    X     |
-| DeleteTree            |     X      |   X    |      X      |    X     |
-| AtomicPut             |     X      |   X    |      X      |    X     |
-| Close                 |     X      |   X    |      X      |    X     |
+| Calls                 | Consul | Etcd | Zookeeper | BoltDB |
+| --------------------- | :----: | :--: | :-------: | :----: |
+| Put                   |    X   |   X  |     X     |    X   |
+| Get                   |    X   |   X  |     X     |    X   |
+| Delete                |    X   |   X  |     X     |    X   |
+| Exists                |    X   |   X  |     X     |    X   |
+| Watch                 |    X   |   X  |     X     |        |
+| WatchTree             |    X   |   X  |     X     |        |
+| NewLock (Lock/Unlock) |    X   |   X  |     X     |        |
+| List                  |    X   |   X  |     X     |    X   |
+| DeleteTree            |    X   |   X  |     X     |    X   |
+| AtomicPut             |    X   |   X  |     X     |    X   |
+| Close                 |    X   |   X  |     X     |    X   |
 
 ### Configuration
 
@@ -73,11 +65,11 @@ registry:
 
 ### Keys
 
-- [ ] Todo: Look at how [etcd performs grpc naming](https://coreos.com/etcd/docs/latest/dev-guide/grpc_naming.html)
+-   [ ] Todo: Look at how [etcd performs grpc naming](https://coreos.com/etcd/docs/latest/dev-guide/grpc_naming.html)
 
 ### Todo
 
-- [ ] The 
+-   [ ] The 
 
 ## Health
 
@@ -90,7 +82,6 @@ health:
 ```
 
 ## Logger
-
 
 ### Configuration
 
@@ -108,7 +99,6 @@ logger:
 ```
 
 ## Tracer
-
 
 ### Configuration
 

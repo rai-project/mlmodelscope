@@ -1,7 +1,6 @@
 # Deep Learning
 
-![architecture](assets/images/architecture.png|height=200, width=153, align=floated "System Architecture" )
-
+![architecture](<assets/images/architecture.png|height=200, width=153, align=floated> "System Architecture")
 
 As shown in the figure on the right, and discussed in the [architecture](architecture.md) section, Deep learning (DL) is one of the components of CarML.
 Deep learning is a class of machine learning neural network algorithms that uses many hidden layers.
@@ -14,11 +13,8 @@ At the same time, some DL developers have published pre-trained models targeting
 The objective of CarML is to make it easier to use DL frameworks and their corresponding models.
 DL developers publish their framework and models through CarML, a user can then browse through the different frameworks and models.
 
-
 Different frameworks and models exhibit different design points --- some being more flexible and/or more low level than others.
 At the user interface level, CarML hides these complexity providing a more holistic view of frameworks.
-
-
 
 ## DL Framework
 
@@ -45,11 +41,9 @@ container: # containers used to perform model prediction
     gpu: raiproject/carml-mxnet:ppc64le-gpu
 ```
 
-
 ### API
 
 ### Advertising
-
 
 ## Model
 
@@ -144,7 +138,7 @@ If a docker container is not specified, then the container defined for the resol
 The containers currently must be published on the Dockerhub registry.
 An error is returned if no container is found.
 
-- [ ] Allow one to specify custom docker files and/or registries.
+-   [ ] Allow one to specify custom docker files and/or registries.
 
 #### Pre- and Post-Processing Code
 
@@ -153,9 +147,8 @@ Defining code in the preprocess or post-process fields nullifies the automatic p
 This allows the manifest author to perform custom operations that are required by the model, without making modifications to the inference engine.
 The pre-processing code gets executed on the input code before it's fed into the model inference engine (the same is for the post-processing code).
 
-
-- [ ] This is not currently supported
-- [ ] The language can be inferred using [linguist](https://github.com/rai-project/linguist). See [for example](https://github.com/rai-project/plini/blob/master/pkg/language/detect.go).
+-   [ ] This is not currently supported
+-   [ ] The language can be inferred using [linguist](https://github.com/rai-project/linguist). See [for example](https://github.com/rai-project/plini/blob/master/pkg/language/detect.go).
 
 #### Model Resources
 
@@ -169,34 +162,28 @@ An image can be encoded in PNG, JPEG, or GIF format.
 
 An image type can have one or more of the following attributes:
 
-1. `dimensions` specifies the dimensions of the image. The image is auto-resized to the specified dimensions if no pre- or post-processing code is set.
-1. `mean` specifies the mean value (or vector) to be subtracted from each pixel to normalize the image. Zero is used if unspecified.
-1. `color_space` TODO
+1.  `dimensions` specifies the dimensions of the image. The image is auto-resized to the specified dimensions if no pre- or post-processing code is set.
+2.  `mean` specifies the mean value (or vector) to be subtracted from each pixel to normalize the image. Zero is used if unspecified.
+3.  `color_space` TODO
 
 ##### Feature
-
 
 ##### Coordinate
 
 ### Advertising
 
-
 ### Publishing
 
 ### Resolving Framework
-
 
 A model requires a compatible framework.
 The compatible framework versions is specified in the `framework > version` field using [semantic version](http://semver.org/) format.
 CarML generates a constraint using the semantic version and uses the highest version that satisfies the constraint.
 Although not advised, a model has "latest" value in the `framework > version` field, then the latest advertised framework is used to perform inference on the model.
 
-
-
 ## Dataset
 
 !> This is not currently implemented. The following is an example manifest however.
-
 
 ```yaml
 name: ImageNet # name of the dataset
@@ -209,6 +196,6 @@ references: # references to papers / websites / etc.. describing the dataset
   - https://example.org
 attributes: # extra network attributes 
   manifest_author: abduld
-``` 
+```
 
-- [ ] A dataset can be mounted within a container by name and version. This would require developing a docker-volume plugin that can mound datasets. See [azurefile-dockervolumedriver](https://github.com/Azure/azurefile-dockervolumedriver) for an example of how to define a docker volume to mount remote data.
+-   [ ] A dataset can be mounted within a container by name and version. This would require developing a docker-volume plugin that can mound datasets. See [azurefile docker volume driver](https://github.com/Azure/azurefile-dockervolumedriver) for an example of how to define a docker volume to mount remote data.
