@@ -1,8 +1,14 @@
 # Key Concepts
 
-### Framework
+### DL
 
-### Model
+Alias to deep learning.
+
+### DL Framework
+
+A framwork such as Tensorflow, Caffe, ...
+
+### DL Model
 
 ### Inference
 
