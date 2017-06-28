@@ -7,7 +7,7 @@
 -   Architecture
     -   [Overview](architecture.md)
     -   [Deep Learning](deeplearning.md)
-    -   [Toolset](backend.md)
+    -   [Backend Components](backend.md)
     -   [Web Server](webserver.md)
     -   [Web UI](webui.md)
 -   Development
