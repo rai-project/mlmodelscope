@@ -14,6 +14,24 @@ A synonym to [inference](concepts.md#inference).
 
 ### Feature
 
+### Registry
+
+The distributed key-value store is called a registry by CarML.
+
+### Key-Value Store
+
+## Advertising
+
+## Route
+
+## Endpoint
+
+The terms route and endpoint are interchangeable.
+
+### Upload Manager
+
+### Download Manager
+
 ### Web Server
 
 ### Web UI

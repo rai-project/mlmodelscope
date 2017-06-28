@@ -130,7 +130,7 @@ For files that are to be stored
 
 -   [ ] TODO: the S3 credententials should be shared with the download and upload managers.
 
-## Key/Value Store
+## Key/Value (Registry) Store
 
 The key/value store offers a simple interface to interact with distributed key/value servers.
 The supported backends are:

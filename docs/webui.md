@@ -82,7 +82,7 @@ Semantic UI provides UI elements such as grids, buttons, forms, ...
 
 #### Upload Area
 
-![website](<assets/screenshots/upload-area.png|height=185, width=386, align=center> "CarML Main Page")
+![upload area](<assets/screenshots/upload-area.png|height=185, width=386, align=center> "CarML Upload Area")
 
 The upload are components uses [uppy](https://uppy.io) to expose a dashboard where users can drag and drop files to upload.
 The upload area allows users to pause and resume uploads as well as uploading multiple files.
@@ -93,11 +93,19 @@ The model selector is a drop down list of all the models that are advertised thr
 
 ### Results Page
 
+![results page](<assets/screenshots/inference-results-page.png|height=257, width=253, align=center> "Results Page")
+
 #### Label Feature
+
+![label feature](<assets/screenshots/label-feature.png|height=126, width=383, align=center> "Label feature")
 
 #### Location Feature
 
+![location feature](<assets/screenshots/location-feature.png|height=185, width=387, align=center> "Location feature")
+
 ### Models Page
+
+![models page](<assets/screenshots/models-page.png|height=257, width=253, align=center> "Models Page")
 
 ### Model Information Page
 
@@ -109,8 +117,24 @@ The model selector is a drop down list of all the models that are advertised thr
 
 When starting the web user interface through `yarn` (through `yarn run`).
 All routes prefixed with `/api` are proxied to `localhost:8088/api`. 
-This allows one to run the webpack server (which handles UI elements) independently from the webserver (which handles api endpoints).
+This allows one to run the [webpack](https://webpack.js.org/) server (which handles UI elements) independently from the webserver (which handles api endpoints).
 
 ?> You can use a tools such as [generact](https://github.com/diegohaz/generact) to clone a component and customize it.
 
 ### Debugging
+
+![cerebral-debugger](<assets/screenshots/cerebral-debugger.png|height=325, width=425, align=center> "Cerebral Debugger")
+
+### State Tree
+
+![cerebral-state](<assets/screenshots/cerebral-state.png|height=325, width=425, align=center> "Cerebral State")
+
+!> The current state tree structure is not ideal. It creates artificial limits, such as the inability to perform inference on multiple frameworks or models.
+
+### Component Dependencies
+
+![cerebral-components](<assets/screenshots/cerebral-components.png|height=325, width=425, align=center> "Cerebral Components")
+
+### Mutations
+
+![cerebral-mutations](<assets/screenshots/cerebral-mutations.png|height=325, width=425, align=center> "Cerebral Mutations")
