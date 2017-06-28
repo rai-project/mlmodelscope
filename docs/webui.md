@@ -1,5 +1,7 @@
 # Web User Interface
 
+![website](<assets/screenshots/main-page.png|height=247, width=213, align=floated> "CarML Main Page")
+
 ## React & Cerebral
 
 ### Components
@@ -79,6 +81,8 @@ Semantic UI provides UI elements such as grids, buttons, forms, ...
 ### Main Page
 
 #### Upload Area
+
+![website](<assets/screenshots/upload-area.png|height=185, width=386, align=center> "CarML Main Page")
 
 The upload are components uses [uppy](https://uppy.io) to expose a dashboard where users can drag and drop files to upload.
 The upload area allows users to pause and resume uploads as well as uploading multiple files.

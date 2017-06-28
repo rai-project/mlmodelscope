@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-<!--![logo](_media/icon.svg)-->
+![logo](assets/images/carml.png)
 
 # CarML <small>0.1.1</small>
 
