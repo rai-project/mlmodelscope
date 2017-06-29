@@ -86,6 +86,9 @@
     "prettier": "^1.5.2",
     "prettier-eslint": "^6.4.1",
     "style-loader": "^0.18.2",
+    "stylefmt": "^6.0.0",
+    "stylelint": "^7.12.0",
+    "stylelint-config-standard": "^16.0.0",
     "swagger-js-codegen": "^1.10.0",
     "swagger-ts-generator": "^1.1.19",
     "ts-protoc-gen": "^0.3.2",
@@ -119,8 +122,19 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/*.js": [
-      "prettier --write",
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --parser flow --write",
+      "git add"
+    ],
+    "src/**/*.css": [
+      "stylefmt",
+      "stylelint scss",
+      "git add"
+    ],
+    "src/**/*.scss": [
+      "stylefmt",
+      "stylelint --syntax scss",
       "git add"
     ]
   },
