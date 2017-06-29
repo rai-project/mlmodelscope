@@ -8,6 +8,7 @@
     "@cerebral/shortcuts": "^0.0.0-beta.3",
     "@cerebral/storage": "^0.0.0-beta.3",
     "@cerebral/useragent": "^0.0.0-beta.3",
+    "@rai/react-components": "^0.1.4",
     "@types/google-protobuf": "^3.2.6",
     "basictracer": "^2.2.0",
     "cerebral": "beta",
