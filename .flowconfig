@@ -3,12 +3,18 @@
 <PROJECT_ROOT>/build/.*
 <PROJECT_ROOT>/pkg/.*
 <PROJECT_ROOT>/docs/.*
+./*/node_modules/.*
 
 
 [include]
 
+<PROJECT_ROOT>/src/.*
+
 [libs]
 
 [options]
+
+suppress_comment=\\(.\\|\n\\)*\\#FlowExpectError
+suppress_comment=\\(.\\|\n\\)*\\#FlowIgnoreAsset
 
 [lints]
