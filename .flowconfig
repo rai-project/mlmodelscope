@@ -1,0 +1,14 @@
+[ignore]
+
+<PROJECT_ROOT>/build/.*
+<PROJECT_ROOT>/pkg/.*
+<PROJECT_ROOT>/docs/.*
+
+
+[include]
+
+[libs]
+
+[options]
+
+[lints]
