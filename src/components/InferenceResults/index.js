@@ -6,8 +6,7 @@ import { Image, Grid, Container, Message, Divider } from "semantic-ui-react";
 
 import { head, tail, lowerCase } from "lodash";
 
-import LabelFeature from "../LabelFeature";
-import LocationFeature from "../LocationFeature";
+import Feature from "../Feature";
 
 export default connect(
   {
@@ -21,9 +20,9 @@ export default connect(
         (model.output ? model.output.type : undefined) || "label";
       switch (lowerCase(outputType)) {
         case "coordinates":
-          return <LocationFeature {...props} />;
+          return <Feature.Location {...props} />;
         default:
-          return <LabelFeature {...props} />;
+          return <Feature.Label {...props} />;
       }
     };
     return (

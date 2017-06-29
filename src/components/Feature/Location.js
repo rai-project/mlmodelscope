@@ -5,9 +5,8 @@ import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 
 import { tail, toNumber } from "lodash";
 
-export default function LocationFeature({ feature }) {
+export default function Location({ feature }) {
   const longlat = tail(feature.name.match(/\S+/g)).map(toNumber);
-  console.log({ longlat });
   if (longlat.length !== 2) {
     return <div />;
   }
@@ -29,7 +28,6 @@ export default function LocationFeature({ feature }) {
               maxZoom={17}
               center={[lat, long]}
             >
-
               <ZoomControl zoomDiff={1} />
               <Layer
                 type="symbol"
