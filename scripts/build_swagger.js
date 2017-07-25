@@ -11,6 +11,7 @@ var reactjsSourceCode = CodeGen.getReactCode({
   swagger: swagger,
   template: {
     class: fs.readFileSync(__dirname + "/template/react-class.mustache", "utf-8"),
+    method: fs.readFileSync(__dirname + "/template/method.mustache", "utf-8"),
   },
 });
 var tsSourceCode = CodeGen.getTypescriptCode({
