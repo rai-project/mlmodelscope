@@ -81,6 +81,9 @@ let DLFramework = (function() {
       body: JSON.stringify(body)
     })
       .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
         return response.json();
       })
       .then(body => {
