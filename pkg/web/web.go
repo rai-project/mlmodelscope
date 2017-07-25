@@ -44,7 +44,6 @@ func Start(addr string) {
 		swaggerUIAssets,
 		assetsRoutes,
 		registryRoutes,
-		dlframeworkRoutes,
 		apiRoutes,
 	}
 	for _, c := range chain {
@@ -53,7 +52,7 @@ func Start(addr string) {
 		}
 	}
 
-	// log.Debug(pp.Sprint(e.Routes()))
+	log.Debug(pp.Sprint(e.Routes()))
 
 	fmt.Println("🌎  Webserver started at address", pprintAddr(addr))
 	defer func() {

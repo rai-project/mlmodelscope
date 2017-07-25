@@ -3,6 +3,7 @@ package web
 import (
 	"strings"
 
+	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
 )
 
@@ -17,6 +18,7 @@ func StripPrefix(prefix string, h echo.HandlerFunc) echo.HandlerFunc {
 		if p := strings.TrimPrefix(path, prefix); len(p) < len(path) {
 			url.Path = p
 		}
+		pp.Println(url.Path)
 		return h(c)
 	}
 }

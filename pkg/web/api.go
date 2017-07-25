@@ -4,14 +4,10 @@ import (
 	"net/http"
 	"strings"
 
-	"golang.org/x/net/context"
-
 	"google.golang.org/grpc"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/rai-project/config"
-	"github.com/rai-project/dlframework"
 )
 
 func apiRoutes(e *echo.Echo) error {
@@ -26,17 +22,23 @@ func apiRoutes(e *echo.Echo) error {
 	}
 	api.Any("/upload/*", uploadHandler)
 
-	mux := runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithInsecure()}
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	err = dlframework.RegisterRegistryHandlerFromEndpoint(ctx, mux, "localhost", opts)
+	dlframeworkHandler, err := getDlframeworkHandler()
 	if err != nil {
 		return err
 	}
+	api.Any("/*", StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)))
 
-	api.Any("/*", StripPrefix("/api", echo.WrapHandler(mux)))
+	// mux := runtime.NewServeMux()
+	// opts := []grpc.DialOption{grpc.WithInsecure()}
+
+	// ctx, cancel := context.WithCancel(context.Background())
+	// defer cancel()
+	// err = dlframework.RegisterRegistryHandlerFromEndpoint(ctx, mux, "localhost", opts)
+	// if err != nil {
+	// 	return err
+	// }
+
+	// api.Any("/*", StripPrefix("/api", echo.WrapHandler(mux)))
 	return nil
 }
 

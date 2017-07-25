@@ -94,6 +94,7 @@
     "react-app-rewire-sass": "^1.2.3",
     "react-app-rewire-styled-components": "^2.0.0",
     "react-app-rewired": "^1.0.11",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.18.2",
     "stylefmt": "^6.0.0",
     "stylelint": "^8.0.0",
@@ -109,7 +110,12 @@
     "build": "react-scripts build",
     "bundle": "yarn run build && yarn run build:assets",
     "build:assets": "node scripts/build_go_assets.js",
-    "build:proto": "scripts/protogen.sh",
+    "build:proto": "npm-run-all -p clean:proto build:protoi",
+    "build:protoi": "scripts/protogen.sh",
+    "clean:proto": "rimraf src/proto",
+    "build:swagger": "npm-run-all -p clean:swagger build:swaggeri",
+    "build:swaggeri": "node scripts/build_swagger.js",
+    "clean:swagger": "rimraf src/swagger",
     "docs": "docsify serve docs",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -131,21 +137,9 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --parser flow --write",
-      "git add"
-    ],
-    "src/**/*.css": [
-      "stylefmt",
-      "stylelint scss",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylefmt",
-      "stylelint --syntax scss",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "prettier --parser flow --write", "git add"],
+    "src/**/*.css": ["stylefmt", "stylelint scss", "git add"],
+    "src/**/*.scss": ["stylefmt", "stylelint --syntax scss", "git add"]
   },
   "proxy": {
     "/api": {

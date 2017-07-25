@@ -46,6 +46,7 @@ install:
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
 - go get github.com/rai-project/goreleaser
 - yarn install
+- yarn build:swagger
 - yarn build
 - yarn build:assets
 - glide install --force

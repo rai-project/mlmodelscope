@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "cerebral/react";
 // eslint-disable-next-line
-import { Core, DragDrop, Tus10, Dashboard, Webcam, Informer } from "uppy";
+import { Core, DragDrop, Tus10, Dashboard, Webcam } from "uppy";
 
 import SweetAlert from "sweetalert-react";
 import "sweetalert/dist/sweetalert.css";
@@ -47,7 +47,6 @@ export default connect(
           }
         })
         .use(Webcam, { target: Dashboard })
-        .use(Informer, { target: Dashboard })
         .use(Tus10, {
           endpoint: "/api/upload/",
           resume: true

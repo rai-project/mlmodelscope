@@ -34,3 +34,4 @@ carml
 #go
 vendor
 *.pprof
+debug

@@ -38,6 +38,12 @@ type dlframeworkFrameworkManifest = {
     'container': {}
 
 };
+type dlframeworkGetFrameworkManifestRequest = {
+    'framework_name': string
+
+    'framework_version': string
+
+};
 type dlframeworkGetFrameworkManifestsResponse = {
     'manifests': Array < dlframeworkFrameworkManifest >
         | dlframeworkFrameworkManifest
@@ -110,6 +116,7 @@ type dlframeworkModelManifestType = {
     'parameters': {}
 
 };
+type dlframeworkNull = {};
 type dlframeworkPredictRequest = {
     'model_name': string
 
@@ -173,7 +180,7 @@ type Logger = {
 };
 
 /**
- * TODO... fillme.
+ * CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
  * @class DLFramework
  * @param {(string)} [domainOrOptions] - The project domain.
  */
@@ -259,8 +266,8 @@ export default class DLFramework {
      * 
      * @method
      * @name DLFramework#GetFrameworkManifest
-     * @param {string} frameworkName - TODO... fillme.
-     * @param {string} frameworkVersion - TODO... fillme.
+     * @param {string} frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} frameworkVersion - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
     GetFrameworkManifest(parameters: {
         'frameworkName': string,
@@ -330,9 +337,9 @@ export default class DLFramework {
      * 
      * @method
      * @name DLFramework#GetFrameworkModelManifest
-     * @param {string} frameworkName - TODO... fillme.
-     * @param {string} modelName - TODO... fillme.
-     * @param {} body - TODO... fillme.
+     * @param {string} frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
     GetFrameworkModelManifest(parameters: {
         'frameworkName': string,
@@ -418,9 +425,9 @@ export default class DLFramework {
      * 
      * @method
      * @name DLFramework#Predict
-     * @param {string} frameworkName - TODO... fillme.
-     * @param {string} modelName - TODO... fillme.
-     * @param {} body - TODO... fillme.
+     * @param {string} frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
     Predict(parameters: {
         'frameworkName': string,
@@ -504,8 +511,8 @@ export default class DLFramework {
      * 
      * @method
      * @name DLFramework#GetFrameworkModels
-     * @param {string} frameworkName - TODO... fillme.
-     * @param {string} frameworkVersion - TODO... fillme.
+     * @param {string} frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} frameworkVersion - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
     GetFrameworkModels(parameters: {
         'frameworkName': string,
@@ -619,8 +626,8 @@ export default class DLFramework {
      * 
      * @method
      * @name DLFramework#GetModelManifest
-     * @param {string} modelName - TODO... fillme.
-     * @param {} body - TODO... fillme.
+     * @param {string} modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
     GetModelManifest(parameters: {
         'modelName': string,

@@ -8,11 +8,14 @@ var outputFile = outputDir + "dlframework";
 var swagger = JSON.parse(fs.readFileSync(file, "UTF-8"));
 var reactjsSourceCode = CodeGen.getReactCode({
   className: "DLFramework",
-  swagger: swagger
+  swagger: swagger,
+  template: {
+    class: fs.readFileSync(__dirname + "/template/react-class.mustache", "utf-8"),
+  },
 });
 var tsSourceCode = CodeGen.getTypescriptCode({
   className: "DLFramework",
-  swagger: swagger
+  swagger: swagger,
 });
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir);

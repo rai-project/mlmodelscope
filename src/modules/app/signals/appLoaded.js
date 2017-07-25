@@ -7,6 +7,6 @@ import resetError from "../../common/chains/resetError";
 export default [
   ...resetError,
   set(state`app.isLoaded`, true),
-  set(state`app.name`, "CarML"),
-  ...modelInformationChain
+  set(state`app.name`, "CarML")
+  // ...modelInformationChain
 ];

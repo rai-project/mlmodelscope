@@ -9,7 +9,6 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/labstack/echo"
 	"github.com/rai-project/config"
 	dlframework "github.com/rai-project/dlframework"
 	"github.com/rai-project/dlframework/web/models"
@@ -20,10 +19,10 @@ import (
 	kv "github.com/rai-project/registry"
 )
 
-func dlframeworkRoutes(e *echo.Echo) error {
+func getDlframeworkHandler() (http.Handler, error) {
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	api := operations.NewDlframeworkAPI(swaggerSpec)
 
@@ -143,6 +142,5 @@ func dlframeworkRoutes(e *echo.Echo) error {
 
 	handler := api.Serve(nil)
 
-	e.Any("/dlframework/*", StripPrefix("/dlframework", echo.WrapHandler(handler)))
-	return nil
+	return handler, nil
 }

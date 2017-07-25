@@ -1,5 +1,6 @@
 import model from "../model";
 import modelsRouted from "./signals/modelsRouted";
+import frameworksRequested from "./signals/frameworksRequested";
 
 export default {
   state: {
@@ -8,6 +9,7 @@ export default {
     data: []
   },
   signals: {
-    modelsRouted
+    modelsRouted,
+    frameworksRequested
   }
 };

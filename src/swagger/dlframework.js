@@ -3,7 +3,7 @@
 /*global fetch, btoa */
 import Q from "q";
 /**
- * TODO... fillme.
+ * CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
  * @class DLFramework
  * @param {(string|object)} [domainOrOptions] - The project domain or options object. If object, see the object's optional properties.
  * @param {string} [domainOrOptions.domain] - The project domain
@@ -11,6 +11,7 @@ import Q from "q";
  */
 let DLFramework = (function() {
   "use strict";
+
   function DLFramework(options) {
     let domain = typeof options === "object" ? options.domain : options;
     this.domain = domain ? domain : "";
@@ -64,9 +65,10 @@ let DLFramework = (function() {
     form,
     deferred
   ) {
-    const queryParams = queryParameters && Object.keys(queryParameters).length
-      ? serializeQueryParams(queryParameters)
-      : null;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? serializeQueryParams(queryParameters)
+        : null;
     const urlWithParams = url + (queryParams ? "?" + queryParams : "");
 
     if (body && !Object.keys(body).length) {
@@ -94,8 +96,8 @@ let DLFramework = (function() {
      * @method
      * @name DLFramework#GetFrameworkManifest
      * @param {object} parameters - method options and parameters
-     * @param {string} parameters.frameworkName - TODO... fillme.
-     * @param {string} parameters.frameworkVersion - TODO... fillme.
+     * @param {string} parameters.frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} parameters.frameworkVersion - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
   DLFramework.prototype.GetFrameworkManifest = function(parameters) {
     if (parameters === undefined) {
@@ -143,9 +145,9 @@ let DLFramework = (function() {
      * @method
      * @name DLFramework#GetFrameworkModelManifest
      * @param {object} parameters - method options and parameters
-     * @param {string} parameters.frameworkName - TODO... fillme.
-     * @param {string} parameters.modelName - TODO... fillme.
-     * @param {} parameters.body - TODO... fillme.
+     * @param {string} parameters.frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} parameters.modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} parameters.body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
   DLFramework.prototype.GetFrameworkModelManifest = function(parameters) {
     if (parameters === undefined) {
@@ -205,9 +207,9 @@ let DLFramework = (function() {
      * @method
      * @name DLFramework#Predict
      * @param {object} parameters - method options and parameters
-     * @param {string} parameters.frameworkName - TODO... fillme.
-     * @param {string} parameters.modelName - TODO... fillme.
-     * @param {} parameters.body - TODO... fillme.
+     * @param {string} parameters.frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} parameters.modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} parameters.body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
   DLFramework.prototype.Predict = function(parameters) {
     if (parameters === undefined) {
@@ -267,8 +269,8 @@ let DLFramework = (function() {
      * @method
      * @name DLFramework#GetFrameworkModels
      * @param {object} parameters - method options and parameters
-     * @param {string} parameters.frameworkName - TODO... fillme.
-     * @param {string} parameters.frameworkVersion - TODO... fillme.
+     * @param {string} parameters.frameworkName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {string} parameters.frameworkVersion - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
   DLFramework.prototype.GetFrameworkModels = function(parameters) {
     if (parameters === undefined) {
@@ -352,8 +354,8 @@ let DLFramework = (function() {
      * @method
      * @name DLFramework#GetModelManifest
      * @param {object} parameters - method options and parameters
-     * @param {string} parameters.modelName - TODO... fillme.
-     * @param {} parameters.body - TODO... fillme.
+     * @param {string} parameters.modelName - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
+     * @param {} parameters.body - CarML (Cognitive ARtifacts for Machine Learning) is a framework allowing people to develop and deploy machine learning models. It allows machine learning (ML) developers to publish and evaluate their models, users to experiment with different models and frameworks through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
      */
   DLFramework.prototype.GetModelManifest = function(parameters) {
     if (parameters === undefined) {
@@ -441,4 +443,4 @@ let DLFramework = (function() {
   return DLFramework;
 })();
 
-exports.DLFramework = DLFramework;
+export default DLFramework;
