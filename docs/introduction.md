@@ -1,6 +1,6 @@
 # Introduction
 
-The recent wide spread of different open sourced machine learning (ML) software, including deel learning (DL) frameworks, has inspured 
+The recent wide spread of different open sourced machine learning (ML) software, including deep-learning (DL) frameworks, has inspured 
 a great deal of innovation among different users, ranging from framework developers (who develop ML/DL software and frameworks), 
 model developers (who develop ML/DL models), model users (who consumes the models for either model training or model inferencing), 
 and system builders (who develop underlying hardware systems and infrastructures to support the computation of ML/DL workloads). 
