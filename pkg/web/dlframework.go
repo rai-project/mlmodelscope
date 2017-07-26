@@ -29,7 +29,7 @@ import (
 )
 
 var (
-	DefaultUnmarshaler = &jsonpb.Unmarshaler{AllowUnknownFields: true}
+	DefaultUnmarshaler = &jsonpb.Unmarshaler{AllowUnknownFields: false}
 )
 
 type apiError struct {
