@@ -242,11 +242,16 @@ func getDlframeworkHandler() (http.Handler, error) {
 	})
 	api.RegistryGetFrameworkModelManifestHandler = registry.GetFrameworkModelManifestHandlerFunc(func(params registry.GetFrameworkModelManifestParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
-			pp.Println(params.Body)
 			fn := strings.ToLower(params.FrameworkName)
-			fv := strings.ToLower(params.Body.FrameworkVersion)
+			fv := "latest"
+			if params.FrameworkVersion != nil {
+				fv = strings.ToLower(*params.FrameworkVersion)
+			}
 			mn := strings.ToLower(params.ModelName)
-			mv := strings.ToLower(params.Body.ModelVersion)
+			mv := "latest"
+			if params.ModelVersion != nil {
+				mv = strings.ToLower(*params.ModelVersion)
+			}
 
 			if fv == "" {
 				rw.WriteHeader(http.StatusBadRequest)

@@ -27,10 +27,8 @@ export default [
   // GetFrameworkModelManifest({
   //   frameworkName: "Tensorflow",
   //   modelName: "inception",
-  //   body: {
-  //     framework_version: "1.1",
-  //     model_version: "3.0"
-  //   }
+  // frameworkVersion: "1.1",
+  // modelVersion: "3.0"
   // }),
   // {
   //   success: [set(state`app.currentModel`, props`result`)],
