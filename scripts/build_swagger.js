@@ -15,13 +15,8 @@ var reactjsSourceCode = CodeGen.getReactCode({
     method: fs.readFileSync(__dirname + "/template/method.mustache", "utf-8"),
   },
 });
-var tsSourceCode = CodeGen.getTypescriptCode({
-  className: "DLFramework",
-  swagger: swagger,
-});
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir);
 }
 fs.writeFileSync(outputFile + ".js", "/* eslint-disable */\n");
 fs.appendFileSync(outputFile + ".js", reactjsSourceCode);
-fs.appendFileSync(outputFile + ".ts", tsSourceCode);

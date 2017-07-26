@@ -16,7 +16,6 @@ export default [
     success: [],
     error: [set(state`app.name`, "Error")],
     abort: [], // Optional
-    500: [set(state`app.name`, "Error")],
-    "${STATUS_CODE}": [set(state`app.name`, "Error")] // Optionally any status code, ex. 404: []
+    500: [set(state`app.name`, "Error")]
   }
 ];

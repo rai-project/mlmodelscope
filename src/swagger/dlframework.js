@@ -63,19 +63,21 @@ export function GetFrameworkManifest(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetFrameworkManifestRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "GET",
         headers,
         body: resolvedBody
@@ -130,19 +132,21 @@ export function GetFrameworkModelManifest(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetFrameworkModelManifestRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "POST",
         headers,
         body: resolvedBody
@@ -197,19 +201,21 @@ export function Predict(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function PredictRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "POST",
         headers,
         body: resolvedBody
@@ -253,19 +259,21 @@ export function GetFrameworkModels(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetFrameworkModelsRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "GET",
         headers,
         body: resolvedBody
@@ -297,19 +305,21 @@ export function GetFrameworkManifests(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetFrameworkManifestsRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "GET",
         headers,
         body: resolvedBody
@@ -357,19 +367,21 @@ export function GetModelManifest(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetModelManifestRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "POST",
         headers,
         body: resolvedBody
@@ -401,19 +413,21 @@ export function GetModelManifests(parameters) {
   queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function GetModelManifestsRequest({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
     let resolvedBody = undefined;
     if (body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: "GET",
         headers,
         body: resolvedBody

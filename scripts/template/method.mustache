@@ -89,20 +89,23 @@ export function {{&methodName}}(parameters){
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
   return function {{&methodName}}Request({ http, path, resolve }) {
-    const resolvedURL = resolve.value(urlPath);
+
     let resolvedBody = undefined;
     if(body && Object.keys(body).length) {
       resolvedBody = convertObjectWithTemplates(body, resolve);
     }
 
 
-    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
-    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+    const queryParams =
+      queryParameters && Object.keys(queryParameters).length
+        ? "?" + serializeQueryParams(queryParameters)
+        : "";
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request( {
         url: resolvedURL,
-        query: queryParams,
+        query: queryParameters,
         method: '{{method}}',
         headers,
         body: resolvedBody,
