@@ -29,6 +29,7 @@ projects:
     ignore_paths:
     - src
     - vendor
+    - ../dlframework/vendor
     exts:
     - .go
   streams:
