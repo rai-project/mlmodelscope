@@ -1,6 +1,8 @@
 package web
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"path"
@@ -10,6 +12,7 @@ import (
 	"github.com/go-openapi/loads"
 	runtime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/gogo/protobuf/jsonpb"
 	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 
@@ -23,6 +26,10 @@ import (
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
 	"github.com/rai-project/dlframework/web/restapi/operations/registry"
 	kv "github.com/rai-project/registry"
+)
+
+var (
+	DefaultUnmarshaler = &jsonpb.Unmarshaler{AllowUnknownFields: true}
 )
 
 type apiError struct {
@@ -51,6 +58,17 @@ func (e apiError) MarshalJSON() ([]byte, error) {
 	return []byte(res), nil
 }
 
+func decodeRegistry0(src []byte) []byte {
+	enc := base64.StdEncoding
+	buf := make([]byte, enc.DecodedLen(len(src)))
+	enc.Decode(buf, src)
+	return buf
+}
+
+func decodeRegistry(src []byte) []byte {
+	return src
+}
+
 func getDlframeworkHandler() (http.Handler, error) {
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
@@ -66,9 +84,11 @@ func getDlframeworkHandler() (http.Handler, error) {
 		return apiError{Code: code, Name: name, Message: message}
 	}
 
+	unmarshaler := DefaultUnmarshaler
+
 	api.RegistryGetFrameworkManifestHandler = registry.GetFrameworkManifestHandlerFunc(func(params registry.GetFrameworkManifestParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
-			fn := params.FrameworkName
+			fn := strings.ToLower(params.FrameworkName)
 			fv := params.FrameworkVersion
 
 			if fv == nil {
@@ -97,7 +117,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			defer rgs.Close()
 
-			key := path.Join(config.App.Name, "registry", fn, *fv, "info")
+			key := path.Join(config.App.Name, "registry", fn, strings.ToLower(*fv), "info")
 			ok, err := rgs.Exists(key)
 			if err != nil {
 				rw.WriteHeader(http.StatusBadRequest)
@@ -129,7 +149,8 @@ func getDlframeworkHandler() (http.Handler, error) {
 				return
 			}
 			framework := new(dlframework.FrameworkManifest)
-			if err := framework.Unmarshal(e.Value); err != nil {
+			registryValue := decodeRegistry(e.Value)
+			if err := framework.Unmarshal(registryValue); err != nil {
 				rw.WriteHeader(http.StatusBadRequest)
 				producer.Produce(rw,
 					makeError(
@@ -154,6 +175,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 				Name:      framework.GetName(),
 				Version:   framework.GetVersion(),
 			}
+
 			pp.Println(res)
 
 			registry.NewGetFrameworkManifestOK().
@@ -184,12 +206,13 @@ func getDlframeworkHandler() (http.Handler, error) {
 					continue
 				}
 				for _, e := range lst {
-					if e.Value == nil || len(e.Value) == 0 {
+					if e.Value == nil || len(decodeRegistry(e.Value)) == 0 {
 						dirs = append(dirs, e.Key)
 						continue
 					}
+					registryValue := decodeRegistry(e.Value)
 					framework := new(dlframework.FrameworkManifest)
-					if err := framework.Unmarshal(e.Value); err != nil {
+					if err := framework.Unmarshal(registryValue); err != nil {
 						continue
 					}
 					container := map[string]models.DlframeworkContainerHardware{}
@@ -218,7 +241,128 @@ func getDlframeworkHandler() (http.Handler, error) {
 		})
 	})
 	api.RegistryGetFrameworkModelManifestHandler = registry.GetFrameworkModelManifestHandlerFunc(func(params registry.GetFrameworkModelManifestParams) middleware.Responder {
-		return middleware.NotImplemented("operation registry.GetFrameworkModelManifest has not yet been implemented")
+		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			pp.Println(params.Body)
+			fn := strings.ToLower(params.FrameworkName)
+			fv := strings.ToLower(params.Body.FrameworkVersion)
+			mn := strings.ToLower(params.ModelName)
+			mv := strings.ToLower(params.Body.ModelVersion)
+
+			if fv == "" {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						errors.New("invalid RegistryGetFrameworkModelManifestHandler framework version cannot be empty"),
+					),
+				)
+				return
+			}
+			if mv == "" {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						errors.New("invalid RegistryGetFrameworkModelManifestHandler model version cannot be empty"),
+					),
+				)
+				return
+			}
+
+			rgs, err := kv.New()
+			if err != nil {
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				rw.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			defer rgs.Close()
+
+			key := path.Join(config.App.Name, "registry", fn, fv, mn, mv, "info")
+			ok, err := rgs.Exists(key)
+			if err != nil {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
+			}
+			if !ok {
+				registry.NewGetFrameworkModelManifestOK().
+					WithPayload(&models.DlframeworkModelManifest{}).
+					WriteResponse(rw, producer)
+				return
+			}
+			e, err := rgs.Get(key)
+			if err != nil {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
+			}
+			registryValue := decodeRegistry(e.Value)
+			model := &dlframework.ModelManifest{}
+			// proto.Unmarshal()
+
+			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model); err != nil {
+				pp.Println(err)
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
+			}
+
+			bts, err := json.Marshal(model)
+			if err != nil {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
+			}
+
+			res := &models.DlframeworkModelManifest{}
+			if err := json.Unmarshal(bts, res); err != nil {
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
+			}
+
+			registry.NewGetFrameworkModelManifestOK().
+				WithPayload(res).
+				WriteResponse(rw, producer)
+		})
 	})
 	api.RegistryGetFrameworkModelsHandler = registry.GetFrameworkModelsHandlerFunc(func(params registry.GetFrameworkModelsParams) middleware.Responder {
 		return middleware.NotImplemented("operation registry.GetFrameworkModels has not yet been implemented")
