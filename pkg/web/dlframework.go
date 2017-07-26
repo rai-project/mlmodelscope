@@ -150,7 +150,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			framework := new(dlframework.FrameworkManifest)
 			registryValue := decodeRegistry(e.Value)
-			if err := framework.Unmarshal(registryValue); err != nil {
+			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
 				rw.WriteHeader(http.StatusBadRequest)
 				producer.Produce(rw,
 					makeError(
@@ -212,7 +212,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 					}
 					registryValue := decodeRegistry(e.Value)
 					framework := new(dlframework.FrameworkManifest)
-					if err := framework.Unmarshal(registryValue); err != nil {
+					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
 						continue
 					}
 					container := map[string]models.DlframeworkContainerHardware{}
@@ -318,10 +318,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			registryValue := decodeRegistry(e.Value)
 			model := &dlframework.ModelManifest{}
-			// proto.Unmarshal()
-
 			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model); err != nil {
-				pp.Println(err)
 				rw.WriteHeader(http.StatusBadRequest)
 				producer.Produce(rw,
 					makeError(
