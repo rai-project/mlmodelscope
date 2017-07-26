@@ -28,6 +28,7 @@ projects:
     - ../web
     ignore_paths:
     - src
+    - vendor
     exts:
     - .go
   streams:
