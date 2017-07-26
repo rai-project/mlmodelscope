@@ -2,15 +2,10 @@ import yeast from "yeast";
 import { assign, sortBy } from "lodash";
 
 import HTTPError from "../../common/errors/http";
-import DLFramework from "../../../swagger/dlframework";
+import { GetFrameworkManifest } from "../../../swagger/dlframework";
 
 async function getFrameworkManifests({ http, resolve, path }) {
-  let dl = new DLFramework({
-    http,
-    path,
-    resolve
-  });
-  dl.GetFrameworkManifest({
+  return GetFrameworkManifest({
     frameworkName: "Tensorflow",
     frameworkVersion: "1.1"
   });

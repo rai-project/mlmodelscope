@@ -7,15 +7,11 @@
     {{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> parameters.{{&camelCaseName}} - {{&description}}{{/isSingleton}}
 {{/parameters}}
  */
- {{&className}}.prototype.{{&methodName}} = function(parameters){
+export function {{&methodName}}(parameters){
     if(parameters === undefined) {
         parameters = {};
     }
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} http = this.http;
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} statepath = this.path;
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} resolve = this.resolve;
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} deferred = {{#isNode}}Q{{/isNode}}{{^isNode}}$q{{/isNode}}.defer();
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} domain = this.domain,  path = '{{&path}}';
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = '{{&path}}';
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
 
     {{#isSecure}}
@@ -52,7 +48,7 @@
         {{/isQueryParameter}}
 
         {{#isPathParameter}}
-            path = path.replace('{{=<% %>=}}{<%&name%>}<%={{ }}=%>', parameters['{{&camelCaseName}}']);
+            urlPath = urlPath.replace('{{=<% %>=}}{<%&name%>}<%={{ }}=%>', parameters['{{&camelCaseName}}']);
         {{/isPathParameter}}
 
         {{#isHeaderParameter}}
@@ -85,15 +81,34 @@
 
         {{#required}}
         if(parameters['{{&camelCaseName}}'] === undefined){
-            deferred.reject(new Error('Missing required {{&paramType}} parameter: {{&camelCaseName}}'));
-            return deferred.promise;
+            throw new Error('Missing required {{&paramType}} parameter: {{&camelCaseName}}');
         }
         {{/required}}
 
     {{/parameters}}
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
-    this.request(http, statepath, resolve, '{{method}}', path, parameters, body, headers, queryParameters, form, deferred);
+  return function {{&methodName}}Request({ http, path, resolve }) {
+    const resolvedURL = resolve.value(urlPath);
+    let resolvedBody = undefined;
+    if(body && Object.keys(body).length) {
+      resolvedBody = convertObjectWithTemplates(body, resolve);
+    }
 
-    return deferred.promise;
+
+    const queryParams = convertObjectWithTemplates(queryParameters, resolve);
+    // const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
+
+    return processResponse(
+      http.request( {
+        url: resolvedURL,
+        query: queryParams,
+        method: '{{method}}',
+        headers,
+        body: resolvedBody,
+      }),
+      path
+    );
+  }
  };
+
