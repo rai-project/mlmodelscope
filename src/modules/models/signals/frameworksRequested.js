@@ -6,5 +6,10 @@ import getFrameworkManifests from "../actions/getFrameworkManifests";
 export default [
   set(state`app.currentPage`, "getFrameworkManifests"),
   set(state`app.name`, "CarML getFrameworkManifests"),
-  getFrameworkManifests
+  (getFrameworkManifests: {
+    success: [],
+    error: [],
+    abort: [], // Optional
+    "${STATUS_CODE}": [] // Optionally any status code, ex. 404: []
+  })
 ];

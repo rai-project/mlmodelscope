@@ -38,12 +38,6 @@ type dlframeworkFrameworkManifest = {
     'container': {}
 
 };
-type dlframeworkGetFrameworkManifestRequest = {
-    'framework_name': string
-
-    'framework_version': string
-
-};
 type dlframeworkGetFrameworkManifestsResponse = {
     'manifests': Array < dlframeworkFrameworkManifest >
         | dlframeworkFrameworkManifest
@@ -116,7 +110,6 @@ type dlframeworkModelManifestType = {
     'parameters': {}
 
 };
-type dlframeworkNull = {};
 type dlframeworkPredictRequest = {
     'model_name': string
 

@@ -12,11 +12,10 @@ let {{&className}} = (function(){
     'use strict';
 
     function {{&className}}(options){
-        let domain = (typeof options === 'object') ? options.domain : options;
-        this.domain = domain ? domain : '{{&domain}}';
-        if(this.domain.length === 0) {
-            throw new Error('Domain parameter must be specified as a string.');
-        }
+        options = options === undefined ? {} : options;
+        this.http = options.http;
+        this.path = options.path;
+        this.resolve = options.resolve;
         {{#isSecure}}
             {{#isSecureToken}}
                 this.token = (typeof options === 'object') ? (options.token ? options.token : {}) : {};
@@ -64,28 +63,45 @@ let {{&className}} = (function(){
       * @param {object} form - form data object
       * @param {object} deferred - promise object
       */
-    {{&className}}.prototype.request = function(method, url, parameters, body, headers, queryParameters, form, deferred){
-        const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
-        const urlWithParams = url + (queryParams ? '?' + queryParams : '');
+    {{&className}}.prototype.request = function(http, path, resolve, method, url, parameters, body, headers, queryParameters, form, deferred){
 
         if(body && !Object.keys(body).length) {
             body = undefined;
         }
 
-        fetch(urlWithParams, {
+        http.request( {
+          url: url,
+          query: queryParameters,
             method,
             headers,
             body: JSON.stringify(body)
-        }).then((response) => {
-            if (!response.ok) {
-              throw(response);
-            }
-            return response.json();
-        }).then((body) => {
-            deferred.resolve(body);
-        }).catch((error) => {
-            deferred.reject(error);
-        });
+        }).then(response => {
+        if (path && path[response.status]) {
+          return path[response.status](response)
+        }
+
+        return path && path.success ? path.success(response) : response
+      })
+      // This error will be an instance of HttpError
+      .catch(error => {
+        if (!path) {
+          throw error
+        }
+
+        if (error.isAborted && path.abort) {
+          return path.abort({ error: error.toJSON() })
+        }
+
+        if (path[error.status]) {
+          return path[error.status]({ error: error.toJSON() })
+        }
+
+        if (path.error) {
+          return path.error({ error: error.toJSON() })
+        }
+
+        throw error
+      })
     };
 
     {{#isSecure}}

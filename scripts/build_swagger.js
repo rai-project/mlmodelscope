@@ -9,6 +9,7 @@ var swagger = JSON.parse(fs.readFileSync(file, "UTF-8"));
 var reactjsSourceCode = CodeGen.getReactCode({
   className: "DLFramework",
   swagger: swagger,
+  isES6: true,
   template: {
     class: fs.readFileSync(__dirname + "/template/react-class.mustache", "utf-8"),
     method: fs.readFileSync(__dirname + "/template/method.mustache", "utf-8"),

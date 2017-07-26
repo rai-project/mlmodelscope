@@ -11,6 +11,9 @@
     if(parameters === undefined) {
         parameters = {};
     }
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} http = this.http;
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} statepath = this.path;
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} resolve = this.resolve;
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} deferred = {{#isNode}}Q{{/isNode}}{{^isNode}}$q{{/isNode}}.defer();
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} domain = this.domain,  path = '{{&path}}';
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
@@ -90,7 +93,7 @@
     {{/parameters}}
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
-    this.request('{{method}}', domain + path, parameters, body, headers, queryParameters, form, deferred);
+    this.request(http, statepath, resolve, '{{method}}', path, parameters, body, headers, queryParameters, form, deferred);
 
     return deferred.promise;
  };

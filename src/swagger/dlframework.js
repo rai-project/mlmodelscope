@@ -13,11 +13,10 @@ let DLFramework = (function() {
   "use strict";
 
   function DLFramework(options) {
-    let domain = typeof options === "object" ? options.domain : options;
-    this.domain = domain ? domain : "";
-    if (this.domain.length === 0) {
-      throw new Error("Domain parameter must be specified as a string.");
-    }
+    options = options === undefined ? {} : options;
+    this.http = options.http;
+    this.path = options.path;
+    this.resolve = options.resolve;
   }
 
   function serializeQueryParams(parameters) {
@@ -56,6 +55,9 @@ let DLFramework = (function() {
      * @param {object} deferred - promise object
      */
   DLFramework.prototype.request = function(
+    http,
+    path,
+    resolve,
     method,
     url,
     parameters,
@@ -65,32 +67,50 @@ let DLFramework = (function() {
     form,
     deferred
   ) {
-    const queryParams =
-      queryParameters && Object.keys(queryParameters).length
-        ? serializeQueryParams(queryParameters)
-        : null;
-    const urlWithParams = url + (queryParams ? "?" + queryParams : "");
-
     if (body && !Object.keys(body).length) {
       body = undefined;
     }
 
-    fetch(urlWithParams, {
-      method,
-      headers,
-      body: JSON.stringify(body)
-    })
+    http
+      .request({
+        url: url,
+        query: queryParameters,
+        method,
+        headers,
+        body: JSON.stringify(body)
+      })
       .then(response => {
-        if (!response.ok) {
-          throw response;
+        if (path && path[response.status]) {
+          return path[response.status](response);
         }
-        return response.json();
+
+        return path && path.success ? path.success(response) : response;
       })
-      .then(body => {
-        deferred.resolve(body);
-      })
+      // This error will be an instance of HttpError
       .catch(error => {
-        deferred.reject(error);
+        if (!path) {
+          throw error;
+        }
+
+        if (error.isAborted && path.abort) {
+          return path.abort({
+            error: error.toJSON()
+          });
+        }
+
+        if (path[error.status]) {
+          return path[error.status]({
+            error: error.toJSON()
+          });
+        }
+
+        if (path.error) {
+          return path.error({
+            error: error.toJSON()
+          });
+        }
+
+        throw error;
       });
   };
 
@@ -106,6 +126,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/framework/{framework_name}/info";
@@ -131,8 +154,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "GET",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -156,6 +182,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/framework/{framework_name}/model/{model_name}/info";
@@ -193,8 +222,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "POST",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -218,6 +250,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/framework/{framework_name}/model/{model_name}/predict";
@@ -255,8 +290,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "POST",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -279,6 +317,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/framework/{framework_name}/models";
@@ -304,8 +345,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "GET",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -326,6 +370,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/frameworks";
@@ -340,8 +387,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "GET",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -364,6 +414,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/model/{model_name}/info";
@@ -394,8 +447,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "POST",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
@@ -416,6 +472,9 @@ let DLFramework = (function() {
     if (parameters === undefined) {
       parameters = {};
     }
+    let http = this.http;
+    let statepath = this.path;
+    let resolve = this.resolve;
     let deferred = Q.defer();
     let domain = this.domain,
       path = "/v1/models";
@@ -430,8 +489,11 @@ let DLFramework = (function() {
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
     this.request(
+      http,
+      statepath,
+      resolve,
       "GET",
-      domain + path,
+      path,
       parameters,
       body,
       headers,
