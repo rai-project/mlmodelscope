@@ -26,15 +26,19 @@ export default function ModelInformationSummary({ model }) {
             borderColor: "#0DB7C4"
           }}
         >
-          <Icon name={input.type} />
-          {capitalize(input.type)} Input
+          {/* <Icon name={input.type} />
+          {capitalize(input.type)} Input */}
         </Label>
-        <Card.Header as="a" href={`/model/${name}`}>{name}</Card.Header>
-        <Card.Meta>{framework} ({version})</Card.Meta>
+        <Card.Header as="a" href={`/model/${name}`}>
+          {name}
+        </Card.Header>
+        {/* <Card.Meta>
+          {framework} ({version})
+        </Card.Meta> */}
       </Card.Content>
-      <Card.Content extra>
+      {/* <Card.Content extra>
         {shorten(description)}
-      </Card.Content>
+      </Card.Content> */}
     </Card>
   );
 }

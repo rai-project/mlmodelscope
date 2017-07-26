@@ -367,7 +367,73 @@ func getDlframeworkHandler() (http.Handler, error) {
 		})
 	})
 	api.RegistryGetFrameworkModelsHandler = registry.GetFrameworkModelsHandlerFunc(func(params registry.GetFrameworkModelsParams) middleware.Responder {
-		return middleware.NotImplemented("operation registry.GetFrameworkModels has not yet been implemented")
+		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			rgs, err := kv.New()
+			if err != nil {
+				panic(err)
+			}
+			defer rgs.Close()
+
+			manifests := []*models.DlframeworkModelManifest{}
+
+			dirs := []string{path.Join(config.App.Name, "registry")}
+			for {
+				if len(dirs) == 0 {
+					break
+				}
+				var dir string
+				dir, dirs = dirs[0], dirs[1:]
+				lst, err := rgs.List(dir)
+				if err != nil {
+					continue
+				}
+				for _, e := range lst {
+					if e.Value == nil || len(decodeRegistry(e.Value)) == 0 {
+						dirs = append(dirs, e.Key)
+						continue
+					}
+					registryValue := decodeRegistry(e.Value)
+					model := new(dlframework.ModelManifest)
+					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model); err != nil {
+						continue
+					}
+
+					bts, err := json.Marshal(model)
+					if err != nil {
+						rw.WriteHeader(http.StatusBadRequest)
+						producer.Produce(rw,
+							makeError(
+								http.StatusBadRequest,
+								"GetFrameworkModels",
+								err,
+							),
+						)
+						return
+					}
+
+					res := &models.DlframeworkModelManifest{}
+					if err := json.Unmarshal(bts, res); err != nil {
+						rw.WriteHeader(http.StatusBadRequest)
+						producer.Produce(rw,
+							makeError(
+								http.StatusBadRequest,
+								"GetFrameworkModels",
+								err,
+							),
+						)
+						return
+					}
+
+					manifests = append(manifests, res)
+				}
+			}
+
+			registry.NewGetFrameworkModelsOK().
+				WithPayload(&models.DlframeworkGetModelManifestsResponse{
+					Manifests: manifests,
+				}).
+				WriteResponse(rw, producer)
+		})
 	})
 	api.RegistryGetModelManifestHandler = registry.GetModelManifestHandlerFunc(func(params registry.GetModelManifestParams) middleware.Responder {
 		return middleware.NotImplemented("operation registry.GetModelManifest has not yet been implemented")
