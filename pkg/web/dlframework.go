@@ -306,7 +306,9 @@ func getDlframeworkHandler() (http.Handler, error) {
 			manifests := []*models.DlframeworkModelManifest{}
 
 			for _, framework := range frameworks {
-				basePath := path.Join(config.App.Name, "registry", framework.Name, framework.Version)
+				frameworkName, frameworkVersion := strings.ToLower(framework.Name), strings.ToLower(framework.Version)
+				basePath := path.Join("/"+config.App.Name, "registry", frameworkName, frameworkVersion)
+
 				dirs := []string{basePath}
 				for {
 					if len(dirs) == 0 {

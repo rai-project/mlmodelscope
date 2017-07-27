@@ -32,13 +32,13 @@ export default function ModelInformationSummary({ model }) {
         <Card.Header as="a" href={`/model/${name}`}>
           {name}
         </Card.Header>
-        {/* <Card.Meta>
-          {framework} ({version})
-        </Card.Meta> */}
+        <Card.Meta>
+          {framework ? framework : "TODO"} ({version})
+        </Card.Meta>
       </Card.Content>
-      {/* <Card.Content extra>
+      <Card.Content extra>
         {shorten(description)}
-      </Card.Content> */}
+      </Card.Content>
     </Card>
   );
 }
