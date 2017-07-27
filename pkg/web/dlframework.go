@@ -13,7 +13,6 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/jinzhu/copier"
-	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 
 	"fmt"
@@ -218,22 +217,22 @@ func getDlframeworkHandler() (http.Handler, error) {
 				)
 			}()
 
-			fn := strings.ToLower(params.FrameworkName)
-			fv := "latest"
+			frameworkName := strings.ToLower(params.FrameworkName)
+			frameworkVersion := "latest"
 			if params.FrameworkVersion != nil {
-				fv = strings.ToLower(*params.FrameworkVersion)
+				frameworkVersion = strings.ToLower(*params.FrameworkVersion)
 			}
-			mn := strings.ToLower(params.ModelName)
-			mv := "latest"
+			modelName := strings.ToLower(params.ModelName)
+			modelVersion := "latest"
 			if params.ModelVersion != nil {
-				mv = strings.ToLower(*params.ModelVersion)
+				modelVersion = strings.ToLower(*params.ModelVersion)
 			}
 
-			if fv == "" {
+			if frameworkVersion == "" {
 				err = errors.New("invalid RegistryGetFrameworkModelManifestHandler framework version cannot be empty")
 				return
 			}
-			if mv == "" {
+			if modelVersion == "" {
 				err = errors.New("invalid RegistryGetFrameworkModelManifestHandler model version cannot be empty")
 				return
 			}
@@ -244,7 +243,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			defer rgs.Close()
 
-			key := path.Join(config.App.Name, "registry", fn, fv, mn, mv, "info")
+			key := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion, modelName, modelVersion, "info")
 			ok, err := rgs.Exists(key)
 			if err != nil {
 				return
@@ -294,8 +293,13 @@ func getDlframeworkHandler() (http.Handler, error) {
 				)
 			}()
 
-			frameworks, err := getFrameworks()
-			if err != nil {
+			frameworkName := strings.ToLower(params.FrameworkName)
+			frameworkVersion := "latest"
+			if params.FrameworkVersion != nil {
+				frameworkVersion = strings.ToLower(*params.FrameworkVersion)
+			}
+			if frameworkVersion == "" {
+				err = errors.New("invalid RegistryGetFrameworkModelManifestHandler framework version cannot be empty")
 				return
 			}
 
@@ -307,45 +311,41 @@ func getDlframeworkHandler() (http.Handler, error) {
 
 			manifests := []*models.DlframeworkModelManifest{}
 
-			for _, framework := range frameworks {
-				frameworkName, frameworkVersion := strings.ToLower(framework.Name), strings.ToLower(framework.Version)
-				basePath := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion)
-				dirs := []string{basePath}
-				for {
-					if len(dirs) == 0 {
-						break
+			basePath := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion)
+			dirs := []string{basePath}
+			for {
+				if len(dirs) == 0 {
+					break
+				}
+				var dir string
+				dir, dirs = dirs[0], dirs[1:]
+				lst, err := rgs.List(dir)
+				if err != nil {
+					continue
+				}
+				for _, e := range lst {
+					if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
+						continue
 					}
-					var dir string
-					dir, dirs = dirs[0], dirs[1:]
-					lst, err := rgs.List(dir)
+					if e.Value == nil || len(e.Value) == 0 {
+						dirs = append(dirs, e.Key)
+						continue
+					}
+
+					registryValue := e.Value
+					model := new(dlframework.ModelManifest)
+					err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
 					if err != nil {
 						continue
 					}
-					for _, e := range lst {
-						if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
-							continue
-						}
-						if e.Value == nil || len(e.Value) == 0 {
-							dirs = append(dirs, e.Key)
-							continue
-						}
 
-						registryValue := e.Value
-						model := new(dlframework.ModelManifest)
-						err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
-						if err != nil {
-							continue
-						}
-
-						res := new(models.DlframeworkModelManifest)
-						err = copier.Copy(res, model)
-						if err != nil {
-							continue
-						}
-						pp.Println(res)
-
-						manifests = append(manifests, res)
+					res := new(models.DlframeworkModelManifest)
+					err = copier.Copy(res, model)
+					if err != nil {
+						continue
 					}
+
+					manifests = append(manifests, res)
 				}
 			}
 
@@ -439,7 +439,82 @@ func getDlframeworkHandler() (http.Handler, error) {
 		})
 	})
 	api.RegistryGetModelManifestsHandler = registry.GetModelManifestsHandlerFunc(func(params registry.GetModelManifestsParams) middleware.Responder {
-		return middleware.NotImplemented("operation registry.GetModelManifests has not yet been implemented")
+		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			var err error
+			defer func() {
+				if err == nil {
+					return
+				}
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkManifest",
+						err,
+					),
+				)
+			}()
+
+			frameworks, err := getFrameworks()
+			if err != nil {
+				return
+			}
+
+			rgs, err := kv.New()
+			if err != nil {
+				return
+			}
+			defer rgs.Close()
+
+			manifests := []*models.DlframeworkModelManifest{}
+
+			for _, framework := range frameworks {
+				frameworkName, frameworkVersion := strings.ToLower(framework.Name), strings.ToLower(framework.Version)
+				basePath := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion)
+				dirs := []string{basePath}
+				for {
+					if len(dirs) == 0 {
+						break
+					}
+					var dir string
+					dir, dirs = dirs[0], dirs[1:]
+					lst, err := rgs.List(dir)
+					if err != nil {
+						continue
+					}
+					for _, e := range lst {
+						if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
+							continue
+						}
+						if e.Value == nil || len(e.Value) == 0 {
+							dirs = append(dirs, e.Key)
+							continue
+						}
+
+						registryValue := e.Value
+						model := new(dlframework.ModelManifest)
+						err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+						if err != nil {
+							continue
+						}
+
+						res := new(models.DlframeworkModelManifest)
+						err = copier.Copy(res, model)
+						if err != nil {
+							continue
+						}
+
+						manifests = append(manifests, res)
+					}
+				}
+			}
+
+			registry.NewGetModelManifestsOK().
+				WithPayload(&models.DlframeworkGetModelManifestsResponse{
+					Manifests: manifests,
+				}).
+				WriteResponse(rw, producer)
+		})
 	})
 	api.PredictorPredictHandler = predictor.PredictHandlerFunc(func(params predictor.PredictParams) middleware.Responder {
 		return middleware.NotImplemented("operation predictor.Predict has not yet been implemented")
