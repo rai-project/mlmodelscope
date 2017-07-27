@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"path"
 	"strings"
+	"sync"
 
 	openapierrors "github.com/go-openapi/errors"
 	"github.com/go-openapi/loads"
@@ -14,6 +15,7 @@ import (
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
+	"github.com/rai-project/libkv/store"
 
 	"fmt"
 
@@ -81,6 +83,8 @@ func getDlframeworkHandler() (http.Handler, error) {
 		}
 		defer rgs.Close()
 
+		var wg sync.WaitGroup
+		var manifestsLock sync.Mutex
 		manifests := []*models.DlframeworkFrameworkManifest{}
 
 		dirs := []string{path.Join(config.App.Name, "registry")}
@@ -99,18 +103,25 @@ func getDlframeworkHandler() (http.Handler, error) {
 					dirs = append(dirs, e.Key)
 					continue
 				}
-				registryValue := e.Value
-				framework := new(dlframework.FrameworkManifest)
-				if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
-					continue
-				}
-				res := new(models.DlframeworkFrameworkManifest)
-				if err := copier.Copy(res, framework); err != nil {
-					continue
-				}
-				manifests = append(manifests, res)
+				wg.Add(1)
+				go func(e *store.KVPair) {
+					defer wg.Done()
+					registryValue := e.Value
+					framework := new(dlframework.FrameworkManifest)
+					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
+						return
+					}
+					res := new(models.DlframeworkFrameworkManifest)
+					if err := copier.Copy(res, framework); err != nil {
+						return
+					}
+					manifestsLock.Lock()
+					defer manifestsLock.Unlock()
+					manifests = append(manifests, res)
+				}(e)
 			}
 		}
+		wg.Wait()
 		return manifests, nil
 	}
 
@@ -466,8 +477,10 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			defer rgs.Close()
 
+			var manifestsLock sync.Mutex
 			manifests := []*models.DlframeworkModelManifest{}
 
+			var wg sync.WaitGroup
 			for _, framework := range frameworks {
 				frameworkName, frameworkVersion := strings.ToLower(framework.Name), strings.ToLower(framework.Version)
 				basePath := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion)
@@ -483,31 +496,38 @@ func getDlframeworkHandler() (http.Handler, error) {
 						continue
 					}
 					for _, e := range lst {
-						if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
-							continue
-						}
-						if e.Value == nil || len(e.Value) == 0 {
-							dirs = append(dirs, e.Key)
-							continue
-						}
+						wg.Add(1)
+						go func(e *store.KVPair) {
+							defer wg.Done()
+							if e.Value == nil || len(e.Value) == 0 {
+								dirs = append(dirs, e.Key)
+								return
+							}
+							if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
+								return
+							}
 
-						registryValue := e.Value
-						model := new(dlframework.ModelManifest)
-						err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
-						if err != nil {
-							continue
-						}
+							registryValue := e.Value
+							model := new(dlframework.ModelManifest)
+							err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+							if err != nil {
+								return
+							}
 
-						res := new(models.DlframeworkModelManifest)
-						err = copier.Copy(res, model)
-						if err != nil {
-							continue
-						}
+							res := new(models.DlframeworkModelManifest)
+							err = copier.Copy(res, model)
+							if err != nil {
+								return
+							}
 
-						manifests = append(manifests, res)
+							manifestsLock.Lock()
+							defer manifestsLock.Unlock()
+							manifests = append(manifests, res)
+						}(e)
 					}
 				}
 			}
+			wg.Wait()
 
 			registry.NewGetModelManifestsOK().
 				WithPayload(&models.DlframeworkGetModelManifestsResponse{
