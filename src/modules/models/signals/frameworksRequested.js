@@ -11,20 +11,20 @@ import { GetFrameworkModels } from "../../../swagger/dlframework";
 
 export default [
   set(state`app.currentPage`, "getFrameworkManifests"),
-  set(state`app.name`, "CarML getFrameworkManifests"),
+  set(state`app.name`, "CarML getFrameworkManifests")
   // GetFrameworkManifests(),
   // {
   //   success: [set(state`app.frameworks`, props`result.manifests`)],
   //   error: onError,
   // },
-  GetFrameworkModels({
-    frameworkName: "Tensorflow",
-    frameworkVersion: "1.1"
-  }),
-  {
-    success: [set(state`models.data`, props`result.manifests`)],
-    error: onError
-  }
+  // GetFrameworkModels({
+  //   frameworkName: "Tensorflow",
+  //   frameworkVersion: "1.1"
+  // }),
+  // {
+  //   success: [set(state`models.data`, props`result.manifests`)],
+  //   error: onError
+  // }
   // GetFrameworkModelManifest({
   //   frameworkName: "Tensorflow",
   //   modelName: "inception",

@@ -33,7 +33,7 @@ export default function ModelInformationSummary({ model }) {
           {name}
         </Card.Header>
         <Card.Meta>
-          {framework ? framework : "TODO"} ({version})
+          {framework ? framework.name : "TODO"} ({version})
         </Card.Meta>
       </Card.Content>
       <Card.Content extra>
