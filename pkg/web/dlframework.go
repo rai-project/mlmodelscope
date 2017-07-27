@@ -12,6 +12,8 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gogo/protobuf/jsonpb"
+	"github.com/jinzhu/copier"
+	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 
 	"fmt"
@@ -24,7 +26,6 @@ import (
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
 	"github.com/rai-project/dlframework/web/restapi/operations/registry"
 	kv "github.com/rai-project/registry"
-	"github.com/ulule/deepcopier"
 )
 
 var (
@@ -105,7 +106,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 					continue
 				}
 				res := new(models.DlframeworkFrameworkManifest)
-				if err := deepcopier.Copy(framework).To(res); err != nil {
+				if err := copier.Copy(res, framework); err != nil {
 					continue
 				}
 				manifests = append(manifests, res)
@@ -167,7 +168,8 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 
 			res := new(models.DlframeworkFrameworkManifest)
-			if err := deepcopier.Copy(framework).To(res); err != nil {
+			err = copier.Copy(res, framework)
+			if err != nil {
 				return
 			}
 
@@ -265,7 +267,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 
 			res := new(models.DlframeworkModelManifest)
-			err = deepcopier.Copy(model).To(res)
+			err = copier.Copy(res, model)
 			if err != nil {
 				return
 			}
@@ -307,8 +309,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 
 			for _, framework := range frameworks {
 				frameworkName, frameworkVersion := strings.ToLower(framework.Name), strings.ToLower(framework.Version)
-				basePath := path.Join("/"+config.App.Name, "registry", frameworkName, frameworkVersion)
-
+				basePath := path.Join(config.App.Name, "registry", frameworkName, frameworkVersion)
 				dirs := []string{basePath}
 				for {
 					if len(dirs) == 0 {
@@ -321,7 +322,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 						continue
 					}
 					for _, e := range lst {
-						if e.Key == path.Join(basePath, "info") {
+						if strings.TrimLeft(e.Key, "/") == path.Join(basePath, "info") {
 							continue
 						}
 						if e.Value == nil || len(e.Value) == 0 {
@@ -337,10 +338,11 @@ func getDlframeworkHandler() (http.Handler, error) {
 						}
 
 						res := new(models.DlframeworkModelManifest)
-						err = deepcopier.Copy(model).To(res)
+						err = copier.Copy(res, model)
 						if err != nil {
 							continue
 						}
+						pp.Println(res)
 
 						manifests = append(manifests, res)
 					}
@@ -419,7 +421,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 				}
 
 				res := new(models.DlframeworkModelManifest)
-				err = deepcopier.Copy(model).To(res)
+				err = copier.Copy(res, model)
 				if err != nil {
 					continue
 				}
