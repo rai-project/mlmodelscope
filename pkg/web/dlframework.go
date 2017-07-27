@@ -2,7 +2,6 @@ package web
 
 import (
 	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"path"
@@ -13,7 +12,6 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gogo/protobuf/jsonpb"
-	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 
 	"fmt"
@@ -26,6 +24,7 @@ import (
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
 	"github.com/rai-project/dlframework/web/restapi/operations/registry"
 	kv "github.com/rai-project/registry"
+	"github.com/ulule/deepcopier"
 )
 
 var (
@@ -58,15 +57,47 @@ func (e apiError) MarshalJSON() ([]byte, error) {
 	return []byte(res), nil
 }
 
-func decodeRegistry0(src []byte) []byte {
-	enc := base64.StdEncoding
-	buf := make([]byte, enc.DecodedLen(len(src)))
-	enc.Decode(buf, src)
-	return buf
-}
+func getFrameworks() ([]*models.DlframeworkFrameworkManifest, error) {
 
-func decodeRegistry(src []byte) []byte {
-	return src
+	unmarshaler := DefaultUnmarshaler
+
+	rgs, err := kv.New()
+	if err != nil {
+		return nil, err
+	}
+	defer rgs.Close()
+
+	manifests := []*models.DlframeworkFrameworkManifest{}
+
+	dirs := []string{path.Join(config.App.Name, "registry")}
+	for {
+		if len(dirs) == 0 {
+			break
+		}
+		var dir string
+		dir, dirs = dirs[0], dirs[1:]
+		lst, err := rgs.List(dir)
+		if err != nil {
+			continue
+		}
+		for _, e := range lst {
+			if e.Value == nil || len(e.Value) == 0 {
+				dirs = append(dirs, e.Key)
+				continue
+			}
+			registryValue := e.Value
+			framework := new(dlframework.FrameworkManifest)
+			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
+				continue
+			}
+			res := new(models.DlframeworkFrameworkManifest)
+			if err := deepcopier.Copy(framework).To(res); err != nil {
+				continue
+			}
+			manifests = append(manifests, res)
+		}
+	}
+	return manifests, nil
 }
 
 func getDlframeworkHandler() (http.Handler, error) {
@@ -88,23 +119,12 @@ func getDlframeworkHandler() (http.Handler, error) {
 
 	api.RegistryGetFrameworkManifestHandler = registry.GetFrameworkManifestHandlerFunc(func(params registry.GetFrameworkManifestParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
-			fn := strings.ToLower(params.FrameworkName)
-			fv := params.FrameworkVersion
-
-			if fv == nil {
+			var err error
+			defer func() {
+				if err == nil {
+					return
+				}
 				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkManifest",
-						errors.New("invalid RegistryGetFrameworkManifestHandler framework version cannot be empty"),
-					),
-				)
-				return
-			}
-
-			rgs, err := kv.New()
-			if err != nil {
 				producer.Produce(rw,
 					makeError(
 						http.StatusBadRequest,
@@ -112,7 +132,17 @@ func getDlframeworkHandler() (http.Handler, error) {
 						err,
 					),
 				)
-				rw.WriteHeader(http.StatusBadRequest)
+			}()
+
+			fn := strings.ToLower(params.FrameworkName)
+			fv := params.FrameworkVersion
+			if fv == nil {
+				err = errors.New("invalid RegistryGetFrameworkManifestHandler framework version cannot be empty")
+				return
+			}
+
+			rgs, err := kv.New()
+			if err != nil {
 				return
 			}
 			defer rgs.Close()
@@ -120,14 +150,6 @@ func getDlframeworkHandler() (http.Handler, error) {
 			key := path.Join(config.App.Name, "registry", fn, strings.ToLower(*fv), "info")
 			ok, err := rgs.Exists(key)
 			if err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkManifest",
-						err,
-					),
-				)
 				return
 			}
 			if !ok {
@@ -138,45 +160,19 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			e, err := rgs.Get(key)
 			if err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkManifest",
-						err,
-					),
-				)
 				return
 			}
 			framework := new(dlframework.FrameworkManifest)
-			registryValue := decodeRegistry(e.Value)
-			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkManifest",
-						err,
-					),
-				)
+			registryValue := e.Value
+			err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework)
+			if err != nil {
 				return
 			}
 
-			container := map[string]models.DlframeworkContainerHardware{}
-			for k, v := range framework.GetContainer() {
-				container[k] = models.DlframeworkContainerHardware{
-					CPU: v.GetCpu(),
-					Gpu: v.GetGpu(),
-				}
+			res := new(models.DlframeworkFrameworkManifest)
+			if err := deepcopier.Copy(framework).To(res); err != nil {
+				return
 			}
-
-			res := &models.DlframeworkFrameworkManifest{
-				Container: container,
-				Name:      framework.GetName(),
-				Version:   framework.GetVersion(),
-			}
-
-			pp.Println(res)
 
 			registry.NewGetFrameworkManifestOK().
 				WithPayload(res).
@@ -186,62 +182,43 @@ func getDlframeworkHandler() (http.Handler, error) {
 	api.RegistryGetFrameworkManifestsHandler = registry.GetFrameworkManifestsHandlerFunc(func(params registry.GetFrameworkManifestsParams) middleware.Responder {
 
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
-			rgs, err := kv.New()
+			frameworks, err := getFrameworks()
 			if err != nil {
-				panic(err)
-			}
-			defer rgs.Close()
-
-			manifests := []*models.DlframeworkFrameworkManifest{}
-
-			dirs := []string{path.Join(config.App.Name, "registry")}
-			for {
-				if len(dirs) == 0 {
-					break
-				}
-				var dir string
-				dir, dirs = dirs[0], dirs[1:]
-				lst, err := rgs.List(dir)
-				if err != nil {
-					continue
-				}
-				for _, e := range lst {
-					if e.Value == nil || len(decodeRegistry(e.Value)) == 0 {
-						dirs = append(dirs, e.Key)
-						continue
-					}
-					registryValue := decodeRegistry(e.Value)
-					framework := new(dlframework.FrameworkManifest)
-					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
-						continue
-					}
-					container := map[string]models.DlframeworkContainerHardware{}
-					for k, v := range framework.GetContainer() {
-						if v == nil {
-							continue
-						}
-						container[k] = models.DlframeworkContainerHardware{
-							CPU: v.GetCpu(),
-							Gpu: v.GetGpu(),
-						}
-					}
-					manifests = append(manifests, &models.DlframeworkFrameworkManifest{
-						Container: container,
-						Name:      framework.GetName(),
-						Version:   framework.GetVersion(),
-					})
-				}
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkModelManifest",
+						err,
+					),
+				)
+				return
 			}
 
 			registry.NewGetFrameworkManifestsOK().
 				WithPayload(&models.DlframeworkGetFrameworkManifestsResponse{
-					Manifests: manifests,
+					Manifests: frameworks,
 				}).
 				WriteResponse(rw, producer)
 		})
 	})
 	api.RegistryGetFrameworkModelManifestHandler = registry.GetFrameworkModelManifestHandlerFunc(func(params registry.GetFrameworkModelManifestParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			var err error
+			defer func() {
+				if err == nil {
+					return
+				}
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkManifest",
+						err,
+					),
+				)
+			}()
+
 			fn := strings.ToLower(params.FrameworkName)
 			fv := "latest"
 			if params.FrameworkVersion != nil {
@@ -254,38 +231,16 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 
 			if fv == "" {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						errors.New("invalid RegistryGetFrameworkModelManifestHandler framework version cannot be empty"),
-					),
-				)
+				err = errors.New("invalid RegistryGetFrameworkModelManifestHandler framework version cannot be empty")
 				return
 			}
 			if mv == "" {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						errors.New("invalid RegistryGetFrameworkModelManifestHandler model version cannot be empty"),
-					),
-				)
+				err = errors.New("invalid RegistryGetFrameworkModelManifestHandler model version cannot be empty")
 				return
 			}
 
 			rgs, err := kv.New()
 			if err != nil {
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
-				rw.WriteHeader(http.StatusBadRequest)
 				return
 			}
 			defer rgs.Close()
@@ -293,14 +248,6 @@ func getDlframeworkHandler() (http.Handler, error) {
 			key := path.Join(config.App.Name, "registry", fn, fv, mn, mv, "info")
 			ok, err := rgs.Exists(key)
 			if err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
 				return
 			}
 			if !ok {
@@ -311,53 +258,18 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			e, err := rgs.Get(key)
 			if err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
 				return
 			}
-			registryValue := decodeRegistry(e.Value)
-			model := &dlframework.ModelManifest{}
-			if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model); err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
-				return
-			}
-
-			bts, err := json.Marshal(model)
+			registryValue := e.Value
+			model := new(dlframework.ModelManifest)
+			err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
 			if err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
 				return
 			}
 
-			res := &models.DlframeworkModelManifest{}
-			if err := json.Unmarshal(bts, res); err != nil {
-				rw.WriteHeader(http.StatusBadRequest)
-				producer.Produce(rw,
-					makeError(
-						http.StatusBadRequest,
-						"GetFrameworkModelManifest",
-						err,
-					),
-				)
+			res := new(models.DlframeworkModelManifest)
+			err = deepcopier.Copy(model).To(res)
+			if err != nil {
 				return
 			}
 
@@ -368,63 +280,71 @@ func getDlframeworkHandler() (http.Handler, error) {
 	})
 	api.RegistryGetFrameworkModelsHandler = registry.GetFrameworkModelsHandlerFunc(func(params registry.GetFrameworkModelsParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
+			var err error
+			defer func() {
+				if err == nil {
+					return
+				}
+				rw.WriteHeader(http.StatusBadRequest)
+				producer.Produce(rw,
+					makeError(
+						http.StatusBadRequest,
+						"GetFrameworkManifest",
+						err,
+					),
+				)
+			}()
+
+			frameworks, err := getFrameworks()
+			if err != nil {
+				return
+			}
+
 			rgs, err := kv.New()
 			if err != nil {
-				panic(err)
+				return
 			}
 			defer rgs.Close()
 
 			manifests := []*models.DlframeworkModelManifest{}
 
-			dirs := []string{path.Join(config.App.Name, "registry")}
-			for {
-				if len(dirs) == 0 {
-					break
-				}
-				var dir string
-				dir, dirs = dirs[0], dirs[1:]
-				lst, err := rgs.List(dir)
-				if err != nil {
-					continue
-				}
-				for _, e := range lst {
-					if e.Value == nil || len(decodeRegistry(e.Value)) == 0 {
-						dirs = append(dirs, e.Key)
-						continue
+			for _, framework := range frameworks {
+				basePath := path.Join(config.App.Name, "registry", framework.Name, framework.Version)
+				dirs := []string{basePath}
+				for {
+					if len(dirs) == 0 {
+						break
 					}
-					registryValue := decodeRegistry(e.Value)
-					model := new(dlframework.ModelManifest)
-					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model); err != nil {
-						continue
-					}
-
-					bts, err := json.Marshal(model)
+					var dir string
+					dir, dirs = dirs[0], dirs[1:]
+					lst, err := rgs.List(dir)
 					if err != nil {
-						rw.WriteHeader(http.StatusBadRequest)
-						producer.Produce(rw,
-							makeError(
-								http.StatusBadRequest,
-								"GetFrameworkModels",
-								err,
-							),
-						)
-						return
+						continue
 					}
+					for _, e := range lst {
+						if e.Key == path.Join(basePath, "info") {
+							continue
+						}
+						if e.Value == nil || len(e.Value) == 0 {
+							dirs = append(dirs, e.Key)
+							continue
+						}
 
-					res := &models.DlframeworkModelManifest{}
-					if err := json.Unmarshal(bts, res); err != nil {
-						rw.WriteHeader(http.StatusBadRequest)
-						producer.Produce(rw,
-							makeError(
-								http.StatusBadRequest,
-								"GetFrameworkModels",
-								err,
-							),
-						)
-						return
+						registryValue := e.Value
+						model := new(dlframework.ModelManifest)
+						err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+						if err != nil {
+							continue
+						}
+
+						res := new(models.DlframeworkModelManifest)
+						err = deepcopier.Copy(model).To(res)
+						if err != nil {
+							continue
+						}
+
+						manifests = append(manifests, res)
 					}
-
-					manifests = append(manifests, res)
 				}
 			}
 
