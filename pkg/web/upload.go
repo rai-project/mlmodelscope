@@ -35,7 +35,8 @@ func makeUploadHandler() (echo.HandlerFunc, error) {
 	// place where all those seperated pieces are joined together. In this example
 	// we only use the file store but you may plug in multiple.
 	composer := tusd.NewStoreComposer()
-	composer.UseLocker(memorylocker.New())
+	locker := memorylocker.New()
+	locker.UseIn(composer)
 	store.UseIn(composer)
 
 	// Create a new HTTP handler for the tusd server by providing a configuration.

@@ -3,9 +3,6 @@ import { connect } from "cerebral/react";
 // eslint-disable-next-line
 import { Core, DragDrop, Tus10, Dashboard, Webcam } from "uppy";
 
-import SweetAlert from "sweetalert-react";
-import "sweetalert/dist/sweetalert.css";
-
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import "!style-loader!css-loader!uppy/dist/uppy.min.css";
 
@@ -19,32 +16,46 @@ export default connect(
   class UploadArea extends Component {
     constructor() {
       super();
-      this.addFile = this.addFile.bind(this);
       this.upload = this.upload.bind(this);
       this.onFileAdd = this.onFileAdd.bind(this);
       this.fileAdded = this.fileAdded.bind(this);
       this.state = {
-        images: [],
-        alert: false
+        images: []
       };
     }
     componentWillUnmount() {
       this.uppy = null;
     }
     componentDidMount() {
-      this.uppy = new Core({ debug: true, autoProceed: false });
+      this.uppy = new Core({
+        debug: true,
+        autoProceed: false,
+        restrictions: {
+          maxFileSize: 300000,
+          maxNumberOfFiles: 5,
+          minNumberOfFiles: 1,
+          allowedFileTypes: ["image/*"]
+        },
+        onBeforeFileAdded: (currentFile, files) => {
+          if (currentFile.type && currentFile.type.split("/")[0] === "image") {
+            return Promise.resolve();
+          }
+          return Promise.reject("Invalid file format. Please upload an image");
+        },
+        onBeforeUpload: files => {
+          if (Object.keys(files).length > 1) {
+            return Promise.reject("Too many files :(");
+          }
+          return Promise.resolve();
+        }
+      });
       this.uppy
         .use(Dashboard, {
           target: this.uppyElement,
+          replaceTargetContent: true,
           maxHeight: 300,
           inline: true,
-          locale: {
-            strings: {
-              dropPasteImport:
-                "Drop images here, paste, import from one of the locations above or",
-              dropPaste: "Drop images here, paste or"
-            }
-          }
+          note: "Images only, 300kb or less"
         })
         .use(Webcam, { target: Dashboard })
         .use(Tus10, {
@@ -53,23 +64,10 @@ export default connect(
         })
         .run();
 
-      this.uppy.addFile2 = this.uppy.addFile;
-      this.uppy.addFile = this.addFile;
-
       this.uppy.on("core:file-add", this.onFileAdd);
       this.uppy.on("file-added", this.fileAdded);
       this.uppy.on("core:upload-success", (fileID, uploadURL) => {
-        // console.log(fileID, uploadURL);
-        // console.log(uploadURL);
-        // console.log(Utils.getFileType);
-        // console.log(Utils.getFileType(fileID));
-        // this.uppy.addThumbnail(fileID);
         console.log("logging state", this.uppy.state);
-        // const newImgArray = this.state.images.slice();
-        // newImgArray.push(uploadURL);
-        // this.setState({
-        //   images: newImgArray,
-        // });
       });
 
       this.uppy.on("core:success", () => {
@@ -84,20 +82,6 @@ export default connect(
     onFileAdd(file) {}
     fileAdded(fileID) {
       console.log("file added ", fileID);
-    }
-    addFile(file) {
-      console.log("file ", file);
-      if (file.type && file.type.split("/")[0] === "image") {
-        this.uppy.addFile2({
-          source: "React input",
-          name: file.name,
-          type: file.type,
-          alt: file.name,
-          data: file.data
-        });
-      } else {
-        this.setState({ alert: true });
-      }
     }
 
     upload() {
@@ -114,12 +98,6 @@ export default connect(
             ref={node => {
               this.uppyElement = node;
             }}
-          />
-          <SweetAlert
-            show={this.state.alert}
-            title="OOPS!"
-            text="Please upload an image"
-            onConfirm={() => this.setState({ alert: false })}
           />
         </div>
       );
