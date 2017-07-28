@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/jinzhu/copier"
+	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 	"github.com/rai-project/libkv/store"
 
@@ -64,11 +65,6 @@ func getDlframeworkHandler() (http.Handler, error) {
 	if err != nil {
 		return nil, err
 	}
-	api := operations.NewDlframeworkAPI(swaggerSpec)
-
-	api.ServeError = openapierrors.ServeError
-	api.JSONConsumer = runtime.JSONConsumer()
-	api.JSONProducer = runtime.JSONProducer()
 
 	makeError := func(code int, name string, message error) error {
 		return apiError{Code: code, Name: name, Message: message}
@@ -124,6 +120,14 @@ func getDlframeworkHandler() (http.Handler, error) {
 		wg.Wait()
 		return manifests, nil
 	}
+
+	api := operations.NewDlframeworkAPI(swaggerSpec)
+
+	api.ServeError = openapierrors.ServeError
+	api.JSONConsumer = runtime.JSONConsumer()
+	api.JSONProducer = runtime.JSONProducer()
+	api.ServerShutdown = func() {}
+	api.Logger = log.Debugf
 
 	api.RegistryGetFrameworkManifestHandler = registry.GetFrameworkManifestHandlerFunc(func(params registry.GetFrameworkManifestParams) middleware.Responder {
 		return middleware.ResponderFunc(func(rw http.ResponseWriter, producer runtime.Producer) {
@@ -470,6 +474,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			if err != nil {
 				return
 			}
+			pp.Println(frameworks)
 
 			rgs, err := kv.New()
 			if err != nil {
@@ -539,9 +544,6 @@ func getDlframeworkHandler() (http.Handler, error) {
 	api.PredictorPredictHandler = predictor.PredictHandlerFunc(func(params predictor.PredictParams) middleware.Responder {
 		return middleware.NotImplemented("operation predictor.Predict has not yet been implemented")
 	})
-
-	api.ServerShutdown = func() {}
-	api.Logger = log.Debugf
 
 	handler := api.Serve(nil)
 
