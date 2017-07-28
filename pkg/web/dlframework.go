@@ -1,7 +1,6 @@
 package web
 
 import (
-	"bytes"
 	"encoding/json"
 	"net/http"
 	"path"
@@ -12,7 +11,6 @@ import (
 	"github.com/go-openapi/loads"
 	runtime "github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/gogo/protobuf/jsonpb"
 	"github.com/jinzhu/copier"
 	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
@@ -28,10 +26,6 @@ import (
 	"github.com/rai-project/dlframework/web/restapi/operations/predictor"
 	"github.com/rai-project/dlframework/web/restapi/operations/registry"
 	kv "github.com/rai-project/registry"
-)
-
-var (
-	DefaultUnmarshaler = &jsonpb.Unmarshaler{AllowUnknownFields: false}
 )
 
 type apiError struct {
@@ -70,7 +64,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 		return apiError{Code: code, Name: name, Message: message}
 	}
 
-	unmarshaler := DefaultUnmarshaler
+	unmarshaler := kv.Config.Serializer
 
 	getFrameworks := func() ([]*models.DlframeworkFrameworkManifest, error) {
 		rgs, err := kv.New()
@@ -104,7 +98,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 					defer wg.Done()
 					registryValue := e.Value
 					framework := new(dlframework.FrameworkManifest)
-					if err := unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework); err != nil {
+					if err := unmarshaler.Unmarshal(registryValue, framework); err != nil {
 						return
 					}
 					res := new(models.DlframeworkFrameworkManifest)
@@ -176,7 +170,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			framework := new(dlframework.FrameworkManifest)
 			registryValue := e.Value
-			err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), framework)
+			err = unmarshaler.Unmarshal(registryValue, framework)
 			if err != nil {
 				return
 			}
@@ -275,7 +269,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 			}
 			registryValue := e.Value
 			model := new(dlframework.ModelManifest)
-			err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+			err = unmarshaler.Unmarshal(registryValue, model)
 			if err != nil {
 				return
 			}
@@ -349,7 +343,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 
 					registryValue := e.Value
 					model := new(dlframework.ModelManifest)
-					err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+					err = unmarshaler.Unmarshal(registryValue, model)
 					if err != nil {
 						continue
 					}
@@ -430,7 +424,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 				}
 				registryValue := e.Value
 				model := new(dlframework.ModelManifest)
-				err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+				err = unmarshaler.Unmarshal(registryValue, model)
 				if err != nil {
 					continue
 				}
@@ -514,7 +508,7 @@ func getDlframeworkHandler() (http.Handler, error) {
 
 							registryValue := e.Value
 							model := new(dlframework.ModelManifest)
-							err = unmarshaler.Unmarshal(bytes.NewBuffer(registryValue), model)
+							err = unmarshaler.Unmarshal(registryValue, model)
 							if err != nil {
 								return
 							}
