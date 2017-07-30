@@ -1,27 +1,27 @@
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 
-import getModelInformations from "../../models/actions/getModelInformations";
+import onError from "./onError";
+import { GetModelManifests } from "../../../swagger/dlframework";
 
 export default [
-  // when(state`models.data`, value => value.length === 0),
-  // {
-  //   true: [
-  //     getModelInformations,
-  //     {
-  //       onMessage: [set(state`models.data`, props`models`)],
-  //       onEnd: [
-  //         when(props`code`),
-  //         {
-  //           true: [
-  //             set(state`app.isError`, true),
-  //             set(state`app.errorMessage`, props`message`),
-  //           ],
-  //           false: [],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   false: [],
-  // },
+  when(state`models.data`, value => value.length === 0),
+  {
+    true: [
+      when(state`app.isLoadingModels`),
+      {
+        true: [],
+        false: [
+          set(state`app.isLoadingModels`, true),
+          GetModelManifests(),
+          {
+            success: [set(state`models.data`, props`result.manifests`)],
+            error: onError
+          },
+          set(state`app.isLoadingModels`, false)
+        ]
+      }
+    ],
+    false: []
+  }
 ];
