@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	dlframework "github.com/rai-project/dlframework/web/restapi"
+	dlframework "github.com/rai-project/dlframework/httpapi/restapi"
 	swaggerui "github.com/rai-project/web/swaggerui"
 )
 
