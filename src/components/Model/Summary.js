@@ -2,11 +2,11 @@ import React from "react";
 import { capitalize } from "lodash";
 import { Card, Icon, Label } from "semantic-ui-react";
 
-export default function ModelInformationSummary({ model }) {
+export default function ModelSummary({ model }) {
   if (!model) {
     return <div />;
   }
-  const { name, framework, version, input, description } = model;
+  const { name, framework, version, inputs, description } = model;
 
   const shorten = str => {
     if (str.length > 120) {
@@ -23,17 +23,17 @@ export default function ModelInformationSummary({ model }) {
           style={{
             color: "white",
             backgroundColor: "#0DB7C4",
-            borderColor: "#0DB7C4"
+            borderColor: "#07717a"
           }}
         >
-          {/* <Icon name={input.type} />
-          {capitalize(input.type)} Input */}
+          <Icon name={inputs[0].type} />
+          {capitalize(inputs[0].type)} Input
         </Label>
-        <Card.Header as="a" href={`/model/${name}`}>
+        <Card.Header as="a" href={`/model/${name}/${version}`}>
           {name}
         </Card.Header>
         <Card.Meta>
-          {framework ? framework.name : "TODO"} ({version})
+          {framework ? framework.name : "Unknown Framework"} ({version})
         </Card.Meta>
       </Card.Content>
       <Card.Content extra>

@@ -10,6 +10,7 @@ export default [
   equals(props`name`),
   {
     Home: [redirect(string`/`)],
+    Frameworks: [redirect(string`/frameworks`)],
     Models: [redirect(string`/models`)]
   }
 ];

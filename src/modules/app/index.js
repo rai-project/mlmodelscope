@@ -4,6 +4,8 @@ import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
 import inferenceUrlChanged from "./signals/inferenceUrlChanged";
 import infrenceButtonClicked from "./signals/infrenceButtonClicked";
+import modelsRouted from "./signals/modelsRouted";
+import frameworksRouted from "./signals/frameworksRouted";
 
 export default {
   state: {
@@ -11,7 +13,9 @@ export default {
     name: "CarML",
     isInferring: false,
     isBusy: false,
-    inferenceURL: null
+    inferenceURL: null,
+    models: {},
+    frameworks: {}
   },
   signals: {
     appLoaded,
@@ -19,6 +23,8 @@ export default {
     navbarClicked,
     inferenceUrlChanged,
     modelInformationsRequest,
-    infrenceButtonClicked
+    infrenceButtonClicked,
+    modelsRouted,
+    frameworksRouted
   }
 };

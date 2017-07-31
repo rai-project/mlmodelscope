@@ -38,7 +38,7 @@ const cyStyle = {
   display: "block"
 };
 
-export default function ModelGraph({ graph }) {
+export default function ModelGraph({ header = null, divider = null, graph }) {
   if (!graph) {
     return <div />;
   }
@@ -110,6 +110,8 @@ export default function ModelGraph({ graph }) {
 
   return (
     <div style={cyStyle}>
+      {divider}
+      {header}
       <Cytoscape containerStyle={cyStyle} elements={{ nodes, edges }} />
     </div>
   );

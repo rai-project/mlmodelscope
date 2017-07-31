@@ -7,10 +7,7 @@
     {{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> parameters.{{&camelCaseName}} - {{&description}}{{/isSingleton}}
 {{/parameters}}
  */
-export function {{&methodName}}(parameters){
-    if(parameters === undefined) {
-        parameters = {};
-    }
+export function {{&methodName}}(params){
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = '{{&path}}';
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
 
@@ -21,6 +18,15 @@ export function {{&methodName}}(parameters){
         headers['{{&name}}'] = [{{&value}}];
     {{/headers}}
 
+
+  return function {{&methodName}}Request({ http, path, resolve }) {
+
+    let parameters = params;
+
+    if(parameters === undefined) {
+        parameters = {};
+    }
+
     {{#parameters}}
         {{#isQueryParameter}}
             {{#isSingleton}}
@@ -30,7 +36,7 @@ export function {{&methodName}}(parameters){
                 {{#isPatternType}}
                     Object.keys(parameters).forEach(function(parameterName) {
                         if(new RegExp('{{&pattern}}').test(parameterName)){
-                            queryParameters[parameterName] = parameters[parameterName];
+                            queryParameters[parameterName] = resolve.value(parameters[parameterName]);
                         }
                     });
                 {{/isPatternType}}
@@ -41,7 +47,7 @@ export function {{&methodName}}(parameters){
 
                 {{^isPatternType}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    queryParameters['{{&name}}'] = parameters['{{&camelCaseName}}'];
+                    queryParameters['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
                 }
                 {{/isPatternType}}
             {{/isSingleton}}
@@ -57,14 +63,14 @@ export function {{&methodName}}(parameters){
             {{/isSingleton}}
             {{^isSingleton}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    headers['{{&name}}'] = parameters['{{&camelCaseName}}'];
+                    headers['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
                 }
             {{/isSingleton}}
         {{/isHeaderParameter}}
 
         {{#isBodyParameter}}
             if(parameters['{{&camelCaseName}}'] !== undefined){
-                body = parameters['{{&camelCaseName}}'];
+                body = resolve.value(parameters['{{&camelCaseName}}']);
             }
         {{/isBodyParameter}}
 
@@ -74,7 +80,7 @@ export function {{&methodName}}(parameters){
             {{/isSingleton}}
             {{^isSingleton}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    form['{{&name}}'] = parameters['{{&camelCaseName}}'];
+                    form['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
                 }
             {{/isSingleton}}
         {{/isFormParameter}}
@@ -87,8 +93,6 @@ export function {{&methodName}}(parameters){
 
     {{/parameters}}
     queryParameters = mergeQueryParams(parameters, queryParameters);
-
-  return function {{&methodName}}Request({ http, path, resolve }) {
 
     let resolvedBody = undefined;
     if(body && Object.keys(body).length) {

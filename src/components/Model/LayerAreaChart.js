@@ -26,7 +26,11 @@ const fillcolors = {
   any: "#fccde5" // default value
 };
 
-export default function ModelGraph({ graph }) {
+export default function ModelLayerAreaChart({
+  header = null,
+  divider = null,
+  graph
+}) {
   if (!graph) {
     return <div />;
   }
@@ -79,6 +83,8 @@ export default function ModelGraph({ graph }) {
 
   return (
     <div>
+      {divider}
+      {header}
       <RadialChart
         showLabels
         animation

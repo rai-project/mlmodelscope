@@ -9,8 +9,11 @@ import Navbar from "../Navbar";
 import Header from "../Header";
 import Home from "../Home";
 import Footer from "../Footer";
-import ModelInformations from "../ModelInformations";
-import ModelInformation from "../ModelInformation";
+import {
+  InformationPage as ModelInformationPage,
+  SummaryPage as ModelSummaryPage
+} from "../Model";
+import { SummaryPage as FrameworkSummaryPage } from "../Framework";
 import InferenceResults from "../InferenceResults";
 import Snackbar from "../Snackbar";
 
@@ -34,13 +37,16 @@ export default connect(
       let page = <Home />;
       switch (this.props.currentPage) {
         case "Models":
-          page = <ModelInformations />;
+          page = <ModelSummaryPage />;
           break;
         case "ModelInformation":
-          page = <ModelInformation />;
+          page = <ModelInformationPage />;
           break;
         case "InferenceResults":
           page = <InferenceResults />;
+          break;
+        case "Frameworks":
+          page = <FrameworkSummaryPage />;
           break;
         default:
           page = <Home />;
@@ -51,7 +57,9 @@ export default connect(
         <div className="App">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{this.props.appName}</title>
+            <title>
+              {this.props.appName}
+            </title>
             <link rel="canonical" href={this.props.websiteUrl} />
           </Helmet>
           <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>

@@ -32,6 +32,14 @@ export default connect(
               }}
             />
             <Menu.Item
+              name="frameworks"
+              active={currentPage === "Frameworks"}
+              onClick={e => navbarClicked({ name: "Frameworks" })}
+              style={{
+                fontFamily
+              }}
+            />
+            <Menu.Item
               name="models"
               active={currentPage === "Models"}
               onClick={e => navbarClicked({ name: "Models" })}

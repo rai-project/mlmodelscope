@@ -1,10 +1,11 @@
 import { set, when } from "cerebral/operators";
-import { state, props } from "cerebral/tags";
+import { state, props, inputs } from "cerebral/tags";
 
-import getModelGraph from "../actions/getModelGraph";
 import populateModelData from "../actions/populateModelData";
 import resetError from "../../common/chains/resetError";
 import modelInformationChain from "../../common/chains/modelInformationChain";
+import { ModelManifests } from "../../../swagger/dlframework";
+import onError from "../../common/chains/onError";
 
 export default [
   ...resetError,
@@ -13,17 +14,14 @@ export default [
   set(state`models.currentModel`, props`name`),
   set(state`app.name`, props`name`),
   populateModelData,
-  getModelGraph,
+  ModelManifests({
+    frameworkName: "*",
+    frameworkVersion: "*",
+    modelName: props`name`,
+    modelVersion: props`version`
+  }),
   {
-    onMessage: [set(state`model.graph`, props`model`)],
-    onEnd: [
-      when(props`code`),
-      {
-        true: [
-          set(state`app.isError`, true),
-          set(state`app.errorMessage`, props`message`)
-        ]
-      }
-    ]
+    success: [set(state`model.graph`, props`model`)],
+    error: onError
   }
 ];

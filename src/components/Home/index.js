@@ -4,7 +4,7 @@ import { state, signal } from "cerebral/tags";
 import { Container, Grid, Divider, Label, Input } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
-import ModelSelector from "../ModelSelector";
+import { Selector as ModelSelector } from "../Model";
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
@@ -62,7 +62,6 @@ export default connect(
               </Label>
             </Container>
           </Grid.Row>
-
         </Container>
       </div>
     );

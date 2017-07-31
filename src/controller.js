@@ -12,33 +12,34 @@ import models from "./modules/models";
 import model from "./modules/model";
 
 const controller = Controller({
-  devtools: process.env.NODE_ENV === "production"
-    ? null
-    : Devtools({
-        // Connect to Electron debugger (external debugger). It will
-        // fall back to chrome extension if unable to connect
-        host: "localhost:8586",
+  devtools:
+    process.env.NODE_ENV === "production"
+      ? null
+      : Devtools({
+          // Connect to Electron debugger (external debugger). It will
+          // fall back to chrome extension if unable to connect
+          host: "localhost:8586",
 
-        // By default the devtools tries to reconnect
-        // to debugger when it can not be reached, but
-        // you can turn it off
-        reconnect: true,
+          // By default the devtools tries to reconnect
+          // to debugger when it can not be reached, but
+          // you can turn it off
+          reconnect: true,
 
-        // Time travel
-        storeMutations: true,
+          // Time travel
+          storeMutations: true,
 
-        // Warnings on mutating outside "state" API
-        preventExternalMutations: true,
+          // Warnings on mutating outside "state" API
+          preventExternalMutations: true,
 
-        // Shows a warning when you have components with number of
-        // state dependencies or signals above the set number
-        bigComponentsWarning: 5,
+          // Shows a warning when you have components with number of
+          // state dependencies or signals above the set number
+          bigComponentsWarning: 5,
 
-        // In addition to these basic JavaScript types: Object, Array, String, Number
-        // and Boolean, types of File, FileList, Blob, ImageData and RegExp is allowed to be stored in state
-        // tree. You can add additional types if you know what you are doing :)
-        allowedTypes: [File, Blob]
-      }),
+          // In addition to these basic JavaScript types: Object, Array, String, Number
+          // and Boolean, types of File, FileList, Blob, ImageData and RegExp is allowed to be stored in state
+          // tree. You can add additional types if you know what you are doing :)
+          allowedTypes: [File, Blob]
+        }),
   state: {
     websiteUrl: "http://www.carml.org"
   },
@@ -49,8 +50,10 @@ const controller = Controller({
     router: Router({
       routes: {
         "/": "app.homeRouted",
-        "/models": "models.modelsRouted",
-        "/model/:name": "model.modelRouted"
+        "/models": "app.modelsRouted",
+        "/model/:name/:version": "model.modelRouted",
+        "/frameworks": "app.frameworksRouted",
+        "/framework/:name/:version": "app.frameworkRouted"
       }, // Route definitions
       query: true, // Query support
       onlyHash: false // Use hash urls
