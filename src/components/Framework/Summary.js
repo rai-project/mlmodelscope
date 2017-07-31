@@ -4,7 +4,7 @@ import { Card, Icon, Label, Image } from "semantic-ui-react";
 
 import * as logos from "./logos";
 
-export default function FrameworkSummary({ framework }) {
+export default function FrameworkSummary({ framework, agents }) {
   if (!framework) {
     return <div />;
   }
@@ -13,6 +13,20 @@ export default function FrameworkSummary({ framework }) {
   const img = logos[name.toLowerCase()]
     ? <Image src={logos[name.toLowerCase()]} />
     : null;
+
+  const meta =
+    agents && agents.length
+      ? <Card.Meta>
+          {agents.map(a => {
+            return (
+              <p key={a.host + a.port}>
+                {a.host}:{a.port}
+              </p>
+            );
+          })}
+        </Card.Meta>
+      : null;
+
   return (
     <Card>
       {img}
@@ -20,6 +34,7 @@ export default function FrameworkSummary({ framework }) {
         <Card.Header as="a" href={`/framework/${name}/${version}`}>
           {name} ({version})
         </Card.Header>
+        {meta}
       </Card.Content>
     </Card>
   );

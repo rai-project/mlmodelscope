@@ -6,14 +6,14 @@ import { ModelManifests } from "../../../swagger/dlframework";
 
 export default [
   when(
-    state`app.isLoadingModels`,
+    state`app.isLoadingModelManifests`,
     state`models.data`,
     (isLoading, models) =>
       isLoading !== true && (models === undefined || models.length === 0)
   ),
   {
     true: [
-      set(state`app.isLoadingModels`, true),
+      set(state`app.isLoadingModelManifests`, true),
       ModelManifests({
         frameworkName: "*",
         frameworkVersion: "*",
@@ -24,7 +24,7 @@ export default [
         success: [set(state`models.data`, props`result.manifests`)],
         error: onError
       },
-      set(state`app.isLoadingModels`, false)
+      set(state`app.isLoadingModelManifests`, false)
     ],
     false: []
   }

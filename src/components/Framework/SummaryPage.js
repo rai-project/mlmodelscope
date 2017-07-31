@@ -9,14 +9,15 @@ import Summary from "./Summary";
 export default connect(
   {
     frameworks: state`app.frameworks.data`,
+    agents: state`app.frameworks.agents`,
     useragentMedia: state`useragent.media`
   },
-  function SummaryPage({ frameworks, useragentMedia }) {
+  function SummaryPage({ frameworks, agents, useragentMedia }) {
     if (!frameworks || frameworks.length === 0) {
       return <div />;
     }
     const body = frameworks.map(m => {
-      return <Summary key={"info-" + yeast()} framework={m} />;
+      return <Summary key={"info-" + yeast()} framework={m} agents={agents} />;
     });
     return (
       <Container>

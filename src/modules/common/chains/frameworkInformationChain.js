@@ -6,7 +6,7 @@ import { FrameworkManifests } from "../../../swagger/dlframework";
 
 export default [
   when(
-    state`app.isLoadingFrameworks`,
+    state`app.isLoadingFrameworkManifests`,
     state`app.frameworks.data`,
     (isLoading, frameworks) =>
       isLoading !== true &&
@@ -14,7 +14,7 @@ export default [
   ),
   {
     true: [
-      set(state`app.isLoadingFrameworks`, true),
+      set(state`app.isLoadingFrameworkManifests`, true),
       FrameworkManifests({
         frameworkName: "*",
         frameworkVersion: "*"
@@ -23,7 +23,7 @@ export default [
         success: [set(state`app.frameworks.data`, props`result.manifests`)],
         error: onError
       },
-      set(state`app.isLoadingFrameworks`, false)
+      set(state`app.isLoadingFrameworkManifests`, false)
     ],
     false: []
   }
