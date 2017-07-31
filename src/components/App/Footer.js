@@ -14,9 +14,7 @@ export default function Footer() {
         <Image src={uiucImage} size="small" floated="right" />
         <Header as="h3" inverted>
           <Icon name="github" />
-          <Header.Content>
-            rai-project/carml
-          </Header.Content>
+          <Header.Content>rai-project/carml</Header.Content>
         </Header>
       </a>
     </footer>

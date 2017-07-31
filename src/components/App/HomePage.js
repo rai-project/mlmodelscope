@@ -14,7 +14,7 @@ export default connect(
     inferenceUrlChanged: signal`app.inferenceUrlChanged`,
     infrenceButtonClicked: signal`app.infrenceButtonClicked`
   },
-  function Home({
+  function HomePage({
     model,
     inferenceUrl,
     inferenceUrlChanged,

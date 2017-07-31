@@ -5,17 +5,18 @@ import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Sidebar, Container } from "semantic-ui-react";
 
-import Navbar from "../Navbar";
-import Header from "../Header";
-import Home from "../Home";
-import Footer from "../Footer";
+import Navbar from "./Navbar";
+import Header from "./Header";
+import Home from "./HomePage";
+import Footer from "./Footer";
+import Snackbar from "./Snackbar";
+
 import {
   InformationPage as ModelInformationPage,
   SummaryPage as ModelSummaryPage
 } from "../Model";
 import { SummaryPage as FrameworkSummaryPage } from "../Framework";
 import InferenceResults from "../InferenceResults";
-import Snackbar from "../Snackbar";
 
 import "./App.css";
 

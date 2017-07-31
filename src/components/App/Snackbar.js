@@ -19,9 +19,13 @@ class ErrorTemplate extends React.Component {
         style={this.props.styles}
       >
         <div className="s-alert-box-inner">
-          <code>{this.props.message}</code>
+          <code>
+            {this.props.message}
+          </code>
         </div>
-        <h3>{this.props.customFields.customerName}</h3>
+        <h3>
+          {this.props.customFields.customerName}
+        </h3>
         <span className="s-alert-close" onClick={this.props.handleClose} />
       </div>
     );
