@@ -8,10 +8,11 @@ import Summary from "./Summary";
 
 export default connect(
   {
-    frameworks: state`frameworks.data`,
+    frameworks: state`app.frameworks.data`,
     useragentMedia: state`useragent.media`
   },
   function SummaryPage({ frameworks, useragentMedia }) {
+    console.log(frameworks);
     if (!frameworks || frameworks.length === 0) {
       return <div />;
     }

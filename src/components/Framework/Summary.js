@@ -2,7 +2,7 @@ import React from "react";
 import { capitalize } from "lodash";
 import { Card, Icon, Label, Image } from "semantic-ui-react";
 
-import logos from "./logos";
+import * as logos from "./logos";
 
 export default function FrameworkSummary({ framework }) {
   if (!framework) {
@@ -13,17 +13,13 @@ export default function FrameworkSummary({ framework }) {
   const img = logos[name.toLowerCase()]
     ? <Image src={logos[name.toLowerCase()]} />
     : null;
-
   return (
     <Card>
       {img}
       <Card.Content>
         <Card.Header as="a" href={`/framework/${name}/${version}`}>
-          {name}
+          {name} ({version})
         </Card.Header>
-        <Card.Meta>
-          {version}
-        </Card.Meta>
       </Card.Content>
     </Card>
   );
