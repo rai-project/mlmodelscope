@@ -41,10 +41,8 @@ export default connect(
         <Container text>
           <Divider />
           <Header size="large">References</Header>
-          TODO
-          {/*
-            <List bulleted>
-            {model.referencesList.map(r =>
+          <List bulleted>
+            {model.reference.map(r =>
               <List.Item style={{ color: "black" }} key={yeast()}>
                 <a href={r}>
                   {r}
@@ -52,7 +50,6 @@ export default connect(
               </List.Item>
             )}
           </List>
-          */}
         </Container>
       </div>
     );
