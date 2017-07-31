@@ -39,7 +39,10 @@ export default connect(
           <Grid.Row centered columns={1}>
             <Input
               fluid
-              placeholder={inferenceUrl || "Image URL"}
+              placeholder={
+                inferenceUrl ||
+                "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+              }
               onChange={e =>
                 inferenceUrlChanged({ inferenceURL: e.target.value })}
             />
@@ -55,6 +58,7 @@ export default connect(
                   borderColor: "#0DB7C4"
                 }}
                 onClick={e => {
+                  console.log(e);
                   infrenceButtonClicked({ model: model });
                 }}
               >

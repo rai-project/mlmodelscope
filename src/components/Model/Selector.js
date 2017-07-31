@@ -20,7 +20,7 @@ export default connect(
         return <div />;
       }
       const selectors = models.map(model => {
-        return { key: yeast(), value: model.name, text: model.name };
+        return { key: yeast(), value: model, text: model.name };
       });
 
       return (
