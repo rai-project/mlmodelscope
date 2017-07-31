@@ -14,7 +14,7 @@ export default [
   ),
   {
     true: [
-      set(state`app.isLoadingModels`, true),
+      set(state`app.isLoadingFrameworks`, true),
       FrameworkManifests({
         frameworkName: "*",
         frameworkVersion: "*"

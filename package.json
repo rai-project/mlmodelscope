@@ -108,7 +108,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "bundle": "npm-run-all -p build build:assets",
+    "bundle": "npm-run-all build build:assets",
     "build:assets": "node scripts/build_go_assets.js",
     "build:proto": "npm-run-all -p clean:proto build:protoi",
     "build:protoi": "scripts/protogen.sh",
@@ -137,21 +137,9 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --parser flow --write",
-      "git add"
-    ],
-    "src/**/*.css": [
-      "stylefmt",
-      "stylelint scss",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylefmt",
-      "stylelint --syntax scss",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "prettier --parser flow --write", "git add"],
+    "src/**/*.css": ["stylefmt", "stylelint scss", "git add"],
+    "src/**/*.scss": ["stylefmt", "stylelint --syntax scss", "git add"]
   },
   "proxy": {
     "/api": {
