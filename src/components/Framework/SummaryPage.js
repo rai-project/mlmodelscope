@@ -12,7 +12,6 @@ export default connect(
     useragentMedia: state`useragent.media`
   },
   function SummaryPage({ frameworks, useragentMedia }) {
-    console.log(frameworks);
     if (!frameworks || frameworks.length === 0) {
       return <div />;
     }
