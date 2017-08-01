@@ -20,17 +20,26 @@ export default connect(
         return <div />;
       }
       const selectors = models.map(model => {
-        return { key: yeast(), value: model, text: model.name };
+        return {
+          key: yeast(),
+          value: JSON.stringify(model),
+          text: model.name
+        };
       });
+
+      console.log(selectors);
 
       return (
         <Dropdown
           fluid
           search
           selection
-          placeholder={"Select your Neural Network Model"}
+          multiple={false}
           options={selectors}
-          onChange={(e, data) => modelSelected({ name: data.value })}
+          placeholder={"Select your Neural Network Model"}
+          onChange={(e, { value }) => {
+            modelSelected({ manifest: JSON.parse(value) });
+          }}
         />
       );
     }

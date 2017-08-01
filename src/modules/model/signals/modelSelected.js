@@ -6,6 +6,6 @@ import resetError from "../../common/chains/resetError";
 
 export default [
   ...resetError,
-  set(state`models.currentModel`, props`name`),
+  set(state`models.currentModel`, props`manifest`),
   populateModelData
 ];
