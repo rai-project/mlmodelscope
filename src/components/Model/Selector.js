@@ -1,12 +1,13 @@
 import React from "react";
 import yeast from "yeast";
+import visableModel from "../../computed/visableModels";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
 //
 export default connect(
   {
-    models: state`models.data`,
+    models: visableModel,
     modelSelected: signal`model.modelSelected`,
     modelInformationsRequest: signal`app.modelInformationsRequest`
   },
@@ -26,8 +27,6 @@ export default connect(
           text: model.name
         };
       });
-
-      console.log(selectors);
 
       return (
         <Dropdown

@@ -3,12 +3,12 @@ import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import yeast from "yeast";
 import { Container, Grid, Card } from "semantic-ui-react";
-
+import visableModel from "../../computed/visableModels";
 import Summary from "./Summary";
 
 export default connect(
   {
-    models: state`models.data`,
+    models: visableModel,
     useragentMedia: state`useragent.media`
   },
   function SummaryPage({ models, useragentMedia }) {
