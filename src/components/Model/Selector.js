@@ -4,6 +4,7 @@ import visableModel from "../../computed/visableModels";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
+import * as logos from "../../assets/logos";
 //
 export default connect(
   {
@@ -24,7 +25,12 @@ export default connect(
         return {
           key: yeast(),
           value: JSON.stringify(model),
-          text: model.name
+          text: model.name,
+          description: "version " + model.version,
+          image: {
+            avatar: true,
+            src: logos[model.framework.name.toLowerCase()]
+          }
         };
       });
 
@@ -33,13 +39,19 @@ export default connect(
           fluid
           search
           selection
+          searchInput={{ type: "text" }}
           multiple={false}
-          options={selectors}
-          placeholder={"Select your Neural Network Model"}
+          text={"Select your Neural Network Model"}
           onChange={(e, { value }) => {
             modelSelected({ manifest: JSON.parse(value) });
           }}
-        />
+        >
+          <Dropdown.Menu>
+            {selectors.map(option =>
+              <Dropdown.Item description={option.description} {...option} />
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
       );
     }
   }
