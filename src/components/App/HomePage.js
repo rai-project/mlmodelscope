@@ -58,7 +58,6 @@ export default connect(
                   borderColor: "#0DB7C4"
                 }}
                 onClick={e => {
-                  console.log(e);
                   infrenceButtonClicked({ model: model });
                 }}
               >

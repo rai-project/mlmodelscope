@@ -4,6 +4,9 @@ import { Popup, Progress, Grid } from "semantic-ui-react";
 import { head, tail, join, capitalize } from "lodash";
 
 export default function LabelFeature({ feature }) {
+  if (!feature) {
+    return null;
+  }
   const cleanupName = name => {
     return capitalize(
       head(join(tail(name.match(/\S+/g)), " ").split(",")).trim()

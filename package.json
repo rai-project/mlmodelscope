@@ -70,7 +70,6 @@
     "zipkin": "^0.7.3"
   },
   "devDependencies": {
-    "@storybook/react": "^3.1.9",
     "babel-eslint": "7.2.3",
     "commitizen": "^2.9.6",
     "concurrently": "^3.5.0",
@@ -113,9 +112,6 @@
     "build": "react-scripts build",
     "bundle": "npm-run-all build build:assets",
     "build:assets": "node scripts/build_go_assets.js",
-    "build:proto": "npm-run-all -p clean:proto build:protoi",
-    "build:protoi": "scripts/protogen.sh",
-    "clean:proto": "rimraf src/proto",
     "build:swagger": "npm-run-all -p clean:swagger build:swaggeri",
     "build:swaggeri": "node scripts/build_swagger.js",
     "clean:swagger": "rimraf src/swagger",
@@ -126,9 +122,7 @@
     "flow start": "flow start",
     "flow stop": "flow stop",
     "flow status": "flow status",
-    "flow coverage": "flow coverage",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "flow coverage": "flow coverage"
   },
   "config": {
     "commitizen": {
@@ -140,21 +134,9 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --parser flow --write",
-      "git add"
-    ],
-    "src/**/*.css": [
-      "stylefmt",
-      "stylelint scss",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylefmt",
-      "stylelint --syntax scss",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "prettier --parser flow --write", "git add"],
+    "src/**/*.css": ["stylefmt", "stylelint scss", "git add"],
+    "src/**/*.scss": ["stylefmt", "stylelint --syntax scss", "git add"]
   },
   "proxy": {
     "/api": {

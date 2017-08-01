@@ -15,7 +15,10 @@ export default [
       set(state`app.currentPage`, "InferenceResults"),
       set(
         state`app.name`,
-        compute(state`models.currentModel`, val => val + " Model Inference")
+        compute(
+          state`models.currentModel`,
+          val => val.name + " Model Inference"
+        )
       )
     ],
     true: [] // nothing

@@ -7,6 +7,9 @@ import config from "../../config";
 import { tail, toNumber } from "lodash";
 
 export default function Location({ feature }) {
+  if (!feature) {
+    return null;
+  }
   const longlat = tail(feature.name.match(/\S+/g)).map(toNumber);
   if (longlat.length !== 2) {
     return <div />;

@@ -2,6 +2,7 @@ import yeast from "yeast";
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
+import { filter } from "lodash";
 import { Image, Grid, Container, Message, Divider } from "semantic-ui-react";
 
 import { head, tail, lowerCase } from "lodash";
@@ -15,6 +16,7 @@ export default connect(
     features: state`app.features`
   },
   function InferenceResults({ model, inferenceURL, features }) {
+    features = filter(features, feature => feature !== undefined);
     const makeFeatureTag = function(props) {
       const outputType =
         (model.output ? model.output.type : undefined) || "label";
