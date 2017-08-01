@@ -1,13 +1,18 @@
 import React from "react";
 import { Popup, Progress, Grid } from "semantic-ui-react";
 
-import { head, tail, join, capitalize } from "lodash";
+import { startsWith, trimStart, head, tail, join, capitalize } from "lodash";
+
+const PREFIX = "<> ";
 
 export default function LabelFeature({ feature }) {
   if (!feature) {
     return null;
   }
   const cleanupName = name => {
+    if (startsWith(name, PREFIX)) {
+      return trimStart(name, PREFIX);
+    }
     return capitalize(
       head(join(tail(name.match(/\S+/g)), " ").split(",")).trim()
     );
@@ -20,7 +25,7 @@ export default function LabelFeature({ feature }) {
             {cleanupName(feature.name)}
           </Grid.Column>
         }
-        content={feature.name}
+        content={trimStart(feature.name, PREFIX)}
         position="left center"
       />
       <Grid.Column width={8}>
