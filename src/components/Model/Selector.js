@@ -26,7 +26,7 @@ export default connect(
           key: yeast(),
           value: JSON.stringify(model),
           text: model.name,
-          description: "version " + model.version,
+          description: "model version " + model.version,
           image: {
             avatar: true,
             src: logos[model.framework.name.toLowerCase()]
@@ -39,19 +39,14 @@ export default connect(
           fluid
           search
           selection
-          searchInput={{ type: "text" }}
           multiple={false}
-          text={"Select your Neural Network Model"}
+          options={selectors}
+          placeholder={"Select your Neural Network Model"}
+          searchInput={{ type: "text" }}
           onChange={(e, { value }) => {
             modelSelected({ manifest: JSON.parse(value) });
           }}
-        >
-          <Dropdown.Menu>
-            {selectors.map(option =>
-              <Dropdown.Item description={option.description} {...option} />
-            )}
-          </Dropdown.Menu>
-        </Dropdown>
+        />
       );
     }
   }
