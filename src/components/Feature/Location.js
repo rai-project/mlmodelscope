@@ -3,6 +3,7 @@ import React from "react";
 import { Popup, Progress, Grid } from "semantic-ui-react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 
+import config from "../../config";
 import { tail, toNumber } from "lodash";
 
 export default function Location({ feature }) {
@@ -19,7 +20,7 @@ export default function Location({ feature }) {
           <Grid.Column width={10}>
             <ReactMapboxGl
               style={"mapbox://styles/mapbox/streets-v8"}
-              accessToken="pk.eyJ1IjoiZGFra2FrIiwiYSI6ImNqM3I3d25yczAwMDc0ZnJ0enE2MzA5aXgifQ.1TRrk_M6j0uqvG55jraXpA"
+              accessToken={config.mapbox.accessToken}
               containerStyle={{
                 width: "100%",
                 height: window.innerHeight / 4

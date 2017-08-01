@@ -2,7 +2,7 @@ import React from "react";
 import { capitalize } from "lodash";
 import { Card, Icon, Label, Image } from "semantic-ui-react";
 
-import * as logos from "./logos";
+import * as logos from "../../assets/logos";
 
 export default function FrameworkSummary({ framework, agents }) {
   if (!framework) {
