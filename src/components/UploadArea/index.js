@@ -50,6 +50,7 @@ export default connect(
         }
       });
       this.uppy
+        .use(DragDrop, { target: this.uppyElement })
         .use(Dashboard, {
           target: this.uppyElement,
           replaceTargetContent: true,
