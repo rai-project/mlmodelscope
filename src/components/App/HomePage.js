@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { Container, Grid, Divider, Label, Input } from "semantic-ui-react";
+import { Container, Grid, Divider, Button, Input } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import { Selector as ModelSelector } from "../Model";
@@ -9,14 +9,16 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
   {
-    inferenceUrl: state`app.inferenceUrl`,
     model: state`models.currentModel`,
+    inferenceUrl: state`app.inferenceUrl`,
+    isPredicting: state`app.isPredicting`,
     inferenceUrlChanged: signal`app.inferenceUrlChanged`,
     infrenceButtonClicked: signal`app.infrenceButtonClicked`
   },
   function HomePage({
     model,
     inferenceUrl,
+    isPredicting,
     inferenceUrlChanged,
     infrenceButtonClicked
   }) {
@@ -41,7 +43,7 @@ export default connect(
               fluid
               placeholder={
                 inferenceUrl ||
-                "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                "https://static.pexels.com/photos/20787/pexels-photo.jpg"
               }
               onChange={e =>
                 inferenceUrlChanged({ inferenceURL: e.target.value })}
@@ -49,7 +51,7 @@ export default connect(
           </Grid.Row>
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
             <Container textAlign="center">
-              <Label
+              <Button
                 as="a"
                 size="massive"
                 style={{
@@ -60,9 +62,10 @@ export default connect(
                 onClick={e => {
                   infrenceButtonClicked({ model: model });
                 }}
+                loading={isPredicting === true}
               >
                 Infer
-              </Label>
+              </Button>
             </Container>
           </Grid.Row>
         </Container>

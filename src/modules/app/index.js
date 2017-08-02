@@ -13,8 +13,7 @@ export default {
     name: "CarML",
     isInferring: false,
     isBusy: false,
-    inferenceURL:
-      "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    inferenceURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
     models: {},
     frameworks: {}
   },
