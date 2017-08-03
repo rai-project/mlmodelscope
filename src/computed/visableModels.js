@@ -1,5 +1,5 @@
 import { compute } from "cerebral";
-import { state, props } from "cerebral/tags";
+import { state } from "cerebral/tags";
 import { filter } from "lodash";
 
 const visableModels = compute(state`models.data`, (items, get) => {

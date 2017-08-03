@@ -1378,9 +1378,9 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
-brcast@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/brcast/-/brcast-2.0.2.tgz#2db16de44140e418dc37fab10beec0369e78dcef"
+brcast@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/brcast/-/brcast-3.0.0.tgz#40b80dbb75086f0a32b2c2752dbecbbb34d8b197"
 
 brfs@^1.4.0:
   version "1.4.3"
@@ -4012,9 +4012,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.51.1:
-  version "0.51.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.51.1.tgz#7929c6f0a94e765429fcb2ee6e468278faa9c732"
+flow-bin@^0.52.0:
+  version "0.52.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.52.0.tgz#b6d9abe8bcd1ee5c62df386451a4e2553cadc3a3"
 
 flow-remove-types@^1.1.2:
   version "1.2.1"
@@ -4273,11 +4273,11 @@ glamor@^2.20.38:
     prop-types "^15.5.10"
     through "^2.3.8"
 
-glamorous@^3.25.0:
-  version "3.25.0"
-  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.25.0.tgz#d6d66c3dfffdc194761469adcbd996d4b70222e1"
+glamorous@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-4.0.0.tgz#89ca0508e50195a8439c3caea13705d15f1aeaaf"
   dependencies:
-    brcast "^2.0.0"
+    brcast "^3.0.0"
     fast-memoize "^2.2.7"
     html-tag-names "^1.1.1"
     react-html-attributes "^1.3.0"
@@ -8083,9 +8083,9 @@ react-loading-overlay@^0.2.5:
     prop-types "^15.5.10"
     styled-components "^1.0.8"
 
-react-map-gl@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-3.0.1.tgz#70df3d62996d141ca1ec6a0a1a76d78b7039a1e8"
+react-map-gl@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-3.0.3.tgz#18b639058aa38e94a8434af3b7bb5616ac518558"
   dependencies:
     bowser "^1.2.0"
     hammerjs "^2.0.8"

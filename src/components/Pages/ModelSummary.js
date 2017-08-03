@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
-import yeast from "yeast";
 import { Container, Grid, Card } from "semantic-ui-react";
 import visableModel from "../../computed/visableModels";
 import Summary from "../Model/Summary";

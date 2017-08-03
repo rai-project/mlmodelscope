@@ -1,5 +1,5 @@
-import { set, when } from "cerebral/operators";
-import { state, props, inputs } from "cerebral/tags";
+import { set } from "cerebral/operators";
+import { state, props } from "cerebral/tags";
 
 import populateModelData from "../actions/populateModelData";
 import resetError from "../../common/chains/resetError";

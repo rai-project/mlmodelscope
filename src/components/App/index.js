@@ -52,10 +52,6 @@ export default connect(
           Page = HomePage;
           break;
       }
-      const firstChild = props => {
-        const childrenArray = React.Children.toArray(props.children);
-        return childrenArray[0] || null;
-      };
 
       return (
         <div className="App">

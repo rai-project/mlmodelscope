@@ -1,6 +1,5 @@
 import React from "react";
-import { capitalize } from "lodash";
-import { Card, Icon, Label, Image } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 
 import * as logos from "../../assets/logos";
 
