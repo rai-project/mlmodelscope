@@ -34,24 +34,28 @@ export default connect(
       // this.props.appLoaded();
     }
     render() {
-      let page = <HomePage />;
+      let Page = null;
       switch (this.props.currentPage) {
         case "Models":
-          page = <ModelSummaryPage />;
+          Page = ModelSummaryPage;
           break;
         case "ModelInformation":
-          page = <ModelInformationPage />;
+          Page = ModelInformationPage;
           break;
         case "PredictionResults":
-          page = <PredictionResultsPage />;
+          Page = PredictionResultsPage;
           break;
         case "Frameworks":
-          page = <FrameworkSummaryPage />;
+          Page = FrameworkSummaryPage;
           break;
         default:
-          page = <HomePage />;
+          Page = HomePage;
           break;
       }
+      const firstChild = props => {
+        const childrenArray = React.Children.toArray(props.children);
+        return childrenArray[0] || null;
+      };
 
       return (
         <div className="App">
@@ -72,7 +76,7 @@ export default connect(
                   className="App-body"
                   style={{ borderRadius: 0, border: 0, fontFamily }}
                 >
-                  {page}
+                  <Page key={"page-" + this.props.currentPage} />
                 </Container>
               </div>
               <div
