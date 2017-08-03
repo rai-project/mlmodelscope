@@ -21,7 +21,7 @@ export default [
           framework_version: props`model.framework.version`,
           model_name: props`model.name`,
           model_version: props`model.version`,
-          data: base64(state`app.inferenceURL`),
+          data: base64(state`app.predictURL`),
           limit: 10
         }
       }),

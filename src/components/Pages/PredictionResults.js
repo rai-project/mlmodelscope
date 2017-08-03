@@ -12,10 +12,10 @@ import Feature from "../Feature";
 export default connect(
   {
     model: state`model.data`,
-    inferenceURL: state`app.inferenceURL`,
+    predictURL: state`app.predictURL`,
     features: state`app.features`
   },
-  function PredictionResults({ model, inferenceURL, features }) {
+  function PredictionResults({ model, predictURL, features }) {
     features = filter(features, feature => feature !== undefined);
     const makeFeatureTag = function(props) {
       const outputType =
@@ -30,7 +30,7 @@ export default connect(
     return (
       <Container text>
         <Grid.Row divided textAlign="center">
-          <Image centered size="medium" shape="rounded" src={inferenceURL} />
+          <Image centered size="medium" shape="rounded" src={predictURL} />
         </Grid.Row>
         <Divider hidden />
         <Grid.Row>

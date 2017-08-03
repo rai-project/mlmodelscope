@@ -1,11 +1,10 @@
 import React from "react";
-import yeast from "yeast";
 import visableModel from "../../computed/visableModels";
 import { connect } from "cerebral/react";
-import { state, signal } from "cerebral/tags";
+import { signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
 import * as logos from "../../assets/logos";
-//
+
 export default connect(
   {
     models: visableModel,

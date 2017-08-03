@@ -1,11 +1,8 @@
 {
-  "extends": [
-    "react-app",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react"
-  ],
+  "extends": ["react-app", "prettier", "prettier/flowtype", "prettier/react"],
   "rules": {
-    "no-undef": "off"
+    "no-undef": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
   }
 }

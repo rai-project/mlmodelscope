@@ -23,25 +23,23 @@ const loadingComponent = function(props) {
   }
 };
 
-export const HomePage = Loadable({
-  loader: () => import("./Home"),
-  loading: loadingComponent
-});
-export const FrameworkSummaryPage = Loadable({
-  loader: () => import("./FrameworkSummary"),
-  loading: loadingComponent
-});
-export const ModelInformationPage = Loadable({
-  loader: () => import("./ModelInformation"),
-  loading: loadingComponent
-});
-export const ModelSummaryPage = Loadable({
-  loader: () => import("./ModelSummary"),
-  loading: loadingComponent
-});
-export const PredictionResultsPage = Loadable({
-  loader: () => import("./PredictionResults"),
-  loading: loadingComponent
-});
+const delayLoad = function(loader) {
+  return Loadable({
+    loader,
+    loading: loadingComponent
+  });
+};
+
+export const HomePage = delayLoad(() => import("./Home"));
+export const FrameworkSummaryPage = delayLoad(() =>
+  import("./FrameworkSummary")
+);
+export const ModelInformationPage = delayLoad(() =>
+  import("./ModelInformation")
+);
+export const ModelSummaryPage = delayLoad(() => import("./ModelSummary"));
+export const PredictionResultsPage = delayLoad(() =>
+  import("./PredictionResults")
+);
 
 HomePage.preload();

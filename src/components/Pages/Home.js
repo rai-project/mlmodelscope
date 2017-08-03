@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
+import { isObject } from "lodash";
 import {
   Container,
   Grid,
@@ -17,16 +18,18 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export default connect(
   {
     model: state`models.currentModel`,
-    inferenceUrl: state`app.inferenceUrl`,
+    predictURL: state`app.predictURL`,
     isPredicting: state`app.isPredicting`,
-    inferenceUrlChanged: signal`app.inferenceUrlChanged`,
+    currentModel: state`models.currentModel`,
+    predictURLChanged: signal`app.predictURLChanged`,
     infrenceButtonClicked: signal`app.infrenceButtonClicked`
   },
   function HomePage({
     model,
-    inferenceUrl,
+    predictURL,
     isPredicting,
-    inferenceUrlChanged,
+    currentModel,
+    predictURLChanged,
     infrenceButtonClicked
   }) {
     return (
@@ -49,11 +52,10 @@ export default connect(
             <Input
               fluid
               placeholder={
-                inferenceUrl ||
+                predictURL ||
                 "https://static.pexels.com/photos/20787/pexels-photo.jpg"
               }
-              onChange={e =>
-                inferenceUrlChanged({ inferenceURL: e.target.value })}
+              onChange={e => predictURLChanged({ predictURL: e.target.value })}
             />
           </Grid.Row>
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
@@ -66,6 +68,7 @@ export default connect(
                   backgroundColor: "#0DB7C4",
                   borderColor: "#0DB7C4"
                 }}
+                disabled={!isObject(currentModel)}
                 onClick={e => {
                   infrenceButtonClicked({ model: model });
                 }}

@@ -2,7 +2,7 @@ import appLoaded from "./signals/appLoaded";
 import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
-import inferenceUrlChanged from "./signals/inferenceUrlChanged";
+import predictURLChanged from "./signals/predictURLChanged";
 import infrenceButtonClicked from "./signals/infrenceButtonClicked";
 import modelsRouted from "./signals/modelsRouted";
 import frameworksRouted from "./signals/frameworksRouted";
@@ -13,7 +13,7 @@ export default {
     name: "CarML",
     isInferring: false,
     isBusy: false,
-    inferenceURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
+    predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
     models: {},
     frameworks: {}
   },
@@ -21,7 +21,7 @@ export default {
     appLoaded,
     homeRouted,
     navbarClicked,
-    inferenceUrlChanged,
+    predictURLChanged,
     modelInformationsRequest,
     infrenceButtonClicked,
     modelsRouted,
