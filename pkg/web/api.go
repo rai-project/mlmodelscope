@@ -17,9 +17,7 @@ import (
 )
 
 func apiRoutes(e *echo.Echo) error {
-	api := e.Group("/api",
-		tracermiddleware.FromHTTPRequest(tracer.Std(), "api"),
-	)
+	api := e.Group("/api")
 
 	api.GET("/version", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, config.App.Version)
@@ -34,6 +32,10 @@ func apiRoutes(e *echo.Echo) error {
 	if err != nil {
 		return err
 	}
+	api.Any("/v1/predict*",
+		StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)),
+		tracermiddleware.FromHTTPRequest(tracer.Std(), "api"),
+	)
 	api.Any("/*", StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)))
 
 	// mux := runtime.NewServeMux()
