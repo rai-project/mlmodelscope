@@ -1,7 +1,14 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { Container, Grid, Divider, Button, Input } from "semantic-ui-react";
+import {
+  Container,
+  Grid,
+  Divider,
+  Button,
+  Input,
+  Loader
+} from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import { Selector as ModelSelector } from "../Model";
@@ -62,9 +69,12 @@ export default connect(
                 onClick={e => {
                   infrenceButtonClicked({ model: model });
                 }}
-                loading={isPredicting === true}
               >
-                Infer
+                {isPredicting === true
+                  ? <Loader active inline inverted>
+                      Predicting
+                    </Loader>
+                  : "Predict"}
               </Button>
             </Container>
           </Grid.Row>
