@@ -46,9 +46,7 @@ install:
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
 - go get github.com/rai-project/goreleaser
 - yarn install
-# - yarn build:swagger
-- yarn build
-- yarn build:assets
+- yarn bundle
 - glide install --force
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
