@@ -15,8 +15,10 @@ export default connect(
     if (!models || models.length === 0) {
       return <div />;
     }
+    let ii = 0;
     const body = models.map(m => {
-      return <Summary key={"info-" + yeast()} model={m} />;
+      ii++;
+      return <Summary key={"modelinfo-" + ii} model={m} />;
     });
     return (
       <Container>

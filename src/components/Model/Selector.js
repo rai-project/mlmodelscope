@@ -21,9 +21,11 @@ export default connect(
       if (!models || models.length === 0) {
         return <div />;
       }
+      let ii = 0;
       const selectors = models.map(model => {
+        ii++;
         return {
-          key: yeast(),
+          key: "model-" + ii,
           value: JSON.stringify(model),
           text: model.name,
           description: "model version " + model.version,
