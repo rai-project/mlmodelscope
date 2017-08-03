@@ -4,7 +4,7 @@ import { state } from "cerebral/tags";
 import yeast from "yeast";
 import { Container, Grid, Card } from "semantic-ui-react";
 
-import Summary from "./Summary";
+import Summary from "../Framework/Summary";
 
 export default connect(
   {
@@ -12,7 +12,7 @@ export default connect(
     agents: state`app.frameworks.agents`,
     useragentMedia: state`useragent.media`
   },
-  function SummaryPage({ frameworks, agents, useragentMedia }) {
+  function FrameworkSummaryPage({ frameworks, agents, useragentMedia }) {
     if (!frameworks || frameworks.length === 0) {
       return <div />;
     }

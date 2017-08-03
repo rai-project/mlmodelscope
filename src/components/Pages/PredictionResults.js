@@ -15,7 +15,7 @@ export default connect(
     inferenceURL: state`app.inferenceURL`,
     features: state`app.features`
   },
-  function InferenceResults({ model, inferenceURL, features }) {
+  function PredictionResults({ model, inferenceURL, features }) {
     features = filter(features, feature => feature !== undefined);
     const makeFeatureTag = function(props) {
       const outputType =

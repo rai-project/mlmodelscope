@@ -12,7 +12,7 @@ export default [
   when(state`app.isError`),
   {
     false: [
-      set(state`app.currentPage`, "InferenceResults"),
+      set(state`app.currentPage`, "PredictionResults"),
       set(
         state`app.name`,
         compute(

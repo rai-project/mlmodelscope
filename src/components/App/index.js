@@ -7,16 +7,15 @@ import { Sidebar, Container } from "semantic-ui-react";
 
 import Navbar from "./Navbar";
 import Header from "./Header";
-import Home from "./HomePage";
+import {
+  FrameworkSummaryPage,
+  HomePage,
+  ModelInformationPage,
+  ModelSummaryPage,
+  PredictionResultsPage
+} from "../Pages";
 import Footer from "./Footer";
 import Snackbar from "./Snackbar";
-
-import {
-  InformationPage as ModelInformationPage,
-  SummaryPage as ModelSummaryPage
-} from "../Model";
-import { SummaryPage as FrameworkSummaryPage } from "../Framework";
-import InferenceResults from "../InferenceResults";
 
 import "./App.css";
 
@@ -35,7 +34,7 @@ export default connect(
       // this.props.appLoaded();
     }
     render() {
-      let page = <Home />;
+      let page = <HomePage />;
       switch (this.props.currentPage) {
         case "Models":
           page = <ModelSummaryPage />;
@@ -43,14 +42,14 @@ export default connect(
         case "ModelInformation":
           page = <ModelInformationPage />;
           break;
-        case "InferenceResults":
-          page = <InferenceResults />;
+        case "PredictionResults":
+          page = <PredictionResultsPage />;
           break;
         case "Frameworks":
           page = <FrameworkSummaryPage />;
           break;
         default:
-          page = <Home />;
+          page = <HomePage />;
           break;
       }
 

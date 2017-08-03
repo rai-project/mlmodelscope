@@ -4,14 +4,14 @@ import { state } from "cerebral/tags";
 import yeast from "yeast";
 import { Container, Grid, Card } from "semantic-ui-react";
 import visableModel from "../../computed/visableModels";
-import Summary from "./Summary";
+import Summary from "../Model/Summary";
 
 export default connect(
   {
     models: visableModel,
     useragentMedia: state`useragent.media`
   },
-  function SummaryPage({ models, useragentMedia }) {
+  function ModelSummaryPage({ models, useragentMedia }) {
     if (!models || models.length === 0) {
       return <div />;
     }

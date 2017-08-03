@@ -4,15 +4,15 @@ import { state } from "cerebral/tags";
 import yeast from "yeast";
 import { Container, Header, Divider, List } from "semantic-ui-react";
 
-import Graph from "./Graph";
-import LayerAreaChart from "./LayerAreaChart";
+import Graph from "../Model/Graph";
+import LayerAreaChart from "../Model/LayerAreaChart";
 
 export default connect(
   {
     model: state`model.data`,
     graph: state`model.graph`
   },
-  function InformationPage({ model, graph }) {
+  function ModelInformationPage({ model, graph }) {
     if (!model) {
       return <div />;
     }
