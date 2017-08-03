@@ -48,7 +48,7 @@ import:
   subpackages:
   - swaggerui
 - package: github.com/sirupsen/logrus
-  version: ~1.0.2
+  version: ^1.0.0
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
 - package: github.com/tus/tusd
