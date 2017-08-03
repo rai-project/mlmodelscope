@@ -11,12 +11,6 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/rai-project/tracer"
-	_ "github.com/rai-project/tracer/jaeger"
-	tracermiddleware "github.com/rai-project/tracer/middleware"
-	_ "github.com/rai-project/tracer/noop"
-	_ "github.com/rai-project/tracer/opentracing"
-	_ "github.com/rai-project/tracer/zipkin"
 	"github.com/rai-project/uuid"
 )
 
@@ -38,7 +32,6 @@ func Start(addr string) {
 			return uuid.NewV4()
 		},
 	}))
-	e.Use(tracermiddleware.FromHTTPRequest(tracer.Std(), "web"))
 
 	chain := []func(*echo.Echo) error{
 		pprofRoutes,

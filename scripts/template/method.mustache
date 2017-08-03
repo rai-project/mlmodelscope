@@ -18,6 +18,8 @@ export function {{&methodName}}(params){
         headers['{{&name}}'] = [{{&value}}];
     {{/headers}}
 
+    headers['X-Request-ID'] = uuid();
+
 
   return function {{&methodName}}Request({ http, path, resolve }) {
 

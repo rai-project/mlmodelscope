@@ -81,9 +81,12 @@ func assetsRoutes(e *echo.Echo) error {
 		return c.Blob(http.StatusOK, "application/javascript", js)
 	}
 
-	assetGroup := e.Group("", middleware.GzipWithConfig(middleware.GzipConfig{
-		Level: 5,
-	}))
+	assetGroup := e.Group("",
+		middleware.GzipWithConfig(middleware.GzipConfig{
+			Level: 5,
+		}),
+		PrintResponseID,
+	)
 	assetGroup.GET("/", index)
 	assetGroup.GET("/index.html", index)
 	assetGroup.GET("/favicon.ico", favicon)

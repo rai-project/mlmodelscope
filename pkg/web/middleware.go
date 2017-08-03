@@ -22,3 +22,10 @@ func StripPrefix(prefix string, h echo.HandlerFunc) echo.HandlerFunc {
 		return h(c)
 	}
 }
+
+func PrintResponseID(h echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		pp.Println("ResponseID ", c.Response().Header().Get(echo.HeaderXRequestID))
+		return h(c)
+	}
+}

@@ -4,6 +4,7 @@
 
 "use strict";
 
+import uuid from "uuid/v4";
 import {
   convertObjectWithTemplates,
   processResponse
@@ -45,6 +46,8 @@ export function Predict(params) {
 
   headers["Accept"] = ["application/json"];
   headers["Content-Type"] = ["application/json"];
+
+  headers["X-Request-ID"] = uuid();
 
   return function PredictRequest({ http, path, resolve }) {
     let parameters = params;
@@ -104,6 +107,8 @@ export function FrameworkAgents(params) {
 
   headers["Accept"] = ["application/json"];
   headers["Content-Type"] = ["application/json"];
+
+  headers["X-Request-ID"] = uuid();
 
   return function FrameworkAgentsRequest({ http, path, resolve }) {
     let parameters = params;
@@ -167,6 +172,8 @@ export function FrameworkManifests(params) {
 
   headers["Accept"] = ["application/json"];
   headers["Content-Type"] = ["application/json"];
+
+  headers["X-Request-ID"] = uuid();
 
   return function FrameworkManifestsRequest({ http, path, resolve }) {
     let parameters = params;
@@ -232,6 +239,8 @@ export function ModelAgents(params) {
 
   headers["Accept"] = ["application/json"];
   headers["Content-Type"] = ["application/json"];
+
+  headers["X-Request-ID"] = uuid();
 
   return function ModelAgentsRequest({ http, path, resolve }) {
     let parameters = params;
@@ -307,6 +316,8 @@ export function ModelManifests(params) {
 
   headers["Accept"] = ["application/json"];
   headers["Content-Type"] = ["application/json"];
+
+  headers["X-Request-ID"] = uuid();
 
   return function ModelManifestsRequest({ http, path, resolve }) {
     let parameters = params;
