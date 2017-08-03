@@ -8,7 +8,7 @@ import:
   - spew
 - package: github.com/elazarl/go-bindata-assetfs
 - package: github.com/fatih/color
-  version: ~1.5.0
+  version: master
 - package: github.com/go-openapi/errors
 - package: github.com/go-openapi/loads
 - package: github.com/go-openapi/runtime
