@@ -8,6 +8,7 @@ import (
 	"github.com/elazarl/go-bindata-assetfs"
 	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 type assetsManifestTy struct {
@@ -80,16 +81,19 @@ func assetsRoutes(e *echo.Echo) error {
 		return c.Blob(http.StatusOK, "application/javascript", js)
 	}
 
-	e.GET("/", index)
-	e.GET("/index.html", index)
-	e.GET("/favicon.ico", favicon)
-	e.HEAD("/favicon.ico", favicon)
-	e.GET("/uiversion", uiversion)
-	e.GET("/manifest.json", manifest)
-	e.GET("/asset-manifest.json", assetManifest)
-	e.GET("/service-worker.js", serviceWorker)
-	e.GET("/vendor/*", echo.WrapHandler(http.FileServer(getAssetFS())))
-	e.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
+	assetGroup := e.Group("", middleware.GzipWithConfig(middleware.GzipConfig{
+		Level: 5,
+	}))
+	assetGroup.GET("/", index)
+	assetGroup.GET("/index.html", index)
+	assetGroup.GET("/favicon.ico", favicon)
+	assetGroup.HEAD("/favicon.ico", favicon)
+	assetGroup.GET("/uiversion", uiversion)
+	assetGroup.GET("/manifest.json", manifest)
+	assetGroup.GET("/asset-manifest.json", assetManifest)
+	assetGroup.GET("/service-worker.js", serviceWorker)
+	assetGroup.GET("/vendor/*", echo.WrapHandler(http.FileServer(getAssetFS())))
+	assetGroup.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 
 	return nil
 }
