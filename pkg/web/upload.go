@@ -9,8 +9,8 @@ import (
 	"github.com/Unknwon/com"
 	"github.com/labstack/echo"
 	"github.com/rai-project/config"
+	"github.com/rai-project/store/tus/localstore"
 	"github.com/tus/tusd"
-	"github.com/tus/tusd/filestore"
 	"github.com/tus/tusd/memorylocker"
 )
 
@@ -28,7 +28,7 @@ func makeUploadHandler() (echo.HandlerFunc, error) {
 	// If you want to save them on a different medium, for example
 	// a remote FTP server, you can implement your own storage backend
 	// by implementing the tusd.DataStore interface.
-	store := filestore.New(uploadDir)
+	store := localstore.New(uploadDir)
 
 	// A storage backend for tusd may consist of multiple different parts which
 	// handle upload creation, locking, termination and so on. The composer is a
