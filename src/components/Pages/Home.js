@@ -8,7 +8,8 @@ import {
   Divider,
   Button,
   Input,
-  Loader
+  Loader,
+  Tab
 } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
@@ -41,23 +42,38 @@ export default connect(
           }}
         >
           <Grid.Row centered columns={1}>
-            <UploadArea />
+            <Tab
+              menu={{ secondary: true, pointing: true }}
+              panes={[
+                {
+                  menuItem: "URL",
+                  render: () =>
+                    <Input
+                      fluid
+                      placeholder={
+                        predictURL ||
+                        "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                      }
+                      onChange={e =>
+                        predictURLChanged({ predictURL: e.target.value })}
+                    />
+                },
+                {
+                  menuItem: "Upload",
+                  render: () => <UploadArea />
+                },
+                {
+                  menuItem: "Dataset",
+                  render: () => <div>TODO</div>
+                }
+              ]}
+            />
           </Grid.Row>
           <Divider horizontal />
           <Grid.Row centered columns={1}>
             <ModelSelector />
           </Grid.Row>
           <Divider horizontal />
-          <Grid.Row centered columns={1}>
-            <Input
-              fluid
-              placeholder={
-                predictURL ||
-                "https://static.pexels.com/photos/20787/pexels-photo.jpg"
-              }
-              onChange={e => predictURLChanged({ predictURL: e.target.value })}
-            />
-          </Grid.Row>
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
             <Container textAlign="center">
               <Button
