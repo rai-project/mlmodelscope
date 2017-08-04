@@ -38,19 +38,21 @@ export default connect(
             graph={graph}
           />
         </Container>
-        <Container text>
-          <Divider />
-          <Header size="large">References</Header>
-          <List bulleted>
-            {model.reference.map(r =>
-              <List.Item style={{ color: "black" }} key={yeast()}>
-                <a href={r}>
-                  {r}
-                </a>
-              </List.Item>
-            )}
-          </List>
-        </Container>
+        {model.reference
+          ? <Container text>
+              <Divider />
+              <Header size="large">References</Header>
+              <List bulleted>
+                {model.reference.map(r =>
+                  <List.Item style={{ color: "black" }} key={yeast()}>
+                    <a href={r}>
+                      {r}
+                    </a>
+                  </List.Item>
+                )}
+              </List>
+            </Container>
+          : null}
       </div>
     );
   }
