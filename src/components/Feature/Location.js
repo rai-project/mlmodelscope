@@ -1,7 +1,12 @@
 /* eslint-disable */
 import React from "react";
 import { Popup, Progress, Grid } from "semantic-ui-react";
-import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
+import ReactMapboxGl, {
+  Layer,
+  Feature,
+  ScaleControl,
+  ZoomControl
+} from "react-mapbox-gl";
 
 import config from "../../config";
 import { tail, toNumber } from "lodash";
@@ -16,14 +21,17 @@ export default function Location({ feature }) {
   }
   const long = longlat[0];
   const lat = longlat[1];
+  const Map = ReactMapboxGl({
+    accessToken: config.mapbox.accessToken
+  });
+
   return (
     <Grid columns={3}>
       <Popup
         trigger={
           <Grid.Column width={10}>
-            <ReactMapboxGl
-              style={"mapbox://styles/mapbox/streets-v8"}
-              accessToken={config.mapbox.accessToken}
+            <Map
+              style="mapbox://styles/mapbox/streets-v9"
               containerStyle={{
                 width: "100%",
                 height: window.innerHeight / 4
@@ -32,15 +40,18 @@ export default function Location({ feature }) {
               maxZoom={17}
               center={[lat, long]}
             >
-              <ZoomControl zoomDiff={1} />
               <Layer
                 type="symbol"
                 id="marker"
                 layout={{ "icon-image": "marker-15" }}
               >
+                {/*
+                <ScaleControl />
+                <ZoomControl />
+                 */}
                 <Feature coordinates={[lat, long]} />
               </Layer>
-            </ReactMapboxGl>
+            </Map>
           </Grid.Column>
         }
         content={`latitude = ${lat} , longitude = ${long}`}

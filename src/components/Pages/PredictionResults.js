@@ -11,7 +11,7 @@ import Feature from "../Feature";
 
 export default connect(
   {
-    model: state`model.data`,
+    model: state`models.currentModel`,
     predictURL: state`app.predictURL`,
     features: state`app.features`
   },

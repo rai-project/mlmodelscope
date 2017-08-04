@@ -64,7 +64,6 @@ export default connect(
           </Helmet>
           <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
             <main>
-              <Snackbar />
               <div className="App-content">
                 <Navbar />
                 <Header />

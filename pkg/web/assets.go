@@ -85,7 +85,6 @@ func assetsRoutes(e *echo.Echo) error {
 		middleware.GzipWithConfig(middleware.GzipConfig{
 			Level: 5,
 		}),
-		PrintResponseID,
 	)
 	assetGroup.GET("/", index)
 	assetGroup.GET("/index.html", index)

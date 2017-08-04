@@ -9,8 +9,8 @@ import LayerAreaChart from "../Model/LayerAreaChart";
 
 export default connect(
   {
-    model: state`model.data`,
-    graph: state`model.graph`
+    model: state`models.currentModel`,
+    graph: state`model.models.graph`
   },
   function ModelInformationPage({ model, graph }) {
     if (!model) {
