@@ -43,7 +43,7 @@ export default function Location({ feature }) {
               <Layer
                 type="symbol"
                 id="marker"
-                layout={{ "icon-image": "marker-15" }}
+                layout={{ "icon-image": "harbor-15" }}
               >
                 {/*
                 <ScaleControl />
