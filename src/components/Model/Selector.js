@@ -1,13 +1,15 @@
 import React from "react";
-import visableModel from "../../computed/visableModels";
 import { connect } from "cerebral/react";
-import { signal } from "cerebral/tags";
+import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
+
+import visableModel from "../../computed/visableModels";
 import * as logos from "../../assets/logos";
 
 export default connect(
   {
     models: visableModel,
+    currentModel: state`models.currentModel`,
     modelSelected: signal`model.modelSelected`,
     modelInformationsRequest: signal`app.modelInformationsRequest`
   },
@@ -16,7 +18,7 @@ export default connect(
       this.props.modelInformationsRequest();
     }
     render() {
-      const { models, open, modelSelected } = this.props;
+      const { models, currentModel, open, modelSelected } = this.props;
       if (!models || models.length === 0) {
         return <div />;
       }
@@ -35,12 +37,15 @@ export default connect(
         };
       });
 
+      let extraOpts = {};
+      if (open && !currentModel) {
+        extraOpts["open"] = true;
+      }
       return (
         <Dropdown
           fluid
           search
           selection
-          open={open}
           multiple={false}
           options={selectors}
           placeholder={"Select your Neural Network Model"}
@@ -48,6 +53,7 @@ export default connect(
           onChange={(e, { value }) => {
             modelSelected({ manifest: JSON.parse(value) });
           }}
+          {...extraOpts}
         />
       );
     }
