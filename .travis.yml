@@ -51,9 +51,8 @@ install:
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
-after_install:
-- rm -fr ${TRAVIS_BUILD_DIR}/node_modules
 script:
+- rm -fr ${TRAVIS_BUILD_DIR}/node_modules
 - echo "Skip tests..."
 deploy:
 - provider: bluemixcloudfoundry
