@@ -42,6 +42,10 @@ export default connect(
           }}
         >
           <Grid.Row centered columns={1}>
+            <ModelSelector open />
+          </Grid.Row>
+          <Divider horizontal />
+          <Grid.Row centered columns={1}>
             <Tab
               menu={{ secondary: true, pointing: true }}
               panes={[
@@ -68,10 +72,6 @@ export default connect(
                 }
               ]}
             />
-          </Grid.Row>
-          <Divider horizontal />
-          <Grid.Row centered columns={1}>
-            <ModelSelector />
           </Grid.Row>
           <Divider horizontal />
           <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>

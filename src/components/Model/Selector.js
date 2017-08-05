@@ -16,7 +16,7 @@ export default connect(
       this.props.modelInformationsRequest();
     }
     render() {
-      const { models, modelSelected } = this.props;
+      const { models, open, modelSelected } = this.props;
       if (!models || models.length === 0) {
         return <div />;
       }
@@ -40,6 +40,7 @@ export default connect(
           fluid
           search
           selection
+          open={open}
           multiple={false}
           options={selectors}
           placeholder={"Select your Neural Network Model"}
