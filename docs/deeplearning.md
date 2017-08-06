@@ -47,7 +47,7 @@ container: # containers used to perform model prediction
 
 ## Model
 
-A DL model is ...
+A DL model is an 'object' created after training from an DL algorithm, given an input, produces an output.
 
 ### Specification
 

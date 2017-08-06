@@ -1,6 +1,10 @@
 # Web Server
 
-## Grpc
+This sections describes the web server design.
+
+## gRPC and Swagger
+
+gRPC is based on protobufs and HTTP/2 and makes building and consuming APIs better. Swagger describes API using a common language, so that REST API bindings can be automatically generated for a variety of languages. We use a single protobuf to read in manifests and describe an API（generating gRPC and swagger definitions).
 
 ### Proxy
 

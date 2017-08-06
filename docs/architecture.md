@@ -15,7 +15,12 @@ The following diagram shows a common setup of CarML.
 
 -   **DL Provisioner**: agents are run by a provisioner most likely within a container.
 
--   **Web server**: the 
+-   **Web server**: web server provides a web user interface and serves HTTP requests. 
+    HTTP APIs are translated into gRPC requests and sent to DL agents for processing.
+
+-   **registry**: registry is KV store for service discovery.
+
+-   **tracing**: a distributed tracer
 
 ## Hierarchy
 
