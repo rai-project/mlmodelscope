@@ -1,0 +1,12 @@
+FROM carml/go:amd64-cpu
+MAINTAINER Abdul Dakkak <dakkak@illinois.edu>
+
+WORKDIR $GOPATH/src/github.com/rai-project/carml
+RUN git clone --depth=1 --branch=master https://github.com/rai-project/carml.git . && \
+    glide install && \
+    go install && \
+    rm -fr vendor
+
+ENV PORT 80
+ENTRYPOINT ["carml", "web", "--debug", "--verbose"]
+EXPOSE 80
