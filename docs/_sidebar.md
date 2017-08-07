@@ -10,6 +10,7 @@
     -   [Backend Components](backend.md)
     -   [Web Server](webserver.md)
     -   [Web UI](webui.md)
+    -   [Prediction](prediction.md)
 -   Development
     -   [Installation](installation.md)
     -   [Server Configuration](configuration.md)

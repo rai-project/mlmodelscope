@@ -1053,6 +1053,33 @@
     }
 
   </style>
+
+  <link href="assets/thirdparty/mermaid/mermaid.css" rel="stylesheet">
+  <script src="assets/thirdparty/mermaid/mermaid.min.js"></script>
+  <style>
+    text.actor {
+      font-family: Helvetica;
+    }
+
+    .messageText {
+      font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+      font-size: 10px;
+    }
+
+    .labelText {
+      font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+    }
+
+    .loopText {
+      font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+    }
+
+    .noteText {
+      font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+      font-size: 10px;
+    }
+
+  </style>
 </head>
 
 <body>
@@ -1098,6 +1125,16 @@
         }
         var cls = (isCheckedTaskItem || isUncheckedTaskItem) ? ' class="todo-list-item"' : '';
         return '<li' + cls + '>' + text + '</li>\n';
+      };
+
+      var originalCodeRenderer = renderer.code;
+      renderer.code = function (code, language = "") {
+        console.log(language);
+        if (language == 'mermaid' || language === "{.mermaid}") {
+          return '<pre class="mermaid">' + code + '</pre>';
+        } else {
+          return originalCodeRenderer(code, language);
+        }
       };
 
       renderer.image = function (href, title, text) {
@@ -1196,6 +1233,10 @@
 <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-go.min.js"></script>
 <script src="https://use.fontawesome.com/990dab6c40.js"></script>
+
+
+<!-- <link href="https://cdn.rawgit.com/knsv/mermaid/7.0.0/dist/mermaid.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/knsv/mermaid/7.0.0/dist/mermaid.min.js"></script> -->
 
 <script>
   if (typeof navigator.serviceWorker !== 'undefined') {
