@@ -1,12 +1,12 @@
 # Introduction
 
-The recent wide spread of different open sourced machine learning (ML) software, including deep-learning (DL) frameworks, has inspured 
+The recent wide spread of different open sourced machine learning (ML) software, including deep-learning (DL) frameworks, has inspired 
 a great deal of innovation among different users, ranging from framework developers (who develop ML/DL software and frameworks), 
 model developers (who develop ML/DL models), model users (who consumes the models for either model training or model inferencing), 
 and system builders (who develop underlying hardware systems and infrastructures to support the computation of ML/DL workloads). 
 A central task for all of these users experience (though some may play multiple roles) involves (1) instantiating the right 
-hardware system, (2) installing the right ML/DL software packages with dependancies, (3) installing the right ML/DL models and 
-related dataset, (4) configuring the system, software, and models to work together to run the experiements, and (5) collecting and 
+hardware system, (2) installing the right ML/DL software packages with dependencies, (3) installing the right ML/DL models and 
+related dataset, (4) configuring the system, software, and models to work together to run the expiriments, and (5) collecting and 
 analyzing experiment results for the needed use case.
 
 The current process of experimenting with different machine learning (ML) packages and deep learning (DL) frameworks as well as their corresponding ML/DL models is, however, daunting. 
