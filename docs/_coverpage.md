@@ -2,7 +2,7 @@
 
 ![logo](assets/images/carml.png)
 
-# CarML <small>0.1.1</small>
+# CarML <small>0.2.0</small>
 
 > **C**ognitive **AR**tifacts for **M**achine **L**earning
 
