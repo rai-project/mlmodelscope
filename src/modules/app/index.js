@@ -11,6 +11,7 @@ export default {
   state: {
     currentPage: "Home",
     name: "CarML",
+    error: null,
     isInferring: false,
     isBusy: false,
     predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",

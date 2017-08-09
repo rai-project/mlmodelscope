@@ -17,15 +17,14 @@
 #### Actions
 
 Actions may have multiple targets (i.e. bifurcation depending on the result --- success or failure for example). 
-The following code checks if the `isError` field is set.
-If it is, then it sets `app.isError` to `true` and copies the `message` property to `app.errorMessage`.
+The following code checks if the `error` field is populated.
+If it is, then it sets `app.error` is not `null` and copies the `error` property to `app.error`.
 No actions are invoked if there are no errors.
 
 ```.js
-when(props`isError`), {
+when(props`error`, (err) => err !== null), {
   true: [
-    set(state`app.isError`, true),
-    set(state`app.errorMessage`, props`message`)
+    set(state`app.error`, props`error`)
   ],
   false: []
 }
@@ -42,8 +41,7 @@ For example, the following chain resets application errors.
 
 ```.js
 const resetError = [
-  set(state`app.isError`, false),
-  set(state`app.errorMessage`, "")
+  set(state`app.error`, null)
 ]
 ```
 

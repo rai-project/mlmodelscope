@@ -9,7 +9,7 @@ export default [
   ...resetError,
   set(state`models.currentModel`, props`model`),
   ...modelPredictChain,
-  when(state`app.isError`),
+  when(state`app.error`, err => err !== null),
   {
     false: [
       set(state`app.currentPage`, "PredictionResults"),
