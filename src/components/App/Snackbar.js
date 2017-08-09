@@ -13,7 +13,6 @@ class ErrorTemplate extends React.Component {
     Alert.close(this.props.id);
   }
   render() {
-    console.log(this.props);
     return (
       <div
         className={this.props.classNames}
