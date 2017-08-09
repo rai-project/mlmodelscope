@@ -56,7 +56,7 @@ export default connect(
           replaceTargetContent: true,
           maxHeight: 300,
           inline: true,
-          note: "Images only, 300kb or less"
+          note: "Images only"
         })
         .use(Webcam, { target: Dashboard })
         .use(Tus10, {
