@@ -11,13 +11,17 @@ settings:
 projects:
 - name: carml
   path: .
-  fmt: true
-  generate: true
-  test: false
-  bin: true
-  build: true
-  run: true
-  params:
+  commands:
+    vet: false
+    fmt: false
+    test: false
+    generate: true
+    bin:
+      status: true
+    build:
+      status: true
+    run: true
+  args:
   - web -d -v
   watcher:
     preview: true
@@ -33,7 +37,6 @@ projects:
     exts:
     - .go
   streams:
-    cli_out: true
     file_out: true
     file_log: true
     file_err: true
