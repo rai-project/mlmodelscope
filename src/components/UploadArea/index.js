@@ -34,7 +34,7 @@ export default connect(
         },
         onBeforeUpload: files => {
           if (Object.keys(files).length > 1) {
-            return Promise.reject("Too many files :(");
+            return Promise.reject("Only one file is allowed");
           }
           return Promise.resolve();
         }
@@ -46,7 +46,7 @@ export default connect(
           replaceTargetContent: true,
           maxHeight: 300,
           inline: true,
-          note: "Images only, 300kb or less"
+          note: "Images only"
         })
         .use(Webcam, { target: Dashboard })
         .use(Tus10, {
