@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { isObject } from "lodash";
+import { head, isObject, values } from "lodash";
 import {
   Container,
   Grid,
@@ -33,6 +33,18 @@ export default connect(
     predictURLChanged,
     infrenceButtonClicked
   }) {
+    const onUploadSuccess = files => {
+      console.log("got onUploadSuccess files = ", files);
+      const uploadURLs = values(files).map(file => file.uploadURL);
+      console.log("got onUploadSuccess fileNames = ", uploadURLs);
+      const firstURL = head(uploadURLs);
+      console.log({
+        firstURL,
+        model
+      });
+      predictURLChanged({ predictURL: firstURL });
+      infrenceButtonClicked({ model: model });
+    };
     return (
       <div>
         <Container
@@ -64,7 +76,7 @@ export default connect(
                 },
                 {
                   menuItem: "Upload",
-                  render: () => <UploadArea />
+                  render: () => <UploadArea onUploadSuccess={onUploadSuccess} />
                 },
                 {
                   menuItem: "Dataset",
