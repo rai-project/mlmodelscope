@@ -1,5 +1,5 @@
 {
-  "extends": ["react-app", "prettier", "prettier/flowtype", "prettier/react"],
+  "extends": ["prettier", "prettier/react"],
   "rules": {
     "no-undef": "off",
   }
