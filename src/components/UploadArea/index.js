@@ -16,12 +16,11 @@ export default connect(
       console.log("onSuccess not registered");
     }
     componentDidMount() {
-      const self = this;
       this.uppy = new Core({
         debug: true,
         autoProceed: false,
         restrictions: {
-          maxFileSize: 300000,
+          maxFileSize: 600000,
           maxNumberOfFiles: 5,
           minNumberOfFiles: 1,
           allowedFileTypes: ["image/*"]
@@ -57,16 +56,10 @@ export default connect(
 
       const onUploadSuccess =
         this.props.onUploadSuccess || this.onUploadSuccess;
-      this.uppy.on("core:success", url => {
+      this.uppy.on("core:success", fileList => {
         console.log(this.uppy.state);
         onUploadSuccess(this.uppy.state.files);
-        // console.log("core:success == ", arguments);
-        // console.log({ url });
-        // const newProgress = this.uppy.getState().totalProgress;
-        // console.log("upload progress = " + newProgress);
-        // this.setState({
-        //   progress: newProgress,
-        // });
+        console.log({ fileList });
       });
     }
 

@@ -43,7 +43,6 @@ export default connect(
         model
       });
       predictURLChanged({ predictURL: firstURL });
-      infrenceButtonClicked({ model: model });
     };
     return (
       <div>
