@@ -1,6 +1,8 @@
 FROM carml/go:amd64-cpu
 MAINTAINER Abdul Dakkak <dakkak@illinois.edu>
 
+LABEL org.carml.version=0.3.2
+
 WORKDIR $GOPATH/src/github.com/rai-project/carml
 RUN git clone --depth=1 --branch=master https://github.com/rai-project/carml.git . && \
     glide install && \
