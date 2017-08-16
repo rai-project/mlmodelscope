@@ -1,6 +1,4 @@
-
-homepage: &homepage http://www.carml.org
-description: &description Cognitive ARtifacts for Machine Learning
+project_name: carml
 build:
   main: ./main.go
   binary: carml
@@ -8,7 +6,6 @@ build:
   goos:
     - linux
     - darwin
-    - windows
   goarch:
     - 386
     - amd64
