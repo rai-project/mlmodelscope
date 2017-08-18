@@ -5,21 +5,22 @@ import { state } from "cerebral/tags";
 import { filter } from "lodash";
 import { Image, Grid, Container, Message, Divider } from "semantic-ui-react";
 
+import { shift } from "cerebral/operators";
 import { head, tail, lowerCase } from "lodash";
 
 import Feature from "../Feature";
 
 export default connect(
   {
-    model: state`models.currentModel`,
+    models: state`models.selectedModels`,
     predictURL: state`app.predictURL`,
-    features: state`app.features`
+    features: state`app.features`,
   },
-  function PredictionResults({ model, predictURL, features }) {
+  function PredictionResults({ models, predictURL, features }) {
+    let model = shift(models);
     features = filter(features, feature => feature !== undefined);
     const makeFeatureTag = function(props) {
-      const outputType =
-        (model.output ? model.output.type : undefined) || "label";
+      const outputType = (model.output ? model.output.type : undefined) || "label";
       switch (lowerCase(outputType)) {
         case "coordinates":
           return <Feature.Location {...props} />;
@@ -37,7 +38,7 @@ export default connect(
           <Message positive>
             {makeFeatureTag({
               feature: head(features),
-              key: "feature-" + yeast()
+              key: "feature-" + yeast(),
             })}
           </Message>
         </Grid.Row>

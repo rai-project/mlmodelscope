@@ -22,15 +22,15 @@ export default [
           model_name: props`model.name`,
           model_version: props`model.version`,
           data: base64(state`app.predictURL`),
-          limit: 10
-        }
+          limit: 10,
+        },
       }),
       {
         success: [set(state`app.features`, props`result.features`)],
-        error: onError
+        error: onError,
       },
-      set(state`app.isPredicting`, false)
+      set(state`app.isPredicting`, false),
     ],
-    false: []
-  }
+    false: [],
+  },
 ];

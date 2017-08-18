@@ -2,15 +2,7 @@ import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { head, isObject, values } from "lodash";
-import {
-  Container,
-  Grid,
-  Divider,
-  Button,
-  Input,
-  Loader,
-  Tab
-} from "semantic-ui-react";
+import { Container, Grid, Divider, Button, Input, Loader, Tab } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import { Selector as ModelSelector } from "../Model";
@@ -18,20 +10,18 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
   {
-    model: state`models.currentModel`,
     predictURL: state`app.predictURL`,
     isPredicting: state`app.isPredicting`,
-    currentModel: state`models.currentModel`,
+    selectedModels: state`models.selectedModels`,
     predictURLChanged: signal`app.predictURLChanged`,
-    infrenceButtonClicked: signal`app.infrenceButtonClicked`
+    inferenceButtonClicked: signal`app.inferenceButtonClicked`,
   },
   function HomePage({
-    model,
     predictURL,
     isPredicting,
-    currentModel,
+    selectedModels,
     predictURLChanged,
-    infrenceButtonClicked
+    inferenceButtonClicked,
   }) {
     const onUploadSuccess = files => {
       console.log("got onUploadSuccess files = ", files);
@@ -39,8 +29,8 @@ export default connect(
       console.log("got onUploadSuccess fileNames = ", uploadURLs);
       const firstURL = head(uploadURLs);
       console.log({
+        selectedModels,
         firstURL,
-        model
       });
       predictURLChanged({ predictURL: firstURL });
     };
@@ -49,7 +39,7 @@ export default connect(
         <Container
           text
           style={{
-            fontFamily
+            fontFamily,
           }}
         >
           <Grid.Row centered columns={1}>
@@ -69,18 +59,17 @@ export default connect(
                         predictURL ||
                         "https://static.pexels.com/photos/20787/pexels-photo.jpg"
                       }
-                      onChange={e =>
-                        predictURLChanged({ predictURL: e.target.value })}
-                    />
+                      onChange={e => predictURLChanged({ predictURL: e.target.value })}
+                    />,
                 },
                 {
                   menuItem: "Upload",
-                  render: () => <UploadArea onUploadSuccess={onUploadSuccess} />
+                  render: () => <UploadArea onUploadSuccess={onUploadSuccess} />,
                 },
                 {
                   menuItem: "Dataset",
-                  render: () => <div>TODO</div>
-                }
+                  render: () => <div>TODO</div>,
+                },
               ]}
             />
           </Grid.Row>
@@ -93,11 +82,11 @@ export default connect(
                 style={{
                   color: "white",
                   backgroundColor: "#0DB7C4",
-                  borderColor: "#0DB7C4"
+                  borderColor: "#0DB7C4",
                 }}
-                disabled={!isObject(currentModel)}
+                disabled={!isObject(selectedModels)}
                 onClick={e => {
-                  infrenceButtonClicked({ model: model });
+                  inferenceButtonClicked({ model: head(selectedModels) });
                 }}
               >
                 {isPredicting === true

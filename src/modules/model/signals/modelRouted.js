@@ -13,18 +13,14 @@ export default [
   set(state`app.currentPage`, "ModelInformation"),
   ...modelInformationChain,
   set(
-    state`models.currentModel`,
-    compute(
-      state`models.data`,
-      props`name`,
-      props`version`,
-      (models, name, version) =>
-        head(
-          filter(models, {
-            name,
-            version
-          })
-        )
+    state`models.selectedModels`,
+    compute(state`models.data`, props`name`, props`version`, (models, name, version) =>
+      head(
+        filter(models, {
+          name,
+          version,
+        })
+      )
     )
   ),
   set(state`app.name`, props`name`),
@@ -32,10 +28,10 @@ export default [
     frameworkName: "*",
     frameworkVersion: "*",
     modelName: props`name`,
-    modelVersion: props`version`
+    modelVersion: props`version`,
   }),
   {
     success: [set(state`model.graph`, props`model`)],
-    error: onError
-  }
+    error: onError,
+  },
 ];

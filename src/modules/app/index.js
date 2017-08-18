@@ -3,7 +3,7 @@ import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
 import predictURLChanged from "./signals/predictURLChanged";
-import infrenceButtonClicked from "./signals/infrenceButtonClicked";
+import inferenceButtonClicked from "./signals/inferenceButtonClicked";
 import modelsRouted from "./signals/modelsRouted";
 import frameworksRouted from "./signals/frameworksRouted";
 
@@ -16,7 +16,7 @@ export default {
     isBusy: false,
     predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
     models: {},
-    frameworks: {}
+    frameworks: {},
   },
   signals: {
     appLoaded,
@@ -24,8 +24,8 @@ export default {
     navbarClicked,
     predictURLChanged,
     modelInformationsRequest,
-    infrenceButtonClicked,
+    inferenceButtonClicked,
     modelsRouted,
-    frameworksRouted
-  }
+    frameworksRouted,
+  },
 };

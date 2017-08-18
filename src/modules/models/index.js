@@ -2,8 +2,8 @@ import model from "../model";
 
 export default {
   state: {
-    currentModel: null,
+    selectedModels: [],
     model: model.state,
-    data: []
-  }
+    data: [],
+  },
 };

@@ -3,7 +3,4 @@ import { state, props } from "cerebral/tags";
 
 import resetError from "../../common/chains/resetError";
 
-export default [
-  ...resetError,
-  set(state`models.currentModel`, props`manifest`)
-];
+export default [...resetError, set(state`models.selectedModels`, props`manifests`)];

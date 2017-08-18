@@ -9,16 +9,16 @@ import * as logos from "../../assets/logos";
 export default connect(
   {
     models: visableModel,
-    currentModel: state`models.currentModel`,
+    selectedModels: state`models.selectedModels`,
     modelSelected: signal`model.modelSelected`,
-    modelInformationsRequest: signal`app.modelInformationsRequest`
+    modelInformationsRequest: signal`app.modelInformationsRequest`,
   },
   class ModelSelector extends React.Component {
     componentDidMount() {
       this.props.modelInformationsRequest();
     }
     render() {
-      const { models, currentModel, open, modelSelected } = this.props;
+      const { models, selectedModels, open, modelSelected } = this.props;
       if (!models || models.length === 0) {
         return <div />;
       }
@@ -32,13 +32,13 @@ export default connect(
           description: "model version " + model.version,
           image: {
             avatar: true,
-            src: logos[model.framework.name.toLowerCase()]
-          }
+            src: logos[model.framework.name.toLowerCase()],
+          },
         };
       });
 
       let extraOpts = {};
-      if (open && !currentModel) {
+      if (open && selectedModels.length === 0) {
         extraOpts["open"] = true;
       }
       return (
@@ -46,12 +46,16 @@ export default connect(
           fluid
           search
           selection
-          multiple={false}
+          multiple={true}
           options={selectors}
           placeholder={"Select your Neural Network Model"}
           searchInput={{ type: "text" }}
           onChange={(e, { value }) => {
-            modelSelected({ manifest: JSON.parse(value) });
+            modelSelected({
+              manifests: value.map(v => {
+                return JSON.parse(v);
+              }),
+            });
           }}
           {...extraOpts}
         />
