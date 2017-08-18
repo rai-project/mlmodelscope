@@ -1,54 +1,66 @@
-import { parallel } from "cerebral";
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
-import { head } from "lodash";
 import base64 from "../compute/base64";
 import onError from "./onError";
 import { Predict } from "../../../swagger/dlframework";
+import { isArray } from "lodash";
+import outerProduct from "../../../helpers/outerproduct";
 
-function predict(predictURL, selectedModels) {
-  return ({ http, path, resolve }) => {
-    const models = resolve.value(selectedModels);
-    const url = resolve.value(predictURL);
+function predict({ data, models }) {
+  function _predict({ http, path, resolve }) {
+    models = resolve.value(models);
+    if (!isArray(models)) {
+      models = [models];
+    }
+    data = resolve.value(data);
+    if (!isArray(data)) {
+      data = [data];
+    }
+
     let successes = [];
     let errors = [];
-    const predictPath = ({ model }) => {
+    const predictPath = ({ model, data }) => {
       return {
         success({ result }) {
           successes.push({
             model,
+            data,
             features: result.features
           });
         },
         error({ error }) {
           errors.push({
             model,
+            data,
             error
           });
         }
       };
     };
+
     return Promise.all(
-      models.map(model => {
+      outerProduct([models, data]).map(([model, data]) => {
         return Predict({
           body: {
             framework_name: model.framework.name,
             framework_version: model.framework.version,
             model_name: model.name,
             model_version: model.version,
-            data: base64(url),
+            data: base64(data),
             limit: 10
           }
         })({
           http,
-          path: predictPath({ model }),
+          path: predictPath({ model, data }),
           resolve
         });
       })
     )
       .then(() => path.success({ features: successes }))
       .catch(() => path.error(errors));
-  };
+  }
+  _predict.displayName = "predict";
+  return _predict;
 }
 
 export default [
@@ -61,7 +73,7 @@ export default [
   {
     true: [
       set(state`app.isPredicting`, true),
-      predict(state`app.predictURL`, props`selectedModels`),
+      predict({ data: state`app.predictURL`, models: props`selectedModels` }),
       {
         success: [set(state`app.features`, props`features`)],
         error: onError
