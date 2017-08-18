@@ -16,7 +16,7 @@ export default function predict({ data, models }) {
 
     let successes = [];
     let errors = [];
-    const predictPath = ({ model, data }) => {
+    const makePath = ({ model, data }) => {
       return {
         success({ result }) {
           successes.push({
@@ -48,13 +48,20 @@ export default function predict({ data, models }) {
           }
         })({
           http,
-          path: predictPath({ model, data }),
-          resolve
+          resolve,
+          path: makePath({ model, data })
         });
       })
     )
-      .then(() => path.success({ features: successes }))
-      .catch(() => path.error(errors));
+      .then(function() {
+        if (errors.length !== 0) {
+          return path.errors(errors);
+        }
+        path.success({ features: successes });
+      })
+      .catch(function() {
+        path.error(errors);
+      });
   }
   _predict.displayName = "predict";
   return _predict;
