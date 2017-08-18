@@ -1,7 +1,6 @@
 import { compute } from "cerebral";
-import { set, when, shift } from "cerebral/operators";
+import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
-import { head } from "lodash";
 
 import modelPredictChain from "../../common/chains/modelPredictChain";
 import resetError from "../../common/chains/resetError";
@@ -17,8 +16,8 @@ export default [
       set(
         state`app.name`,
         compute(props`model`, model => model.name + " Model Inference")
-      ),
+      )
     ],
-    true: [], // nothing
-  },
+    true: [] // nothing
+  }
 ];

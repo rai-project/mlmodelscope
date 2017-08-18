@@ -40,7 +40,7 @@ export default function outerProduct(dimensions) {
       if (lastDimOverflowed) {
         position = (position + 1) % sizes[dim];
         positions[dim] = position;
-        lastDimOverflowed = position == 0;
+        lastDimOverflowed = position === 0;
       }
     }
     results.push(result);
