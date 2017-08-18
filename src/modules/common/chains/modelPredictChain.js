@@ -13,7 +13,7 @@ export default [
   {
     true: [
       set(state`app.isPredicting`, true),
-      predict({ data: state`app.predictURL`, models: props`selectedModels` }),
+      predict({ inputs: state`app.predictURL`, models: props`selectedModels` }),
       {
         success: [set(state`app.features`, props`features`)],
         error: onError

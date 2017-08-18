@@ -3,53 +3,50 @@ import base64 from "../compute/base64";
 import outerProduct from "../../../helpers/outerproduct";
 import { Predict } from "../../../swagger/dlframework";
 
-export default function predict({ data, models }) {
-  function _predict({ http, path, resolve }) {
+export default function predict({ inputs, models }) {
+  let _predict = function({ http, path, resolve }) {
+    inputs = resolve.value(inputs);
+    if (!isArray(inputs)) {
+      inputs = [inputs];
+    }
     models = resolve.value(models);
     if (!isArray(models)) {
       models = [models];
     }
-    data = resolve.value(data);
-    if (!isArray(data)) {
-      data = [data];
-    }
 
     let successes = [];
     let errors = [];
-    const makePath = ({ model, data }) => {
-      return {
-        success({ result }) {
-          successes.push({
-            model,
-            data,
-            features: result.features
-          });
-        },
-        error({ error }) {
-          errors.push({
-            model,
-            data,
-            error
-          });
-        }
-      };
-    };
 
     return Promise.all(
-      outerProduct([models, data]).map(([model, data]) => {
+      outerProduct([models, inputs]).map(([model, input]) => {
         return Predict({
           body: {
             framework_name: model.framework.name,
             framework_version: model.framework.version,
             model_name: model.name,
             model_version: model.version,
-            data: base64(data),
+            data: base64(input),
             limit: 10
           }
         })({
           http,
           resolve,
-          path: makePath({ model, data })
+          path: {
+            success({ result }) {
+              successes.push({
+                model,
+                input,
+                features: result.features
+              });
+            },
+            error({ error }) {
+              errors.push({
+                model,
+                input,
+                error
+              });
+            }
+          }
         });
       })
     )
@@ -57,12 +54,12 @@ export default function predict({ data, models }) {
         if (errors.length !== 0) {
           return path.errors(errors);
         }
-        path.success({ features: successes });
+        return path.success({ features: successes });
       })
       .catch(function() {
-        path.error(errors);
+        return path.error(errors);
       });
-  }
+  };
   _predict.displayName = "predict";
   return _predict;
 }
