@@ -1,8 +1,11 @@
+import idx from "idx";
+import yeast from "yeast";
 import React, { Component } from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
 import Alert from "react-s-alert";
-import idx from "idx";
+import { isArray, isNil, isEmpty } from "lodash";
+import { Label, Message, Icon, Divider, Accordion } from "semantic-ui-react";
 
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
@@ -13,21 +16,64 @@ class ErrorTemplate extends React.Component {
     Alert.close(this.props.id);
   }
   render() {
-    return (
-      <div
-        className={this.props.classNames}
-        id={this.props.id}
-        style={this.props.styles}
-      >
-        <h4>
-          {this.props.message.name}
-        </h4>
-        <div className="s-alert-box-inner">
-          <b>{idx(this.props.message, _ => _.body.code)}</b>
-          &nbsp; &nbsp; :: &nbsp; &nbsp;
-          <code>{idx(this.props.message, _ => _.body.message)}</code>
+    const { error } = this.props.customFields;
+    console.log(error);
+    let code = idx(error, _ => _.body.code);
+    let message = idx(error, _ => _.body.message);
+    let stack = idx(error, _ => _.body.stack);
+    if (!isNil(code)) {
+      code = (
+        <code>
+          {code} :: &nbsp;
+        </code>
+      );
+    }
+    if (!isNil(message)) {
+      message = (
+        <b>
+          {message}
+        </b>
+      );
+    }
+    if (!isNil(stack)) {
+      const trace = (
+        <Message.List>
+          {stack.map(s =>
+            <Message.Item key={yeast()} as="pre" style={{ fontSize: "75%" }}>
+              {s}
+            </Message.Item>
+          )}
+        </Message.List>
+      );
+      stack = (
+        <div>
+          <Divider />
+          <Accordion
+            panels={[
+              {
+                key: "stack-trace",
+                title: <Label color="red" content="stack trace" />,
+                content: trace
+              }
+            ]}
+          />
         </div>
-        <span className="s-alert-close" onClick={this.props.handleClose} />
+      );
+    }
+    return (
+      <div id={this.props.id} style={this.props.styles}>
+        <Message error color="red" onDismiss={this.props.handleClose}>
+          <Message.Header>
+            <Icon name="warning sign" /> {error.name}
+          </Message.Header>
+          <Message.Content>
+            <div>
+              {code}
+              {message}
+            </div>
+            {stack}
+          </Message.Content>
+        </Message>
       </div>
     );
   }
@@ -39,10 +85,16 @@ export default connect(
   },
   class Snackbar extends Component {
     componentDidUpdate() {
-      if (!this.props.error) {
+      const { error } = this.props;
+
+      if (isNil(error) || (isArray(error) && isEmpty(error))) {
         return;
       }
-      Alert.error(this.props.error);
+      if (isArray(error)) {
+        error.map(err => Alert.error("error", { customFields: { error } }));
+        return;
+      }
+      Alert.error("error", { customFields: { error } });
     }
     render() {
       return (
