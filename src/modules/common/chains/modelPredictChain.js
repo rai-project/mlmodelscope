@@ -12,13 +12,21 @@ function predict(predictURL, selectedModels) {
     const url = resolve.value(predictURL);
     let successes = [];
     let errors = [];
-    const predictPath = {
-      success: function({ result }) {
-        successes.push(result.features);
-      },
-      error: function({ error }) {
-        errors.push(error);
-      }
+    const predictPath = ({ model }) => {
+      return {
+        success: function({ result }) {
+          successes.push({
+            model,
+            features: result.features
+          });
+        },
+        error: function({ error }) {
+          errors.push({
+            model,
+            error
+          });
+        }
+      };
     };
     return Promise.all(
       models.map(model => {
@@ -33,7 +41,7 @@ function predict(predictURL, selectedModels) {
           }
         })({
           http,
-          path: predictPath,
+          path: predictPath({ model }),
           resolve
         });
       })
