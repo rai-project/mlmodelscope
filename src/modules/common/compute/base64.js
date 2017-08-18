@@ -1,6 +1,3 @@
 import { compute } from "cerebral";
 
-export default e =>
-  compute(e, item => {
-    return btoa(item);
-  });
+export default e => compute(e, btoa);

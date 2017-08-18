@@ -22,7 +22,7 @@ If it is, then it sets `app.error` is not `null` and copies the `error` property
 No actions are invoked if there are no errors.
 
 ```.js
-when(props`error`, (err) => err !== null), {
+when(props`error`), {
   true: [
     set(state`app.error`, props`error`)
   ],

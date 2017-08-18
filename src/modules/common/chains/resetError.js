@@ -1,4 +1,4 @@
-import { set } from "cerebral/operators";
+import { unset } from "cerebral/operators";
 import { state } from "cerebral/tags";
 
-export default [set(state`app.error`, null)];
+export default [unset(state`app.error`)];
