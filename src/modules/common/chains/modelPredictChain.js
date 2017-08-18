@@ -14,13 +14,13 @@ function predict(predictURL, selectedModels) {
     let errors = [];
     const predictPath = ({ model }) => {
       return {
-        success: function({ result }) {
+        success({ result }) {
           successes.push({
             model,
             features: result.features
           });
         },
-        error: function({ error }) {
+        error({ error }) {
           errors.push({
             model,
             error
