@@ -10,8 +10,16 @@ function predict(predictURL, selectedModels) {
   return ({ http, path, resolve }) => {
     const models = resolve.value(selectedModels);
     const url = resolve.value(predictURL);
-    console.log(url);
-    console.log(path);
+    let successes = [];
+    let errors = [];
+    const predictPath = {
+      success: function({ result }) {
+        successes.push(result.features);
+      },
+      error: function({ error }) {
+        errors.push(error);
+      }
+    };
     return Promise.all(
       models.map(model => {
         return Predict({
@@ -25,16 +33,13 @@ function predict(predictURL, selectedModels) {
           }
         })({
           http,
-          path,
+          path: predictPath,
           resolve
         });
       })
     )
-      .then(path.success)
-      .catch(function(output) {
-        console.log("on error");
-        path.error(head(output));
-      });
+      .then(() => path.success({ features: successes }))
+      .catch(() => path.error(errors));
   };
 }
 
@@ -50,7 +55,7 @@ export default [
       set(state`app.isPredicting`, true),
       predict(state`app.predictURL`, props`selectedModels`),
       {
-        success: [set(state`app.features`, props`result.features`)],
+        success: [set(state`app.features`, props`features`)],
         error: onError
       },
       set(state`app.isPredicting`, false)
