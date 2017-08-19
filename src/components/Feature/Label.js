@@ -21,23 +21,21 @@ export default function LabelFeature({ feature, compact = false }) {
     <Grid columns={3}>
       <Popup
         trigger={
-          <Grid.Column textAlign="center" width={6}>
+          <Grid.Column textAlign="center" width={compact ? 8 : 6}>
             {cleanupName(feature.name)}
           </Grid.Column>
         }
         content={trimStart(feature.name, PREFIX)}
         position="left center"
       />
-      {compact
-        ? null
-        : <Grid.Column width={8}>
-            <Progress
-              value={feature.probability}
-              total={1}
-              size="tiny"
-              color={feature.probability > 0.8 ? "green" : "orange"}
-            />
-          </Grid.Column>}
+      <Grid.Column width={compact ? 6 : 8}>
+        <Progress
+          value={feature.probability}
+          total={1}
+          size="tiny"
+          color={feature.probability > 0.8 ? "green" : "orange"}
+        />
+      </Grid.Column>
       <Grid.Column textAlign="right" width={2}>
         {Number(feature.probability.toFixed(4))}
       </Grid.Column>
