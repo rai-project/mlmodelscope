@@ -57,7 +57,7 @@ export default function predict({ inputs, models }) {
         return path.success({ output: successes });
       })
       .catch(function() {
-        return path.error(errors);
+        return path.error({ error: errors });
       });
   };
   _predict.displayName = "predict";

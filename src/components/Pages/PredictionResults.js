@@ -2,13 +2,13 @@ import yeast from "yeast";
 import React from "react";
 import { connect } from "cerebral/react";
 import { state } from "cerebral/tags";
-import { head, tail, filter, lowerCase } from "lodash";
+import { head, filter, lowerCase } from "lodash";
 import {
   Header,
   Image,
   Grid,
+  List,
   Container,
-  Message,
   Divider,
   Segment
 } from "semantic-ui-react";
@@ -34,7 +34,7 @@ function PredictionResultsOne({
     }
   };
   return (
-    <Grid relaxed>
+    <Grid relaxed centered>
       {showImage
         ? <div>
             <Grid.Row divided textAlign="center">
@@ -43,25 +43,19 @@ function PredictionResultsOne({
             <Divider hidden />
           </div>
         : null}
-      <Grid.Row>
-        <Segment secondary>
-          {makeFeatureTag({
-            feature: head(features),
-            key: "feature-" + yeast(),
-            compact: compact
-          })}
-        </Segment>
-      </Grid.Row>
-      <Divider horizontal />
-      {tail(features).map(features =>
-        <Grid.Row key={yeast()}>
-          {makeFeatureTag({
-            feature: features,
-            key: "feature-" + yeast(),
-            compact: compact
-          })}
-        </Grid.Row>
-      )}
+      <List divided>
+        {features.map(features =>
+          <List.Item key={yeast()}>
+            <List.Content>
+              {makeFeatureTag({
+                feature: features,
+                key: "feature-" + yeast(),
+                compact: compact
+              })}
+            </List.Content>
+          </List.Item>
+        )}
+      </List>
     </Grid>
   );
 }
@@ -71,46 +65,52 @@ export default connect(
     outputs: state`app.predictOutputs`
   },
   function PredictionResults({ outputs }) {
-    if (outputs.length === 0) {
+    const outputLength = outputs.length;
+    if (outputLength === 0) {
       return <div />;
     }
-    if (outputs.length === 1) {
+    if (outputLength === 1) {
       const output = head(outputs);
       return <PredictionResultsOne showImage compcat={false} {...output} />;
     }
     const input = head(outputs).input;
+    const containerProps = { fluid: false, text: true };
+    if (outputLength > 2) {
+      containerProps.fluid = true;
+      containerProps.text = false;
+    }
     return (
-      <Container text>
-        <div>
-          <Grid.Row divided textAlign="center">
-            <Image centered size="medium" shape="rounded" src={input} />
-          </Grid.Row>
-          <Divider hidden />
-          <Grid
-            stackable
-            celled="internally"
-            divided="vertically"
-            padded="vertically"
-            columns={outputs.length}
-          >
-            <Grid.Row>
-              {outputs.map(output =>
-                <Grid.Column key={yeast()}>
-                  <Segment>
-                    <Header as="h3">
-                      {output.model.name}
+      <Container {...containerProps}>
+        <Grid.Row divided textAlign="center">
+          <Image centered size="medium" shape="rounded" src={input} />
+        </Grid.Row>
+        <Divider hidden />
+        <Grid
+          celled="internally"
+          divided="vertically"
+          padded="vertically"
+          columns={outputs.length}
+        >
+          <Grid.Row centered>
+            {outputs.map(output =>
+              <Grid.Column key={yeast()}>
+                <Segment>
+                  <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <Header textAlign="center" as="h3">
+                      {output.model.name} Model
                     </Header>
+                    <Divider hidden />
                     <PredictionResultsOne
                       showImage={false}
                       compact={true}
                       {...output}
                     />
-                  </Segment>
-                </Grid.Column>
-              )}
-            </Grid.Row>
-          </Grid>
-        </div>
+                  </div>
+                </Segment>
+              </Grid.Column>
+            )}
+          </Grid.Row>
+        </Grid>
       </Container>
     );
   }
