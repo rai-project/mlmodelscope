@@ -11,7 +11,7 @@ import ReactMapboxGl, {
 import config from "../../config";
 import { tail, toNumber } from "lodash";
 
-export default function Location({ feature }) {
+export default function Location({ feature, compact = false }) {
   if (!feature) {
     return null;
   }

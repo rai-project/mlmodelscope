@@ -2,7 +2,15 @@ import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { head, isObject, values } from "lodash";
-import { Container, Grid, Divider, Button, Input, Loader, Tab } from "semantic-ui-react";
+import {
+  Container,
+  Grid,
+  Divider,
+  Button,
+  Input,
+  Loader,
+  Tab
+} from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import { Selector as ModelSelector } from "../Model";
@@ -10,18 +18,18 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 export default connect(
   {
-    predictURL: state`app.predictURL`,
+    predictInputs: state`app.predictInputs`,
     isPredicting: state`app.isPredicting`,
     selectedModels: state`models.selectedModels`,
     predictURLChanged: signal`app.predictURLChanged`,
-    inferenceButtonClicked: signal`app.inferenceButtonClicked`,
+    inferenceButtonClicked: signal`app.inferenceButtonClicked`
   },
   function HomePage({
-    predictURL,
+    predictInputs,
     isPredicting,
     selectedModels,
     predictURLChanged,
-    inferenceButtonClicked,
+    inferenceButtonClicked
   }) {
     const onUploadSuccess = files => {
       console.log("got onUploadSuccess files = ", files);
@@ -30,16 +38,16 @@ export default connect(
       const firstURL = head(uploadURLs);
       console.log({
         selectedModels,
-        firstURL,
+        firstURL
       });
-      predictURLChanged({ predictURL: firstURL });
+      predictURLChanged({ inputs: firstURL });
     };
     return (
       <div>
         <Container
           text
           style={{
-            fontFamily,
+            fontFamily
           }}
         >
           <Grid.Row centered columns={1}>
@@ -56,20 +64,22 @@ export default connect(
                     <Input
                       fluid
                       placeholder={
-                        predictURL ||
-                        "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                        predictInputs || [
+                          "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                        ]
                       }
-                      onChange={e => predictURLChanged({ predictURL: e.target.value })}
-                    />,
+                      onChange={e =>
+                        predictURLChanged({ inputs: e.target.value })}
+                    />
                 },
                 {
                   menuItem: "Upload",
-                  render: () => <UploadArea onUploadSuccess={onUploadSuccess} />,
+                  render: () => <UploadArea onUploadSuccess={onUploadSuccess} />
                 },
                 {
                   menuItem: "Dataset",
-                  render: () => <div>TODO</div>,
-                },
+                  render: () => <div>TODO</div>
+                }
               ]}
             />
           </Grid.Row>
@@ -82,7 +92,7 @@ export default connect(
                 style={{
                   color: "white",
                   backgroundColor: "#0DB7C4",
-                  borderColor: "#0DB7C4",
+                  borderColor: "#0DB7C4"
                 }}
                 disabled={!isObject(selectedModels)}
                 onClick={e => {

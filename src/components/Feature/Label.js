@@ -5,7 +5,7 @@ import { startsWith, trimStart, head, tail, join, capitalize } from "lodash";
 
 const PREFIX = "<> ";
 
-export default function LabelFeature({ feature }) {
+export default function LabelFeature({ feature, compact = false }) {
   if (!feature) {
     return null;
   }
@@ -28,14 +28,16 @@ export default function LabelFeature({ feature }) {
         content={trimStart(feature.name, PREFIX)}
         position="left center"
       />
-      <Grid.Column width={8}>
-        <Progress
-          value={feature.probability}
-          total={1}
-          size="tiny"
-          color={feature.probability > 0.8 ? "green" : "orange"}
-        />
-      </Grid.Column>
+      {compact
+        ? null
+        : <Grid.Column width={8}>
+            <Progress
+              value={feature.probability}
+              total={1}
+              size="tiny"
+              color={feature.probability > 0.8 ? "green" : "orange"}
+            />
+          </Grid.Column>}
       <Grid.Column textAlign="right" width={2}>
         {Number(feature.probability.toFixed(4))}
       </Grid.Column>

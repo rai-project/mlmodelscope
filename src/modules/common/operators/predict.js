@@ -54,7 +54,7 @@ export default function predict({ inputs, models }) {
         if (errors.length !== 0) {
           return path.errors(errors);
         }
-        return path.success({ features: successes });
+        return path.success({ output: successes });
       })
       .catch(function() {
         return path.error(errors);

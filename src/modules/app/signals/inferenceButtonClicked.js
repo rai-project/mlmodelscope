@@ -1,6 +1,7 @@
 import { compute } from "cerebral";
 import { set, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
+import { join, map } from "lodash";
 
 import modelPredictChain from "../../common/chains/modelPredictChain";
 import resetError from "../../common/chains/resetError";
@@ -15,7 +16,10 @@ export default [
       set(state`app.currentPage`, "PredictionResults"),
       set(
         state`app.name`,
-        compute(props`model`, model => model.name + " Model Inference")
+        compute(
+          props`selectedModels`,
+          models => join(map(models, "name"), ", ") + " Model Inference"
+        )
       )
     ],
     true: [] // nothing

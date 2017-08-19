@@ -14,9 +14,9 @@ export default {
     error: null,
     isInferring: false,
     isBusy: false,
-    predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
+    predictInputs: ["https://static.pexels.com/photos/20787/pexels-photo.jpg"],
     models: {},
-    frameworks: {},
+    frameworks: {}
   },
   signals: {
     appLoaded,
@@ -26,6 +26,6 @@ export default {
     modelInformationsRequest,
     inferenceButtonClicked,
     modelsRouted,
-    frameworksRouted,
-  },
+    frameworksRouted
+  }
 };
