@@ -9,7 +9,9 @@ import {
   Button,
   Input,
   Loader,
-  Tab
+  Tab,
+  Form,
+  List
 } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
@@ -22,12 +24,14 @@ export default connect(
     isPredicting: state`app.isPredicting`,
     selectedModels: state`models.selectedModels`,
     predictURLChanged: signal`app.predictURLChanged`,
+    predictURLAdded: signal`app.predictURLAdded`,
     inferenceButtonClicked: signal`app.inferenceButtonClicked`
   },
   function HomePage({
     predictInputs,
     isPredicting,
     selectedModels,
+    predictURLAdded,
     predictURLChanged,
     inferenceButtonClicked
   }) {
@@ -61,18 +65,30 @@ export default connect(
                 {
                   menuItem: "URL",
                   render: () =>
-                    <Input
-                      fluid
-                      placeholder={
-                        predictInputs || [
-                          "https://static.pexels.com/photos/20787/pexels-photo.jpg"
-                        ]
-                      }
-                      onChange={e => {
-                        let url = [e.target.value];
-                        predictURLChanged({ inputs: url });
-                      }}
-                    />
+                    <div>
+                      <Form
+                        onSubmit={e => {
+                          e.preventDefault();
+                          predictURLAdded();
+                        }}
+                      >
+                        <Input
+                          fluid
+                          placeholder={
+                            "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                          }
+                          onChange={e =>
+                            predictURLChanged({ predictURL: e.target.value })}
+                        />
+                      </Form>
+                      <List>
+                        {predictInputs.map((item, index) =>
+                          <List.Item key={index}>
+                            {item}
+                          </List.Item>
+                        )}
+                      </List>
+                    </div>
                 },
                 {
                   menuItem: "Upload",

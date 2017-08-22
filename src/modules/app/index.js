@@ -3,6 +3,7 @@ import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
 import predictURLChanged from "./signals/predictURLChanged";
+import predictURLAdded from "./signals/predictURLAdded";
 import inferenceButtonClicked from "./signals/inferenceButtonClicked";
 import modelsRouted from "./signals/modelsRouted";
 import frameworksRouted from "./signals/frameworksRouted";
@@ -14,7 +15,8 @@ export default {
     error: null,
     isInferring: false,
     isBusy: false,
-    predictInputs: ["https://static.pexels.com/photos/20787/pexels-photo.jpg"],
+    predictInputs: [],
+    predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
     models: {},
     frameworks: {}
   },
@@ -23,6 +25,7 @@ export default {
     homeRouted,
     navbarClicked,
     predictURLChanged,
+    predictURLAdded,
     modelInformationsRequest,
     inferenceButtonClicked,
     modelsRouted,

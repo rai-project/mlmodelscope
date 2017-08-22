@@ -62,9 +62,10 @@ function PredictionResultsOne({
 
 export default connect(
   {
+    inputs: state`app.predictInputs`,
     outputs: state`app.predictOutputs`
   },
-  function PredictionResults({ outputs }) {
+  function PredictionResults({ inputs, outputs }) {
     const outputLength = outputs.length;
     if (outputLength === 0) {
       return <div />;
@@ -78,6 +79,47 @@ export default connect(
     if (outputLength > 2) {
       containerProps.fluid = true;
       containerProps.text = false;
+    }
+    if (inputs.length > 1) {
+      return (
+        <Container {...containerProps}>
+          <Grid
+            celled="internally"
+            divided="vertically"
+            padded="vertically"
+            columns={outputs.length}
+          >
+            <Divider hidden />
+            <Grid.Row centered>
+              {outputs.map(output =>
+                <div>
+                  <Image
+                    centered
+                    size="medium"
+                    shape="rounded"
+                    src={output.input}
+                  />
+                  <Grid.Column key={yeast()}>
+                    <Segment>
+                      <div style={{ marginTop: 10, marginBottom: 10 }}>
+                        <Header textAlign="center" as="h3">
+                          {output.model.name} Model
+                        </Header>
+                        <Divider hidden />
+                        <PredictionResultsOne
+                          showImage={false}
+                          compact={true}
+                          {...output}
+                        />
+                      </div>
+                    </Segment>
+                  </Grid.Column>
+                </div>
+              )}
+            </Grid.Row>
+          </Grid>
+        </Container>
+      );
     }
     return (
       <Container {...containerProps}>
