@@ -8,7 +8,6 @@ import resetError from "../../common/chains/resetError";
 
 export default [
   ...resetError,
-  // set(state`models.selectedModels`, props`selectedModels`),
   ...modelPredictChain,
   when(state`app.error`),
   {

@@ -68,8 +68,10 @@ export default connect(
                           "https://static.pexels.com/photos/20787/pexels-photo.jpg"
                         ]
                       }
-                      onChange={e =>
-                        predictURLChanged({ inputs: e.target.value })}
+                      onChange={e => {
+                        let url = [e.target.value];
+                        predictURLChanged({ inputs: url });
+                      }}
                     />
                 },
                 {
