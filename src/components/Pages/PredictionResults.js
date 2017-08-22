@@ -80,52 +80,13 @@ export default connect(
       containerProps.fluid = true;
       containerProps.text = false;
     }
-    if (inputs.length > 1) {
-      return (
-        <Container {...containerProps}>
-          <Grid
-            celled="internally"
-            divided="vertically"
-            padded="vertically"
-            columns={outputs.length}
-          >
-            <Divider hidden />
-            <Grid.Row centered>
-              {outputs.map(output =>
-                <div>
-                  <Image
-                    centered
-                    size="medium"
-                    shape="rounded"
-                    src={output.input}
-                  />
-                  <Grid.Column key={yeast()}>
-                    <Segment>
-                      <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Header textAlign="center" as="h3">
-                          {output.model.name} Model
-                        </Header>
-                        <Divider hidden />
-                        <PredictionResultsOne
-                          showImage={false}
-                          compact={true}
-                          {...output}
-                        />
-                      </div>
-                    </Segment>
-                  </Grid.Column>
-                </div>
-              )}
-            </Grid.Row>
-          </Grid>
-        </Container>
-      );
-    }
     return (
       <Container {...containerProps}>
-        <Grid.Row divided textAlign="center">
-          <Image centered size="medium" shape="rounded" src={input} />
-        </Grid.Row>
+        {inputs.length == 1
+          ? <Grid.Row divided textAlign="center">
+              <Image centered size="medium" shape="rounded" src={input} />
+            </Grid.Row>
+          : null}
         <Divider hidden />
         <Grid
           celled="internally"
@@ -138,12 +99,24 @@ export default connect(
               <Grid.Column key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
-                    <Header textAlign="center" as="h3">
-                      {output.model.name} Model
-                    </Header>
-                    <Divider hidden />
+                    {/*inputs.length > 1
+                      ? <Image
+                          centered
+                          size="medium"
+                          shape="rounded"
+                          src={output.input}
+                        />
+                    : null*/}
+                    {inputs.length == 1
+                      ? <div>
+                          <Header textAlign="center" as="h3">
+                            {output.model.name} Model{" "}
+                          </Header>
+                          <Divider hidden />
+                        </div>
+                      : null}
                     <PredictionResultsOne
-                      showImage={false}
+                      showImage={inputs.length > 1}
                       compact={true}
                       {...output}
                     />
