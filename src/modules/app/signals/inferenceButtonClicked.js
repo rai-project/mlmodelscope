@@ -16,7 +16,7 @@ export default [
       set(
         state`app.name`,
         compute(
-          props`selectedModels`,
+          state`models.selectedModels`,
           models => join(map(models, "name"), ", ") + " Model Inference"
         )
       )

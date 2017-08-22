@@ -98,7 +98,7 @@ export default connect(
                 }}
                 disabled={!isObject(selectedModels)}
                 onClick={e => {
-                  inferenceButtonClicked({ selectedModels: selectedModels });
+                  inferenceButtonClicked();
                 }}
               >
                 {isPredicting === true
