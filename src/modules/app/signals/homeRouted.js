@@ -9,8 +9,11 @@ export default [
   ...resetError,
   set(state`app.currentPage`, "Home"),
   set(state`app.name`, "CarML"),
-  set(state`models.selectedModels`, []),
   set(state`app.predictInputs`, []),
+  set(
+    state`app.predictURL`,
+    "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+  ),
   ...frameworkInformationChain,
   ...modelInformationChain
 ];
