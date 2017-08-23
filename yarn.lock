@@ -4868,7 +4868,7 @@ ignore@^3.2.0, ignore@^3.3.3:
 
 image-compressor@xkeshi/image-compressor:
   version "0.4.0"
-  resolved "https://codeload.github.com/xkeshi/image-compressor/tar.gz/f0b405a90c8adaab72f8f089bcecfc1b33c43d14"
+  resolved "https://codeload.github.com/xkeshi/image-compressor/tar.gz/d10c8ec828c411ec575aac6cf1079cb912e1fd30"
   dependencies:
     blueimp-canvas-to-blob "^3.11.0"
     is-blob "^1.0.0"
