@@ -1,4 +1,10 @@
-import { push } from "cerebral/operators";
+import { push, when } from "cerebral/operators";
 import { state, props } from "cerebral/tags";
 
-export default [push(state`app.predictInputs`, state`app.predictURL`)];
+export default [
+  when(state`app.predictURL`, predictURL => predictURL === ""),
+  {
+    false: [push(state`app.predictInputs`, state`app.predictURL`)],
+    true: [] // nothing
+  }
+];
