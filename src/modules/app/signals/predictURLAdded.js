@@ -1,5 +1,5 @@
 import { push, when, set } from "cerebral/operators";
-import { state, props } from "cerebral/tags";
+import { state } from "cerebral/tags";
 
 export default [
   when(state`app.predictURL`, predictURL => predictURL === ""),

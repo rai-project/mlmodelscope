@@ -82,7 +82,7 @@ export default connect(
     }
     return (
       <Container {...containerProps}>
-        {inputs.length == 1
+        {inputs.length === 1
           ? <Grid.Row divided textAlign="center">
               <Image centered size="medium" shape="rounded" src={input} />
             </Grid.Row>
@@ -99,7 +99,7 @@ export default connect(
               <Grid.Column key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
-                    {inputs.length == 1
+                    {inputs.length === 1
                       ? <div>
                           <Header textAlign="center" as="h3">
                             {output.model.name} Model{" "}

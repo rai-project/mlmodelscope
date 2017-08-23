@@ -1,6 +1,6 @@
 import { compute } from "cerebral";
 import { set, when } from "cerebral/operators";
-import { state, props } from "cerebral/tags";
+import { state } from "cerebral/tags";
 import { join, map } from "lodash";
 
 import modelPredictChain from "../../common/chains/modelPredictChain";
