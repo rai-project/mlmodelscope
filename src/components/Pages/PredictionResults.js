@@ -99,14 +99,6 @@ export default connect(
               <Grid.Column key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
-                    {/*inputs.length > 1
-                      ? <Image
-                          centered
-                          size="medium"
-                          shape="rounded"
-                          src={output.input}
-                        />
-                    : null*/}
                     {inputs.length == 1
                       ? <div>
                           <Header textAlign="center" as="h3">

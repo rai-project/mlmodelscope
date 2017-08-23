@@ -9,6 +9,8 @@ export default [
   ...resetError,
   set(state`app.currentPage`, "Home"),
   set(state`app.name`, "CarML"),
+  set(state`models.selectedModels`, []),
+  set(state`app.predictInputs`, []),
   ...frameworkInformationChain,
   ...modelInformationChain
 ];
