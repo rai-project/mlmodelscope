@@ -112,7 +112,10 @@ export default connect(
                   backgroundColor: "#0DB7C4",
                   borderColor: "#0DB7C4"
                 }}
-                disabled={!isObject(selectedModels)}
+                disabled={
+                  Object.keys(selectedModels).length === 0 ||
+                  predictInputs.length === 0
+                }
                 onClick={e => {
                   inferenceButtonClicked();
                 }}

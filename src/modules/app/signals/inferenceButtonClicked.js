@@ -13,13 +13,7 @@ export default [
   {
     false: [
       set(state`app.currentPage`, "PredictionResults"),
-      set(
-        state`app.name`,
-        compute(
-          state`models.selectedModels`,
-          models => join(map(models, "name"), ", ") + " Model Inference"
-        )
-      )
+      set(state`app.name`, "CarML Inference")
     ],
     true: [] // nothing
   }

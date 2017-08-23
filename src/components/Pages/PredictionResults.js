@@ -102,7 +102,11 @@ export default connect(
                     {inputs.length === 1
                       ? <div>
                           <Header textAlign="center" as="h3">
-                            {output.model.name} Model{" "}
+                            {output.model.name} Model
+                          </Header>
+                          <Header textAlign="center" as="h5">
+                            {output.model.framework.name} {" "}
+                            {output.model.framework.version}
                           </Header>
                           <Divider hidden />
                         </div>
