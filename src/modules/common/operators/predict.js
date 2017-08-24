@@ -5,20 +5,20 @@ import { Predict } from "../../../swagger/dlframework";
 
 export default function predict({ inputs, models }) {
   let _predict = function({ http, path, resolve }) {
-    inputs = resolve.value(inputs);
-    if (!isArray(inputs)) {
-      inputs = [inputs];
+    let resolvedInputs = resolve.value(inputs);
+    if (!isArray(resolvedInputs)) {
+      resolvedInputs = [resolvedInputs];
     }
-    models = resolve.value(models);
-    if (!isArray(models)) {
-      models = [models];
+    let resolvedModels = resolve.value(models);
+    if (!isArray(resolvedModels)) {
+      resolvedModels = [resolvedModels];
     }
 
     let successes = [];
     let errors = [];
 
     return Promise.all(
-      outerProduct([models, inputs]).map(([model, input]) => {
+      outerProduct([resolvedModels, resolvedInputs]).map(([model, input]) => {
         return Predict({
           body: {
             framework_name: model.framework.name,
