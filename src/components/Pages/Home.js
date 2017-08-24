@@ -23,6 +23,7 @@ export default connect(
     predictInputs: state`app.predictInputs`,
     isPredicting: state`app.isPredicting`,
     selectedModels: state`models.selectedModels`,
+    predictInputsSet: signal`app.predictInputsSet`,
     predictURLChanged: signal`app.predictURLChanged`,
     predictURLAdded: signal`app.predictURLAdded`,
     inferenceButtonClicked: signal`app.inferenceButtonClicked`
@@ -31,6 +32,7 @@ export default connect(
     predictInputs,
     isPredicting,
     selectedModels,
+    predictInputsSet,
     predictURLAdded,
     predictURLChanged,
     inferenceButtonClicked
@@ -39,12 +41,7 @@ export default connect(
       console.log("got onUploadSuccess files = ", files);
       const uploadURLs = values(files).map(file => file.uploadURL);
       console.log("got onUploadSuccess fileNames = ", uploadURLs);
-      const firstURL = head(uploadURLs);
-      console.log({
-        selectedModels,
-        firstURL
-      });
-      predictURLChanged({ inputs: firstURL });
+      predictInputsSet({ predictURLs: uploadURLs });
     };
     return (
       <div>

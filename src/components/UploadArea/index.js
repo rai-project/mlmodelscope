@@ -32,8 +32,8 @@ export default connect(
           return Promise.reject("Invalid file format. Please upload an image");
         },
         onBeforeUpload: files => {
-          if (Object.keys(files).length > 1) {
-            return Promise.reject("Only one file is allowed");
+          if (Object.keys(files).length > 5) {
+            return Promise.reject("Up to five files are allowed");
           }
           return Promise.resolve();
         }

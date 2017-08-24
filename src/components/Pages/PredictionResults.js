@@ -20,6 +20,7 @@ function PredictionResultsOne({
   input,
   features,
   showImage = true,
+  showModel = true,
   compact = false
 }) {
   features = filter(features, features => features !== undefined);
@@ -39,6 +40,19 @@ function PredictionResultsOne({
         ? <div>
             <Grid.Row divided textAlign="center">
               <Image centered size="medium" shape="rounded" src={input} />
+            </Grid.Row>
+            <Divider hidden />
+          </div>
+        : null}
+      {showModel
+        ? <div>
+            <Grid.Row divided textAlign="center">
+              <Header textAlign="center" as="h3">
+                {model.name} Model
+              </Header>
+              <Header textAlign="center" as="h5">
+                {model.framework.name} {model.framework.version}
+              </Header>
             </Grid.Row>
             <Divider hidden />
           </div>
@@ -63,31 +77,49 @@ function PredictionResultsOne({
 export default connect(
   {
     inputs: state`app.predictInputs`,
+    models: state`models.selectedModels`,
     outputs: state`app.predictOutputs`
   },
-  function PredictionResults({ inputs, outputs }) {
+  function PredictionResults({ inputs, models, outputs }) {
     const outputLength = outputs.length;
     if (outputLength === 0) {
       return <div />;
     }
-    if (outputLength === 1) {
-      const output = head(outputs);
-      return <PredictionResultsOne showImage compcat={false} {...output} />;
-    }
-    const input = head(outputs).input;
     const containerProps = { fluid: false, text: true };
     if (outputLength > 2) {
       containerProps.fluid = true;
       containerProps.text = false;
     }
+    const output = head(outputs);
+    const model = head(models);
     return (
       <Container {...containerProps}>
         {inputs.length === 1
-          ? <Grid.Row divided textAlign="center">
-              <Image centered size="medium" shape="rounded" src={input} />
-            </Grid.Row>
+          ? <div>
+              <Grid.Row divided textAlign="center">
+                <Image
+                  centered
+                  size="medium"
+                  shape="rounded"
+                  src={output.input}
+                />
+              </Grid.Row>
+              <Divider hidden />
+            </div>
           : null}
-        <Divider hidden />
+        {models.length === 1
+          ? <div>
+              <Grid.Row divided textAlign="center">
+                <Header textAlign="center" as="h1">
+                  {model.name} Model
+                </Header>
+                <Header textAlign="center" as="h3">
+                  {model.framework.name} {model.framework.version}
+                </Header>
+              </Grid.Row>
+              <Divider hidden />
+            </div>
+          : null}
         <Grid
           celled="internally"
           divided="vertically"
@@ -99,20 +131,9 @@ export default connect(
               <Grid.Column key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
-                    {inputs.length === 1
-                      ? <div>
-                          <Header textAlign="center" as="h3">
-                            {output.model.name} Model
-                          </Header>
-                          <Header textAlign="center" as="h5">
-                            {output.model.framework.name} {" "}
-                            {output.model.framework.version}
-                          </Header>
-                          <Divider hidden />
-                        </div>
-                      : null}
                     <PredictionResultsOne
                       showImage={inputs.length > 1}
+                      showModel={models.length > 1}
                       compact={true}
                       {...output}
                     />

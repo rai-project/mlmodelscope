@@ -3,6 +3,7 @@ import navbarClicked from "./signals/navbarClicked";
 import homeRouted from "./signals/homeRouted";
 import modelInformationsRequest from "./signals/modelInformationsRequest";
 import predictURLChanged from "./signals/predictURLChanged";
+import predictInputsSet from "./signals/predictInputsSet";
 import predictURLAdded from "./signals/predictURLAdded";
 import inferenceButtonClicked from "./signals/inferenceButtonClicked";
 import modelsRouted from "./signals/modelsRouted";
@@ -24,6 +25,7 @@ export default {
     appLoaded,
     homeRouted,
     navbarClicked,
+    predictInputsSet,
     predictURLChanged,
     predictURLAdded,
     modelInformationsRequest,
