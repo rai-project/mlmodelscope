@@ -59,9 +59,8 @@ export default function Location({ feature, compact = false }) {
       />
       <Grid.Column width={4}>
         <Progress
-          value={feature.probability}
-          total={1}
           size="tiny"
+          percent={100 * feature.probability}
           color={feature.probability > 0.8 ? "green" : "orange"}
         />
       </Grid.Column>
