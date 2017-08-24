@@ -80,6 +80,7 @@
     "sweetalert-react": "^0.4.10",
     "uppy": "^0.18.0",
     "uuid": "^3.1.0",
+    "validator": "^8.1.0",
     "yeast": "^0.1.2",
     "yo-yo": "^1.4.1",
     "zipkin": "^0.7.3"
