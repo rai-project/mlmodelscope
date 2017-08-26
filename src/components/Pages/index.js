@@ -41,5 +41,5 @@ export const ModelSummaryPage = delayLoad(() => import("./ModelSummary"));
 export const PredictionResultsPage = delayLoad(() =>
   import("./PredictionResults")
 );
-
+export const AboutPage = delayLoad(() => import("./About"));
 HomePage.preload();

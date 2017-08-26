@@ -12,7 +12,8 @@ import {
   HomePage,
   ModelInformationPage,
   ModelSummaryPage,
-  PredictionResultsPage
+  PredictionResultsPage,
+  AboutPage
 } from "../Pages";
 import Footer from "./Footer";
 import Snackbar from "./Snackbar";
@@ -47,6 +48,9 @@ export default connect(
           break;
         case "Frameworks":
           Page = FrameworkSummaryPage;
+          break;
+        case "About":
+          Page = AboutPage;
           break;
         default:
           Page = HomePage;
