@@ -12,6 +12,10 @@ services:
     image: consul
     ports:
     - 8500:8500
+  store:
+    image: minio/minio
+    ports:
+    - 9000:9000
   caffe2:
     environment:
       - TRACER_ENDPOINTS='[zipkin:9411]'
@@ -20,3 +24,4 @@ services:
       - zipkin
       - consul
     image: carml/caffe-agent:amd64-cpu-latest
+
