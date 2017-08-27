@@ -53,7 +53,8 @@ const controller = Controller({
         "/models": "app.modelsRouted",
         "/model/:name/:version": "model.modelRouted",
         "/frameworks": "app.frameworksRouted",
-        "/framework/:name/:version": "app.frameworkRouted"
+        "/framework/:name/:version": "app.frameworkRouted",
+        "/about": "app.aboutRouted"
       }, // Route definitions
       query: true, // Query support
       onlyHash: false // Use hash urls

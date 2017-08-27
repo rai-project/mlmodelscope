@@ -114,6 +114,7 @@
     "prepack": "^0.2.6",
     "prettier": "^1.5.3",
     "prettier-eslint": "^6.4.2",
+    "raw-loader": "^0.5.1",
     "react-app-rewire-sass": "^1.2.3",
     "react-app-rewire-styled-components": "^3.0.0",
     "react-app-rewired": "^1.2.0",

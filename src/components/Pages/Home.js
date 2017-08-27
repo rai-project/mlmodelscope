@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
-import { head, isObject, values } from "lodash";
+import { values } from "lodash";
 import {
   Container,
   Grid,

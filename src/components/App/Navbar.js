@@ -47,6 +47,14 @@ export default connect(
                 fontFamily
               }}
             />
+            <Menu.Item
+              name="About"
+              active={currentPage === "About"}
+              onClick={e => navbarClicked({ name: "About" })}
+              style={{
+                fontFamily
+              }}
+            />
             {/*<Menu.Menu position="right">
               <Menu.Item>
                 <Button
