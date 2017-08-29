@@ -1,9 +1,13 @@
-version: '3'
+version: '2'
 services:
-  carml:
-    build: .
-    ports:
-    - 80:80
+  # carml:
+  #   build: .
+  #   ports:
+  #   - 80:8088
+  #   links:
+  #     - zipkin
+  #     - consul
+  #     - caffe2
   zipkin:
     image: openzipkin/zipkin:1.29
     ports:
@@ -14,9 +18,46 @@ services:
     - 8500:8500
   caffe2:
     environment:
-      - TRACER_ENDPOINTS='[zipkin:9411]'
-      - REGISTRY_ENDPOINTS='[consul:8500]'
+      - TRACER_ENDPOINTS=zipkin:9411
+      - REGISTRY_ENDPOINTS=consul:8500
     links:
       - zipkin
       - consul
-    image: carml/caffe-agent:amd64-cpu-latest
+    image: carml/caffe2-agent:amd64-cpu-latest
+    command: -l
+    volumes:
+      - ~/.carml_config.yml:/root/.carml_config.yml
+      - ~/data/carml:/data/carml
+  # caffe:
+  #   environment:
+  #     - TRACER_ENDPOINTS=zipkin:9411
+  #     - REGISTRY_ENDPOINTS=consul:8500
+  #   links:
+  #     - zipkin
+  #     - consul
+  #   image: carml/caffe-agent:amd64-cpu-latest
+  #   command: -l
+  #   volumes:
+  #     - ~/.carml_config.yml:/root/.carml_config.yml
+  # caffe:
+  #   environment:
+  #     - TRACER_ENDPOINTS=zipkin:9411
+  #     - REGISTRY_ENDPOINTS=consul:8500
+  #   links:
+  #     - zipkin
+  #     - consul
+  #   image: carml/caffe-agent:amd64-cpu-latest
+  #   command: -l
+  #   volumes:
+  #     - ~/.carml_config.yml:/root/.carml_config.yml
+  # mxnet:
+  #   environment:
+  #     - TRACER_ENDPOINTS=zipkin:9411
+  #     - REGISTRY_ENDPOINTS=consul:8500
+  #   links:
+  #     - zipkin
+  #     - consul
+  #   image: carml/mxnet-agent:amd64-cpu-latest
+  #   command: -l
+  #   volumes:
+  #     - ~/.carml_config.yml:/root/.carml_config.yml
