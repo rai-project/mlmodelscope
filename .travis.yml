@@ -45,6 +45,7 @@ install:
 - go get github.com/gogo/protobuf/{proto,gogoproto,protoc-gen-gofast,protoc-gen-gogoslick}
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
 - go get github.com/goreleaser/goreleaser
+- go get golang.org/x/crypto/acme/autocert
 - yarn install
 - yarn bundle
 - glide install --force
