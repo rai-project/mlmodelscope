@@ -15,7 +15,7 @@ import:
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/labstack/echo
-  version: ~3.2.1
+  version: ~3.2.3
   subpackages:
   - middleware
 - package: github.com/labstack/gommon
@@ -26,6 +26,7 @@ import:
   version: ~1.2.1
 - package: github.com/rai-project/config
 - package: github.com/rai-project/dlframework
+  version: ~0.2.15
   subpackages:
   - http
   - httpapi/restapi
@@ -51,13 +52,10 @@ import:
   subpackages:
   - swaggerui
 - package: github.com/sirupsen/logrus
-  version: ~1.0.0
+  version: ^1.0.0
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper
 - package: github.com/tus/tusd
   version: ~0.7.2
   subpackages:
   - memorylocker
-- package: google.golang.org/grpc
-  version: ~1.5.1
-- package: golang.org/x/crypto/acme/autocert
