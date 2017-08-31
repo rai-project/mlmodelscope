@@ -48,7 +48,6 @@ services:
       source: ~/.carml_config.yml
       target: /root/.carml_config.yml
     environment:
-    - HOST=
     - PORT=9012
     - EXTERNAL_HOST=localhost
     - EXTERNAL_PORT=9012
