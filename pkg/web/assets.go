@@ -94,6 +94,7 @@ func assetsRoutes(e *echo.Echo) error {
 	assetGroup.GET("/manifest.json", manifest)
 	assetGroup.GET("/asset-manifest.json", assetManifest)
 	assetGroup.GET("/service-worker.js", serviceWorker)
+	assetGroup.GET("/sw.js", serviceWorker)
 	assetGroup.GET("/vendor/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 	assetGroup.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 
