@@ -60,3 +60,4 @@ import:
   - memorylocker
 - package: google.golang.org/grpc
   version: ~1.5.1
+- package: golang.org/x/crypto/acme/autocert
