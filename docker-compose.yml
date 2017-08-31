@@ -1,4 +1,7 @@
-version: '2'
+version: '3.3'
+configs:
+  carml:
+    file: ~/.carml_config.yml
 services:
   # carml:
   #   build: .
@@ -10,24 +13,52 @@ services:
   #     - caffe2
   zipkin:
     image: openzipkin/zipkin:1.29
+    container_name: zipkin
     ports:
     - 9411:9411
   consul:
     image: consul
+    container_name: consul
     ports:
     - 8500:8500
+  # store:
+  #   image: minio/minio
+  #   container_name: store
+  #   ports:
+  #   - 9000:9000
+  #   command: server /export
+  #   environment:
+  #   - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+  #   - MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  #   volumes:
+  #   - ~/data/store:/export
+  #   - ~/data/store:/root/.minio
   caffe2:
-    environment:
-      - TRACER_ENDPOINTS=zipkin:9411
-      - REGISTRY_ENDPOINTS=consul:8500
+    image: carml/caffe2-agent:amd64-cpu-v0.3.11-20850fc-dirty
+    container_name: caffe2
     links:
       - zipkin
       - consul
-    image: carml/caffe2-agent:amd64-cpu-latest
-    command: -l
+    entrypoint: caffe2-agent -d -v -l
     volumes:
-      - ~/.carml_config.yml:/root/.carml_config.yml
-      - ~/data/carml:/data/carml
+    - type: volume
+      source: ~/data/carml
+      target: /data/carml
+    - type: volume
+      source: ~/.carml_config.yml
+      target: /root/.carml_config.yml
+    environment:
+    - HOST=
+    - PORT=9012
+    - EXTERNAL_HOST=localhost
+    - EXTERNAL_PORT=9012
+    - TRACER_ENDPOINTS=zipkin:9411
+    - REGISTRY_ENDPOINTS=consul:8500
+    depends_on:
+    - zipkin
+    - consul
+    ports:
+    - 9012:9012
   # caffe:
   #   environment:
   #     - TRACER_ENDPOINTS=zipkin:9411
