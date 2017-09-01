@@ -1,16 +1,28 @@
 version: '3.3'
-configs:
-  carml:
-    file: ~/.carml_config.yml
 services:
-  # carml:
-  #   build: .
-  #   ports:
-  #   - 80:8088
-  #   links:
-  #     - zipkin
-  #     - consul
-  #     - caffe2
+  carml:
+    image: carml/web:amd64
+    ports:
+    - 8088:8088
+    links:
+    - zipkin
+    - consul
+    depends_on:
+    - zipkin
+    - consul
+    - caffe2
+    environment:
+    - PORT=8088
+    - TRACER_ENDPOINTS=zipkin:9411
+    - REGISTRY_ENDPOINTS=consul:8500
+    entrypoint: carml web -d -v
+    volumes:
+    - type: volume
+      source: ~/data/carml
+      target: /data/carml
+    - type: volume
+      source: ~/.carml_config.yml
+      target: /root/.carml_config.yml
   zipkin:
     image: openzipkin/zipkin:1.29
     container_name: zipkin
@@ -37,8 +49,8 @@ services:
     image: carml/caffe2-agent:amd64-cpu-v0.3.11-20850fc-dirty
     container_name: caffe2
     links:
-      - zipkin
-      - consul
+    - zipkin
+    - consul
     entrypoint: caffe2-agent -d -v -l
     volumes:
     - type: volume
