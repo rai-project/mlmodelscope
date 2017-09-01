@@ -52,9 +52,10 @@ install:
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
+- cp dist/carml_Linux_x86_64/carml ${TRAVIS_BUILD_DIR}/carml
 script:
 - echo "Skip tests..."
-deploy:
+# deploy:
 # - provider: bluemixcloudfoundry
 #   edge: true
 #   api: https://api.ng.bluemix.net
