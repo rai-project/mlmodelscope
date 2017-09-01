@@ -15,7 +15,7 @@ import:
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/labstack/echo
-  version: master
+  version: ^3.2.2
   subpackages:
   - middleware
 - package: github.com/labstack/gommon
