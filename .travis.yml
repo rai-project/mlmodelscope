@@ -46,9 +46,9 @@ install:
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
 - go get github.com/goreleaser/goreleaser
 - go get golang.org/x/crypto/acme/autocert
+- glide install --force
 - yarn install
 - yarn bundle
-- glide install --force
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
