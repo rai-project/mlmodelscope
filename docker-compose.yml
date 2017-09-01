@@ -7,6 +7,7 @@ services:
     links:
     - zipkin
     - consul
+    - caffe2
     depends_on:
     - zipkin
     - consul
@@ -46,7 +47,7 @@ services:
   #   - ~/data/store:/export
   #   - ~/data/store:/root/.minio
   caffe2:
-    image: carml/caffe2-agent:amd64-cpu-v0.3.11-20850fc-dirty
+    image: carml/caffe2-agent:amd64-cpu-latest
     container_name: caffe2
     links:
     - zipkin
