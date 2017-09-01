@@ -158,21 +158,9 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --parser flow --write",
-      "git add"
-    ],
-    "src/**/*.css": [
-      "stylefmt",
-      "stylelint scss",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylefmt",
-      "stylelint --syntax scss",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "prettier --parser flow --write", "git add"],
+    "src/**/*.css": ["stylefmt", "stylelint scss", "git add"],
+    "src/**/*.scss": ["stylefmt", "stylelint --syntax scss", "git add"]
   },
   "proxy": {
     "/api": {

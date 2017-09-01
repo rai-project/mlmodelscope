@@ -15,7 +15,7 @@ import:
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/labstack/echo
-  version: ~3.2.3
+  version: ^3.2.2
   subpackages:
   - middleware
 - package: github.com/labstack/gommon
@@ -26,7 +26,6 @@ import:
   version: ~1.2.1
 - package: github.com/rai-project/config
 - package: github.com/rai-project/dlframework
-  version: ~0.2.15
   subpackages:
   - http
   - httpapi/restapi
