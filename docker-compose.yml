@@ -1,4 +1,5 @@
 version: '3.3'
+
 services:
   carml:
     image: carml/web:amd64
@@ -61,16 +62,11 @@ services:
       source: ~/.carml_config.yml
       target: /root/.carml_config.yml
     environment:
-    - PORT=9012
-    - EXTERNAL_HOST=localhost
-    - EXTERNAL_PORT=9012
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
     depends_on:
     - zipkin
     - consul
-    ports:
-    - 9012:9012
   # caffe:
   #   environment:
   #     - TRACER_ENDPOINTS=zipkin:9411
