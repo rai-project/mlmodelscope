@@ -1,0 +1,19 @@
+app:
+  name: carml
+  debug: true
+  verbose: true
+  tempdir: ~/data/carml
+registry:
+  provider: consul
+  endpoints:
+    - localhost:8500
+  timeout: 20s
+  serializer: jsonpb
+tracer:
+  enabled: true
+  provider: zipkin
+  endpoints:
+    - localhost:9411
+logger:
+  hooks:
+    - syslog

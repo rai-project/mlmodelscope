@@ -9,11 +9,11 @@ The steps to install CarML agents is similar.
 
 ## Using Docker
 
-Prebuilt Docker images are continously built from sources. 
+Prebuilt Docker images are continously built from sources. The easiest way to run CarML is using [Docker compose](https://docs.docker.com/compose/). To use:
 
-```.bash
-docker pull carml/web:mxnet-amd64-cpu
-```
+1. You need to download `docker-compose.yml`and have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file is in `carml_config.yml.example`. You can move it to `~/.carml_config.yml`. 
+2. Run `docker-compose run` (with docker daemon running). It might take a while to download all the docker images.
+3. The website is accessible at `localhost:8088`.
 
 ## Installing from Source
 

@@ -9,10 +9,14 @@ services:
     - zipkin
     - consul
     - caffe2
+    - caffe
+    - mxnet
     depends_on:
     - zipkin
     - consul
     - caffe2
+    - caffe
+    - mxnet
     environment:
     - PORT=8088
     - TRACER_ENDPOINTS=zipkin:9411
@@ -67,36 +71,43 @@ services:
     depends_on:
     - zipkin
     - consul
-  # caffe:
-  #   environment:
-  #     - TRACER_ENDPOINTS=zipkin:9411
-  #     - REGISTRY_ENDPOINTS=consul:8500
-  #   links:
-  #     - zipkin
-  #     - consul
-  #   image: carml/caffe-agent:amd64-cpu-latest
-  #   command: -l
-  #   volumes:
-  #     - ~/.carml_config.yml:/root/.carml_config.yml
-  # caffe:
-  #   environment:
-  #     - TRACER_ENDPOINTS=zipkin:9411
-  #     - REGISTRY_ENDPOINTS=consul:8500
-  #   links:
-  #     - zipkin
-  #     - consul
-  #   image: carml/caffe-agent:amd64-cpu-latest
-  #   command: -l
-  #   volumes:
-  #     - ~/.carml_config.yml:/root/.carml_config.yml
-  # mxnet:
-  #   environment:
-  #     - TRACER_ENDPOINTS=zipkin:9411
-  #     - REGISTRY_ENDPOINTS=consul:8500
-  #   links:
-  #     - zipkin
-  #     - consul
-  #   image: carml/mxnet-agent:amd64-cpu-latest
-  #   command: -l
-  #   volumes:
-  #     - ~/.carml_config.yml:/root/.carml_config.yml
+  caffe:
+    image: carml/caffe-agent:amd64-cpu-latest
+    container_name: caffe
+    links:
+    - zipkin
+    - consul
+    entrypoint: caffe-agent -d -v -l
+    volumes:
+    - type: volume
+      source: ~/data/carml
+      target: /data/carml
+    - type: volume
+      source: ~/.carml_config.yml
+      target: /root/.carml_config.yml
+    environment:
+    - TRACER_ENDPOINTS=zipkin:9411
+    - REGISTRY_ENDPOINTS=consul:8500
+    depends_on:
+    - zipkin
+    - consul
+  mxnet:
+    image: carml/mxnet-agent:amd64-cpu-latest
+    container_name: mxnet
+    links:
+    - zipkin
+    - consul
+    entrypoint: mxnet-agent -d -v -l
+    volumes:
+    - type: volume
+      source: ~/data/carml
+      target: /data/carml
+    - type: volume
+      source: ~/.carml_config.yml
+      target: /root/.carml_config.yml
+    environment:
+    - TRACER_ENDPOINTS=zipkin:9411
+    - REGISTRY_ENDPOINTS=consul:8500
+    depends_on:
+    - zipkin
+    - consul
