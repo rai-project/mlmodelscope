@@ -24,12 +24,11 @@ export default function Location({ feature, compact = false }) {
   const Map = ReactMapboxGl({
     accessToken: config.mapbox.accessToken
   });
-
   return (
     <Grid columns={3}>
       <Popup
         trigger={
-          <Grid.Column width={10}>
+          <Grid.Column textAlign="left" width={compact ? 10 : 6}>
             <Map
               style="mapbox://styles/mapbox/streets-v9"
               containerStyle={{
@@ -57,14 +56,15 @@ export default function Location({ feature, compact = false }) {
         content={`latitude = ${lat} , longitude = ${long}`}
         position="left center"
       />
-      <Grid.Column width={4}>
-        <Progress
-          value={feature.probability}
-          total={1}
-          size="tiny"
-          color={feature.probability > 0.8 ? "green" : "orange"}
-        />
-      </Grid.Column>
+      {compact
+        ? null
+        : <Grid.Column width={8}>
+            <Progress
+              size="tiny"
+              percent={100 * feature.probability}
+              color={feature.probability > 0.5 ? "green" : "orange"}
+            />
+          </Grid.Column>}
       <Grid.Column textAlign="right" width={2}>
         {Number(feature.probability.toFixed(4))}
       </Grid.Column>

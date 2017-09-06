@@ -7,6 +7,7 @@ WORKDIR $GOPATH/src/github.com/rai-project/carml
 RUN git clone --depth=1 --branch=master https://github.com/rai-project/carml.git . && \
     glide install && \
     go get golang.org/x/crypto/acme/autocert && \
+    go build && \
     mv carml /usr/bin && \
     rm -fr $GOPATH
 
