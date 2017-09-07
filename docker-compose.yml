@@ -22,7 +22,7 @@ services:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
     entrypoint: carml web -d -v
-    volumes:
+    volumes: &default_volumes
     - type: volume
       source: ~/data/carml
       target: /data/carml
@@ -58,13 +58,7 @@ services:
     - zipkin
     - consul
     entrypoint: caffe2-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+    volumes: *default_volumes
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
@@ -78,13 +72,7 @@ services:
     - zipkin
     - consul
     entrypoint: caffe-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+    volumes: *default_volumes
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
@@ -98,13 +86,7 @@ services:
     - zipkin
     - consul
     entrypoint: mxnet-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+    volumes: *default_volumes
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
