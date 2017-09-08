@@ -19,16 +19,44 @@ services:
     - mxnet
     environment:
     - PORT=8088
+    environment: &default_environment
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
     entrypoint: carml web -d -v
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
+    volumes: &default_volumes
     - type: volume
       source: ~/.carml_config.yml
       target: /root/.carml_config.yml
+      read_only: true
+    - type: volume
+      source: ~/data/carml
+      target: /data/carml
+  agent: &base_agent
+    image: carml/go:amd64-cpu
+    links:
+    - zipkin
+    - consul
+    volumes: *default_volumes
+    environment: *default_environment
+    depends_on:
+    - zipkin
+    - consul
+    entrypoint: echo "nothing"
+  caffe2:
+    <<: *base_agent
+    image: carml/caffe2-agent:amd64-cpu-latest
+    container_name: caffe2
+    entrypoint: caffe2-agent -d -v -l
+  caffe:
+    <<: *base_agent
+    image: carml/caffe-agent:amd64-cpu-latest
+    container_name: caffe
+    entrypoint: caffe-agent -d -v -l
+  mxnet:
+    <<: *base_agent
+    image: carml/mxnet-agent:amd64-cpu-latest
+    container_name: mxnet
+    entrypoint: mxnet-agent -d -v -l
   zipkin:
     image: openzipkin/zipkin:1.29
     container_name: zipkin
@@ -51,63 +79,3 @@ services:
   #   volumes:
   #   - ~/data/store:/export
   #   - ~/data/store:/root/.minio
-  caffe2:
-    image: carml/caffe2-agent:amd64-cpu-latest
-    container_name: caffe2
-    links:
-    - zipkin
-    - consul
-    entrypoint: caffe2-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
-    environment:
-    - TRACER_ENDPOINTS=zipkin:9411
-    - REGISTRY_ENDPOINTS=consul:8500
-    depends_on:
-    - zipkin
-    - consul
-  caffe:
-    image: carml/caffe-agent:amd64-cpu-latest
-    container_name: caffe
-    links:
-    - zipkin
-    - consul
-    entrypoint: caffe-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
-    environment:
-    - TRACER_ENDPOINTS=zipkin:9411
-    - REGISTRY_ENDPOINTS=consul:8500
-    depends_on:
-    - zipkin
-    - consul
-  mxnet:
-    image: carml/mxnet-agent:amd64-cpu-latest
-    container_name: mxnet
-    links:
-    - zipkin
-    - consul
-    entrypoint: mxnet-agent -d -v -l
-    volumes:
-    - type: volume
-      source: ~/data/carml
-      target: /data/carml
-    - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
-    environment:
-    - TRACER_ENDPOINTS=zipkin:9411
-    - REGISTRY_ENDPOINTS=consul:8500
-    depends_on:
-    - zipkin
-    - consul
