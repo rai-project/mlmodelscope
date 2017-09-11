@@ -1,10 +1,9 @@
 import { isArray } from "lodash";
 import yeast from "yeast";
-// import base64 from "../compute/base64";
-// import outerProduct from "../../../helpers/outerproduct";
 import { Open, URLs, Close } from "../../../swagger/dlframework";
+import HTTPError from "../errors/http";
 
-export default function predictAll({ inputs, models }) {
+export default function predict({ inputs, models }) {
   let _predict = function({ http, path, resolve }) {
     let resolvedInputs = resolve.value(inputs);
     if (!isArray(resolvedInputs)) {
@@ -15,10 +14,10 @@ export default function predictAll({ inputs, models }) {
       resolvedModels = [resolvedModels];
     }
 
-    let successes = [];
-    let errors = [];
+    var successes = new Array();
+    var errors = new Array();
 
-    const close = ({ model, urls, predictor }) => {
+    var close = ({ model, urls, predictor }) => {
       return Close({
         body: {
           predictor
@@ -39,7 +38,9 @@ export default function predictAll({ inputs, models }) {
       });
     };
 
-    const predictURLs = ({ model, predictor, urls }) => {
+    // let close = ({ model, urls, predictor }) => {};
+
+    var predictURLs = ({ model, predictor, urls }) => {
       return URLs({
         body: {
           predictor,
@@ -56,12 +57,24 @@ export default function predictAll({ inputs, models }) {
         resolve,
         path: {
           success({ result }) {
-            console.log({ result });
-            successes.push({
-              model,
-              urls,
-              features: result.features
-            });
+            console.log({ successes });
+            for (let ii = 0; ii < urls.length; ii++) {
+              const rest = result.responses[ii];
+              const data = {
+                model,
+                url: urls[ii],
+                ...rest
+              };
+              console.log({ data });
+              successes.push(data);
+            }
+
+            console.log({ path: "", successes });
+            // successes.push({
+            //   model,
+            //   urls,
+            //   features: result.responses,
+            // });
             close({
               model,
               urls,
@@ -84,7 +97,7 @@ export default function predictAll({ inputs, models }) {
       });
     };
 
-    const open = ({ model, urls }) => {
+    var open = ({ model, urls }) => {
       return Open({
         body: {
           framework_name: model.framework.name,
@@ -114,22 +127,22 @@ export default function predictAll({ inputs, models }) {
       });
     };
 
-    // return Promise.all(
-
-    //   resolvedModels.map(([model]) => {
-    //   }
-    // )
     return Promise.all(
       resolvedModels.map(model => open({ model, urls: resolvedInputs }))
     )
       .then(function() {
+        console.log({ args: arguments });
         if (errors.length !== 0) {
           return path.errors(errors);
         }
+        console.log({ successes });
+
         return path.success({ output: successes });
       })
       .catch(function() {
-        return path.error({ error: errors });
+        return path.error({
+          error: new HTTPError("failed to predict", 400, errors, "predict")
+        });
       });
   };
   _predict.displayName = "predict";
