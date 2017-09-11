@@ -1,4 +1,5 @@
 import { isArray } from "lodash";
+import yeast from "yeast";
 // import base64 from "../compute/base64";
 // import outerProduct from "../../../helpers/outerproduct";
 import { Open, URLs, Close } from "../../../swagger/dlframework";
@@ -20,7 +21,7 @@ export default function predictAll({ inputs, models }) {
     const close = ({ model, urls, predictor }) => {
       return Close({
         body: {
-          id: predictor
+          predictor
         }
       })({
         http,
@@ -41,8 +42,14 @@ export default function predictAll({ inputs, models }) {
     const predictURLs = ({ model, predictor, urls }) => {
       return URLs({
         body: {
-          id: predictor,
-          data: urls
+          predictor,
+          urls: urls.map(url => {
+            return { id: yeast(), data: url };
+          }),
+          options: {
+            request_id: "",
+            feature_limit: 0
+          }
         }
       })({
         http,
@@ -90,11 +97,10 @@ export default function predictAll({ inputs, models }) {
         resolve,
         path: {
           success({ result }) {
-            debugger;
             predictURLs({
               model,
               urls,
-              predictor: result.id
+              predictor: result
             });
           },
           error({ error }) {
