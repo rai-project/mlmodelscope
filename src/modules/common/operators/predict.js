@@ -1,10 +1,16 @@
 import { isArray, isNil, concat } from "lodash";
 import yeast from "yeast";
-import { Open, URLs, Close } from "../../../swagger/dlframework";
+import {
+  Open,
+  URLs,
+  Images,
+  Dataset,
+  Close
+} from "../../../swagger/dlframework";
 import HTTPError from "../errors/http";
 import uuid from "uuid/v4";
 
-export default function predict({ inputs, models }) {
+export default function predict({ inputs, models, method = "url" }) {
   let _predict = function({ http, path, resolve }) {
     let resolvedInputs = resolve.value(inputs);
     if (!isArray(resolvedInputs)) {
@@ -15,6 +21,13 @@ export default function predict({ inputs, models }) {
       resolvedModels = [resolvedModels];
     }
 
+    method = method.toLowerCase();
+    if (method !== "url" && method !== "image" && method !== "dataset") {
+      throw new Error(
+        "valid methods are url, images, or dataset not " + method
+      );
+    }
+
     const openAPI = function() {
       return Open(...arguments)({ http, resolve });
     };
@@ -23,6 +36,12 @@ export default function predict({ inputs, models }) {
     };
     const urlAPI = function() {
       return URLs(...arguments)({ http, resolve });
+    };
+    const imagesAPI = function() {
+      return Images(...arguments)({ http, resolve });
+    };
+    const datasetAPI = function() {
+      return Dataset(...arguments)({ http, resolve });
     };
 
     const open = ({ model, urls }) => {
