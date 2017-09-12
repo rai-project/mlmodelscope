@@ -2,7 +2,7 @@ import yeast from "yeast";
 import React from "react";
 import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
-import { head, filter, lowerCase } from "lodash";
+import { head, filter, lowerCase, sortBy, last } from "lodash";
 import {
   Header,
   Image,
@@ -22,8 +22,11 @@ function PredictionResultPerImage({
   output
 }) {
   let model = output.model;
-  let features = output.features;
-  features = filter(features, features => features !== undefined);
+  let len = output.features.length;
+  let features = sortBy(output.features, "probability")
+    .slice(len - 10, len)
+    .reverse();
+
   const makeFeatureTag = function(props) {
     const outputType =
       (model.output ? model.output.type : undefined) || "label";
