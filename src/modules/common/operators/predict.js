@@ -62,9 +62,10 @@ export default function predict({ inputs, models }) {
         .then(function({ response }) {
           let features = [];
           for (let ii = 0; ii < urls.length; ii++) {
-            const featureData = features[ii];
+            const featureData = response[ii];
             features.push({
               model,
+              predictor,
               url: urls[ii],
               ...featureData
             });
@@ -78,7 +79,7 @@ export default function predict({ inputs, models }) {
               body: { id: predictor.id }
             });
           }
-          return { features };
+          return features;
         })
         .catch(function({ error }) {
           if (!isNil(predictor)) {
