@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { values } from "lodash";
 import {
@@ -61,7 +61,7 @@ export default connect(
               panes={[
                 {
                   menuItem: "URL",
-                  render: () =>
+                  render: () => (
                     <div>
                       <Form
                         onSubmit={e => {
@@ -79,13 +79,12 @@ export default connect(
                         />
                       </Form>
                       <List>
-                        {predictInputs.map((item, index) =>
-                          <List.Item key={index}>
-                            {item}
-                          </List.Item>
-                        )}
+                        {predictInputs.map((item, index) => (
+                          <List.Item key={index}>{item}</List.Item>
+                        ))}
                       </List>
                     </div>
+                  )
                 },
                 {
                   menuItem: "Upload",
@@ -117,11 +116,13 @@ export default connect(
                   inferenceButtonClicked();
                 }}
               >
-                {isPredicting === true
-                  ? <Loader active inline inverted>
-                      Predicting
-                    </Loader>
-                  : "Predict"}
+                {isPredicting === true ? (
+                  <Loader active inline inverted>
+                    Predicting
+                  </Loader>
+                ) : (
+                  "Predict"
+                )}
               </Button>
             </Container>
           </Grid.Row>

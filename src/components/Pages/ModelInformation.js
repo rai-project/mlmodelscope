@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
 import yeast from "yeast";
 import { Container, Header, Divider, List } from "semantic-ui-react";
@@ -10,7 +10,7 @@ import LayerAreaChart from "../Model/LayerAreaChart";
 export default connect(
   {
     model: state`models.selectedModels`,
-    graph: state`model.models.graph`,
+    graph: state`model.models.graph`
   },
   function ModelInformationPage({ model, graph }) {
     if (!model) {
@@ -20,9 +20,7 @@ export default connect(
       <div>
         <Container text style={{ paddingTop: "2em" }}>
           <Header size="large">Description</Header>
-          <p style={{ color: "black" }}>
-            {model.description}
-          </p>
+          <p style={{ color: "black" }}>{model.description}</p>
         </Container>
         <Container text>
           <LayerAreaChart
@@ -38,21 +36,19 @@ export default connect(
             graph={graph}
           />
         </Container>
-        {model.reference
-          ? <Container text>
-              <Divider />
-              <Header size="large">References</Header>
-              <List bulleted>
-                {model.reference.map(r =>
-                  <List.Item style={{ color: "black" }} key={yeast()}>
-                    <a href={r}>
-                      {r}
-                    </a>
-                  </List.Item>
-                )}
-              </List>
-            </Container>
-          : null}
+        {model.reference ? (
+          <Container text>
+            <Divider />
+            <Header size="large">References</Header>
+            <List bulleted>
+              {model.reference.map(r => (
+                <List.Item style={{ color: "black" }} key={yeast()}>
+                  <a href={r}>{r}</a>
+                </List.Item>
+              ))}
+            </List>
+          </Container>
+        ) : null}
       </div>
     );
   }

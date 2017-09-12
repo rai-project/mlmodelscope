@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import controller from "./controller";
-import { Container } from "cerebral/react";
+import { Container } from "@cerebral/react";
 import registerServiceWorker from "./registerServiceWorker";
 
 import "semantic-ui-css/semantic.min.css";
@@ -24,14 +24,23 @@ Object.defineProperty(Error.prototype, "toJSON", {
 });
 
 function renderApp() {
+  if (process.env.NODE_ENV === "production") {
+    registerServiceWorker();
+  } else {
+    // eslint-disable-next-line
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+
   render(
     <Container controller={controller}>
       <App />
     </Container>,
     document.querySelector("#root")
   );
-
-  registerServiceWorker();
 }
 
 renderApp();

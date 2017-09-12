@@ -1,10 +1,10 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
 import { filter } from "lodash";
 
-import visableModels from "../../computed/visableModels";
+// import visableModels from "../../computed/visableModels";
 import * as logos from "../../assets/logos";
 
 export default connect(

@@ -1,6 +1,6 @@
 import yeast from "yeast";
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
 import { head, filter, lowerCase } from "lodash";
 import {
@@ -36,29 +36,29 @@ function PredictionResultsOne({
   };
   return (
     <Grid relaxed centered>
-      {showImage
-        ? <div>
-            <Grid.Row divided textAlign="center">
-              <Image centered size="medium" shape="rounded" src={input} />
-            </Grid.Row>
-            <Divider hidden />
-          </div>
-        : null}
-      {showModel
-        ? <div>
-            <Grid.Row divided textAlign="center">
-              <Header textAlign="center" as="h3">
-                {model.name} Model
-              </Header>
-              <Header textAlign="center" as="h5">
-                {model.framework.name} {model.framework.version}
-              </Header>
-            </Grid.Row>
-            <Divider hidden />
-          </div>
-        : null}
+      {showImage ? (
+        <div>
+          <Grid.Row divided textAlign="center">
+            <Image centered size="medium" shape="rounded" src={input} />
+          </Grid.Row>
+          <Divider hidden />
+        </div>
+      ) : null}
+      {showModel ? (
+        <div>
+          <Grid.Row divided textAlign="center">
+            <Header textAlign="center" as="h3">
+              {model.name} Model
+            </Header>
+            <Header textAlign="center" as="h5">
+              {model.framework.name} {model.framework.version}
+            </Header>
+          </Grid.Row>
+          <Divider hidden />
+        </div>
+      ) : null}
       <List divided>
-        {features.map(features =>
+        {features.map(features => (
           <List.Item key={yeast()}>
             <List.Content>
               {makeFeatureTag({
@@ -68,7 +68,7 @@ function PredictionResultsOne({
               })}
             </List.Content>
           </List.Item>
-        )}
+        ))}
       </List>
     </Grid>
   );
@@ -94,32 +94,32 @@ export default connect(
     const model = head(models);
     return (
       <Container {...containerProps}>
-        {inputs.length === 1
-          ? <div>
-              <Grid.Row divided textAlign="center">
-                <Image
-                  centered
-                  size="medium"
-                  shape="rounded"
-                  src={output.input}
-                />
-              </Grid.Row>
-              <Divider hidden />
-            </div>
-          : null}
-        {models.length === 1
-          ? <div>
-              <Grid.Row divided textAlign="center">
-                <Header textAlign="center" as="h1">
-                  {model.name} Model
-                </Header>
-                <Header textAlign="center" as="h3">
-                  {model.framework.name} {model.framework.version}
-                </Header>
-              </Grid.Row>
-              <Divider hidden />
-            </div>
-          : null}
+        {inputs.length === 1 ? (
+          <div>
+            <Grid.Row divided textAlign="center">
+              <Image
+                centered
+                size="medium"
+                shape="rounded"
+                src={output.input}
+              />
+            </Grid.Row>
+            <Divider hidden />
+          </div>
+        ) : null}
+        {models.length === 1 ? (
+          <div>
+            <Grid.Row divided textAlign="center">
+              <Header textAlign="center" as="h1">
+                {model.name} Model
+              </Header>
+              <Header textAlign="center" as="h3">
+                {model.framework.name} {model.framework.version}
+              </Header>
+            </Grid.Row>
+            <Divider hidden />
+          </div>
+        ) : null}
         <Grid
           celled="internally"
           divided="vertically"
@@ -127,7 +127,7 @@ export default connect(
           columns={outputs.length}
         >
           <Grid.Row centered>
-            {outputs.map(output =>
+            {outputs.map(output => (
               <Grid.Column key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
@@ -140,7 +140,7 @@ export default connect(
                   </div>
                 </Segment>
               </Grid.Column>
-            )}
+            ))}
           </Grid.Row>
         </Grid>
       </Container>

@@ -35,7 +35,7 @@ function mergeQueryParams(parameters, queryParameters) {
  * @method
  * @name DLFramework#Close
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function Close(params) {
   let urlPath = "/v1/predict/close";
@@ -95,7 +95,7 @@ export function Close(params) {
  * @method
  * @name DLFramework#Dataset
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function Dataset(params) {
   let urlPath = "/v1/predict/dataset";
@@ -155,7 +155,7 @@ export function Dataset(params) {
  * @method
  * @name DLFramework#Images
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function Images(params) {
   let urlPath = "/v1/predict/images";
@@ -217,7 +217,7 @@ requests.
  * @method
  * @name DLFramework#Open
  * @param {object} parameters - method options and parameters
-     * @param {} parameters.body - 
+     * @param {} parameters.body -
  */
 export function Open(params) {
   let urlPath = "/v1/predict/open";
@@ -277,7 +277,7 @@ export function Open(params) {
  * @method
  * @name DLFramework#Reset
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function Reset(params) {
   let urlPath = "/v1/predict/reset";
@@ -337,7 +337,7 @@ export function Reset(params) {
  * @method
  * @name DLFramework#DatasetStream
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function DatasetStream(params) {
   let urlPath = "/v1/predict/stream/dataset";
@@ -397,7 +397,7 @@ export function DatasetStream(params) {
  * @method
  * @name DLFramework#ImagesStream
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function ImagesStream(params) {
   let urlPath = "/v1/predict/stream/images";
@@ -457,7 +457,7 @@ export function ImagesStream(params) {
  * @method
  * @name DLFramework#URLsStream
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function URLsStream(params) {
   let urlPath = "/v1/predict/stream/urls";
@@ -517,7 +517,7 @@ export function URLsStream(params) {
  * @method
  * @name DLFramework#URLs
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - 
+ * @param {} parameters.body -
  */
 export function URLs(params) {
   let urlPath = "/v1/predict/urls";
@@ -573,12 +573,12 @@ export function URLs(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#FrameworkAgents
  * @param {object} parameters - method options and parameters
- * @param {string} parameters.frameworkName - 
- * @param {string} parameters.frameworkVersion - 
+ * @param {string} parameters.frameworkName -
+ * @param {string} parameters.frameworkVersion -
  */
 export function FrameworkAgents(params) {
   let urlPath = "/v1/registry/frameworks/agent";
@@ -638,12 +638,12 @@ export function FrameworkAgents(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#FrameworkManifests
  * @param {object} parameters - method options and parameters
- * @param {string} parameters.frameworkName - 
- * @param {string} parameters.frameworkVersion - 
+ * @param {string} parameters.frameworkName -
+ * @param {string} parameters.frameworkVersion -
  */
 export function FrameworkManifests(params) {
   let urlPath = "/v1/registry/frameworks/manifest";
@@ -703,14 +703,14 @@ export function FrameworkManifests(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#ModelAgents
  * @param {object} parameters - method options and parameters
- * @param {string} parameters.frameworkName - 
- * @param {string} parameters.frameworkVersion - 
- * @param {string} parameters.modelName - 
- * @param {string} parameters.modelVersion - 
+ * @param {string} parameters.frameworkName -
+ * @param {string} parameters.frameworkVersion -
+ * @param {string} parameters.modelName -
+ * @param {string} parameters.modelVersion -
  */
 export function ModelAgents(params) {
   let urlPath = "/v1/registry/models/agent";
@@ -780,14 +780,14 @@ export function ModelAgents(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#ModelManifests
  * @param {object} parameters - method options and parameters
- * @param {string} parameters.frameworkName - 
- * @param {string} parameters.frameworkVersion - 
- * @param {string} parameters.modelName - 
- * @param {string} parameters.modelVersion - 
+ * @param {string} parameters.frameworkName -
+ * @param {string} parameters.frameworkVersion -
+ * @param {string} parameters.modelName -
+ * @param {string} parameters.modelVersion -
  */
 export function ModelManifests(params) {
   let urlPath = "/v1/registry/models/manifest";
