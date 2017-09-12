@@ -21,7 +21,7 @@ export default [
         modelVersion: "*"
       }),
       {
-        success: [set(state`models.data`, props`result.manifests`)],
+        success: [set(state`models.data`, props`response.result.manifests`)],
         error: onError
       },
       set(state`app.isLoadingModelManifests`, false)

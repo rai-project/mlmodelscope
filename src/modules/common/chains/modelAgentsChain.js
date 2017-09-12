@@ -21,7 +21,7 @@ export default [
         modelVersion: "*"
       }),
       {
-        success: [set(state`models.agents`, props`result.agents`)],
+        success: [set(state`models.agents`, props`response.result.agents`)],
         error: onError
       },
       set(state`app.isLoadingModelAgents`, false)

@@ -2,23 +2,28 @@ import React from "react";
 import { connect } from "cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
+import { filter } from "lodash";
 
-import visableModel from "../../computed/visableModels";
+import visableModels from "../../computed/visableModels";
 import * as logos from "../../assets/logos";
 
 export default connect(
   {
-    models: visableModel,
+    models: state`models.data`,
     selectedModels: state`models.selectedModels`,
     modelSelected: signal`model.modelSelected`,
-    modelInformationsRequest: signal`app.modelInformationsRequest`,
+    modelInformationsRequest: signal`app.modelInformationsRequest`
   },
   class ModelSelector extends React.Component {
     componentDidMount() {
       this.props.modelInformationsRequest();
     }
     render() {
-      const { models, selectedModels, open, modelSelected } = this.props;
+      const { selectedModels, open, modelSelected } = this.props;
+
+      let { models = [] } = this.props;
+      models = filter(models, item => !item.hidden);
+
       if (!models || models.length === 0) {
         return <div />;
       }
@@ -32,8 +37,8 @@ export default connect(
           description: "model version " + model.version,
           image: {
             avatar: true,
-            src: logos[model.framework.name.toLowerCase()],
-          },
+            src: logos[model.framework.name.toLowerCase()]
+          }
         };
       });
 
@@ -54,7 +59,7 @@ export default connect(
             modelSelected({
               manifests: value.map(v => {
                 return JSON.parse(v);
-              }),
+              })
             });
           }}
           {...extraOpts}

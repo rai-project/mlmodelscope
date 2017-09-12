@@ -19,7 +19,9 @@ export default [
         frameworkVersion: "*"
       }),
       {
-        success: [set(state`app.frameworks.agents`, props`result.agents`)],
+        success: [
+          set(state`app.frameworks.agents`, props`response.result.agents`)
+        ],
         error: onError
       },
       set(state`app.isLoadingFrameworkAgents`, false)

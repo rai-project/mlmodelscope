@@ -20,7 +20,9 @@ export default [
         frameworkVersion: "*"
       }),
       {
-        success: [set(state`app.frameworks.data`, props`result.manifests`)],
+        success: [
+          set(state`app.frameworks.data`, props`response.result.manifests`)
+        ],
         error: onError
       },
       set(state`app.isLoadingFrameworkManifests`, false)

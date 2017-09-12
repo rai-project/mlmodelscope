@@ -20,7 +20,9 @@ export default {
     predictInputs: [],
     predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
     models: {},
-    frameworks: {}
+    frameworks: {
+      data: []
+    }
   },
   signals: {
     appLoaded,
