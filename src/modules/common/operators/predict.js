@@ -129,7 +129,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
                 ...featureData
               });
             }
-            return { features };
+            return features;
           })
           .catch(function({ error }) {
             throw error;
@@ -151,8 +151,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
     return Promise.all(
       resolvedModels.map(model => run({ model, data: resolvedInputs }))
     )
-      .then(function(allFeatures) {
-        const features = concat(allFeatures);
+      .then(function(features) {
         return path.success({ output: features });
       })
       .catch(function(errors) {

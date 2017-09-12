@@ -15,14 +15,14 @@ import {
 
 import Feature from "../Feature";
 
-function PredictionResultsOne({
-  model,
-  input,
-  features,
+function PredictionResultPerImage({
   showImage = true,
   showModel = true,
-  compact = false
+  compact = false,
+  output
 }) {
+  let model = output.model;
+  let features = output.features;
   features = filter(features, features => features !== undefined);
   const makeFeatureTag = function(props) {
     const outputType =
@@ -39,7 +39,7 @@ function PredictionResultsOne({
       {showImage ? (
         <div>
           <Grid.Row divided textAlign="center">
-            <Image centered size="medium" shape="rounded" src={input} />
+            <Image centered size="medium" shape="rounded" src={output.data} />
           </Grid.Row>
           <Divider hidden />
         </div>
@@ -74,6 +74,35 @@ function PredictionResultsOne({
   );
 }
 
+function PredictionResultsPerModel({
+  showImage = true,
+  showModel = true,
+  compact = false,
+  output
+}) {
+  console.log(output);
+  return (
+    <Grid celled="internally" divided="vertically" padded="vertically">
+      <Grid.Column>
+        {output.map(o => (
+          <Grid.Row key={yeast()}>
+            <Segment>
+              <div style={{ marginTop: 10, marginBottom: 10 }}>
+                <PredictionResultPerImage
+                  showImage={true}
+                  showModel={true}
+                  compact={true}
+                  output={o}
+                />
+              </div>
+            </Segment>
+          </Grid.Row>
+        ))}
+      </Grid.Column>
+    </Grid>
+  );
+}
+
 export default connect(
   {
     inputs: state`app.predictInputs`,
@@ -101,7 +130,7 @@ export default connect(
                 centered
                 size="medium"
                 shape="rounded"
-                src={output.input}
+                src={output[0].data}
               />
             </Grid.Row>
             <Divider hidden />
@@ -120,28 +149,23 @@ export default connect(
             <Divider hidden />
           </div>
         ) : null}
-        <Grid
-          celled="internally"
-          divided="vertically"
-          padded="vertically"
-          columns={outputs.length}
-        >
-          <Grid.Row centered>
-            {outputs.map(output => (
-              <Grid.Column key={yeast()}>
+        <Grid celled="internally" divided="vertically" padded="vertically">
+          <Grid.Column>
+            {outputs.map(o => (
+              <Grid.Row key={yeast()}>
                 <Segment>
                   <div style={{ marginTop: 10, marginBottom: 10 }}>
-                    <PredictionResultsOne
+                    <PredictionResultsPerModel
                       showImage={inputs.length > 1}
                       showModel={models.length > 1}
                       compact={true}
-                      {...output}
+                      output={o}
                     />
                   </div>
                 </Segment>
-              </Grid.Column>
+              </Grid.Row>
             ))}
-          </Grid.Row>
+          </Grid.Column>
         </Grid>
       </Container>
     );
