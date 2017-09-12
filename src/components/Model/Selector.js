@@ -2,14 +2,13 @@ import React from "react";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
-import { filter } from "lodash";
 
-// import visableModels from "../../computed/visableModels";
+import visableModel from "../../computed/visableModels";
 import * as logos from "../../assets/logos";
 
 export default connect(
   {
-    models: state`models.data`,
+    models: visableModel,
     selectedModels: state`models.selectedModels`,
     modelSelected: signal`model.modelSelected`,
     modelInformationsRequest: signal`app.modelInformationsRequest`
@@ -19,10 +18,7 @@ export default connect(
       this.props.modelInformationsRequest();
     }
     render() {
-      const { selectedModels, open, modelSelected } = this.props;
-
-      let { models = [] } = this.props;
-      models = filter(models, item => !item.hidden);
+      const { models, selectedModels, open, modelSelected } = this.props;
 
       if (!models || models.length === 0) {
         return <div />;

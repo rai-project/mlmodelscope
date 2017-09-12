@@ -5,7 +5,7 @@ import { predict } from "../operators";
 
 export default [
   when(
-    state`app.isPredicting`,
+    state`app.status.isPredicting`,
     state`app.predictInputs`,
     state`models.selectedModels`,
     (isPredicting, inputs, models) =>
@@ -15,7 +15,7 @@ export default [
   ),
   {
     true: [
-      set(state`app.isPredicting`, true),
+      set(state`app.status.isPredicting`, true),
       predict({
         inputs: state`app.predictInputs`,
         models: state`models.selectedModels`
@@ -24,7 +24,7 @@ export default [
         success: [set(state`app.predictOutputs`, props`output`)],
         error: onError
       },
-      set(state`app.isPredicting`, false)
+      set(state`app.status.isPredicting`, false)
     ],
     false: []
   }

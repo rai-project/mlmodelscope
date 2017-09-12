@@ -21,7 +21,7 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export default connect(
   {
     predictInputs: state`app.predictInputs`,
-    isPredicting: state`app.isPredicting`,
+    isPredicting: state`app.status.isPredicting`,
     selectedModels: state`models.selectedModels`,
     predictInputsSet: signal`app.predictInputsSet`,
     predictURLChanged: signal`app.predictURLChanged`,

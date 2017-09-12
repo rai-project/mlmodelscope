@@ -6,7 +6,7 @@ import resetError from "../../common/chains/resetError";
 
 export default [
   ...resetError,
-  set(state`app.isBusy`, true),
+  set(state`app.status.isBusy`, true),
   ...modelInformationChain,
-  set(state`app.isBusy`, false)
+  set(state`app.status.isBusy`, false)
 ];
