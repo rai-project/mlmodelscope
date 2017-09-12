@@ -109,7 +109,7 @@ export default function predict({ inputs, models }) {
         http,
         resolve,
         path: {
-          success({ result }) {
+          success({ response: { result } }) {
             predictURLs({
               model,
               urls,
