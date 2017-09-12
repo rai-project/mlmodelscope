@@ -9,8 +9,15 @@ import {
 } from "../../../swagger/dlframework";
 import HTTPError from "../errors/http";
 import uuid from "uuid/v4";
+import pFinally from "p-finally";
+import pIf from "p-if";
 
-export default function predict({ inputs, models, method = "url" }) {
+// eslint-disable-next-line
+import pLog from "p-log";
+
+const debugging = true;
+
+export default function predict({ inputs, models, requestType = "url" }) {
   let _predict = function({ http, path, resolve }) {
     let resolvedInputs = resolve.value(inputs);
     if (!isArray(resolvedInputs)) {
@@ -21,11 +28,17 @@ export default function predict({ inputs, models, method = "url" }) {
       resolvedModels = [resolvedModels];
     }
 
-    method = method.toLowerCase();
-    if (method !== "url" && method !== "image" && method !== "dataset") {
-      throw new Error(
-        "valid methods are url, images, or dataset not " + method
-      );
+    requestType = requestType.toLowerCase();
+    if (
+      requestType !== "url" &&
+      requestType !== "image" &&
+      requestType !== "dataset"
+    ) {
+      return path.error({
+        error: new Error(
+          "valid request types are url, images, or dataset not " + requestType
+        )
+      });
     }
 
     const openAPI = function() {
@@ -37,84 +50,106 @@ export default function predict({ inputs, models, method = "url" }) {
     const urlAPI = function() {
       return URLs(...arguments)({ http, resolve });
     };
+    // eslint-disable-next-line
     const imagesAPI = function() {
       return Images(...arguments)({ http, resolve });
     };
+    // eslint-disable-next-line
     const datasetAPI = function() {
       return Dataset(...arguments)({ http, resolve });
     };
 
-    const open = ({ model, urls }) => {
+    const run = ({ model, data }) => {
       let predictor;
       const requestId = uuid();
-      const res = openAPI({
-        requestId,
-        body: {
-          framework_name: model.framework.name,
-          framework_version: model.framework.version,
-          model_name: model.name,
-          model_version: model.version
-        }
-      })
-        .then(function({ response: { result } }) {
-          predictor = result;
-          return { predictor };
+      const res = pFinally(
+        openAPI({
+          requestId,
+          body: {
+            framework_name: model.framework.name,
+            framework_version: model.framework.version,
+            model_name: model.name,
+            model_version: model.version
+          }
         })
-        .then(function({ predictor }) {
-          return urlAPI({
-            requestId,
-            body: {
-              predictor,
-              urls: urls.map(url => {
-                return { id: yeast(), data: url };
-              }),
-              options: {
-                request_id: requestId,
-                feature_limit: 0
-              }
+          .then(function({ response: { result } }) {
+            predictor = result;
+            return { predictor };
+          })
+          .catch(({ error }) => {
+            throw error;
+          })
+          .then(
+            pIf(requestType === "url", ({ predictor }) => {
+              return urlAPI({
+                requestId,
+                body: {
+                  predictor,
+                  urls: data.map(e => {
+                    return { id: yeast(), data: e };
+                  }),
+                  options: {
+                    request_id: requestId,
+                    feature_limit: 0
+                  }
+                }
+              });
+            })
+          )
+          .then(
+            pIf(requestType === "image", ({ predictor }) => {
+              return imagesAPI({
+                requestId,
+                body: {
+                  predictor,
+                  images: data.map(e => {
+                    return { id: yeast(), data: e };
+                  }),
+                  options: {
+                    request_id: requestId,
+                    feature_limit: 0
+                  }
+                }
+              });
+            })
+          )
+          .then(pIf(debugging === true, pLog()))
+          .then(({ response: { result } }) => {
+            return { response: result.responses };
+          })
+          .then(({ response }) => {
+            let features = [];
+            for (let ii = 0; ii < data.length; ii++) {
+              const featureData = response[ii];
+              features.push({
+                model,
+                predictor,
+                requestType: requestType,
+                data: data[ii],
+                ...featureData
+              });
             }
+            return { features };
+          })
+          .catch(function({ error }) {
+            throw error;
+          }),
+        function() {
+          if (isNil(predictor)) {
+            return;
+          }
+          closeAPI({
+            requestId,
+            body: { id: predictor.id }
           });
-        })
-        .then(function({ response: { result } }) {
-          return { response: result.responses };
-        })
-        .then(function({ response }) {
-          let features = [];
-          for (let ii = 0; ii < urls.length; ii++) {
-            const featureData = response[ii];
-            features.push({
-              model,
-              predictor,
-              url: urls[ii],
-              ...featureData
-            });
-          }
-          return { features };
-        })
-        .then(function({ features }) {
-          if (!isNil(predictor)) {
-            closeAPI({
-              requestId,
-              body: { id: predictor.id }
-            });
-          }
-          return features;
-        })
-        .catch(function({ error }) {
-          if (!isNil(predictor)) {
-            closeAPI({
-              requestId,
-              body: { id: predictor.id }
-            });
-          }
-          throw error;
-        });
+        }
+      );
 
       return res;
     };
 
     return Promise.all(
-      resolvedModels.map(model => open({ model, urls: resolvedInputs }))
+      resolvedModels.map(model => run({ model, data: resolvedInputs }))
     )
       .then(function(allFeatures) {
         const features = concat(allFeatures);
