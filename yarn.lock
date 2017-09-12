@@ -92,18 +92,18 @@
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.0.0.tgz#c1de4293081424da3ac30c23afa850af1019bb54"
 
 "@turf/bbox@^4.4.0":
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-4.7.1.tgz#c2f05ec2bec10b9a3b4e045400aafab35b2f4cff"
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-4.7.3.tgz#e3ad4f10a7e9b41b522880d33083198199059067"
   dependencies:
-    "@turf/meta" "4.7.1"
+    "@turf/meta" "^4.7.3"
 
 "@turf/helpers@^4.4.0":
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.7.1.tgz#12cecbfe22b16386338537dae3e3da83de2f3fac"
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.7.3.tgz#bc312ac43cab3c532a483151c4c382c5649429e9"
 
-"@turf/meta@4.7.1":
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-4.7.1.tgz#53a55281ae08a5fa2f414d9ba50a951d38e86ab5"
+"@turf/meta@^4.7.3":
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-4.7.3.tgz#038970178e90c8e43cf7dfed79d5782298a1080d"
 
 "@types/eventemitter3@^1.2.0":
   version "1.2.0"
@@ -7287,8 +7287,8 @@ p-locate@^2.0.0:
     p-limit "^1.1.0"
 
 p-map@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.1.1.tgz#05f5e4ae97a068371bc2a5cc86bfbdbc19c4ae7a"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
 
 p-timeout@^1.1.1:
   version "1.2.0"
@@ -9439,8 +9439,8 @@ stdout-stream@^1.4.0:
     readable-stream "^2.0.1"
 
 store2@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/store2/-/store2-2.5.3.tgz#85189a51b53fa78eddd51734d819042ff23ee0eb"
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/store2/-/store2-2.5.4.tgz#e8432909b787e626f864aec6b2f5e479531760c5"
 
 stream-browserify@^2.0.1:
   version "2.0.1"
