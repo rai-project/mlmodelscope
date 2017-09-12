@@ -2,6 +2,7 @@ import { isArray, isNil, concat } from "lodash";
 import yeast from "yeast";
 import { Open, URLs, Close } from "../../../swagger/dlframework";
 import HTTPError from "../errors/http";
+import uuid from "uuid/v4";
 
 export default function predict({ inputs, models }) {
   let _predict = function({ http, path, resolve }) {
@@ -26,7 +27,9 @@ export default function predict({ inputs, models }) {
 
     const open = ({ model, urls }) => {
       let predictor;
+      const requestId = uuid();
       const res = openAPI({
+        requestId,
         body: {
           framework_name: model.framework.name,
           framework_version: model.framework.version,
@@ -40,13 +43,14 @@ export default function predict({ inputs, models }) {
         })
         .then(function({ predictor }) {
           return urlAPI({
+            requestId,
             body: {
               predictor,
               urls: urls.map(url => {
                 return { id: yeast(), data: url };
               }),
               options: {
-                request_id: "",
+                request_id: requestId,
                 feature_limit: 0
               }
             }
@@ -69,13 +73,19 @@ export default function predict({ inputs, models }) {
         })
         .then(function({ features }) {
           if (!isNil(predictor)) {
-            closeAPI({ body: { id: predictor.id } });
+            closeAPI({
+              requestId,
+              body: { id: predictor.id }
+            });
           }
           return { features };
         })
         .catch(function({ error }) {
           if (!isNil(predictor)) {
-            closeAPI({ body: { id: predictor.id } });
+            closeAPI({
+              requestId,
+              body: { id: predictor.id }
+            });
           }
           throw error;
         });

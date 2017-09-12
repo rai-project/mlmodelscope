@@ -148,14 +148,6 @@
     "flow status": "flow status",
     "flow coverage": "flow coverage"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": ".cz-config.js"
-    }
-  },
   "verbose": true,
   "lint-staged": {
     "src/**/*.{js,jsx}": [
