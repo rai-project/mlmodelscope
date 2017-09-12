@@ -57,7 +57,8 @@ const controller = Controller({
         "/about": "app.aboutRouted"
       }, // Route definitions
       query: true, // Query support
-      onlyHash: false // Use hash urls
+      onlyHash: false, // Use hash urls
+      allowEscape: true // Will allow none matching routes on same origin to run as normal
     }),
     useragent: UseragentModule({
       media: {
