@@ -13,7 +13,7 @@ import {
   Segment
 } from "semantic-ui-react";
 
-import { Location, Label } from "../Feature";
+import Feature from "../Feature";
 
 function PredictionResultPerImage({
   showImage = true,
@@ -32,9 +32,9 @@ function PredictionResultPerImage({
       (model.output ? model.output.type : undefined) || "label";
     switch (lowerCase(outputType)) {
       case "coordinates":
-        return <Location {...props} />;
+        return <Feature.Location {...props} />;
       default:
-        return <Label {...props} />;
+        return <Feature.Label {...props} />;
     }
   };
   return (
