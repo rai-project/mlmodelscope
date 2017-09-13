@@ -9,13 +9,12 @@ import {
 } from "../../../swagger/dlframework";
 import HTTPError from "../errors/http";
 import uuid from "uuid/v4";
-import pFinally from "p-finally";
 import pIf from "p-if";
 
 // eslint-disable-next-line
 import pLog from "p-log";
 
-const debugging = true;
+const debugging = false;
 
 // function randomId() {
 //   const digits = "0123456789abcdef";
@@ -44,6 +43,18 @@ function spanHeaders(headers) {
   }
   return res;
 }
+
+const pFinally = (promise, onFinally) => {
+  onFinally = onFinally || (() => {});
+
+  return promise.then(
+    val => Promise.resolve(onFinally()).then(() => val),
+    err =>
+      Promise.resolve(onFinally()).then(() => {
+        throw err;
+      })
+  );
+};
 
 export default function predict({ inputs, models, requestType = "url" }) {
   let _predict = function({ http, path, resolve }) {
