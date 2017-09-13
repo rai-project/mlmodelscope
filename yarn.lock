@@ -4360,8 +4360,8 @@ glamor@^2.20.40:
     through "^2.3.8"
 
 glamorous@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-4.8.0.tgz#3c7416cd1045ed992953d545b6241d43dbbbbc75"
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-4.9.1.tgz#41cc6cbafe917e52966dad98101f2ef9344ec118"
   dependencies:
     brcast "^3.0.0"
     fast-memoize "^2.2.7"
@@ -7284,10 +7284,6 @@ p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
 
-p-if@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/p-if/-/p-if-1.1.0.tgz#ca91fcc077f39cb1d409838a1d121fbd12bb1b32"
-
 p-limit@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-1.1.0.tgz#b07ff2d9a5d88bec806035895a2bab66a27988bc"
@@ -7298,19 +7294,9 @@ p-locate@^2.0.0:
   dependencies:
     p-limit "^1.1.0"
 
-p-log@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/p-log/-/p-log-1.0.0.tgz#628aeebf20c3ccbbe7d4271adefd6e4cbb9cb9b2"
-  dependencies:
-    p-tap "^1.0.0"
-
 p-map@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
-
-p-tap@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/p-tap/-/p-tap-1.0.0.tgz#dc4fa086135e8688226f6e7dccea67d8322d08df"
 
 p-timeout@^1.1.1:
   version "1.2.0"
@@ -9461,8 +9447,8 @@ stdout-stream@^1.4.0:
     readable-stream "^2.0.1"
 
 store2@^2.5.3:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/store2/-/store2-2.5.4.tgz#e8432909b787e626f864aec6b2f5e479531760c5"
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/store2/-/store2-2.5.5.tgz#c2b7e154b3fee7d09c68c8c43fca8295b9478e44"
 
 stream-browserify@^2.0.1:
   version "2.0.1"
