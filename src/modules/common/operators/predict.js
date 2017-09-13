@@ -67,23 +67,11 @@ export default function predict({ inputs, models, requestType = "url" }) {
       });
     }
 
-    const openAPI = function() {
-      return Open(...arguments)({ http, resolve });
-    };
-    const closeAPI = function() {
-      return Close(...arguments)({ http, resolve });
-    };
-    const urlAPI = function() {
-      return URLs(...arguments)({ http, resolve });
-    };
-    // eslint-disable-next-line
-    const imagesAPI = function() {
-      return Images(...arguments)({ http, resolve });
-    };
-    // eslint-disable-next-line
-    const datasetAPI = function() {
-      return Dataset(...arguments)({ http, resolve });
-    };
+    const openAPI = (...args) => Open(...args)({ http, resolve });
+    const closeAPI = (...args) => Close(...args)({ http, resolve });
+    const urlAPI = (...args) => URLs(...args)({ http, resolve });
+    const imagesAPI = (...args) => Images(...args)({ http, resolve });
+    const datasetAPI = (...args) => Dataset(...args)({ http, resolve });
 
     const run = ({ model, data }) => {
       let predictor;
