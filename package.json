@@ -23,6 +23,7 @@
     "cytoscape-dagre": "^2.0.0",
     "dagre": "^0.7.4",
     "es6-error": "^4.0.2",
+    "file-type": "^6.1.0",
     "flow-bin": "^0.54.1",
     "font-awesome": "^4.7.0",
     "function-tree": "^1.0.2",
@@ -37,15 +38,13 @@
     "jstat": "^1.7.0",
     "jszip": "^3.1.4",
     "lodash": "^4.17.4",
+    "log-symbols": "^2.0.0",
     "mapbox-gl": "^0.39.1",
     "marksy": "^5.0.0",
     "mathjs": "^3.16.3",
     "moment": "^2.18.1",
     "numeral": "^2.0.6",
     "opentracing": "^0.14.1",
-    "p-finally": "^1.0.0",
-    "p-if": "^1.1.0",
-    "p-log": "^1.0.0",
     "pica": "^3.0.6",
     "probe-image-size": "^3.1.0",
     "prop-types": "^15.5.10",
@@ -154,21 +153,9 @@
   },
   "verbose": true,
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --parser flow --write",
-      "git add"
-    ],
-    "src/**/*.css": [
-      "stylefmt",
-      "stylelint scss",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylefmt",
-      "stylelint --syntax scss",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "prettier --parser flow --write", "git add"],
+    "src/**/*.css": ["stylefmt", "stylelint scss", "git add"],
+    "src/**/*.scss": ["stylefmt", "stylelint --syntax scss", "git add"]
   },
   "proxy": {
     "/api": {

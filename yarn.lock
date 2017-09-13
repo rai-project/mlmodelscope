@@ -3975,6 +3975,10 @@ file-loader@^1.0.0:
   dependencies:
     loader-utils "^1.0.2"
 
+file-type@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-6.1.0.tgz#5a7dba98138fa0abec7afc43e5a9a0b2aac729f1"
+
 file-url@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/file-url/-/file-url-1.1.0.tgz#a0f9cf3eb6904c9b1d3a6790b83a976fc40217bb"
