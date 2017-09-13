@@ -92,8 +92,8 @@ function PredictionResultsPerModel({
             <Segment>
               <div style={{ marginTop: 10, marginBottom: 10 }}>
                 <PredictionResultPerImage
-                  showImage={true}
-                  showModel={true}
+                  showImage={showImage}
+                  showModel={showModel}
                   compact={true}
                   output={o}
                 />
