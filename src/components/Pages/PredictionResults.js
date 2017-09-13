@@ -21,7 +21,6 @@ function PredictionResultPerImage({
   compact = false,
   output
 }) {
-  console.log({ output });
   let model = output.model;
   let len = output.features.length;
   let features = sortBy(output.features, "probability")
