@@ -10,8 +10,18 @@ export default function Footer() {
     <footer>
       <a href="https://github.com/rai-project/carml">
         <Image src={carmlImage} size="tiny" floated="right" />
-        <Image src={c3srImage} size="small" floated="right" />
-        <Image src={uiucImage} size="small" floated="right" />
+        <Image
+          src={c3srImage}
+          size="small"
+          floated="right"
+          href="http://c3sr.hwu.crhc.illinois.edu"
+        />
+        <Image
+          src={uiucImage}
+          size="small"
+          floated="right"
+          href="http://impact.crhc.illinois.edu/"
+        />
         <Header as="h3" inverted>
           <Icon name="github" />
           <Header.Content>rai-project/carml</Header.Content>
