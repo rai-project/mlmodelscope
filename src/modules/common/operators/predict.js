@@ -1,4 +1,4 @@
-import { isArray, isNil } from "lodash";
+import { isArray, isNil, has } from "lodash";
 import yeast from "yeast";
 import {
   Open,
@@ -17,14 +17,32 @@ import pLog from "p-log";
 
 const debugging = true;
 
-function randomTraceId() {
-  const digits = "0123456789abcdef";
-  let n = "";
-  for (let i = 0; i < 16; i++) {
-    const rand = Math.floor(Math.random() * 16);
-    n += digits[rand];
+// function randomId() {
+//   const digits = "0123456789abcdef";
+//   let n = "";
+//   for (let i = 0; i < 16; i++) {
+//     const rand = Math.floor(Math.random() * 16);
+//     n += digits[rand];
+//   }
+//   return n;
+// }
+
+function spanHeaders(headers) {
+  let res = {};
+  headers = headers || {};
+  if (has(headers, "x-b3-flags")) {
+    res["x-b3-flags"] = headers["x-b3-flags"];
   }
-  return n;
+  if (has(headers, "x-b3-sampled")) {
+    res["x-b3-sampled"] = headers["x-b3-sampled"];
+  }
+  if (has(headers, "x-b3-spanid")) {
+    res["x-b3-spanid"] = headers["x-b3-spanid"];
+  }
+  if (has(headers, "x-b3-traceid")) {
+    res["x-b3-traceid"] = headers["x-b3-traceid"];
+  }
+  return res;
 }
 
 export default function predict({ inputs, models, requestType = "url" }) {
@@ -71,17 +89,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
 
     const run = ({ model, data }) => {
       let predictor;
-      const requestId = randomTraceId();
-      const traceId = requestId;
-      const spanId = randomTraceId();
+      const requestId = uuid();
       const res = pFinally(
         openAPI({
           requestId,
-          headers: {
-            traceid: traceId,
-            "trace.traceid": traceId,
-            "x-b3-traceid": traceId
-          },
           body: {
             framework_name: model.framework.name,
             framework_version: model.framework.version,
@@ -89,24 +100,18 @@ export default function predict({ inputs, models, requestType = "url" }) {
             model_version: model.version
           }
         })
-          .then(function({ response: { result } }) {
-            predictor = result;
-            return { predictor };
-          })
           .catch(({ error }) => {
             throw error;
           })
           .then(
-            pIf(requestType === "url", ({ predictor }) => {
+            pIf(requestType === "url", function({
+              response: { result, headers }
+            }) {
+              predictor = result;
               return urlAPI({
                 requestId,
                 headers: {
-                  traceid: traceId,
-                  "trace.traceid": traceId,
-                  "x-b3-traceid": traceId,
-                  spanid: spanId,
-                  "trace.spanid": spanId,
-                  "x-b3-spanid": spanId
+                  ...spanHeaders(headers)
                 },
                 body: {
                   predictor,
@@ -122,16 +127,14 @@ export default function predict({ inputs, models, requestType = "url" }) {
             })
           )
           .then(
-            pIf(requestType === "image", ({ predictor }) => {
+            pIf(requestType === "image", function({
+              response: { result, headers }
+            }) {
+              predictor = result;
               return imagesAPI({
                 requestId,
                 headers: {
-                  traceid: traceId,
-                  "trace.traceid": traceId,
-                  "x-b3-traceid": traceId,
-                  spanid: spanId,
-                  "trace.spanid": spanId,
-                  "x-b3-spanid": spanId
+                  ...spanHeaders(headers)
                 },
                 body: {
                   predictor,
@@ -146,14 +149,26 @@ export default function predict({ inputs, models, requestType = "url" }) {
               });
             })
           )
-          .then(pIf(debugging === true, pLog()))
-          .then(({ response: { result } }) => {
-            return { response: result.responses };
+          .then(pIf(debugging, pLog()))
+          .then(function({ response }) {
+            if (isNil(predictor)) {
+              return { response };
+            }
+            closeAPI({
+              requestId,
+              headers: {
+                ...spanHeaders(response.headers)
+              },
+              body: { id: predictor.id }
+            });
+            predictor = null;
+            return { response };
           })
-          .then(({ response }) => {
+          .then(pIf(debugging, pLog()))
+          .then(function({ response: { result } }) {
             let features = [];
             for (let ii = 0; ii < data.length; ii++) {
-              const featureData = response[ii];
+              const featureData = result.responses[ii];
               features.push({
                 model,
                 predictor,
@@ -165,6 +180,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
             return features;
           })
           .catch(function({ error }) {
+            console.log({ error });
             throw error;
           }),
         function() {
@@ -173,10 +189,6 @@ export default function predict({ inputs, models, requestType = "url" }) {
           }
           closeAPI({
             requestId,
-            headers: {
-              "trace.traceid": requestId,
-              "trace.spanId": spanId
-            },
             body: { id: predictor.id }
           });
         }

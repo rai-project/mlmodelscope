@@ -31,7 +31,7 @@ func apiRoutes(e *echo.Echo) error {
 	}
 	api.Any("/v1/predict*",
 		StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)),
-		tracermiddleware.FromHTTPRequest(tracer.Std(), "api"),
+		tracermiddleware.FromHTTPRequest(tracer.Std(), "api_request"),
 	)
 	api.Any("/*", StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)))
 
