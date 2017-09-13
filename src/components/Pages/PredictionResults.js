@@ -38,38 +38,40 @@ function PredictionResultPerImage({
     }
   };
   return (
-    <Segment>
-      {showImage ? (
-        <div>
-          <Image centered size="medium" shape="rounded" src={output.data} />
-          <Divider hidden />
-        </div>
-      ) : null}
-      {showModel ? (
-        <div>
-          <Header textAlign="center" as="h3">
-            {model.name} Model
-          </Header>
-          <Header textAlign="center" as="h5">
-            {model.framework.name} {model.framework.version}
-          </Header>
-          <Divider hidden />
-        </div>
-      ) : null}
-      <List divided>
-        {features.map(features => (
-          <List.Item key={yeast()}>
-            <List.Content>
-              {makeFeatureTag({
-                feature: features,
-                key: "feature-" + yeast(),
-                compact: compact
-              })}
-            </List.Content>
-          </List.Item>
-        ))}
-      </List>
-    </Segment>
+    <Container>
+      <Segment>
+        {showImage ? (
+          <div>
+            <Image centered size="medium" shape="rounded" src={output.data} />
+            <Divider hidden />
+          </div>
+        ) : null}
+        {showModel ? (
+          <div>
+            <Header textAlign="center" as="h3">
+              {model.name} Model
+            </Header>
+            <Header textAlign="center" as="h5">
+              {model.framework.name} {model.framework.version}
+            </Header>
+            <Divider hidden />
+          </div>
+        ) : null}
+        <List divided>
+          {features.map(features => (
+            <List.Item key={yeast()}>
+              <List.Content>
+                {makeFeatureTag({
+                  feature: features,
+                  key: "feature-" + yeast(),
+                  compact: compact
+                })}
+              </List.Content>
+            </List.Item>
+          ))}
+        </List>
+      </Segment>
+    </Container>
   );
 }
 
@@ -80,19 +82,13 @@ export default connect(
     outputs: state`app.predictOutputs`
   },
   function PredictionResults({ inputs, models, outputs }) {
-    const outputLength = outputs.length;
-    if (outputLength === 0) {
+    if (outputs.length === 0) {
       return <div />;
-    }
-    const containerProps = { fluid: false, text: true };
-    if (outputLength > 2) {
-      containerProps.fluid = true;
-      containerProps.text = false;
     }
     const output = head(outputs);
     const model = head(models);
     return (
-      <Container {...containerProps}>
+      <div>
         {inputs.length === 1 ? (
           <div>
             <Image
@@ -131,7 +127,7 @@ export default connect(
             </Grid.Row>
           ))}
         </Grid>
-      </Container>
+      </div>
     );
   }
 );
