@@ -22,8 +22,9 @@ function PredictionResultPerImage({
   output
 }) {
   let model = output.model;
-  let len = output.features.length;
-  let features = sortBy(output.features, "probability")
+  let features = output.features === undefined ? [] : output.features;
+  let len = features.length;
+  features = sortBy(features, "probability")
     .slice(len - 10, len)
     .reverse();
 
