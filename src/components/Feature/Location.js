@@ -19,8 +19,7 @@ export default function Location({ feature, compact = false }) {
   if (longlat.length !== 2) {
     return <div />;
   }
-  const long = longlat[0];
-  const lat = longlat[1];
+  const [long, lat] = longlat;
   const Map = ReactMapboxGl({
     accessToken: config.mapbox.accessToken
   });
