@@ -38,25 +38,21 @@ function PredictionResultPerImage({
     }
   };
   return (
-    <Grid>
+    <Segment>
       {showImage ? (
         <div>
-          <Grid.Row divided textAlign="center">
-            <Image centered size="medium" shape="rounded" src={output.data} />
-          </Grid.Row>
+          <Image centered size="medium" shape="rounded" src={output.data} />
           <Divider hidden />
         </div>
       ) : null}
       {showModel ? (
         <div>
-          <Grid.Row divided textAlign="center">
-            <Header textAlign="center" as="h3">
-              {model.name} Model
-            </Header>
-            <Header textAlign="center" as="h5">
-              {model.framework.name} {model.framework.version}
-            </Header>
-          </Grid.Row>
+          <Header textAlign="center" as="h3">
+            {model.name} Model
+          </Header>
+          <Header textAlign="center" as="h5">
+            {model.framework.name} {model.framework.version}
+          </Header>
           <Divider hidden />
         </div>
       ) : null}
@@ -73,26 +69,6 @@ function PredictionResultPerImage({
           </List.Item>
         ))}
       </List>
-    </Grid>
-  );
-}
-
-function PredictionResultsPerModel({ showImage, showModel, compact, output }) {
-  console.log(output);
-  return (
-    <Segment>
-      {output.map(o => (
-        <Grid.Column key={yeast()}>
-          <div style={{ marginTop: 10, marginBottom: 10 }}>
-            <PredictionResultPerImage
-              showImage={showImage}
-              showModel={showModel}
-              compact={true}
-              output={o}
-            />
-          </div>
-        </Grid.Column>
-      ))}
     </Segment>
   );
 }
@@ -139,17 +115,19 @@ export default connect(
             <Divider hidden />
           </div>
         ) : null}
-        <Grid centered>
+        <Grid columns={inputs.length} centered divided="vertically">
           {outputs.map(o => (
             <Grid.Row key={yeast()}>
-              <div style={{ marginTop: 10, marginBottom: 10 }}>
-                <PredictionResultsPerModel
-                  showImage={inputs.length > 1}
-                  showModel={models.length > 1}
-                  compact={true}
-                  output={o}
-                />
-              </div>
+              {o.map(oo => (
+                <Grid.Column key={yeast()}>
+                  <PredictionResultPerImage
+                    showImage={inputs.length > 1}
+                    showModel={models.length > 1}
+                    compact={true}
+                    output={oo}
+                  />
+                </Grid.Column>
+              ))}
             </Grid.Row>
           ))}
         </Grid>
