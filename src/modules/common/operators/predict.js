@@ -17,6 +17,16 @@ import pLog from "p-log";
 
 const debugging = true;
 
+function randomTraceId() {
+  const digits = "0123456789abcdef";
+  let n = "";
+  for (let i = 0; i < 16; i++) {
+    const rand = Math.floor(Math.random() * 16);
+    n += digits[rand];
+  }
+  return n;
+}
+
 export default function predict({ inputs, models, requestType = "url" }) {
   let _predict = function({ http, path, resolve }) {
     let resolvedInputs = resolve.value(inputs);
@@ -61,9 +71,9 @@ export default function predict({ inputs, models, requestType = "url" }) {
 
     const run = ({ model, data }) => {
       let predictor;
-      const requestId = uuid();
+      const requestId = randomTraceId();
       const traceId = requestId;
-      const spanId = uuid();
+      const spanId = randomTraceId();
       const res = pFinally(
         openAPI({
           requestId,
