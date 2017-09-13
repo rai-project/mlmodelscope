@@ -2,7 +2,7 @@ import yeast from "yeast";
 import React from "react";
 import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
-import { head, filter, lowerCase, sortBy, last } from "lodash";
+import { head, lowerCase, sortBy } from "lodash";
 import {
   Header,
   Image,

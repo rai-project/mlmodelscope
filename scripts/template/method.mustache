@@ -9,7 +9,7 @@
  */
 export function {{&methodName}}(params){
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = '{{&path}}';
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = params.headers || {}, form = {};
 
     {{#isSecure}}
         headers = this.setAuthHeaders(headers);

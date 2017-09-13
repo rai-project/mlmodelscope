@@ -42,7 +42,7 @@ export function Close(params) {
   let urlPath = "/v1/predict/close";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -108,7 +108,7 @@ export function Dataset(params) {
   let urlPath = "/v1/predict/dataset";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -174,7 +174,7 @@ export function Images(params) {
   let urlPath = "/v1/predict/images";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -242,7 +242,7 @@ export function Open(params) {
   let urlPath = "/v1/predict/open";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -308,7 +308,7 @@ export function Reset(params) {
   let urlPath = "/v1/predict/reset";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -374,7 +374,7 @@ export function DatasetStream(params) {
   let urlPath = "/v1/predict/stream/dataset";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -440,7 +440,7 @@ export function ImagesStream(params) {
   let urlPath = "/v1/predict/stream/images";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -506,7 +506,7 @@ export function URLsStream(params) {
   let urlPath = "/v1/predict/stream/urls";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -572,7 +572,7 @@ export function URLs(params) {
   let urlPath = "/v1/predict/urls";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -639,7 +639,7 @@ export function FrameworkAgents(params) {
   let urlPath = "/v1/registry/frameworks/agent";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -710,7 +710,7 @@ export function FrameworkManifests(params) {
   let urlPath = "/v1/registry/frameworks/manifest";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -783,7 +783,7 @@ export function ModelAgents(params) {
   let urlPath = "/v1/registry/models/agent";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];
@@ -866,7 +866,7 @@ export function ModelManifests(params) {
   let urlPath = "/v1/registry/models/manifest";
   let body = {},
     queryParameters = {},
-    headers = {},
+    headers = params.headers || {},
     form = {};
 
   headers["Accept"] = ["application/json"];

@@ -1,4 +1,4 @@
-import { isArray, isNil, concat } from "lodash";
+import { isArray, isNil } from "lodash";
 import yeast from "yeast";
 import {
   Open,
@@ -62,9 +62,16 @@ export default function predict({ inputs, models, requestType = "url" }) {
     const run = ({ model, data }) => {
       let predictor;
       const requestId = uuid();
+      const traceId = requestId;
+      const spanId = uuid();
       const res = pFinally(
         openAPI({
           requestId,
+          headers: {
+            traceid: traceId,
+            "trace.traceid": traceId,
+            "x-b3-traceid": traceId
+          },
           body: {
             framework_name: model.framework.name,
             framework_version: model.framework.version,
@@ -83,6 +90,14 @@ export default function predict({ inputs, models, requestType = "url" }) {
             pIf(requestType === "url", ({ predictor }) => {
               return urlAPI({
                 requestId,
+                headers: {
+                  traceid: traceId,
+                  "trace.traceid": traceId,
+                  "x-b3-traceid": traceId,
+                  spanid: spanId,
+                  "trace.spanid": spanId,
+                  "x-b3-spanid": spanId
+                },
                 body: {
                   predictor,
                   urls: data.map(e => {
@@ -100,6 +115,14 @@ export default function predict({ inputs, models, requestType = "url" }) {
             pIf(requestType === "image", ({ predictor }) => {
               return imagesAPI({
                 requestId,
+                headers: {
+                  traceid: traceId,
+                  "trace.traceid": traceId,
+                  "x-b3-traceid": traceId,
+                  spanid: spanId,
+                  "trace.spanid": spanId,
+                  "x-b3-spanid": spanId
+                },
                 body: {
                   predictor,
                   images: data.map(e => {
@@ -140,6 +163,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
           }
           closeAPI({
             requestId,
+            headers: {
+              "trace.traceid": requestId,
+              "trace.spanId": spanId
+            },
             body: { id: predictor.id }
           });
         }
