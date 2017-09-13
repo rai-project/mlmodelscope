@@ -32,6 +32,8 @@ func Start(addr string) {
 			return uuid.NewV4()
 		},
 	}))
+	e.Use(AllowCrossOrigin())
+	e.Use(AllowTracedHeaders())
 
 	chain := []func(*echo.Echo) error{
 		pprofRoutes,
