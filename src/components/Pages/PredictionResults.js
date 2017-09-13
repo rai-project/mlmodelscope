@@ -22,7 +22,7 @@ function PredictionResultPerImage({
   output
 }) {
   let model = output.model;
-  let features = output.features === undefined ? [] : output.features;
+  let features = output.features || [];
   let len = features.length;
   features = sortBy(features, "probability")
     .slice(len - 10, len)
