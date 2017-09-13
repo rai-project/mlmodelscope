@@ -15,7 +15,7 @@ import pIf from "p-if";
 // eslint-disable-next-line
 import pLog from "p-log";
 
-const debugging = true;
+const debugging = false;
 
 // function randomId() {
 //   const digits = "0123456789abcdef";
