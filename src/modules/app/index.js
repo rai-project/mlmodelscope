@@ -27,7 +27,7 @@ export default {
       isLoadingModelManifests: false
     },
     predictInputs: [],
-    predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
+    predictURL: "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg",
     models: {},
     frameworks: {
       data: []

@@ -72,7 +72,7 @@ export default connect(
                         <Input
                           fluid
                           placeholder={
-                            "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                            "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
                           }
                           onChange={e =>
                             predictURLChanged({ predictURL: e.target.value })}
