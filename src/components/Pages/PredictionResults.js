@@ -42,10 +42,10 @@ function PredictionResultPerImage({
     <Container>
       <Segment>
         {showImage ? (
-          <div>
+          <Container>
             <Image centered size="medium" shape="rounded" src={output.data} />
             <Divider hidden />
-          </div>
+          </Container>
         ) : null}
         {showModel ? (
           <div>
