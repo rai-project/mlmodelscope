@@ -67,10 +67,19 @@ export default function predict({ inputs, models, requestType = "url" }) {
       });
     }
 
+    // eslint-disable-next-line
     const openAPI = (...args) => Open(...args)({ http, resolve });
+
+    // eslint-disable-next-line
     const closeAPI = (...args) => Close(...args)({ http, resolve });
+
+    // eslint-disable-next-line
     const urlAPI = (...args) => URLs(...args)({ http, resolve });
+
+    // eslint-disable-next-line
     const imagesAPI = (...args) => Images(...args)({ http, resolve });
+
+    // eslint-disable-next-line
     const datasetAPI = (...args) => Dataset(...args)({ http, resolve });
 
     const run = ({ model, data }) => {
