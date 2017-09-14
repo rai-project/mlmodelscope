@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 // eslint-disable-next-line
 import { Core, DragDrop, Tus10, Dashboard, Webcam } from "uppy";
 

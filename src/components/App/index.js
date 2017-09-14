@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Sidebar, Container } from "semantic-ui-react";
 
@@ -61,9 +61,7 @@ export default connect(
         <div className="App">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>
-              {this.props.appName}
-            </title>
+            <title>{this.props.appName}</title>
             <link rel="canonical" href={this.props.websiteUrl} />
           </Helmet>
           <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>

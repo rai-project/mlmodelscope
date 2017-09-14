@@ -21,17 +21,19 @@ func Start(addr string) {
 		Entry: log,
 	}
 
+	e.Use(middleware.Recover())
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: middleware.DefaultSkipper,
 		Format:  middleware.DefaultLoggerConfig.Format,
 		Output:  log.Writer(),
 	}))
-	e.Use(middleware.Recover())
 	e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{
 		Generator: func() string {
 			return uuid.NewV4()
 		},
 	}))
+	e.Use(AllowCrossOrigin())
+	e.Use(AllowTracedHeaders())
 
 	chain := []func(*echo.Echo) error{
 		pprofRoutes,

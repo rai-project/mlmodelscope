@@ -9,7 +9,7 @@
  */
 export function {{&methodName}}(params){
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = '{{&path}}';
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = params.headers || {}, form = {};
 
     {{#isSecure}}
         headers = this.setAuthHeaders(headers);
@@ -18,7 +18,13 @@ export function {{&methodName}}(params){
         headers['{{&name}}'] = [{{&value}}];
     {{/headers}}
 
-    headers['X-Request-ID'] = uuid();
+    if (has(params, "requestId")) {
+        headers['X-Request-ID'] = params.requestId;
+    } else if (has(params, "X-Request-ID")) {
+        headers['X-Request-ID'] = params["X-Request-ID"];
+    } else {
+        headers['X-Request-ID'] = uuid();
+    }
 
 
   return function {{&methodName}}Request({ http, path, resolve }) {

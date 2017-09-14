@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { values } from "lodash";
 import {
@@ -21,7 +21,7 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export default connect(
   {
     predictInputs: state`app.predictInputs`,
-    isPredicting: state`app.isPredicting`,
+    isPredicting: state`app.status.isPredicting`,
     selectedModels: state`models.selectedModels`,
     predictInputsSet: signal`app.predictInputsSet`,
     predictURLChanged: signal`app.predictURLChanged`,
@@ -61,7 +61,7 @@ export default connect(
               panes={[
                 {
                   menuItem: "URL",
-                  render: () =>
+                  render: () => (
                     <div>
                       <Form
                         onSubmit={e => {
@@ -72,20 +72,19 @@ export default connect(
                         <Input
                           fluid
                           placeholder={
-                            "https://static.pexels.com/photos/20787/pexels-photo.jpg"
+                            "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
                           }
                           onChange={e =>
                             predictURLChanged({ predictURL: e.target.value })}
                         />
                       </Form>
                       <List>
-                        {predictInputs.map((item, index) =>
-                          <List.Item key={index}>
-                            {item}
-                          </List.Item>
-                        )}
+                        {predictInputs.map((item, index) => (
+                          <List.Item key={index}>{item}</List.Item>
+                        ))}
                       </List>
                     </div>
+                  )
                 },
                 {
                   menuItem: "Upload",
@@ -117,11 +116,13 @@ export default connect(
                   inferenceButtonClicked();
                 }}
               >
-                {isPredicting === true
-                  ? <Loader active inline inverted>
-                      Predicting
-                    </Loader>
-                  : "Predict"}
+                {isPredicting === true ? (
+                  <Loader active inline inverted>
+                    Predicting
+                  </Loader>
+                ) : (
+                  "Predict"
+                )}
               </Button>
             </Container>
           </Grid.Row>

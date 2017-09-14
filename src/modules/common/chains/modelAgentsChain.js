@@ -6,14 +6,14 @@ import { ModelAgents } from "../../../swagger/dlframework";
 
 export default [
   when(
-    state`app.isLoadingModelAgents`,
+    state`app.status.isLoadingModelAgents`,
     state`models.agents`,
     (isLoading, agents) =>
       isLoading !== true && (agents === undefined || agents.length === 0)
   ),
   {
     true: [
-      set(state`app.isLoadingModelAgents`, true),
+      set(state`app.status.isLoadingModelAgents`, true),
       ModelAgents({
         frameworkName: "*",
         frameworkVersion: "*",
@@ -21,10 +21,10 @@ export default [
         modelVersion: "*"
       }),
       {
-        success: [set(state`models.agents`, props`result.agents`)],
+        success: [set(state`models.agents`, props`response.result.agents`)],
         error: onError
       },
-      set(state`app.isLoadingModelAgents`, false)
+      set(state`app.status.isLoadingModelAgents`, false)
     ],
     false: []
   }

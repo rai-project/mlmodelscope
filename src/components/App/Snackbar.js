@@ -1,7 +1,7 @@
 import idx from "idx";
 import yeast from "yeast";
 import React, { Component } from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
 import Alert from "react-s-alert";
 import { isArray, isNil, isEmpty } from "lodash";
@@ -22,27 +22,19 @@ class ErrorTemplate extends React.Component {
     let message = idx(error, _ => _.body.message);
     let stack = idx(error, _ => _.body.stack);
     if (!isNil(code)) {
-      code = (
-        <code>
-          {code} :: &nbsp;
-        </code>
-      );
+      code = <code>{code} :: &nbsp;</code>;
     }
     if (!isNil(message)) {
-      message = (
-        <b>
-          {message}
-        </b>
-      );
+      message = <b>{message}</b>;
     }
     if (!isNil(stack)) {
       const trace = (
         <Message.List>
-          {stack.map(s =>
+          {stack.map(s => (
             <Message.Item key={yeast()} as="pre" style={{ fontSize: "75%" }}>
               {s}
             </Message.Item>
-          )}
+          ))}
         </Message.List>
       );
       stack = (
@@ -101,7 +93,7 @@ export default connect(
         <Alert
           stack={{ limit: 3 }}
           position="top"
-          timeout={5000}
+          timeout={50000}
           effect="flip"
           contentTemplate={ErrorTemplate}
         />

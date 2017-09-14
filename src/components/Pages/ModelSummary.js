@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state } from "cerebral/tags";
 import { Container, Grid, Card } from "semantic-ui-react";
 import visableModel from "../../computed/visableModels";

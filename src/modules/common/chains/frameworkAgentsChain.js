@@ -6,23 +6,25 @@ import { FrameworkAgents } from "../../../swagger/dlframework";
 
 export default [
   when(
-    state`app.isLoadingFrameworkAgents`,
+    state`app.status.isLoadingFrameworkAgents`,
     state`app.frameworks.agents`,
     (isLoading, agents) =>
       isLoading !== true && (agents === undefined || agents.length === 0)
   ),
   {
     true: [
-      set(state`app.isLoadingFrameworkAgents`, true),
+      set(state`app.status.isLoadingFrameworkAgents`, true),
       FrameworkAgents({
         frameworkName: "*",
         frameworkVersion: "*"
       }),
       {
-        success: [set(state`app.frameworks.agents`, props`result.agents`)],
+        success: [
+          set(state`app.frameworks.agents`, props`response.result.agents`)
+        ],
         error: onError
       },
-      set(state`app.isLoadingFrameworkAgents`, false)
+      set(state`app.status.isLoadingFrameworkAgents`, false)
     ],
     false: []
   }

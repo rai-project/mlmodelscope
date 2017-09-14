@@ -12,15 +12,26 @@ import aboutRouted from "./signals/aboutRouted";
 
 export default {
   state: {
-    currentPage: "Home",
     name: "CarML",
     error: null,
-    isInferring: false,
-    isBusy: false,
+    currentPage: "Home",
+    status: {
+      isInfering: false,
+      isBusy: false,
+      isLoaded: false,
+      isPredicting: false,
+      isLoadingModel: false,
+      isLoadingFrameworkAgents: false,
+      isLoadingFrameworkManifests: false,
+      isLoadingModelAgents: false,
+      isLoadingModelManifests: false
+    },
     predictInputs: [],
-    predictURL: "https://static.pexels.com/photos/20787/pexels-photo.jpg",
+    predictURL: "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg",
     models: {},
-    frameworks: {}
+    frameworks: {
+      data: []
+    }
   },
   signals: {
     appLoaded,

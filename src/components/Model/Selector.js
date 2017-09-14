@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "cerebral/react";
+import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import { Dropdown } from "semantic-ui-react";
 
@@ -11,7 +11,7 @@ export default connect(
     models: visableModel,
     selectedModels: state`models.selectedModels`,
     modelSelected: signal`model.modelSelected`,
-    modelInformationsRequest: signal`app.modelInformationsRequest`,
+    modelInformationsRequest: signal`app.modelInformationsRequest`
   },
   class ModelSelector extends React.Component {
     componentDidMount() {
@@ -19,6 +19,7 @@ export default connect(
     }
     render() {
       const { models, selectedModels, open, modelSelected } = this.props;
+
       if (!models || models.length === 0) {
         return <div />;
       }
@@ -32,8 +33,8 @@ export default connect(
           description: "model version " + model.version,
           image: {
             avatar: true,
-            src: logos[model.framework.name.toLowerCase()],
-          },
+            src: logos[model.framework.name.toLowerCase()]
+          }
         };
       });
 
@@ -54,7 +55,7 @@ export default connect(
             modelSelected({
               manifests: value.map(v => {
                 return JSON.parse(v);
-              }),
+              })
             });
           }}
           {...extraOpts}
