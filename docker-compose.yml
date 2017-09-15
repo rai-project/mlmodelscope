@@ -27,8 +27,8 @@ services:
       source: ~/data/carml
       target: /data/carml
     - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+      source: $HOME
+      target: /root
   zipkin:
     image: openzipkin/zipkin:1.29
     container_name: zipkin
@@ -63,8 +63,8 @@ services:
       source: ~/data/carml
       target: /data/carml
     - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+      source: $HOME
+      target: /root
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
@@ -83,8 +83,8 @@ services:
       source: ~/data/carml
       target: /data/carml
     - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+      source: $HOME
+      target: /root
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
@@ -103,8 +103,8 @@ services:
       source: ~/data/carml
       target: /data/carml
     - type: volume
-      source: ~/.carml_config.yml
-      target: /root/.carml_config.yml
+      source: $HOME
+      target: /root
     environment:
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
