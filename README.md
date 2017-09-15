@@ -15,3 +15,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Known Issues:
 1. `upload` feature currently is not working
 2. If any agent crashes, you can stop the containers by running `docker-compose stop` and restart.
+
+### Acknowledgement:
+This work is supported by [IBM-ILLINOIS Center for Cognitive Computing Systems Research (C3SR)](http://c3sr.hwu.crhc.illinois.edu/) - a research collaboration
+as part of the [IBM Cognitive Horizon Network](http://research.ibm.com/cognitive-computing/cognitive-horizons-network/).
+
