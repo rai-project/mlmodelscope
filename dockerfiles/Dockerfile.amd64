@@ -2,7 +2,7 @@ FROM carml/go:amd64-cpu
 MAINTAINER Abdul Dakkak <dakkak@illinois.edu>
 
 <<<<<<< HEAD
-LABEL org.carml.version=0.3.6
+LABEL org.carml.version=0.3.7
 =======
 LABEL org.carml.version=0.3.5
 >>>>>>> 49e971621d5f36ebcbcba4bcae344be2e6492f17

@@ -7,7 +7,7 @@ import (
 var (
 	// These fields are populated by govvv
 <<<<<<< HEAD
-	Version    = "0.3.6"
+	Version    = "0.3.7"
 =======
 	Version    = "0.3.5"
 >>>>>>> 49e971621d5f36ebcbcba4bcae344be2e6492f17
