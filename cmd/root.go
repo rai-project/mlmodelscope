@@ -57,7 +57,6 @@ func init() {
 	viper.BindPFlag("app.secret", RootCmd.PersistentFlags().Lookup("secret"))
 	viper.BindPFlag("app.debug", RootCmd.PersistentFlags().Lookup("debug"))
 	viper.BindPFlag("app.verbose", RootCmd.PersistentFlags().Lookup("verbose"))
-	viper.SetDefault("app.tempdir", "/tmp/carml") // temporary
 }
 
 // initConfig reads in config file and ENV variables if set.
