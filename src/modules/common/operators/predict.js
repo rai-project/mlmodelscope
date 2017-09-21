@@ -7,13 +7,13 @@ import {
   Dataset,
   Close
 } from "../../../swagger/dlframework";
-import HTTPError from "../errors/http";
+
 import uuid from "uuid/v4";
 import pIf from "../../../helpers/p-if";
 import pFinally from "../../../helpers/p-finally";
 import pLog from "../../../helpers/p-log";
 
-const debugging = false;
+const debugging = true;
 
 // function randomId() {
 //   const digits = "0123456789abcdef";
@@ -95,7 +95,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
             model_version: model.version
           }
         })
-          .catch(({ error }) => {
+          .catch(function(error) {
             throw error;
           })
           .then(
@@ -145,21 +145,6 @@ export default function predict({ inputs, models, requestType = "url" }) {
             })
           )
           .then(pIf(debugging, pLog()))
-          .then(function({ response }) {
-            if (isNil(predictor)) {
-              return { response };
-            }
-            closeAPI({
-              requestId,
-              headers: {
-                ...spanHeaders(response.headers)
-              },
-              body: { id: predictor.id }
-            });
-            predictor = null;
-            return { response };
-          })
-          .then(pIf(debugging, pLog()))
           .then(function({ response: { result } }) {
             let features = [];
             for (let ii = 0; ii < data.length; ii++) {
@@ -173,10 +158,6 @@ export default function predict({ inputs, models, requestType = "url" }) {
               });
             }
             return features;
-          })
-          .catch(function({ error }) {
-            console.log({ error });
-            throw error;
           }),
         function() {
           if (isNil(predictor)) {
@@ -185,7 +166,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
           closeAPI({
             requestId,
             body: { id: predictor.id }
-          });
+          }).catch(function(e) {});
         }
       );
 
@@ -198,10 +179,8 @@ export default function predict({ inputs, models, requestType = "url" }) {
       .then(function(features) {
         return path.success({ output: features });
       })
-      .catch(function(errors) {
-        return path.error({
-          error: new HTTPError("failed to predict", 400, errors, "predict")
-        });
+      .catch(function(error) {
+        return path.error({ error: error.toJSON() });
       });
   };
   _predict.displayName = "predict";

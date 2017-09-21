@@ -17,10 +17,26 @@ class ErrorTemplate extends React.Component {
   }
   render() {
     const { error } = this.props.customFields;
-    console.log(error);
+    let name = error.name;
+    if (isNil(name)) {
+      name = idx(error, _ => _.body.name);
+    }
+    if (isNil(name)) {
+      name = idx(error, _ => _.response.result.name);
+    }
     let code = idx(error, _ => _.body.code);
+    if (isNil(code)) {
+      code = idx(error, _ => _.response.result.status);
+    }
     let message = idx(error, _ => _.body.message);
+    if (isNil(message)) {
+      message = idx(error, _ => _.response.result.message);
+    }
     let stack = idx(error, _ => _.body.stack);
+    if (isNil(stack)) {
+      stack = idx(error, _ => _.response.result.stack);
+    }
+
     if (!isNil(code)) {
       code = <code>{code} :: &nbsp;</code>;
     }
@@ -56,7 +72,7 @@ class ErrorTemplate extends React.Component {
       <div id={this.props.id} style={this.props.styles}>
         <Message error color="red" onDismiss={this.props.handleClose}>
           <Message.Header>
-            <Icon name="warning sign" /> {error.name}
+            <Icon name="warning sign" /> {name}
           </Message.Header>
           <Message.Content>
             <div>
@@ -77,8 +93,7 @@ export default connect(
   },
   class Snackbar extends Component {
     componentDidUpdate() {
-      const { error } = this.props;
-
+      const { error = null } = this.props;
       if (isNil(error) || (isArray(error) && isEmpty(error))) {
         return;
       }
