@@ -16,6 +16,8 @@ The `docker-compose` file also sets up the following containers:
 
 -   Jaeger (tracing) `http://<host-ip>:16686`
 -   Consul (kv) `http://<host-ip>:8500`
+-   Minio (store) `http://<host-ip>:9030`
+-   Graylog (logging) `http://<host-ip>:9010`
 -   Prometheus (metrics database) `http://<host-ip>:9090`
 -   AlertManager (alerts management) `http://<host-ip>:9093`
 -   Grafana (visualize metrics) `http://<host-ip>:6000`
