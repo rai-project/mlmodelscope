@@ -4,9 +4,19 @@ networks:
   monitor-net:
     driver: bridge
 
+# Volumes for persisting data, see https://docs.docker.com/engine/admin/volumes/volumes/
+volumes:
+  mongo_data:
+    driver: local
+  es_data:
+    driver: local
+  graylog_journal:
+    driver: local
+
 services:
   carml:
     image: carml/web:amd64
+    container_name: carml
     ports:
     - 8088:8088
     links:
@@ -36,8 +46,10 @@ services:
   store:
     image: minio/minio
     container_name: store
+    expose:
+    - 9030
     ports:
-    - 9000:9000
+    - 9030:9000
     command: server /export
     environment:
     - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
@@ -176,21 +188,21 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  cadvisor:
-    image: google/cadvisor:v0.26.1
-    container_name: cadvisor
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    restart: unless-stopped
-    expose:
-      - 8080
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
+  # cadvisor:
+  #   image: google/cadvisor:v0.26.1
+  #   container_name: cadvisor
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   restart: unless-stopped
+  #   expose:
+  #     - 8080
+  #   networks:
+  #     - monitor-net
+  #   labels:
+  #     org.label-schema.group: "monitoring"
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -202,10 +214,63 @@ services:
     - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
     expose:
-      - 6000
+      - 3010
     networks:
       - monitor-net
     ports:
-      - 6000:3000
+      - 3010:3000
     labels:
       org.label-schema.group: "monitoring"
+  # MongoDB: https://hub.docker.com/_/mongo/
+  mongo:
+    image: mongo:3
+    container_name: mongo
+    volumes:
+      - ~/data/carml/mongo_data:/data/db
+  # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/5.5/docker.html
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+    container_name: elasticsearch
+    volumes:
+      - ~/data/carml/es_data:/usr/share/elasticsearch/data
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      # Disable X-Pack security: https://www.elastic.co/guide/en/elasticsearch/reference/5.5/security-settings.html#general-security-settings
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      mem_limit: 1g
+  # Graylog: https://hub.docker.com/r/graylog/graylog/
+  graylog:
+    image: graylog/graylog:2.3
+    container_name: graylog
+    volumes:
+      - ~/data/carml/graylog_journal:/usr/share/graylog/data/journal
+      - ./config/graylog:/usr/share/graylog/data/config
+    environment:
+      # CHANGE ME!
+      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
+      # Password: admin
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_WEB_ENDPOINT_URI=http://127.0.0.1:9000/api
+    links:
+      - mongo
+      - elasticsearch
+    expose:
+      - 9000
+    ports:
+      # Graylog web interface and REST API
+      - 9000:9000
+      # Syslog TCP
+      - 514:514
+      # Syslog UDP
+      - 514:514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp
