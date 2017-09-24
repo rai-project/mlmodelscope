@@ -12,6 +12,7 @@ import:
 - package: github.com/go-openapi/errors
 - package: github.com/go-openapi/loads
 - package: github.com/go-openapi/runtime
+- package: github.com/bugsnag/osext
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/labstack/echo
