@@ -3,6 +3,8 @@ version: '3.3'
 networks:
   monitor-net:
     driver: bridge
+  logging-net:
+    driver: bridge
 
 # Volumes for persisting data, see https://docs.docker.com/engine/admin/volumes/volumes/
 volumes:
@@ -35,6 +37,7 @@ services:
     - PORT=8088
     - TRACER_ENDPOINTS=zipkin:9411
     - REGISTRY_ENDPOINTS=consul:8500
+    restart: unless-stopped
     entrypoint: carml web -d -v
     volumes:
     - type: volume
@@ -43,26 +46,13 @@ services:
     - type: volume
       source: $HOME
       target: /root
-  store:
-    image: minio/minio
-    container_name: store
-    expose:
-    - 9030
-    ports:
-    - 9030:9000
-    command: server /export
-    environment:
-    - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
-    - MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-    volumes:
-    - ~/data/store:/export
-    - ~/data/store:/root/.minio
   caffe2:
     image: carml/caffe2-agent:amd64-cpu-latest
     container_name: caffe2
     links:
     - jaeger
     - consul
+    restart: unless-stopped
     entrypoint: caffe2-agent -d -v -l
     volumes:
     - type: volume
@@ -83,6 +73,7 @@ services:
     links:
     - jaeger
     - consul
+    restart: unless-stopped
     entrypoint: caffe-agent -d -v -l
     volumes:
     - type: volume
@@ -103,6 +94,7 @@ services:
     links:
     - jaeger
     - consul
+    restart: unless-stopped
     entrypoint: mxnet-agent -d -v -l
     volumes:
     - type: volume
@@ -117,6 +109,20 @@ services:
     depends_on:
     - jaeger
     - consul
+  store:
+    image: minio/minio
+    container_name: store
+    expose:
+    - 9030
+    ports:
+    - 9030:9000
+    command: server /export
+    environment:
+    - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+    - MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    volumes:
+    - ~/data/store:/export
+    - ~/data/store:/root/.minio
   jaeger:
     image: jaegertracing/all-in-one:latest
     container_name: jaeger
@@ -188,21 +194,23 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  # cadvisor:
-  #   image: google/cadvisor:v0.26.1
-  #   container_name: cadvisor
-  #   volumes:
-  #     - /:/rootfs:ro
-  #     - /var/run:/var/run:rw
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-  #   restart: unless-stopped
-  #   expose:
-  #     - 8080
-  #   networks:
-  #     - monitor-net
-  #   labels:
-  #     org.label-schema.group: "monitoring"
+  cadvisor:
+    image: google/cadvisor:v0.26.1
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    restart: unless-stopped
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -227,6 +235,8 @@ services:
     container_name: mongo
     volumes:
       - ~/data/carml/mongo_data:/data/db
+    networks:
+      - logging-net
   # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/5.5/docker.html
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.5.2
@@ -245,6 +255,8 @@ services:
         soft: -1
         hard: -1
       mem_limit: 1g
+    networks:
+      - logging-net
   # Graylog: https://hub.docker.com/r/graylog/graylog/
   graylog:
     image: graylog/graylog:2.3
@@ -274,3 +286,5 @@ services:
       - 12201:12201
       # GELF UDP
       - 12201:12201/udp
+    networks:
+      - logging-net
