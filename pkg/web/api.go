@@ -9,7 +9,6 @@ import (
 	_ "github.com/rai-project/tracer/jaeger"
 	tracermiddleware "github.com/rai-project/tracer/middleware"
 	_ "github.com/rai-project/tracer/noop"
-	_ "github.com/rai-project/tracer/opentracing"
 	_ "github.com/rai-project/tracer/zipkin"
 )
 
