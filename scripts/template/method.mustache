@@ -112,7 +112,7 @@ export function {{&methodName}}(params){
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/v1/api" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request( {
