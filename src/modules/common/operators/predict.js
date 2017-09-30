@@ -68,19 +68,39 @@ export default function predict({ inputs, models, requestType = "url" }) {
     }
 
     // eslint-disable-next-line
-    const openAPI = (...args) => Open(...args)({ http, resolve });
+    const openAPI = (...args) =>
+      Open(...args)({
+        http,
+        resolve
+      });
 
     // eslint-disable-next-line
-    const closeAPI = (...args) => Close(...args)({ http, resolve });
+    const closeAPI = (...args) =>
+      Close(...args)({
+        http,
+        resolve
+      });
 
     // eslint-disable-next-line
-    const urlAPI = (...args) => URLs(...args)({ http, resolve });
+    const urlAPI = (...args) =>
+      URLs(...args)({
+        http,
+        resolve
+      });
 
     // eslint-disable-next-line
-    const imagesAPI = (...args) => Images(...args)({ http, resolve });
+    const imagesAPI = (...args) =>
+      Images(...args)({
+        http,
+        resolve
+      });
 
     // eslint-disable-next-line
-    const datasetAPI = (...args) => Dataset(...args)({ http, resolve });
+    const datasetAPI = (...args) =>
+      Dataset(...args)({
+        http,
+        resolve
+      });
 
     const run = ({ model, data }) => {
       let predictor;
@@ -92,7 +112,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
             framework_name: model.framework.name,
             framework_version: model.framework.version,
             model_name: model.name,
-            model_version: model.version
+            model_version: model.version,
+            options: {
+              batch_size: 32
+            }
           }
         })
           .catch(function(error) {
@@ -111,7 +134,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
                 body: {
                   predictor,
                   urls: data.map(e => {
-                    return { id: yeast(), data: e };
+                    return {
+                      id: yeast(),
+                      data: e
+                    };
                   }),
                   options: {
                     request_id: requestId,
@@ -134,7 +160,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
                 body: {
                   predictor,
                   images: data.map(e => {
-                    return { id: yeast(), data: e };
+                    return {
+                      id: yeast(),
+                      data: e
+                    };
                   }),
                   options: {
                     request_id: requestId,
@@ -165,7 +194,9 @@ export default function predict({ inputs, models, requestType = "url" }) {
           }
           closeAPI({
             requestId,
-            body: { id: predictor.id }
+            body: {
+              id: predictor.id
+            }
           }).catch(function(e) {});
         }
       );
@@ -174,13 +205,22 @@ export default function predict({ inputs, models, requestType = "url" }) {
     };
 
     return Promise.all(
-      resolvedModels.map(model => run({ model, data: resolvedInputs }))
+      resolvedModels.map(model =>
+        run({
+          model,
+          data: resolvedInputs
+        })
+      )
     )
       .then(function(features) {
-        return path.success({ output: features });
+        return path.success({
+          output: features
+        });
       })
       .catch(function(error) {
-        return path.error({ error: error.toJSON() });
+        return path.error({
+          error: error.toJSON()
+        });
       });
   };
   _predict.displayName = "predict";
