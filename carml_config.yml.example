@@ -11,7 +11,7 @@ registry:
   serializer: jsonpb
 tracer:
   enabled: true
-  provider: zipkin
+  provider: jaeger
   endpoints:
     - localhost:9411
 logger:
