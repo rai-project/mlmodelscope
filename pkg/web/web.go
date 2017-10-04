@@ -12,12 +12,13 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/rai-project/uuid"
+	echologger "github.com/rai-project/web/logger"
 )
 
 func Start(addr string) {
 	e := echo.New()
 
-	e.Logger = &echoLogger{
+	e.Logger = &echologger.EchoLogger{
 		Entry: log,
 	}
 
