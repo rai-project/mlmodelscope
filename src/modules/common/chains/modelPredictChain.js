@@ -8,7 +8,8 @@ export default [
     state`app.status.isPredicting`,
     state`app.predictInputs`,
     state`models.selectedModels`,
-    (isPredicting, inputs, models) =>
+    state`app.device`,
+    (isPredicting, inputs, models, device) =>
       isPredicting !== true &&
       inputs.length !== 0 &&
       (models !== undefined || models.length !== 0)
@@ -18,7 +19,8 @@ export default [
       set(state`app.status.isPredicting`, true),
       predict({
         inputs: state`app.predictInputs`,
-        models: state`models.selectedModels`
+        models: state`models.selectedModels`,
+        device: state`app.device`
       }),
       {
         success: [set(state`app.predictOutputs`, props`output`)],

@@ -43,7 +43,12 @@ function spanHeaders(headers) {
   return res;
 }
 
-export default function predict({ inputs, models, requestType = "url" }) {
+export default function predict({
+  inputs,
+  models,
+  device,
+  requestType = "url"
+}) {
   let _predict = function({ http, path, resolve }) {
     let resolvedInputs = resolve.value(inputs);
     if (!isArray(resolvedInputs)) {
@@ -53,6 +58,7 @@ export default function predict({ inputs, models, requestType = "url" }) {
     if (!isArray(resolvedModels)) {
       resolvedModels = [resolvedModels];
     }
+    let resolvedDevice = resolve.value(device);
 
     requestType = requestType.toLowerCase();
     if (
@@ -102,8 +108,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
         resolve
       });
 
-    const run = ({ model, data }) => {
+    const run = ({ model, data, device }) => {
       let predictor;
+      var device_count = new Map();
+      device_count.set(device, 0);
       const requestId = uuid();
       const res = pFinally(
         openAPI({
@@ -114,7 +122,10 @@ export default function predict({ inputs, models, requestType = "url" }) {
             model_name: model.name,
             model_version: model.version,
             options: {
-              batch_size: 32
+              batch_size: 32,
+              execution_options: {
+                device_count: device_count
+              }
             }
           }
         })
@@ -208,7 +219,8 @@ export default function predict({ inputs, models, requestType = "url" }) {
       resolvedModels.map(model =>
         run({
           model,
-          data: resolvedInputs
+          data: resolvedInputs,
+          device: resolvedDevice
         })
       )
     )
