@@ -20,7 +20,8 @@ export default [
       predict({
         inputs: state`app.predictInputs`,
         models: state`models.selectedModels`,
-        device: state`app.device`
+        device: state`app.device`,
+        batchSize: state`app.batchSize`
       }),
       {
         success: [set(state`app.predictOutputs`, props`output`)],

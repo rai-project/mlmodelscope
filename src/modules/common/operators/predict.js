@@ -47,6 +47,7 @@ export default function predict({
   inputs,
   models,
   device,
+  batchSize,
   requestType = "url"
 }) {
   let _predict = function({ http, path, resolve }) {
@@ -59,6 +60,7 @@ export default function predict({
       resolvedModels = [resolvedModels];
     }
     let resolvedDevice = resolve.value(device);
+    let resolvedBatchSize = resolve.value(batchSize);
 
     requestType = requestType.toLowerCase();
     if (
@@ -108,7 +110,7 @@ export default function predict({
         resolve
       });
 
-    const run = ({ model, data, device }) => {
+    const run = ({ model, data, device, batchSize }) => {
       let predictor;
       var device_count = new Map();
       device_count.set(device, 0);
@@ -122,7 +124,7 @@ export default function predict({
             model_name: model.name,
             model_version: model.version,
             options: {
-              batch_size: 32,
+              batch_size: Number(batchSize),
               execution_options: {
                 device_count: device_count
               }
@@ -220,7 +222,8 @@ export default function predict({
         run({
           model,
           data: resolvedInputs,
-          device: resolvedDevice
+          device: resolvedDevice,
+          batchSize: resolvedBatchSize
         })
       )
     )
