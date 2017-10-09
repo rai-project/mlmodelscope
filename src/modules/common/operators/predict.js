@@ -112,9 +112,8 @@ export default function predict({
 
     const run = ({ model, data, device, batchSize }) => {
       let predictor;
-      var device_count = new Map();
-      device_count.set(device, 0);
       const requestId = uuid();
+      console.log(device);
       const res = pFinally(
         openAPI({
           requestId,
@@ -126,7 +125,7 @@ export default function predict({
             options: {
               batch_size: Number(batchSize),
               execution_options: {
-                device_count: device_count
+                device_count: { [device]: 0 }
               }
             }
           }
