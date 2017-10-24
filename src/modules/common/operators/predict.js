@@ -48,6 +48,7 @@ export default function predict({
   models,
   device,
   batchSize,
+  traceLevel,
   requestType = "url"
 }) {
   let _predict = function({ http, path, resolve }) {
@@ -61,6 +62,7 @@ export default function predict({
     }
     let resolvedDevice = resolve.value(device);
     let resolvedBatchSize = resolve.value(batchSize);
+    let resolvedTraceLevel = resolve.value(traceLevel);
 
     requestType = requestType.toLowerCase();
     if (
@@ -110,10 +112,9 @@ export default function predict({
         resolve
       });
 
-    const run = ({ model, data, device, batchSize }) => {
+    const run = ({ model, data, device, batchSize, traceLevel }) => {
       let predictor;
       const requestId = uuid();
-      console.log(device);
       const res = pFinally(
         openAPI({
           requestId,
@@ -125,6 +126,7 @@ export default function predict({
             options: {
               batch_size: Number(batchSize),
               execution_options: {
+                trace_level: traceLevel,
                 device_count: { [device]: 0 }
               }
             }
@@ -222,7 +224,8 @@ export default function predict({
           model,
           data: resolvedInputs,
           device: resolvedDevice,
-          batchSize: resolvedBatchSize
+          batchSize: resolvedBatchSize,
+          traceLevel: resolvedTraceLevel
         })
       )
     )

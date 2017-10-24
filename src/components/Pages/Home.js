@@ -12,12 +12,20 @@ import {
   Tab,
   Form,
   List,
-  Checkbox
+  Checkbox,
+  Dropdown
 } from "semantic-ui-react";
 
 import UploadArea from "../UploadArea";
 import { Selector as ModelSelector } from "../Model";
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
+
+const trace_options = [
+  { key: 0, text: "NO_TRACE", value: "NO_TRACE" },
+  { key: 1, text: "FRAMEWORK_TRACE", value: "FRAMEWORK_TRACE" },
+  { key: 2, text: "HARDWARE_TRACE", value: "HARDWARE_TRACE" },
+  { key: 3, text: "FULL_TRACE", value: "FULL_TRACE" }
+];
 
 export default connect(
   {
@@ -25,11 +33,13 @@ export default connect(
     isPredicting: state`app.status.isPredicting`,
     selectedModels: state`models.selectedModels`,
     device: state`app.device`,
+    traceLevel: state`app.traceLevel`,
     predictInputsSet: signal`app.predictInputsSet`,
     predictURLChanged: signal`app.predictURLChanged`,
     predictURLAdded: signal`app.predictURLAdded`,
     batchSizeChanged: signal`app.batchSizeChanged`,
     deviceChanged: signal`app.deviceChanged`,
+    traceLevelChanged: signal`app.traceLevelChanged`,
     inferenceButtonClicked: signal`app.inferenceButtonClicked`
   },
   function HomePage({
@@ -42,6 +52,7 @@ export default connect(
     predictURLChanged,
     batchSizeChanged,
     deviceChanged,
+    traceLevelChanged,
     inferenceButtonClicked
   }) {
     const onUploadSuccess = files => {
@@ -62,23 +73,32 @@ export default connect(
             <Grid.Row centered columns={1}>
               <ModelSelector open />
             </Grid.Row>
-            <Grid.Row centered columns={2}>
+            <Grid.Row centered columns={3}>
               <Grid.Column>
                 <Input
                   fluid
-                  placeholder={"Batch Size(default: 32, up to 128)"}
+                  placeholder={"Batch Size (default: 1)"}
                   onChange={e =>
                     batchSizeChanged({ batchSize: e.target.value })}
                 />
               </Grid.Column>
               <Grid.Column>
+                <Dropdown
+                  placeholder="Trace Level (default: FULL_TRACE)"
+                  fluid
+                  selection
+                  options={trace_options}
+                  onChange={(e, { value }) => {
+                    traceLevelChanged({ traceLevel: value });
+                  }}
+                />
+              </Grid.Column>
+              <Grid.Column>
                 <Checkbox
                   toggle
-                  defaultChecked
                   label="Use GPU"
                   checked={device === "GPU"}
-                  device={device}
-                  onChange={(e, { device }) => {
+                  onChange={e => {
                     if (device === "GPU") {
                       deviceChanged({ device: "CPU" });
                     } else {
@@ -143,11 +163,11 @@ export default connect(
                     backgroundColor: "#0DB7C4",
                     borderColor: "#0DB7C4"
                   }}
-                  disabled={
-                    Object.keys(selectedModels).length === 0 ||
-                    predictInputs.length === 0
-                  }
+                  disabled={Object.keys(selectedModels).length === 0}
                   onClick={e => {
+                    if (predictInputs.length === 0) {
+                      predictURLAdded();
+                    }
                     inferenceButtonClicked();
                   }}
                 >
