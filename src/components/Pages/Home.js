@@ -22,10 +22,11 @@ const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 const trace_options = [
   { key: 0, text: "NO_TRACE", value: "NO_TRACE" },
-  { key: 1, text: "FRAMEWORK_TRACE", value: "FRAMEWORK_TRACE" },
-  { key: 2, text: "CPU_ONLY_TRACE", value: "CPU_ONLY_TRACE" },
-  { key: 3, text: "HARDWARE_TRACE", value: "HARDWARE_TRACE" },
-  { key: 4, text: "FULL_TRACE", value: "FULL_TRACE" }
+  { key: 1, text: "STEP_TRACE", value: "STEP_TRACE" },
+  { key: 2, text: "FRAMEWORK_TRACE", value: "FRAMEWORK_TRACE" },
+  { key: 3, text: "CPU_ONLY_TRACE", value: "CPU_ONLY_TRACE" },
+  { key: 4, text: "HARDWARE_TRACE", value: "HARDWARE_TRACE" },
+  { key: 5, text: "FULL_TRACE", value: "FULL_TRACE" }
 ];
 
 export default connect(
