@@ -1,42 +1,45 @@
 settings:
-  resources:
-    outputs: outputs.log
-    logs: logs.log
-    errors: errors.log
-  server:
-    status: true
-    open: false
-    host: localhost
-    port: 5001
-projects:
+  files:
+    outputs:
+      status: true
+      name: outputs.log
+    logs:
+      status: true
+      name: logs.log
+    errors:
+      status: true
+      name: errors.log
+  legacy:
+    force: false
+    interval: 100ms
+server:
+  status: true
+  open: false
+  host: localhost
+  port: 5001
+schema:
 - name: carml
   path: .
   commands:
-    vet: false
-    fmt: false
-    test: false
-    generate: true
-    bin:
+    generate:
       status: true
     build:
       status: true
     run: true
   args:
-  - web -d -v
+  - web
+  - -d
+  - -v
   watcher:
     preview: true
     paths:
-    - pkg
     - ../dlframework
     - ../grpc
-    - ../web
-    ignore_paths:
+    extensions:
+    - go
+    ignored_paths:
+    - .git
+    - .realize
     - src
     - vendor
     - ../dlframework/vendor
-    exts:
-    - .go
-  streams:
-    file_out: true
-    file_log: true
-    file_err: true
