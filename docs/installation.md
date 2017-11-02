@@ -5,7 +5,7 @@ This section outlines how to install CarML.
 ## Carml Configuration
 You must have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file `carml_config.yml.example` is in [github.com/rai-project/carml](https://github.com/rai-project/carml) . You can move it to `~/.carml_config.yml`. Then you can install CarML either through docker or from source.
 
-## Using Docker(To be udpated)
+## Using Docker(To be updated)
 
 Prebuilt Docker images are continously built from sources. The easiest way to run CarML is using [Docker compose](https://docs.docker.com/compose/). To use:
 

@@ -90,9 +90,9 @@ Prometheus memory usage can be controlled by adjusting the local storage memory 
 You can modify the max chunks value in [docker-compose.yml](https://github.com/stefanprodan/dockprom/blob/master/docker-compose.yml). 
 I've set the `storage.local.memory-chunks` value to 100000, if you monitor 10 containers, then Prometheus will use around 1GB of RAM.
 
-## Known Issues:
+## Notes:
 
-2.  If any agent crashes, you can stop the containers by running `docker-compose stop` and restart.
+If any agent crashes, you can stop the containers by running `docker-compose stop` and restart.
 
 ## Acknowledgement:
 
