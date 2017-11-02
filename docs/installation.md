@@ -1,48 +1,129 @@
 # Installation
 
-This section outlines how to install the CarML webserver. 
-The steps to install CarML agents is similar.
+This section outlines how to install CarML. 
 
-## Installing from Binary
+## Carml Configuration
+You must have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file `carml_config.yml.example` is in [github.com/rai-project/carml](https://github.com/rai-project/carml) . You can move it to `~/.carml_config.yml`. Then you can install CarML either through docker or from source.
 
--   [ ] Todo: binary files are built for different platforms but are not deployed to any server accessible to users.
-
-## Using Docker
+## Using Docker(To be udpated)
 
 Prebuilt Docker images are continously built from sources. The easiest way to run CarML is using [Docker compose](https://docs.docker.com/compose/). To use:
 
-1. You need to download `docker-compose.yml`and have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file is in `carml_config.yml.example`. You can move it to `~/.carml_config.yml`. 
+1. You need to download `docker-compose.yml` and have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file is in `carml_config.yml.example`. You can move it to `~/.carml_config.yml`. 
 2. Run `docker-compose run` (with docker daemon running). It might take a while to download all the docker images.
 3. The website is accessible at `localhost:8088`.
 
 ## Installing from Source
 
-### Install and Set Up Golang
+### Install and Set Up Golang (version >= 1.8)
 
 Either use the [Go Version Manager](https://github.com/moovweb/gvm),
 [Gimme](https://github.com/travis-ci/gimme), or 
 navigate to the [Golang Site](https://golang.org/) and set it up manually.
 It is preferred that you use the Go version manager.
 
-### Install glide
+### Get Sources Using the `rai-srcmanager`
 
-Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide).
-
-### Get Source Using the `rai-srcmanager`
-
-First, install the `rai-srcmanager`
+First, install the `rai-srcmanager` by
 
 ```.bash
 go get -u -v github.com/rai-project/rai-srcmanager
 ```
 
-Download the required repositories
+Download the required repositories by
 
 ```.bash
-rai-srcmanager update
+rai-srcmanager update --public
 ```
 
-### Get Source Using Git
+### Install Backend
+
+This section outlines how to install the CarML backend. 
+
+#### Note
+
+Whenever you run into `... cannot find package "pack" in any of: ...`, install the missing pacakge `pack` by
+
+```
+go get -v pack
+```
+
+#### Installing Docker
+
+[Install Docker](https://docs.docker.com/engine/installation/)
+
+#### Starting Tracer Server
+
+Start [jaeger](http://jaeger.readthedocs.io/en/latest/getting_started/) by 
+
+```
+docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp \
+  -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 jaegertracing/all-in-one:latest
+```
+
+#### Starting Registry Server
+
+Start [consul](https://hub.docker.com/_/consul/) by 
+
+```
+docker run -p 8500:8500 -p 8600:8600 -d consul
+```
+
+#### Installing the MXNet
+
+You can follow the instructions on [Installing MXNet](https://mxnet.incubator.apache.org/get_started/install.html) to install MXNet to your preferred location(e.g. `/opt/mxnet`). You can refer to the build scripts under [go-mxnet-predictor/scirpts](https://github.com/rai-project/go-mxnet-predictor/tree/master/scripts) for configuration and dependences.
+
+#### Installing the MXNet Go Binding
+
+The MXNet Go binding is in [go-mxnet-predictor](https://github.com/rai-project/go-mxnet-predictor). It assumes MXNet is installed at `/opt/mxnet`. You can modify the library location in `go-mxnet-predictor/mxnet/lib.go`. 
+
+Install the dependences by
+
+```
+go get -u -v ./...
+```
+
+Check if the binding is correctly installed by doing a `go build` in the  `go-mxnet-predictor/mxnet` directory. And run the single image prediction example under `go-mxnet-predictor/examples/single` by
+
+```
+go run single.go
+```
+
+#### Starting MXNet Agent
+
+The CarML MXNet agent is in [mxnet](https://github.com/rai-project/mxnet).
+
+Install the dependences by
+
+```
+go get -u -v ./...
+```
+
+Start the MXNet agent from 'mxnet/mxnet-agent/` by 
+
+```
+go run main.go -d -l -v
+```
+
+### Install Webserver
+
+This section outlines how to install the CarML webserver. 
+
+The carml webserver is in [carml](https://github.com/rai-project/carml).
+
+Install the dependences by
+
+```
+go get -u -v ./...
+```
+
+Start the webserver by
+
+```
+go run main.go web -d -v
+```
+
+<!-- ### Get Sources Using Git
 
 Navigate to where Go will expect to find the source for this repo. Make the path if it does not exist.
 
@@ -57,6 +138,11 @@ Clone this repository there.
 git clone git@github.com:rai-project/carml.git
 cd carml
 ```
+
+## Install glide
+
+Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide).
+
 
 ## Download the Project Dependencies
 
@@ -74,4 +160,4 @@ You can then build a binary for `carml` using
 go build
 ```
 
-The above can be done for each agent CarML uses.
+The above can be done for each agent CarML uses. -->

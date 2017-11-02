@@ -92,7 +92,6 @@ I've set the `storage.local.memory-chunks` value to 100000, if you monitor 10 co
 
 ## Known Issues:
 
-1.  `upload` feature currently is not working
 2.  If any agent crashes, you can stop the containers by running `docker-compose stop` and restart.
 
 ## Acknowledgement:
