@@ -18,10 +18,28 @@ Prebuilt Docker images are continously built from sources. The easiest way to ru
 
 ### Install and Set Up Golang (version >= 1.8)
 
-Either use the [Go Version Manager](https://github.com/moovweb/gvm),
-[Gimme](https://github.com/travis-ci/gimme), or 
+Either use the [Go Version Manager](https://github.com/moovweb/gvm) or 
 navigate to the [Golang Site](https://golang.org/) and set it up manually.
-It is preferred that you use the Go version manager.
+Below probvides the instruction to install Go 1.8 through Go version manager.
+
+First install [GVM](https://github.com/moovweb/gvm) by
+
+```
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+```
+
+Add the following line to your `.bashrc`(or `.zshrc` if using zsh) to set up the GVM environment.
+
+```
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+```
+
+Then install Go 1.8 and set it as the default by 
+
+```
+gvm install go1.8 -B
+gvm use go1.8 --default
+```
 
 ### Get Sources Using the `rai-srcmanager`
 
