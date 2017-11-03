@@ -6,7 +6,7 @@ This section outlines how to install CarML.
 
 You must have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file `carml_config.yml.example` is in [github.com/rai-project/carml](https://github.com/rai-project/carml) . You can move it to `~/.carml_config.yml`. Then you can install CarML either through docker or from source.
 
-## Using Docker(To be updated)
+## Using Docker (to be updated)
 
 Prebuilt Docker images are continously built from sources. The easiest way to run CarML is using [Docker compose](https://docs.docker.com/compose/). To use:
 
@@ -93,10 +93,11 @@ docker run -p 8500:8500 -p 8600:8600 -d consul
 ```
 The registry server runs on http://localhost:16686
 
-#### Installingn Jaeger Client Package
+#### Installing Jaeger Client Package
 
 The `github.com/uber/jaeger-client-go` package requires a specific version of thrift to be used.
-The following installs the specific thirft version.
+The following installs the specific thirft version. You need to install glide for that.
+Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide).
 
 ```
 go get -v github.com/uber/jaeger-client-go
