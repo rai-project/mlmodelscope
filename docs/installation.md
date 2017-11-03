@@ -12,7 +12,7 @@ Prebuilt Docker images are continously built from sources. The easiest way to ru
 
 1. You need to download `docker-compose.yml` and have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file is in `carml_config.yml.example`. You can move it to `~/.carml_config.yml`. 
 2. Run `docker-compose run` (with docker daemon running). It might take a while to download all the docker images.
-3. The website is accessible at `localhost:8088`.
+3. The website is accessible at http://localhost:8088.
 
 ## Installing from Source
 
@@ -91,7 +91,7 @@ Start [consul](https://hub.docker.com/_/consul/) by
 ```
 docker run -p 8500:8500 -p 8600:8600 -d consul
 ```
-The registry server runs on http://localhost:16686
+The registry server runs on http://localhost:8500
 
 #### Installing Jaeger Client Package
 
@@ -181,11 +181,6 @@ Clone this repository there.
 git clone git@github.com:rai-project/carml.git
 cd carml
 ```
-
-## Install glide
-
-Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide).
-
 
 ## Download the Project Dependencies
 
