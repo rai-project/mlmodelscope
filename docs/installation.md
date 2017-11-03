@@ -3,6 +3,7 @@
 This section outlines how to install CarML. 
 
 ## Carml Configuration
+
 You must have a `CarML` config file called `.carml_config.yml` under your home directory. An example config file `carml_config.yml.example` is in [github.com/rai-project/carml](https://github.com/rai-project/carml) . You can move it to `~/.carml_config.yml`. Then you can install CarML either through docker or from source.
 
 ## Using Docker(To be updated)
@@ -36,6 +37,8 @@ Download the required repositories by
 rai-srcmanager update --public
 ```
 
+Now all the relevant repositories are under `$GOPATH/src/github.com/rai-project`.
+
 ### Install Backend
 
 This section outlines how to install the CarML backend. 
@@ -61,12 +64,26 @@ docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p5775:5775/udp -p6831:6831/udp
   -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 jaegertracing/all-in-one:latest
 ```
 
+The trace server runs on http://localhost:16686
+
 #### Starting Registry Server
 
 Start [consul](https://hub.docker.com/_/consul/) by 
 
 ```
 docker run -p 8500:8500 -p 8600:8600 -d consul
+```
+The registry server runs on http://localhost:16686
+
+#### Installingn Jaeger Client Package
+
+The `github.com/uber/jaeger-client-go` package requires a specific version of thrift to be used.
+The following installs the specific thirft version.
+
+```
+go get -v github.com/uber/jaeger-client-go
+cd $GOPATH/src/github.com/uber/jaeger-client-go
+glide install && cd vendor && rm -rf golang.org/ go.uber.org/ github.com/[b-z]*
 ```
 
 #### Installing the MXNet
@@ -75,17 +92,19 @@ You can follow the instructions on [Installing MXNet](https://mxnet.incubator.ap
 
 #### Installing the MXNet Go Binding
 
-The MXNet Go binding is in [go-mxnet-predictor](https://github.com/rai-project/go-mxnet-predictor). It assumes MXNet is installed at `/opt/mxnet`. You can modify the library location in `go-mxnet-predictor/mxnet/lib.go`. 
+The MXNet Go binding is in [go-mxnet-predictor](https://github.com/rai-project/go-mxnet-predictor). It assumes MXNet is installed at `/opt/mxnet`. You can modify the library location in `$GOPATH/src/github.com/rai-project/go-mxnet-predictor/mxnet/lib.go`. 
 
 Install the dependences by
 
 ```
+cd $GOPATH/src/github.com/rai-project/go-mxnet-predictor
 go get -u -v ./...
 ```
 
-Check if the binding is correctly installed by doing a `go build` in the  `go-mxnet-predictor/mxnet` directory. And run the single image prediction example under `go-mxnet-predictor/examples/single` by
+Check if the binding is correctly installed by doing a `go build` in the  `$GOPATH/src/github.com/rai-project/go-mxnet-predictor/mxnet` directory. And run the single image prediction by
 
 ```
+cd $GOPATH/src/github.com/rai-project/go-mxnet-predictor/examples/single
 go run single.go
 ```
 
@@ -96,12 +115,14 @@ The CarML MXNet agent is in [mxnet](https://github.com/rai-project/mxnet).
 Install the dependences by
 
 ```
+cd $GOPATH/src/github.com/rai-project/mxnet
 go get -u -v ./...
 ```
 
-Start the MXNet agent from 'mxnet/mxnet-agent/` by 
+Start the MXNet agent by 
 
 ```
+cd $GOPATH/src/github.com/rai-project/mxnet/mxnet-agent/
 go run main.go -d -l -v
 ```
 
@@ -114,14 +135,17 @@ The carml webserver is in [carml](https://github.com/rai-project/carml).
 Install the dependences by
 
 ```
+cd $GOPATH/src/github.com/rai-project/carml
 go get -u -v ./...
 ```
 
 Start the webserver by
 
 ```
+cd $GOPATH/src/github.com/rai-project/carml
 go run main.go web -d -v
 ```
+The webserver runs on http://localhost:8088
 
 <!-- ### Get Sources Using Git
 
