@@ -16,62 +16,91 @@ Prebuilt Docker images are continously built from sources. The easiest way to ru
 
 ## Installing from Source
 
-### Install and Set Up Golang (version >= 1.8)
+RAI is developed using [golang](https://golang.org/) which needs to be installed for code to be compiled from source.
+You can install Golang either through [Go Version Manager](https://github.com/moovweb/gvm)(recommended) or from the instructions on the [golang site](https://golang.org/). We recommend the Go Version Manager.
 
-Either use the [Go Version Manager](https://github.com/moovweb/gvm) or 
-navigate to the [Golang Site](https://golang.org/) and set it up manually.
-Below probvides the instruction to install Go 1.8 through Go version manager.
 
-First install [GVM](https://github.com/moovweb/gvm) by
+The following are instruction on how to install Go 1.8 through Go version manager.
+Go version 1.8+ is required to compile RAI.
+
+Download the [GVM](https://github.com/moovweb/gvm) using
 
 ```
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 ```
 
 Add the following line to your `.bashrc`(or `.zshrc` if using zsh) to set up the GVM environment.
+This is sometimes done for you by default.
 
 ```
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 ```
 
-Then install Go 1.8 and set it as the default by 
+You can then install the Go 1.8 binary and set it as the default
 
 ```
 gvm install go1.8 -B
 gvm use go1.8 --default
 ```
 
-### Get Sources Using the `rai-srcmanager`
+`gvm` will setup both your `$GOPATH` and `$GOROOT` and you can validate that the installation completed by invoking
+
+```sh
+$ go env
+GOARCH="amd64"
+GOBIN=""
+GOEXE=""
+GOHOSTARCH="amd64"
+GOHOSTOS="linux"
+GOOS="linux"
+GOPATH="/home/abduld/.gvm/pkgsets/go1.8/global"
+GORACE=""
+GOROOT="/home/abduld/.gvm/gos/go1.8"
+GOTOOLDIR="/home/abduld/.gvm/gos/go1.8/pkg/tool/linux_amd64"
+GCCGO="gccgo"
+CC="gcc"
+GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build917072201=/tmp/go-build -gno-record-gcc-switches"
+CXX="g++"
+CGO_ENABLED="1"
+PKG_CONFIG="pkg-config"
+CGO_CFLAGS="-g -O2"
+CGO_CPPFLAGS=""
+CGO_CXXFLAGS="-g -O2"
+CGO_FFLAGS="-g -O2"
+CGO_LDFLAGS="-g -O2"
+```
+
+### Installing using `rai-srcmanager`
+
 
 First, install the `rai-srcmanager` by
 
-```.bash
+```sh
 go get -u -v github.com/rai-project/rai-srcmanager
 ```
 
-Download the required repositories by
+Download the required public repositories by
 
-```.bash
+```sh
 rai-srcmanager update --public
 ```
 
-Now all the relevant repositories are under `$GOPATH/src/github.com/rai-project`.
+Now all the relevant repositories should now be in `$GOPATH/src/github.com/rai-project`.
 
-### Install Backend
+### Installing the Backend
 
 This section outlines how to install the CarML backend. 
 
-#### Note
-
-Whenever you run into `... cannot find package "pack" in any of: ...`, install the missing pacakge `pack` by
-
-```
-go get -v pack
-```
+> **Note**: Whenever you run into the error `... cannot find package "package_name" in any of: ...`, install the missing pacakge `pack` then you may have to install the missing package using `go get -v package_name`
 
 #### Installing Docker
 
-[Install Docker](https://docs.docker.com/engine/installation/)
+[Install Docker](https://docs.docker.com/engine/installation/). An easy way is using
+
+```
+curl -fsSL get.docker.com -o get-docker.sh | sudo sh
+sudo usermod -aG docker $USER
+```
 
 #### Starting Tracer Server
 
@@ -91,13 +120,14 @@ Start [consul](https://hub.docker.com/_/consul/) by
 ```
 docker run -p 8500:8500 -p 8600:8600 -d consul
 ```
+
 The registry server runs on http://localhost:8500
 
 #### Installing Jaeger Client Package
 
 The `github.com/uber/jaeger-client-go` package requires a specific version of thrift to be used.
 The following installs the specific thirft version. You need to install glide for that.
-Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide).
+Instructions on how to install Glide is available [their website](https://github.com/Masterminds/glide) using `go get github.com/Masterminds/glide`.
 
 ```
 go get -v github.com/uber/jaeger-client-go
