@@ -123,6 +123,18 @@ docker run -p 8500:8500 -p 8600:8600 -d consul
 
 The registry server runs on http://localhost:8500
 
+
+#### Starting Database Server
+
+Start [mongodb](https://hub.docker.com/_/mongo/) by
+
+```
+docker run -p 27017:27017 --restart always -d mongo:3.0
+```
+
+The database server runs on localhost:27017
+
+
 #### Installing Jaeger Client Package
 
 The `github.com/uber/jaeger-client-go` package requires a specific version of thrift to be used.
