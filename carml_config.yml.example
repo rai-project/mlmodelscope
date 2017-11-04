@@ -9,6 +9,9 @@ registry:
     - localhost:8500
   timeout: 20s
   serializer: jsonpb
+database:
+  entrypoints:
+    - localhost
 tracer:
   enabled: true
   provider: jaeger
