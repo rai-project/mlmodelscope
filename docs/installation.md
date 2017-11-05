@@ -178,7 +178,7 @@ You can follow the instructions on [Installing MXNet](https://mxnet.incubator.ap
 
 #### Installing the MXNet Go Binding
 
-The MXNet Go binding is in [go-mxnet-predictor](https://github.com/rai-project/go-mxnet-predictor). It assumes MXNet is installed at `/opt/mxnet`. You can modify the library location in `$GOPATH/src/github.com/rai-project/go-mxnet-predictor/mxnet/lib.go`. 
+The MXNet Go binding is in [go-mxnet-predictor](https://github.com/rai-project/go-mxnet-predictor). It assumes MXNet is installed at `/opt/mxnet`. You can modify the library location in `$GOPATH/src/github.com/rai-project/go-mxnet-predictor/mxnet/lib.go` and or use the CGO_CFLAGS, CGO_CPPFLAGS, CGO_CXXFLAGS, CGO_FFLAGS and CGO_LDFLAGS  environment flags (prefered). 
 
 Install the dependences by
 
