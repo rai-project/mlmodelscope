@@ -132,6 +132,14 @@ Start [mongodb](https://hub.docker.com/_/mongo/) by
 docker run -p 27017:27017 --restart always -d mongo:3.0
 ```
 
+You can also mount the database volume to a local directory using
+
+```
+docker run -p 27017:27017 --restart always -d  -v /home/abduld/carml/data/mongo:/data/db mongo:3.0
+```
+
+On PPC64LE, use the `c3sr/mongodb` image
+
 The database server runs on localhost:27017
 
 
