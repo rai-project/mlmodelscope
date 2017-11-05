@@ -249,3 +249,24 @@ go build
 ```
 
 The above can be done for each agent CarML uses. -->
+
+
+
+## Increasing Max Open File Limit
+
+Edit `/etc/security/limits.conf` and add 
+
+```
+*         hard    nofile      500000
+*         soft    nofile      500000
+root      hard    nofile      500000
+root      soft    nofile      500000
+```
+
+You should now reboot the computer. You can check to see if the new limits are observed by running
+
+```
+ulimit -Sn
+```
+
+See [1](https://www.tecmint.com/increase-set-open-file-limits-in-linux/) or [2](https://cs.uwaterloo.ca/~brecht/servers/openfiles.html) for details.
