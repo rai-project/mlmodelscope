@@ -104,21 +104,34 @@ sudo usermod -aG docker $USER
 
 #### Starting Tracer Server
 
-Start [jaeger](http://jaeger.readthedocs.io/en/latest/getting_started/) by 
+Start [jaeger](http://jaeger.readthedocs.io/en/latest/getting_started/) on a x86(e.g. intel) machine by 
 
 ```
 docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp \
   -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 jaegertracing/all-in-one:latest
 ```
 
+Start [jaeger](http://jaeger.readthedocs.io/en/latest/getting_started/) on a ppc64le(e.g. minsky) machine by 
+
+```
+docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp \
+  -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 carml/jaeger:ppc64le-latest
+```
+
 The trace server runs on http://localhost:16686
 
 #### Starting Registry Server
 
-Start [consul](https://hub.docker.com/_/consul/) by 
+Start [consul](https://hub.docker.com/_/consul/) on a x86 machine(e.g. intel) by 
 
 ```
 docker run -p 8500:8500 -p 8600:8600 -d consul
+```
+
+Start [consul](https://hub.docker.com/_/consul/) on a ppc64le machine(e.g. minsky) by 
+
+```
+docker run -p 8500:8500 -p 8600:8600 -d carml/consul:ppc64le-latest
 ```
 
 The registry server runs on http://localhost:8500
@@ -126,7 +139,7 @@ The registry server runs on http://localhost:8500
 
 #### Starting Database Server
 
-Start [mongodb](https://hub.docker.com/_/mongo/) by
+Start [mongodb](https://hub.docker.com/_/mongo/) on a x86 machine(e.g. intel) by
 
 ```
 docker run -p 27017:27017 --restart always -d mongo:3.0
@@ -139,6 +152,10 @@ docker run -p 27017:27017 --restart always -d  -v $HOME/data/carml/mongo:/data/d
 ```
 
 On PPC64LE (e.g. Minsky), use the `c3sr/mongodb:latest` image inplace of `mongo:3.0`
+
+```
+docker run -p 27017:27017 --restart always -d  -v $HOME/data/carml/mongo:/data/db c3sr/mongodb:latest
+```
 
 The database server runs on localhost:27017
 
