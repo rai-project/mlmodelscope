@@ -323,3 +323,5 @@ export LD_LIBRARY_PATH=$FRAMEWORKS_DIR/mxnet/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$FRAMEWORKS_DIR/caffe/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$FRAMEWORKS_DIR/caffe2/lib:$LD_LIBRARY_PATH
 ```
+
+Then run either `source ~/.bashrc` or `source ~/.zshrc`
