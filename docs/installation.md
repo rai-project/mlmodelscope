@@ -325,3 +325,34 @@ export LD_LIBRARY_PATH=$FRAMEWORKS_DIR/caffe2/lib:$LD_LIBRARY_PATH
 ```
 
 Then run either `source ~/.bashrc` or `source ~/.zshrc`
+
+
+### CUDA/CUPTI Library Error
+
+The CUDA/CUPTI libraries are installed in a non-standard location. Place 
+
+```
+export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+
+in your  `~/.bashrc` or `~/.zshrc` file and then run either `source ~/.bashrc` or `source ~/.zshrc`
+
+
+### ASM Errors in Image Resize
+
+Image resizing uses AVX instructions on amd64. If your system does not have AVX support, then you'll need to disable it by running the commands with the `-tags=noasm` option. For example:
+
+```
+go run main.go -tags=noasm -d -v -l
+```
+
+### CGO Pointer Errors
+
+
+The CGO interface passes go pointers to the C API. This is an error by the CGO runtime. Disable the error by placing 
+
+```
+export GODEBUG=cgocheck=0
+```
+
+in your  `~/.bashrc` or `~/.zshrc` file and then run either `source ~/.bashrc` or `source ~/.zshrc`
