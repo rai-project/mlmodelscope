@@ -313,7 +313,7 @@ then you need to run
 wget https://raw.githubusercontent.com/kujtimiihoxha/zipkin-go-opentracing/01ae8645c027edf25353db5255f4c6e35c0daec1/thrift/gen-go/scribe/scribe.go  -O $GOPATH/src/github.com/openzipkin/zipkin-go-opentracing/thrift/gen-go/scribe/scribe.go
 ```
 
-### Setting up Library Paths
+### Setting up Framework Library Paths
 
 Since frameworks are assumed to be installed in `/opt/frameworks` you may need to setup the `$LD_LIBRARY_PATH` to that directory. Place the following in either your `~/.bashrc` or `~/.zshrc` file
 
