@@ -287,3 +287,28 @@ ulimit -Sn
 ```
 
 See [1](https://www.tecmint.com/increase-set-open-file-limits-in-linux/) or [2](https://cs.uwaterloo.ca/~brecht/servers/openfiles.html) for details.
+
+
+## Issues
+
+### Zipkin Tracer Errors
+
+If you see the following error while installing
+
+```
+# github.com/openzipkin/zipkin-go-opentracing/thrift/gen-go/scribe
+gen-go/scribe/scribe.go:270: assignment count mismatch: 2 = 1
+gen-go/scribe/scribe.go:317: cannot use scribeProcessorLog literal (type *scribeProcessorLog) as type thrift.TProcessorFunction in assignment:
+	*scribeProcessorLog does not implement thrift.TProcessorFunction (wrong type for Process method)
+		have Process(int32, thrift.TProtocol, thrift.TProtocol) (bool, thrift.TException)
+		want Process(context.Context, int32, thrift.TProtocol, thrift.TProtocol) (bool, thrift.TException)
+gen-go/scribe/scribe.go:325: not enough arguments in call to processor.Process
+	have (int32, thrift.TProtocol, thrift.TProtocol)
+	want (context.Context, int32, thrift.TProtocol, thrift.TProtocol)
+```
+
+then you need to run
+
+```
+wget https://raw.githubusercontent.com/kujtimiihoxha/zipkin-go-opentracing/01ae8645c027edf25353db5255f4c6e35c0daec1/thrift/gen-go/scribe/scribe.go  -O $GOPATH/src/github.com/openzipkin/zipkin-go-opentracing/thrift/gen-go/scribe/scribe.go
+```
