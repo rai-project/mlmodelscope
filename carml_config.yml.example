@@ -11,7 +11,7 @@ registry:
   serializer: jsonpb
 database:
   provider: mongodb
-  entrypoints:
+  endpoints:
     - localhost
 tracer:
   enabled: true
