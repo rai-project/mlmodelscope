@@ -231,7 +231,16 @@ Start the webserver by
 cd $GOPATH/src/github.com/rai-project/carml
 go run main.go web -d -v
 ```
+
 The webserver runs on http://localhost:8088
+
+If you get an error about the PORT being already assigned, then you need to run the webserver with a different port:
+
+```
+PORT=NNNN go run main.go web -d -v
+```
+
+where `NNNN` is a random port number
 
 <!-- ### Get Sources Using Git
 
@@ -343,7 +352,7 @@ in your  `~/.bashrc` or `~/.zshrc` file and then run either `source ~/.bashrc` o
 Image resizing uses AVX instructions on amd64. If your system does not have AVX support, then you'll need to disable it by running the commands with the `-tags=noasm` option. For example:
 
 ```
-go run main.go -tags=noasm -d -v -l
+go run -tags=noasm main.go -d -v -l
 ```
 
 ### CGO Pointer Errors
