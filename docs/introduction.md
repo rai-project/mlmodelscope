@@ -12,7 +12,7 @@ analyzing experiment results for the needed use case.
 The current process of experimenting with different machine learning (ML) packages and deep learning (DL) frameworks as well as their corresponding ML/DL models is, however, daunting. 
 Most likely, many pages of documentation (if available) must be followed to install one ML and/or DL framework, followed by a process to download and use a particular MD and/or DL model. Not to mention the complexity involved with different hardware system configurations and their interplay with any users preexisting system software installation and their complex dependencies.
 
-CarML (Cognitive ARtifacts for Machine Learning) is a platform allowing people to easily deploy and experiment ML/DL frameworks and models. It allows ML/DL software developers to deploy their software packages, ML model developers to publish and evaluate their models, 
+The CarML (Cognitive ARtifacts for Machine Learning) is a platform allowing people to easily deploy and experiment ML/DL frameworks and models. It allows ML/DL software developers to deploy their software packages, ML model developers to publish and evaluate their models, 
 users to experiment with different models and frameworks, all through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
 
 From a user's point of view, CarML simplifies this by offering a repository (also called a model zoo) of different ML models that can be readily used.
