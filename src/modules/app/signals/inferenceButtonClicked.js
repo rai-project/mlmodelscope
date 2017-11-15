@@ -10,8 +10,8 @@ export default [
   when(state`app.error`),
   {
     false: [
-      set(state`app.currentPage`, "PredictionResults"),
-      set(state`app.name`, "CarML Inference")
+      // set(state`app.currentPage`, "PredictionResults"),
+      // set(state`app.name`, "CarML Inference")
     ],
     true: [] // nothing
   }

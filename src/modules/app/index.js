@@ -33,7 +33,7 @@ export default {
     predictURL: "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg",
     batchSize: 1,
     device: "GPU",
-    traceLevel: "FULL_TRACE",
+    traceLevel: "STEP_TRACE",
     models: {},
     frameworks: {
       data: []
