@@ -5,3 +5,4 @@ export { default as mxnet } from "./mxnet.png";
 export { default as tensorflow } from "./tensorflow.png";
 export { default as theano } from "./theano.png";
 export { default as torch } from "./torch.png";
+export { default as tensorrt } from "./tensorrt.png";

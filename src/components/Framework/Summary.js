@@ -9,22 +9,22 @@ export default function FrameworkSummary({ framework, agents }) {
   }
   const { name, version } = framework;
 
-  const img = logos[name.toLowerCase()]
-    ? <Image src={logos[name.toLowerCase()]} />
-    : null;
+  const img = logos[name.toLowerCase()] ? (
+    <Image src={logos[name.toLowerCase()]} />
+  ) : null;
 
   const meta =
-    agents && agents.length
-      ? <Card.Meta>
-          {agents.map(a => {
-            return (
-              <p key={a.host + a.port}>
-                {a.host}:{a.port}
-              </p>
-            );
-          })}
-        </Card.Meta>
-      : null;
+    agents && agents.length ? (
+      <Card.Meta>
+        {agents.map(a => {
+          return (
+            <p key={a.host + a.port}>
+              {a.host}:{a.port}
+            </p>
+          );
+        })}
+      </Card.Meta>
+    ) : null;
 
   return (
     <Card>

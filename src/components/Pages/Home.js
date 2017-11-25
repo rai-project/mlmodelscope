@@ -98,7 +98,7 @@ export default connect(
               <Grid.Column>
                 <Checkbox
                   toggle
-                  label="Use GPU"
+                  label={device === "GPU" ? "Using GPU" : "Using CPU"}
                   checked={device === "GPU"}
                   onChange={e => {
                     if (device === "GPU") {

@@ -28,12 +28,12 @@ func apiRoutes(e *echo.Echo) error {
 	if err != nil {
 		return err
 	}
-	api.Any("/v1/predict*",
-		StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)),
+	api.Any("/predict*",
+		echo.WrapHandler(dlframeworkHandler),
 		tracermiddleware.FromHTTPRequest(tracer.Std(), "api_request"),
 		tracermiddleware.ToHTTPResponse(tracer.Std()),
 	)
-	api.Any("/*", StripPrefix("/api", echo.WrapHandler(dlframeworkHandler)))
+	api.Any("/*", echo.WrapHandler(dlframeworkHandler))
 
 	return nil
 }

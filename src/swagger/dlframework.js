@@ -82,7 +82,7 @@ export function Close(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -148,7 +148,7 @@ export function Dataset(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -214,7 +214,7 @@ export function Images(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -282,7 +282,7 @@ export function Open(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -348,7 +348,7 @@ export function Reset(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -414,7 +414,7 @@ export function DatasetStream(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -480,7 +480,7 @@ export function ImagesStream(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -546,7 +546,7 @@ export function URLsStream(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -612,7 +612,7 @@ export function URLs(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -683,7 +683,7 @@ export function FrameworkAgents(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -754,7 +754,7 @@ export function FrameworkManifests(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -837,7 +837,7 @@ export function ModelAgents(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
@@ -920,7 +920,7 @@ export function ModelManifests(params) {
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = "/api/v1" + resolve.value(urlPath) + queryParams;
+    const resolvedURL = resolve.value(urlPath) + queryParams;
 
     return processResponse(
       http.request({
