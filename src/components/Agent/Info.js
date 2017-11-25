@@ -22,7 +22,6 @@ export default function Info({ agent }) {
       <Divider />
       <ReactJson
         src={agent}
-        theme="google"
         collapsed={2}
         displayObjectSize={false}
         displayDataTypes={false}
