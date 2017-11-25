@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import controller from "./controller";
 import { Container } from "@cerebral/react";
-import registerServiceWorker from "./registerServiceWorker";
+import registerServiceWorker, { unregister } from "./registerServiceWorker";
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -27,6 +27,7 @@ function renderApp() {
   if (process.env.NODE_ENV === "production") {
     registerServiceWorker();
   } else {
+    unregister();
     // eslint-disable-next-line
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for (let registration of registrations) {
