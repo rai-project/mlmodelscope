@@ -13,6 +13,8 @@ import {
   ModelInformationPage,
   ModelSummaryPage,
   PredictionResultsPage,
+  AgentPage,
+  AgentsPage,
   AboutPage
 } from "../Pages";
 import Footer from "./Footer";
@@ -51,6 +53,12 @@ export default connect(
           break;
         case "About":
           Page = AboutPage;
+          break;
+        case "Agents":
+          Page = AgentsPage;
+          break;
+        case "Agent":
+          Page = AgentPage;
           break;
         default:
           Page = HomePage;

@@ -11,6 +11,8 @@ import predictURLAdded from "./signals/predictURLAdded";
 import inferenceButtonClicked from "./signals/inferenceButtonClicked";
 import modelsRouted from "./signals/modelsRouted";
 import frameworksRouted from "./signals/frameworksRouted";
+import agentRouted from "./signals/agentRouted";
+import agentsRouted from "./signals/agentsRouted";
 import aboutRouted from "./signals/aboutRouted";
 
 export default {
@@ -53,6 +55,8 @@ export default {
     inferenceButtonClicked,
     modelsRouted,
     frameworksRouted,
+    agentRouted,
+    agentsRouted,
     aboutRouted
   }
 };

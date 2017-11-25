@@ -42,4 +42,6 @@ export const PredictionResultsPage = delayLoad(() =>
   import("./PredictionResults")
 );
 export const AboutPage = delayLoad(() => import("./About"));
+export const AgentsPage = delayLoad(() => import("./Agents"));
+export const AgentPage = delayLoad(() => import("./Agent"));
 HomePage.preload();

@@ -54,6 +54,8 @@ const controller = Controller({
         "/model/:name/:version": "model.modelRouted",
         "/frameworks": "app.frameworksRouted",
         "/framework/:name/:version": "app.frameworkRouted",
+        "/agents": "app.agentsRouted",
+        "/agent/:host/:port": "app.agentRouted",
         "/about": "app.aboutRouted"
       }, // Route definitions
       query: true, // Query support

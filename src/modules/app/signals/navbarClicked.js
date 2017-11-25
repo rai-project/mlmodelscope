@@ -12,6 +12,7 @@ export default [
     Home: [redirect(string`/`)],
     Frameworks: [redirect(string`/frameworks`)],
     Models: [redirect(string`/models`)],
+    Agents: [redirect(string`/agents`)],
     About: [redirect(string`/about`)]
   }
 ];

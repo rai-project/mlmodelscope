@@ -1,6 +1,8 @@
 import React from "react";
+import { findIndex } from "lodash";
 import { Card, Image } from "semantic-ui-react";
 
+import * as Agent from "../Agent";
 import * as logos from "../../assets/logos";
 
 export default function FrameworkSummary({ framework, agents }) {
@@ -14,17 +16,14 @@ export default function FrameworkSummary({ framework, agents }) {
   ) : null;
 
   const meta =
-    agents && agents.length ? (
-      <Card.Meta>
-        {agents.map(a => {
-          return (
-            <p key={a.host + a.port}>
-              {a.host}:{a.port}
-            </p>
-          );
-        })}
-      </Card.Meta>
-    ) : null;
+    agents && agents.length
+      ? agents.map(a => {
+          if (findIndex(a.frameworks, { name, version }) === -1) {
+            return null;
+          }
+          return <Agent.Summary agent={a} />;
+        })
+      : null;
 
   return (
     <Card>
