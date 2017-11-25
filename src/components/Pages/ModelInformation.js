@@ -14,42 +14,40 @@ export default connect(
   },
   function ModelInformationPage({ model, graph }) {
     if (!model) {
-      return <div />;
+      return null;
     }
-    return (
-      <div>
-        <Container text style={{ paddingTop: "2em" }}>
-          <Header size="large">Description</Header>
-          <p style={{ color: "black" }}>{model.description}</p>
-        </Container>
+    return [
+      <Container text style={{ paddingTop: "2em" }}>
+        <Header size="large">Description</Header>
+        <p style={{ color: "black" }}>{model.description}</p>
+      </Container>,
+      <Container text>
+        <LayerAreaChart
+          header={<Header size="large">Layer Statistics</Header>}
+          divider={<Divider />}
+          graph={graph}
+        />
+      </Container>,
+      <Container text>
+        <Graph
+          header={<Header size="large">Graph</Header>}
+          divider={<Divider />}
+          graph={graph}
+        />
+      </Container>,
+      model.reference ? (
         <Container text>
-          <LayerAreaChart
-            header={<Header size="large">Layer Statistics</Header>}
-            divider={<Divider />}
-            graph={graph}
-          />
+          <Divider />
+          <Header size="large">References</Header>
+          <List bulleted>
+            {model.reference.map(r => (
+              <List.Item style={{ color: "black" }} key={yeast()}>
+                <a href={r}>{r}</a>
+              </List.Item>
+            ))}
+          </List>
         </Container>
-        <Container text>
-          <Graph
-            header={<Header size="large">Graph</Header>}
-            divider={<Divider />}
-            graph={graph}
-          />
-        </Container>
-        {model.reference ? (
-          <Container text>
-            <Divider />
-            <Header size="large">References</Header>
-            <List bulleted>
-              {model.reference.map(r => (
-                <List.Item style={{ color: "black" }} key={yeast()}>
-                  <a href={r}>{r}</a>
-                </List.Item>
-              ))}
-            </List>
-          </Container>
-        ) : null}
-      </div>
-    );
+      ) : null
+    ];
   }
 );
