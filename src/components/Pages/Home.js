@@ -124,7 +124,7 @@ export default connect(
               <Grid.Row centered columns={1}>
                 <ModelSelector open />
               </Grid.Row>
-              <Grid.Row centered stretched relaxed>
+              <Grid.Row centered stretched>
                 <Grid.Column
                   width={4}
                   style={{ paddingLeft: 0, paddingTop: "10px" }}

@@ -1,6 +1,7 @@
 import React from "react";
 import { findIndex } from "lodash";
-import { Card, Image } from "semantic-ui-react";
+import { Card, List, Image } from "semantic-ui-react";
+import yeast from "yeast";
 
 import * as Agent from "../Agent";
 import * as logos from "../../assets/logos";
@@ -15,15 +16,21 @@ export default function FrameworkSummary({ framework, agents }) {
     <Image src={logos[name.toLowerCase()]} />
   ) : null;
 
-  const meta =
+  const agentsList =
     agents && agents.length
       ? agents.map(a => {
           if (findIndex(a.frameworks, { name, version }) === -1) {
             return null;
           }
-          return <Agent.Summary agent={a} />;
+          return (
+            <List.Item key={yeast()}>
+              <Agent.Summary agent={a} listItem />
+            </List.Item>
+          );
         })
       : null;
+
+  const meta = agentsList ? <List>{agentsList}</List> : null;
 
   return (
     <Card>

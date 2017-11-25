@@ -39,7 +39,8 @@ export default {
     models: {},
     frameworks: {
       data: []
-    }
+    },
+    selectedAgent: null
   },
   signals: {
     appLoaded,
