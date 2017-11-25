@@ -21,12 +21,12 @@ import { Selector as ModelSelector } from "../Model";
 const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
 const trace_options = [
-  { key: 0, text: "NO_TRACE", value: "NO_TRACE" },
-  { key: 1, text: "STEP_TRACE", value: "STEP_TRACE" },
-  { key: 2, text: "FRAMEWORK_TRACE", value: "FRAMEWORK_TRACE" },
-  { key: 3, text: "CPU_ONLY_TRACE", value: "CPU_ONLY_TRACE" },
-  { key: 4, text: "HARDWARE_TRACE", value: "HARDWARE_TRACE" },
-  { key: 5, text: "FULL_TRACE", value: "FULL_TRACE" }
+  { key: 0, text: "None", value: "NO_TRACE" },
+  { key: 1, text: "Step", value: "STEP_TRACE" },
+  { key: 2, text: "Framework", value: "FRAMEWORK_TRACE" },
+  { key: 3, text: "CPU", value: "CPU_ONLY_TRACE" },
+  { key: 4, text: "Hardware", value: "HARDWARE_TRACE" },
+  { key: 5, text: "Full", value: "FULL_TRACE" }
 ];
 
 export default connect(
@@ -75,37 +75,40 @@ export default connect(
             <Grid.Row centered columns={1}>
               <ModelSelector open />
             </Grid.Row>
-            <Grid.Row centered columns={3}>
-              <Grid.Column>
-                <Input
-                  fluid
-                  placeholder={"Batch Size (default: 1)"}
-                  onChange={e =>
-                    batchSizeChanged({ batchSize: e.target.value })}
-                />
-              </Grid.Column>
-              <Grid.Column>
-                <Dropdown
-                  placeholder="Trace Level (default: FULL_TRACE)"
-                  fluid
-                  selection
-                  options={trace_options}
-                  onChange={(e, { value }) => {
-                    traceLevelChanged({ traceLevel: value });
-                  }}
-                />
-              </Grid.Column>
-              <Grid.Column>
+            <Grid.Row centered stretched relaxed>
+              <Grid.Column
+                width={4}
+                style={{ paddingLeft: 0, paddingTop: "10px" }}
+              >
                 <Checkbox
                   toggle
-                  label={device === "GPU" ? "Using GPU" : "Using CPU"}
                   checked={device === "GPU"}
+                  label={device === "GPU" ? "Using GPU" : "Using CPU"}
                   onChange={e => {
                     if (device === "GPU") {
                       deviceChanged({ device: "CPU" });
                     } else {
                       deviceChanged({ device: "GPU" });
                     }
+                  }}
+                />
+              </Grid.Column>
+              <Grid.Column width={5}>
+                <Input
+                  fluid
+                  placeholder={"Batch Size (default: 1)"}
+                  onChange={e =>
+                    batchSizeChanged({ batchSize: e.target.value })
+                  }
+                />
+              </Grid.Column>
+              <Grid.Column width={7} style={{ paddingRight: 0 }}>
+                <Dropdown
+                  selection
+                  options={trace_options}
+                  placeholder="Trace Level (default: Full)"
+                  onChange={(e, { value }) => {
+                    traceLevelChanged({ traceLevel: value });
                   }}
                 />
               </Grid.Column>
@@ -130,7 +133,8 @@ export default connect(
                               "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
                             }
                             onChange={e =>
-                              predictURLChanged({ predictURL: e.target.value })}
+                              predictURLChanged({ predictURL: e.target.value })
+                            }
                           />
                         </Form>
                         <List>

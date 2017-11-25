@@ -1,4 +1,3 @@
-import uuid from "uuid";
 import store from "store2";
 import { Controller, provide } from "cerebral";
 import Devtools from "cerebral/devtools";
@@ -33,7 +32,11 @@ const controller = Controller({
 
           // Shows a warning when you have components with number of
           // state dependencies or signals above the set number
-          bigComponentsWarning: 5,
+          bigComponentsWarning: 50,
+
+          // Warnings when passing objects and arrays as props to child
+          // components. They should rather be connected directly
+          warnStateProps: true,
 
           // In addition to these basic JavaScript types: Object, Array, String, Number
           // and Boolean, types of File, FileList, Blob, ImageData and RegExp is allowed to be stored in state
@@ -94,13 +97,12 @@ const controller = Controller({
       // When talking to cross origin (cors), pass cookies
       // if set to true
       withCredentials: false
-    }),
-    provide("uuid", uuid),
-    StorageProvider({
-      target: store,
-      sync: { carml: "carml" },
-      prefix: "carml"
     })
+    // StorageProvider({
+    //   target: store,
+    //   sync: { carml: "carml" },
+    //   prefix: "carml",
+    // }),
   ]
 });
 
