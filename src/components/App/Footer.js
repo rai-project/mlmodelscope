@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer>
       <a href="https://github.com/rai-project/carml">
-        <Image src={carmlImage} size="tiny" floated="right" />
+        <Image src={carmlImage} height={50} floated="right" />
         <Image
           src={c3srImage}
           size="small"
