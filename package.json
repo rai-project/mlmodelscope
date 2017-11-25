@@ -13,6 +13,7 @@
     "@types/google-protobuf": "^3.2.7",
     "animated": "^0.2.1",
     "async": "^2.6.0",
+    "babel-polyfill": "^6.26.0",
     "basictracer": "^2.2.0",
     "blob-util": "^1.3.0",
     "cerebral": "^3.6.0",
