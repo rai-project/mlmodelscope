@@ -57,7 +57,8 @@ const controller = Controller({
         "/framework/:name/:version": "app.frameworkRouted",
         "/agents": "app.agentsRouted",
         "/agent/:host/:port": "app.agentRouted",
-        "/about": "app.aboutRouted"
+        "/about": "app.aboutRouted",
+        "/about/:name": "app.aboutPageRouted"
       }, // Route definitions
       query: true, // Query support
       onlyHash: false, // Use hash urls

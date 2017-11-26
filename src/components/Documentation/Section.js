@@ -1,6 +1,8 @@
 import React, { createElement } from "react";
+import { connect } from "@cerebral/react";
+import { state } from "cerebral/tags";
 import marksy from "marksy/components";
-import { isNil } from "lodash";
+import { isNil, trimEnd, startsWith } from "lodash";
 import yeast from "yeast";
 import { List, Message, Header } from "semantic-ui-react";
 
@@ -19,9 +21,7 @@ const compile = marksy({
             fontFamily
           }}
         >
-          <a className="Documentation-HeaderLink" href={`#${id}`}>
-            {children}
-          </a>
+          {children}
         </Header>
       );
     },
@@ -33,9 +33,7 @@ const compile = marksy({
             fontFamily
           }}
         >
-          <a className="Documentation-HeaderLink" href={`#${id}`}>
-            {children}
-          </a>
+          {children}
         </Header>
       );
     },
@@ -47,9 +45,7 @@ const compile = marksy({
             fontFamily
           }}
         >
-          <a className="Documentation-HeaderLink" href={`#${id}`}>
-            {children}
-          </a>
+          {children}
         </Header>
       );
     },
@@ -61,29 +57,19 @@ const compile = marksy({
             fontFamily
           }}
         >
-          <a className="Documentation-HeaderLink" href={`#${id}`}>
-            {children}
-          </a>
+          {children}
         </Header>
       );
     },
     blockquote({ children }) {
-      return (
-        <Message>
-          {children}
-        </Message>
-      );
+      return <Message>{children}</Message>;
     },
     ol({ children }) {
       return (
         <List ordered>
           {children.map(
             child =>
-              child
-                ? <List.Item key={yeast()}>
-                    {child}
-                  </List.Item>
-                : null
+              child ? <List.Item key={yeast()}>{child}</List.Item> : null
           )}
         </List>
       );
@@ -93,29 +79,41 @@ const compile = marksy({
         <List>
           {children.map(
             child =>
-              child
-                ? <List.Item key={yeast()}>
-                    {child}
-                  </List.Item>
-                : null
+              child ? <List.Item key={yeast()}>{child}</List.Item> : null
           )}
         </List>
+      );
+    },
+    a({ href, title, target, children }) {
+      if (!startsWith(href, "http")) {
+        href = "/about/" + href;
+      }
+      return (
+        <a href={href} title={title} target={target}>
+          {children}
+        </a>
       );
     }
   },
   components: {}
 });
 
-export default function Section({ name }) {
-  const section = isNil(sections[name]) ? "#Not found" : sections[name];
-  return (
-    <div
-      style={{
-        fontFamily,
-        color: "black"
-      }}
-    >
-      {compile(section, null, {}).tree}
-    </div>
-  );
-}
+export default connect(
+  {
+    currentAboutPage: state`app.currentAboutPage`
+  },
+  function Section({ currentAboutPage }) {
+    const name = trimEnd(currentAboutPage, ".md").toLowerCase();
+    const section = isNil(sections[name]) ? "#Not found" : sections[name];
+    return (
+      <div
+        style={{
+          fontFamily,
+          color: "black"
+        }}
+      >
+        {compile(section, null, {}).tree}
+      </div>
+    );
+  }
+);

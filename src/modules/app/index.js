@@ -16,6 +16,7 @@ import agentsRouted from "./signals/agentsRouted";
 import aboutRouted from "./signals/aboutRouted";
 import openTutorial from "./signals/openTutorial";
 import closeTutorial from "./signals/closeTutorial";
+import aboutPageRouted from "./signals/aboutPageRouted";
 
 export default {
   state: {
@@ -62,6 +63,7 @@ export default {
     agentsRouted,
     aboutRouted,
     openTutorial,
-    closeTutorial
+    closeTutorial,
+    aboutPageRouted
   }
 };
