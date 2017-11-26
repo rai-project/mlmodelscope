@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import Tour from "reactour";
-import { values } from "lodash";
+import { map, assignIn, values } from "lodash";
 import {
   Container,
   Grid,
@@ -31,29 +31,11 @@ const trace_options = [
   { key: 5, text: "Full", value: "FULL_TRACE" }
 ];
 
-const steps = [
-  {
-    selector: '[data-tut="select-accelerator"]',
-    content: "This is my first Step",
-    style: {
-      "--reactour-accent": "#0db7c4"
-    }
-  },
-  {
-    selector: '[data-tut="select-batchsize"]',
-    content: "This is my second Step"
-  },
-  {
-    selector: '[data-tut="select-tracelevel"]',
-    content: "This is my third Step"
-  }
-  // ...
-];
-
 export default connect(
   {
     predictInputs: state`app.predictInputs`,
     isPredicting: state`app.status.isPredicting`,
+    isTutorial: state`app.status.isTutorial`,
     selectedModels: state`models.selectedModels`,
     device: state`app.device`,
     traceLevel: state`app.traceLevel`,
@@ -63,16 +45,91 @@ export default connect(
     batchSizeChanged: signal`app.batchSizeChanged`,
     deviceChanged: signal`app.deviceChanged`,
     traceLevelChanged: signal`app.traceLevelChanged`,
-    inferenceButtonClicked: signal`app.inferenceButtonClicked`
+    inferenceButtonClicked: signal`app.inferenceButtonClicked`,
+    openTutorial: signal`app.openTutorial`,
+    closeTutorial: signal`app.closeTutorial`
   },
   class HomePage extends React.Component {
     constructor() {
       super();
       this.state = {
         isTourOpen: false,
-        isShowingMore: false
+        isShowingMore: false,
+        isModelSelectorOpen: true
       };
     }
+
+    steps = () =>
+      map(
+        [
+          {
+            selector: '[data-tut="select-model"]',
+            position: "top",
+            content:
+              "Models from different frameworks can be selected to perform inference. This includes tensorflow, caffe, caffe2, tensorrt, and mxnet."
+          },
+          {
+            selector: '[data-tut="select-accelerator"]',
+            content: "Accelerators can be enabled to perform inference",
+            action: () => {
+              this.closeModelSelector();
+            }
+          },
+          {
+            selector: '[data-tut="select-batchsize"]',
+            content:
+              "Inference can be performed with different batch sizes. Different batch sizes impact the performnace of the inference."
+          },
+          {
+            selector: '[data-tut2="select-tracelevel"]',
+            position: "right",
+            content: () => (
+              <div>
+                You can control CarML's tracing granularity. The tracing is
+                available for developer.
+                <List>
+                  <List.Item as="li">
+                    <b> None: </b> Disable tracing.
+                  </List.Item>
+                  <List.Item as="li">
+                    <b> Step: </b> Capture inference events recorded by CarML.
+                  </List.Item>
+                  <List.Item as="li">
+                    <b> Framework: </b> Capture inference events recorded by the
+                    framework and CarML.
+                  </List.Item>
+                  <List.Item as="li">
+                    <b> CPU: </b> Capture inference events recorded by the CPU.
+                  </List.Item>
+                  <List.Item as="li">
+                    <b> Hardware: </b> Capture inference events recorded by the
+                    accelerator.
+                  </List.Item>
+                  <List.Item as="li">
+                    <b> Full: </b> Capture all tracing events recorded.
+                  </List.Item>
+                </List>
+              </div>
+            )
+          },
+          {
+            selector: '[data-tut="select-datainput"]',
+            content:
+              "Inference can be performed with image url or uploaded user dataset or exsiting datasets. You can add multiple image urls by pressing `ENTER`."
+          },
+          {
+            selector: '[data-tut="select-predict"]',
+            content: "Click to perform the inference."
+          }
+          // ...
+        ],
+        e =>
+          assignIn(e, {
+            style: {
+              "--reactour-accent": "#0db7c4"
+            }
+          })
+      );
 
     toggleShowMore = () => {
       this.setState(prevState => ({
@@ -80,7 +137,13 @@ export default connect(
       }));
     };
 
+    closeModelSelector = () => {
+      this.setState({ isModelSelectorOpen: false });
+    };
+
     closeTour = () => {
+      const { closeTutorial } = this.props;
+      closeTutorial();
       this.setState({ isTourOpen: false });
     };
 
@@ -100,15 +163,15 @@ export default connect(
         isPredicting,
         selectedModels,
         device,
-        predictInputsSet,
         predictURLAdded,
         predictURLChanged,
         batchSizeChanged,
         deviceChanged,
         traceLevelChanged,
-        inferenceButtonClicked
+        inferenceButtonClicked,
+        isTutorial
       } = this.props;
-      const { isTourOpen, isShowingMore } = this.state;
+      const { isTourOpen, isModelSelectorOpen } = this.state;
       return (
         <div>
           <Container
@@ -117,12 +180,9 @@ export default connect(
               fontFamily
             }}
           >
-            <Button h="4" onClick={this.openTour}>
-              Show Tutorial
-            </Button>
-            <Grid>
+            <Grid data-tut="select-model" data-tut2="select-tracelevel">
               <Grid.Row centered columns={1}>
-                <ModelSelector open />
+                <ModelSelector open={isModelSelectorOpen} />
               </Grid.Row>
               <Grid.Row centered stretched>
                 <Grid.Column
@@ -156,7 +216,6 @@ export default connect(
                 <Grid.Column width={7} style={{ paddingRight: 0 }}>
                   <Dropdown
                     selection
-                    data-tut="select-tracelevel"
                     options={trace_options}
                     placeholder="Trace Level (default: Full)"
                     onChange={(e, { value }) => {
@@ -168,6 +227,7 @@ export default connect(
               <Grid.Row centered columns={1}>
                 <Tab
                   menu={{ secondary: true, pointing: true }}
+                  data-tut="select-datainput"
                   panes={[
                     {
                       menuItem: "URL",
@@ -216,6 +276,7 @@ export default connect(
               <Grid.Row centered columns={1} style={{ paddingTop: "2em" }}>
                 <Container textAlign="center">
                   <Button
+                    data-tut="select-predict"
                     as="a"
                     size="massive"
                     style={{
@@ -244,8 +305,8 @@ export default connect(
             </Grid>
           </Container>
           <Tour
-            steps={steps}
-            isOpen={this.state.isTourOpen}
+            steps={this.steps()}
+            isOpen={isTourOpen || isTutorial}
             onRequestClose={this.closeTour}
           />
         </div>

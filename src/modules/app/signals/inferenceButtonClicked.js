@@ -1,4 +1,4 @@
-import { set, when } from "cerebral/operators";
+import { when } from "cerebral/operators";
 import { state } from "cerebral/tags";
 
 import modelPredictChain from "../../common/chains/modelPredictChain";

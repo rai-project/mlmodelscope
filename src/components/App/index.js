@@ -60,6 +60,7 @@ export default connect(
         case "Agent":
           Page = AgentPage;
           break;
+        case "Tutorial":
         default:
           Page = HomePage;
           break;

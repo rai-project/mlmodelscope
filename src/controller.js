@@ -1,7 +1,5 @@
-import store from "store2";
-import { Controller, provide } from "cerebral";
+import { Controller } from "cerebral";
 import Devtools from "cerebral/devtools";
-import StorageProvider from "@cerebral/storage";
 import UseragentModule from "@cerebral/useragent";
 import HttpProvider from "@cerebral/http";
 import Router from "@cerebral/router";

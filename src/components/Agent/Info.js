@@ -2,8 +2,6 @@ import React from "react";
 import { Header, Message, Divider } from "semantic-ui-react";
 import ReactJson from "react-json-view";
 
-import ArchitectureLogo from "./ArchitectureLogo";
-
 export default function Info({ agent }) {
   if (!agent) {
     return null;

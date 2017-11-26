@@ -63,27 +63,17 @@ export default connect(
                 fontFamily
               }}
             />
-            {/*<Menu.Menu position="right">
-              <Menu.Item>
-                <Button
-                  style={{
-                    fontFamily,
-                  }}
-                >
-                  Log In
-                </Button>
-              </Menu.Item>
-              <Menu.Item>
-                <Button
-                  primary
-                  style={{
-                    fontFamily,
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Menu.Item>
-            </Menu.Menu>*/}
+            <Menu.Menu position="right">
+              <Menu.Item
+                name="Tutorial"
+                as="b"
+                active={currentPage === "Tutorial"}
+                onClick={e => navbarClicked({ name: "Tutorial" })}
+                style={{
+                  fontFamily
+                }}
+              />
+            </Menu.Menu>
           </Menu>
         </Container>
       </div>
