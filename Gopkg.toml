@@ -1,0 +1,86 @@
+
+# Gopkg.toml example
+#
+# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# for detailed Gopkg.toml documentation.
+#
+# required = ["github.com/user/thing/cmd/thing"]
+# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
+#
+# [[constraint]]
+#   name = "github.com/user/project"
+#   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
+#
+# [[override]]
+#  name = "github.com/x/y"
+#  version = "2.4.0"
+
+
+[[constraint]]
+  name = "github.com/Unknwon/com"
+
+[[constraint]]
+  name = "github.com/bugsnag/osext"
+
+[[constraint]]
+  name = "github.com/elazarl/go-bindata-assetfs"
+
+[[constraint]]
+  name = "github.com/fatih/color"
+
+[[constraint]]
+  name = "github.com/go-openapi/loads"
+
+[[constraint]]
+  name = "github.com/k0kubun/pp"
+
+[[constraint]]
+  name = "github.com/labstack/echo"
+
+[[constraint]]
+  name = "github.com/pkg/profile"
+
+[[constraint]]
+  name = "github.com/rai-project/config"
+
+[[constraint]]
+  name = "github.com/rai-project/dlframework"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/rai-project/libkv"
+
+[[constraint]]
+  name = "github.com/rai-project/logger"
+
+[[constraint]]
+  name = "github.com/rai-project/registry"
+
+[[constraint]]
+  name = "github.com/rai-project/store"
+
+[[constraint]]
+  name = "github.com/rai-project/tracer"
+
+[[constraint]]
+  name = "github.com/rai-project/uuid"
+
+[[constraint]]
+  name = "github.com/rai-project/web"
+
+[[constraint]]
+  name = "github.com/sirupsen/logrus"
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+
+[[constraint]]
+  name = "github.com/spf13/viper"
+
+[[constraint]]
+  name = "github.com/tus/tusd"
