@@ -10,10 +10,8 @@ cache:
 addons:
   apt:
     sources:
-    - sourceline: ppa:masterminds/glide
     - sourceline: ppa:ubuntu-toolchain-r/test
     packages:
-    - glide
     - build-essential
 before_install:
 - echo ${TRAVIS_NODE_VERSION}
@@ -34,6 +32,7 @@ before_script:
 install:
 - cd ${TRAVIS_BUILD_DIR}
 - go get github.com/mjibson/esc
+- go get github.com/Masterminds/glide
 - go get github.com/golang/dep/cmd/dep
 - go get github.com/ahmetb/govvv
 - go get github.com/franciscocpg/gox
