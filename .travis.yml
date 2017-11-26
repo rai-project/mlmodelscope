@@ -34,6 +34,7 @@ before_script:
 install:
 - cd ${TRAVIS_BUILD_DIR}
 - go get github.com/mjibson/esc
+- go get github.com/golang/dep/cmd/dep
 - go get github.com/ahmetb/govvv
 - go get github.com/franciscocpg/gox
 - go get github.com/tcnksm/ghr
