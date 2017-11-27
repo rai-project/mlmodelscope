@@ -14,7 +14,7 @@ export default connect(
   function Header({ appName, currentPage }) {
     const showTagLine = currentPage === "Home";
     return (
-      <div className="App-header">
+      <div data-tut="main-header" className="App-header">
         <Container textAlign={"center"}>
           <UIHeader
             inverted

@@ -63,6 +63,31 @@ export default connect(
       map(
         [
           {
+            selector: '[data-tut="main-header"]',
+            position: "right",
+            content: () => (
+              <div>
+                The <i>CarML</i> (<b>
+                  Cognitive ARtifacts for Machine Learning
+                </b>) is a platform allowing people to easily deploy and
+                experiment ML/DL frameworks and models. It allows ML/DL software
+                developers to deploy their software packages, ML model
+                developers to publish and evaluate their models, users to
+                experiment with different models and frameworks, all through a
+                web user interface or a REST api, and system architects to
+                capture system resource usage to inform future system and
+                hardware configuration.
+              </div>
+            ),
+            style: {
+              left: "25%",
+              maxWidth: "100%!important",
+              minWidth: "50%",
+              width: "100%",
+              margin: "auto"
+            }
+          },
+          {
             selector: '[data-tut="select-model"]',
             position: "top",
             content:
@@ -120,12 +145,36 @@ export default connect(
           {
             selector: '[data-tut="select-predict"]',
             content: "Click to perform the inference."
+          },
+          {
+            selector: '[data-tut="nav-home"]',
+            content: "At any point, you can go to the main CarML home page."
+          },
+          {
+            selector: '[data-tut="nav-agents"]',
+            content:
+              "You can view all the CarML agents that service models through the agents page."
+          },
+          {
+            selector: '[data-tut="nav-frameworks"]',
+            content:
+              "You can view the current CarML frameworks that service models through the frameworks page."
+          },
+          {
+            selector: '[data-tut="nav-models"]',
+            content: "All CarML model are available on the model page."
+          },
+          {
+            selector: '[data-tut="nav-about"]',
+            content:
+              "Information about the motivation of CarML along with design descisions are documented."
           }
           // ...
         ],
         e =>
           assignIn(e, {
             style: {
+              ...e.style,
               "--reactour-accent": "#0db7c4"
             }
           })
