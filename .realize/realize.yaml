@@ -15,8 +15,8 @@ settings:
 server:
   status: true
   open: false
-  port: 5001
   host: localhost
+  port: 5001
 schema:
 - name: carml
   path: .
