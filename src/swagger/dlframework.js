@@ -6,10 +6,18 @@
 
 import uuid from "uuid/v4";
 import { has } from "lodash";
-import {
-  convertObjectWithTemplates,
-  processResponse
-} from "@cerebral/http/lib/utils";
+import { processResponse } from "@cerebral/http/lib/utils";
+
+function convertObjectWithTemplates(obj, resolve) {
+  if (resolve.isTag(obj)) {
+    return resolve.value(obj);
+  }
+
+  return Object.keys(obj).reduce((convertedObject, key) => {
+    convertedObject[key] = resolve.value(obj[key]);
+    return convertedObject;
+  }, {});
+}
 
 function serializeQueryParams(parameters) {
   let str = [];
@@ -628,7 +636,7 @@ export function URLs(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#FrameworkAgents
  * @param {object} parameters - method options and parameters
@@ -699,7 +707,7 @@ export function FrameworkAgents(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#FrameworkManifests
  * @param {object} parameters - method options and parameters
@@ -770,7 +778,7 @@ export function FrameworkManifests(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#ModelAgents
  * @param {object} parameters - method options and parameters
@@ -853,7 +861,7 @@ export function ModelAgents(params) {
 }
 
 /**
- * 
+ *
  * @method
  * @name DLFramework#ModelManifests
  * @param {object} parameters - method options and parameters

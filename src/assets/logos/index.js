@@ -11,3 +11,5 @@ export { default as nvidia } from "./nvidia.png";
 export { default as powerpc } from "./powerpc.png";
 export { default as opencl } from "./opencl.png";
 export { default as arm } from "./arm.png";
+export { default as cntk } from "./cntk.png";
+export { default as pytorch } from "./pytorch.png";

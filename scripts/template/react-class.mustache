@@ -5,7 +5,19 @@
 
 import uuid from "uuid/v4";
 import { has } from "lodash";
-import { convertObjectWithTemplates, processResponse } from '@cerebral/http/lib/utils'
+import {  processResponse } from '@cerebral/http/lib/utils'
+
+
+function convertObjectWithTemplates(obj, resolve) {
+  if (resolve.isTag(obj)) {
+    return resolve.value(obj)
+  }
+
+  return Object.keys(obj).reduce((convertedObject, key) => {
+    convertedObject[key] = resolve.value(obj[key])
+    return convertedObject
+  }, {})
+}
 
 function serializeQueryParams(parameters) {
   let str = [];
