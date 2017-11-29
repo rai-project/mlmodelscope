@@ -62,8 +62,8 @@ async.waterfall(
           .replace(/carml/g, "mlmodelscope")
           .replace(/CarML/g, "MLModelScope")
           .replace(
-            /github.com\/rai-project\/mlmodelscope/g,
-            "github.com/rai-project/carml"
+            /rai-project\/mlmodelscope/g,
+            "rai-project/carml"
           );
 
         fs.writeFileSync(filePath, result, "utf8");
