@@ -17,8 +17,11 @@
 var moment = require("moment");
 var async = require("async");
 var exec = require("child_process").exec;
+var glob = require("glob");
 var fs = require("fs");
+var path = require("path");
 var rimraf = require("rimraf");
+var _ = require("lodash");
 
 var isProduction = true;
 var assetsFileName = "";
@@ -28,10 +31,45 @@ var version = date.format("YYYY-MM-DDTHH:mm:ss") + "Z";
 var releaseTag = date.format("YYYY-MM-DDTHH-mm-ss") + "Z";
 var buildType = "production";
 var assetsFileName = "pkg/web/bindata_assetfs.go";
+var currentDir = __dirname;
 if (process.env.IO_UI_BUILD) buildType = process.env.IO_UI_BUILD;
 
 async.waterfall(
   [
+    function(cb) {
+      var buildDir = path.join("build", "**", "*");
+      console.log(buildDir);
+      var files = glob.sync(buildDir, {});
+      files.map(function(filePath) {
+        if (_.isNil(filePath)) {
+          return;
+        }
+        if (fs.lstatSync(filePath).isDirectory()) {
+          return;
+        }
+        if (filePath.includes("carml")) {
+          var newName = filePath.replace("carml", "mlmodelscope");
+          fs.renameSync(filePath, newName);
+          filePath = newName;
+        }
+        if (filePath.includes("CarML")) {
+          var newName = filePath.replace("CarML", "MLModelScope");
+          fs.renameSync(filePath, newName);
+          filePath = newName;
+        }
+        var data = fs.readFileSync(filePath, "utf8");
+        var result = data
+          .replace(/carml/g, "mlmodelscope")
+          .replace(/CarML/g, "MLModelScope")
+          .replace(
+            /github.com\/rai-project\/mlmodelscope/g,
+            "github.com/rai-project/carml"
+          );
+
+        fs.writeFileSync(filePath, result, "utf8");
+      });
+      cb();
+    },
     function(cb) {
       var cmd = 'git log --format="%H" -n1';
       console.log("Running", cmd);
@@ -61,10 +99,6 @@ async.waterfall(
       fs.appendFileSync(assetsFileName, 'var UICommitID = "' + commitId + '"\n');
       fs.appendFileSync(assetsFileName, 'var UIVersion = "' + version + '"');
       fs.appendFileSync(assetsFileName, "\n");
-      var contents = fs.readFileSync(assetsFileName, "utf8");
-      contents = contents
-        .replace(/CarML/g, "MLModelScope")
-        .replace(/carml/g, "MLModelScope");
       // if (isProduction) {
       // 	contents = contents
       // 		.replace(/_productionIndexHtml/g, '_productionIndexHTML')
@@ -89,6 +123,7 @@ async.waterfall(
       // 		.replace(/assetsJqueryUiMinJsBytes/g, 'assetsJqueryUIMinJsBytes')
       // 		.replace(/assetsJqueryUiMinJs/g, 'assetsJqueryUIMinJs');
       // }
+      var contents = fs.readFileSync(assetsFileName, "utf8");
       contents = contents.replace(/UI_VERSION/g, version);
       contents = contents.replace(/main_bundle.js/g, "main_bundle.js");
 
