@@ -62,6 +62,9 @@ async.waterfall(
       fs.appendFileSync(assetsFileName, 'var UIVersion = "' + version + '"');
       fs.appendFileSync(assetsFileName, "\n");
       var contents = fs.readFileSync(assetsFileName, "utf8");
+      contents = contents
+        .replace(/CarML/g, "MLModelScope")
+        .replace(/carml/g, "MLModelScope");
       // if (isProduction) {
       // 	contents = contents
       // 		.replace(/_productionIndexHtml/g, '_productionIndexHTML')
