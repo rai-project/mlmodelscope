@@ -20,7 +20,7 @@ export default connect(
         debug: true,
         autoProceed: false,
         restrictions: {
-          maxFileSize: 600000,
+          maxFileSize: 6000000,
           maxNumberOfFiles: 5,
           minNumberOfFiles: 1,
           allowedFileTypes: ["image/*"]
