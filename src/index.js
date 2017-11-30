@@ -28,12 +28,14 @@ function renderApp() {
     registerServiceWorker();
   } else {
     unregister();
-    // eslint-disable-next-line
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
+    try {
+      // eslint-disable-next-line
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    } catch (e) {}
   }
 
   render(

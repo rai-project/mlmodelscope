@@ -13,7 +13,7 @@ export default function FrameworkSummary({ framework, agents }) {
   const { name, version } = framework;
 
   const img = logos[name.toLowerCase()] ? (
-    <Image src={logos[name.toLowerCase()]} />
+    <Image fluid src={logos[name.toLowerCase()]} />
   ) : null;
 
   const agentsList =
