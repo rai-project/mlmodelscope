@@ -17,6 +17,9 @@ build:
     - goos: linux
       goarch: arm
       goarm: 7
+    - goos: linux
+      goarch: arm
+      goarm: 6
   hooks:
     pre: go generate
     # post: ./script.sh
