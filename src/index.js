@@ -24,11 +24,11 @@ Object.defineProperty(Error.prototype, "toJSON", {
 });
 
 function renderApp() {
-  if (process.env.NODE_ENV === "production") {
+  if (false && process.env.NODE_ENV === "production") {
     registerServiceWorker();
   } else {
-    unregister();
     try {
+      unregister();
       // eslint-disable-next-line
       navigator.serviceWorker.getRegistrations().then(function(registrations) {
         for (let registration of registrations) {
