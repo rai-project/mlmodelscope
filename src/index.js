@@ -26,7 +26,7 @@ Object.defineProperty(Error.prototype, "toJSON", {
 function renderApp() {
   if (false && process.env.NODE_ENV === "production") {
     registerServiceWorker();
-  } else {
+  } else if (process.env.NODE_ENV !== "production") {
     try {
       unregister();
       // eslint-disable-next-line
