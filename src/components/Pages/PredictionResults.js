@@ -49,7 +49,7 @@ function PredictionResultPerImage({
           </Container>
         ) : null}
         {showModel ? (
-          <Segment>
+          <div>
             <Header textAlign="center" as="h3">
               {model.name}
               <Label color="red" floating>
@@ -62,7 +62,7 @@ function PredictionResultPerImage({
                 v{model.framework.version}
               </Label>
             </Header>
-          </Segment>
+          </div>
         ) : null}
         <List divided>
           {features.map(features => (
@@ -107,22 +107,21 @@ export default connect(
             <Divider hidden />
           </div>
         ) : null}
-        {models.length === 1 ? (
-          <Segment>
-            <Header textAlign="center" as="h1">
-              {model.name}
-              <Label color="red" floating>
-                v{model.version}
-              </Label>
-            </Header>
-            <Header textAlign="center" as="h3">
-              {model.framework.name}
-              <Label color="red" floating>
-                v{model.framework.version}
-              </Label>
-            </Header>
-          </Segment>
-        ) : null}
+        {models.length === 1
+          ? [
+              <Header textAlign="center" as="h1">
+                {model.name}
+                <Label color="teal">v{model.version}</Label>
+              </Header>,
+              <Header textAlign="center" as="h3">
+                {model.framework.name}
+                <Label size="tiny" color="teal">
+                  v{model.framework.version}
+                </Label>
+              </Header>,
+              <Divider />
+            ]
+          : null}
         <Grid columns={inputs.length} centered divided="vertically">
           {outputs.map(o => (
             <Grid.Row key={yeast()}>
