@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import controller from "./controller";
 import { Container } from "@cerebral/react";
+import ReactGA from "react-ga";
 import registerServiceWorker, { unregister } from "./registerServiceWorker";
 
 import "semantic-ui-css/semantic.min.css";
@@ -24,6 +25,10 @@ Object.defineProperty(Error.prototype, "toJSON", {
 });
 
 function renderApp() {
+  if (process.env.NODE_ENV === "production") {
+    ReactGA.initialize("UA-110494888-1");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
   if (false && process.env.NODE_ENV === "production") {
     registerServiceWorker();
   } else if (process.env.NODE_ENV !== "production") {
