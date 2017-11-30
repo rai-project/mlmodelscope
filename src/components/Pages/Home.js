@@ -31,6 +31,15 @@ const trace_options = [
   { key: 5, text: "Full", value: "FULL_TRACE" }
 ];
 
+const datasetOptions = [
+  { key: 0, value: "ilsvrc2012", text: "vision/ilsvrc2012" },
+  { key: 1, value: "cifar10", text: "vision/cifar10" },
+  { key: 2, value: "cifar100", text: "vision/cifar100" },
+  { key: 3, value: "caltech256", text: "vision/caltech256" },
+  { key: 4, value: "mnist", text: "vision/mnist" },
+  { key: 5, value: "custom", text: "vision/custom" }
+];
+
 export default connect(
   {
     predictInputs: state`app.predictInputs`,
@@ -316,7 +325,15 @@ export default connect(
                     },
                     {
                       menuItem: "Dataset",
-                      render: () => <div>TODO</div>
+                      render: () => (
+                        <Dropdown
+                          placeholder="Select Dataset"
+                          fluid
+                          search
+                          selection
+                          options={datasetOptions}
+                        />
+                      )
                     }
                   ]}
                 />
