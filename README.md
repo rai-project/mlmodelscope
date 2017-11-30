@@ -7,6 +7,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## [Docs](https://rai-project.github.io/carml/)
+
 ## How to run CarML from the `docker-compose.yml`
 
 1.  You need to download `docker-compose.yml`and have a carml config file called `.carml_config.yml` under your home directory. An example config file is in `carml_config.yml.example`. You can rename it and use that. 
