@@ -58,23 +58,20 @@ async.waterfall(
           filePath = newName;
         }
         if (
-          !(
             filePath.includes(".json") ||
             filePath.includes(".js") ||
             filePath.includes(".html") ||
             filePath.includes(".txt") ||
             filePath.includes(".css")
-          )
         ) {
-          return;
-        }
-        var data = fs.readFileSync(filePath, "utf8");
-        var result = data
-          .replace(/carml/g, "mlmodelscope")
-          .replace(/CarML/g, "MLModelScope")
-          .replace(/rai-project\/mlmodelscope/g, "rai-project/carml");
+            var data = fs.readFileSync(filePath, "utf8");
+            var result = data
+              .replace(/carml/g, "mlmodelscope")
+              .replace(/CarML/g, "MLModelScope")
+              .replace(/rai-project\/mlmodelscope/g, "rai-project/carml");
 
-        fs.writeFileSync(filePath, result, "utf8");
+            fs.writeFileSync(filePath, result, "utf8");
+        }
       });
       cb();
     },
