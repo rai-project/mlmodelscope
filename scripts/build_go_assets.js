@@ -61,8 +61,7 @@ async.waterfall(
             filePath.includes(".json") ||
             filePath.includes(".js") ||
             filePath.includes(".html") ||
-            filePath.includes(".txt") ||
-            filePath.includes(".css")
+            filePath.includes(".txt")
         ) {
             var data = fs.readFileSync(filePath, "utf8");
             var result = data
