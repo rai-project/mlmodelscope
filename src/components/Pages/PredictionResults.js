@@ -48,22 +48,23 @@ function PredictionResultPerImage({
             <Divider hidden />
           </Container>
         ) : null}
-        {showModel ? (
-          <div>
-            <Header textAlign="center" as="h3">
-              {model.name}
-              <Label color="red" floating>
-                v{model.version}
-              </Label>
-            </Header>
-            <Header textAlign="center" as="h5">
-              {model.framework.name}
-              <Label color="red" floating>
-                v{model.framework.version}
-              </Label>
-            </Header>
-          </div>
-        ) : null}
+        {showModel
+          ? [
+              <Header textAlign="center" as="h1">
+                {model.name} v{model.version}
+                <Label
+                  style={{
+                    color: "white",
+                    backgroundColor: "#0DB7C4",
+                    borderColor: "#07717a"
+                  }}
+                >
+                  {model.framework.name} {"  "} v{model.framework.version}
+                </Label>
+              </Header>,
+              <Divider hidden />
+            ]
+          : null}
         <List divided>
           {features.map(features => (
             <List.Item key={yeast()}>
@@ -110,16 +111,18 @@ export default connect(
         {models.length === 1
           ? [
               <Header textAlign="center" as="h1">
-                {model.name}
-                <Label color="teal">v{model.version}</Label>
-              </Header>,
-              <Header textAlign="center" as="h3">
-                {model.framework.name}
-                <Label size="tiny" color="teal">
-                  v{model.framework.version}
+                {model.name} v{model.version}
+                <Label
+                  style={{
+                    color: "white",
+                    backgroundColor: "#0DB7C4",
+                    borderColor: "#07717a"
+                  }}
+                >
+                  {model.framework.name} {"  "} v{model.framework.version}
                 </Label>
               </Header>,
-              <Divider />
+              <Divider hidden />
             ]
           : null}
         <Grid columns={inputs.length} centered divided="vertically">
