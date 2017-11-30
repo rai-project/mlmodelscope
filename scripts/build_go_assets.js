@@ -67,6 +67,7 @@ async.waterfall(
             var result = data
               .replace(/carml/g, "mlmodelscope")
               .replace(/CarML/g, "MLModelScope")
+              .replace(/ARtifacts/g, "Artifacts")
               .replace(/rai-project\/mlmodelscope/g, "rai-project/carml");
 
             fs.writeFileSync(filePath, result, "utf8");
