@@ -9,6 +9,7 @@ import {
   Grid,
   List,
   Container,
+  Label,
   Divider,
   Segment
 } from "semantic-ui-react";
@@ -48,15 +49,20 @@ function PredictionResultPerImage({
           </Container>
         ) : null}
         {showModel ? (
-          <div>
+          <Segment>
             <Header textAlign="center" as="h3">
-              {model.name} Model
+              {model.name}
+              <Label color="red" floating>
+                v{model.version}
+              </Label>
             </Header>
             <Header textAlign="center" as="h5">
-              {model.framework.name} {model.framework.version}
+              {model.framework.name}
+              <Label color="red" floating>
+                v{model.framework.version}
+              </Label>
             </Header>
-            <Divider hidden />
-          </div>
+          </Segment>
         ) : null}
         <List divided>
           {features.map(features => (
@@ -102,15 +108,20 @@ export default connect(
           </div>
         ) : null}
         {models.length === 1 ? (
-          <div>
+          <Segment>
             <Header textAlign="center" as="h1">
-              {model.name} Model
+              {model.name}
+              <Label color="red" floating>
+                v{model.version}
+              </Label>
             </Header>
             <Header textAlign="center" as="h3">
-              {model.framework.name} {model.framework.version}
+              {model.framework.name}
+              <Label color="red" floating>
+                v{model.framework.version}
+              </Label>
             </Header>
-            <Divider hidden />
-          </div>
+          </Segment>
         ) : null}
         <Grid columns={inputs.length} centered divided="vertically">
           {outputs.map(o => (

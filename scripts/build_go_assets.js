@@ -57,14 +57,22 @@ async.waterfall(
           fs.renameSync(filePath, newName);
           filePath = newName;
         }
+        if (
+          !(
+            filePath.includes(".json") ||
+            filePath.includes(".js") ||
+            filePath.includes(".html") ||
+            filePath.includes(".txt") ||
+            filePath.includes(".css")
+          )
+        ) {
+          return;
+        }
         var data = fs.readFileSync(filePath, "utf8");
         var result = data
           .replace(/carml/g, "mlmodelscope")
           .replace(/CarML/g, "MLModelScope")
-          .replace(
-            /rai-project\/mlmodelscope/g,
-            "rai-project/carml"
-          );
+          .replace(/rai-project\/mlmodelscope/g, "rai-project/carml");
 
         fs.writeFileSync(filePath, result, "utf8");
       });
@@ -124,6 +132,7 @@ async.waterfall(
       // 		.replace(/assetsJqueryUiMinJs/g, 'assetsJqueryUIMinJs');
       // }
       var contents = fs.readFileSync(assetsFileName, "utf8");
+
       contents = contents.replace(/UI_VERSION/g, version);
       contents = contents.replace(/main_bundle.js/g, "main_bundle.js");
 
