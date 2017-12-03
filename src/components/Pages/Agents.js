@@ -23,9 +23,11 @@ export default connect(
     });
     return (
       <Container>
-        <Log>
-          <h1>agents</h1>
-        </Log>
+        {false ? (
+          <Log>
+            <h1>agents</h1>
+          </Log>
+        ) : null}
         <Grid.Row centered columns={1}>
           <Card.Group itemsPerRow={useragentMedia.mobile ? 1 : 3}>
             {body}

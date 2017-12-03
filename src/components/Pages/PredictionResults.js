@@ -97,20 +97,21 @@ export default connect(
     const model = head(models);
     return (
       <div>
-        {inputs.length === 1 ? (
-          <div>
-            <Image
-              centered
-              size="medium"
-              shape="rounded"
-              src={output[0].data}
-            />
-            <Divider hidden />
-          </div>
-        ) : null}
+        {inputs.length === 1
+          ? [
+              <Image
+                key={yeast()}
+                centered
+                size="medium"
+                shape="rounded"
+                src={output[0].data}
+              />,
+              <Divider key={yeast()} hidden />
+            ]
+          : null}
         {models.length === 1
           ? [
-              <Header textAlign="center" as="h1">
+              <Header key={yeast()} textAlign="center" as="h1">
                 {model.name} v{model.version}
                 <Label
                   style={{
@@ -122,7 +123,7 @@ export default connect(
                   {model.framework.name} {"  "} v{model.framework.version}
                 </Label>
               </Header>,
-              <Divider hidden />
+              <Divider key={yeast()} hidden />
             ]
           : null}
         <Grid columns={inputs.length} centered divided="vertically">

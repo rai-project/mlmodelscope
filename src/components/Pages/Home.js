@@ -3,7 +3,7 @@ import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import Tour from "reactour";
 import yeast from "yeast";
-import { map, assignIn, values } from "lodash";
+import { map, assignIn, values, uniqBy } from "lodash";
 import {
   Container,
   Grid,
@@ -235,11 +235,11 @@ export default connect(
         isTutorial
       } = this.props;
 
-      const agentsDropdownData = map(agents, agent => {
+      const agentsDropdownData = map(uniqBy(agents, "hostname"), agent => {
         return {
           key: yeast(),
           text: agent.hostname,
-          value: `${agent.hostname}:${agent.port}`
+          value: `${agent.host}`
         };
       });
 

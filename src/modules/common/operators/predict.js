@@ -25,7 +25,7 @@ const debugging = false;
 //   return n;
 // }
 
-function spanHeaders(headers) {
+function makeSpanHeaders(headers) {
   let res = {};
   headers = headers || {};
   if (has(headers, "x-b3-flags")) {
@@ -49,6 +49,7 @@ export default function predict({
   device,
   batchSize,
   traceLevel,
+  agent,
   requestType = "url"
 }) {
   let _predict = function({ http, path, resolve }) {
@@ -63,6 +64,7 @@ export default function predict({
     let resolvedDevice = resolve.value(device);
     let resolvedBatchSize = resolve.value(batchSize);
     let resolvedTraceLevel = resolve.value(traceLevel);
+    let resolvedAgent = resolve.value(agent);
 
     requestType = requestType.toLowerCase();
     if (
@@ -112,8 +114,9 @@ export default function predict({
         resolve
       });
 
-    const run = ({ model, data, device, batchSize, traceLevel }) => {
-      let predictor;
+    const run = ({ model, data, device, batchSize, traceLevel, agent }) => {
+      let predictor = null;
+      let spanHeaders = {};
       const requestId = uuid();
       const res = pFinally(
         openAPI({
@@ -124,6 +127,7 @@ export default function predict({
             model_name: model.name,
             model_version: model.version,
             options: {
+              agent,
               batch_size: Number(batchSize),
               execution_options: {
                 trace_level: traceLevel,
@@ -140,10 +144,11 @@ export default function predict({
               response: { result, headers }
             }) {
               predictor = result;
+              spanHeaders = makeSpanHeaders(headers);
               return urlAPI({
                 requestId,
                 headers: {
-                  ...spanHeaders(headers)
+                  ...spanHeaders
                 },
                 body: {
                   predictor,
@@ -166,10 +171,11 @@ export default function predict({
               response: { result, headers }
             }) {
               predictor = result;
+              spanHeaders = makeSpanHeaders(headers);
               return imagesAPI({
                 requestId,
                 headers: {
-                  ...spanHeaders(headers)
+                  ...spanHeaders
                 },
                 body: {
                   predictor,
@@ -208,6 +214,9 @@ export default function predict({
           }
           closeAPI({
             requestId,
+            headers: {
+              ...spanHeaders
+            },
             body: {
               id: predictor.id
             }
@@ -225,7 +234,8 @@ export default function predict({
           data: resolvedInputs,
           device: resolvedDevice,
           batchSize: resolvedBatchSize,
-          traceLevel: resolvedTraceLevel
+          traceLevel: resolvedTraceLevel,
+          agent: resolvedAgent
         })
       )
     )

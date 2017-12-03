@@ -22,7 +22,8 @@ export default [
         models: state`models.selectedModels`,
         device: state`app.device`,
         batchSize: state`app.batchSize`,
-        traceLevel: state`app.traceLevel`
+        traceLevel: state`app.traceLevel`,
+        agent: state`app.selectedAgent`
       }),
       {
         success: [set(state`app.predictOutputs`, props`output`)],
