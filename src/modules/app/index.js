@@ -6,6 +6,7 @@ import predictURLChanged from "./signals/predictURLChanged";
 import batchSizeChanged from "./signals/batchSizeChanged";
 import deviceChanged from "./signals/deviceChanged";
 import traceLevelChanged from "./signals/traceLevelChanged";
+import agentChanged from "./signals/agentChanged";
 import predictInputsSet from "./signals/predictInputsSet";
 import predictURLAdded from "./signals/predictURLAdded";
 import inferenceButtonClicked from "./signals/inferenceButtonClicked";
@@ -55,6 +56,7 @@ export default {
     batchSizeChanged,
     deviceChanged,
     traceLevelChanged,
+    agentChanged,
     modelInformationsRequest,
     inferenceButtonClicked,
     modelsRouted,

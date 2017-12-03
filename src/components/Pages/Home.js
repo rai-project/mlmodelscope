@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "@cerebral/react";
 import { state, signal } from "cerebral/tags";
 import Tour from "reactour";
+import yeast from "yeast";
 import { map, assignIn, values } from "lodash";
 import {
   Container,
@@ -48,12 +49,14 @@ export default connect(
     selectedModels: state`models.selectedModels`,
     device: state`app.device`,
     traceLevel: state`app.traceLevel`,
+    agents: state`app.frameworks.agents`,
     predictInputsSet: signal`app.predictInputsSet`,
     predictURLChanged: signal`app.predictURLChanged`,
     predictURLAdded: signal`app.predictURLAdded`,
     batchSizeChanged: signal`app.batchSizeChanged`,
     deviceChanged: signal`app.deviceChanged`,
     traceLevelChanged: signal`app.traceLevelChanged`,
+    agentChanged: signal`app.agentChanged`,
     inferenceButtonClicked: signal`app.inferenceButtonClicked`,
     openTutorial: signal`app.openTutorial`,
     closeTutorial: signal`app.closeTutorial`
@@ -217,6 +220,7 @@ export default connect(
 
     render() {
       const {
+        agents,
         predictInputs,
         isPredicting,
         selectedModels,
@@ -226,9 +230,19 @@ export default connect(
         batchSizeChanged,
         deviceChanged,
         traceLevelChanged,
+        agentChanged,
         inferenceButtonClicked,
         isTutorial
       } = this.props;
+
+      const agentsDropdownData = map(agents, agent => {
+        return {
+          key: yeast(),
+          text: agent.hostname,
+          value: `${agent.hostname}:${agent.port}`
+        };
+      });
+
       const { isTourOpen, isModelSelectorOpen } = this.state;
       return (
         <div>
@@ -281,6 +295,14 @@ export default connect(
                     }}
                   />
                 </Grid.Column>
+              </Grid.Row>
+              <Grid.Row centered columns={1}>
+                <Dropdown
+                  selection
+                  options={agentsDropdownData}
+                  placeholder="Agent Selection (default: Random)"
+                  onChange={(e, { value }) => agentChanged({ agent: value })}
+                />
               </Grid.Row>
               <Grid.Row centered columns={1}>
                 <Tab
