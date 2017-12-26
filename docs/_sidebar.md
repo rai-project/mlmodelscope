@@ -13,6 +13,7 @@
     -   [Prediction](prediction.md)
 -   Development
     -   [Installation](installation.md)
+    -   [Evaluations](evaluations.md)
     -   [Server Configuration](configuration.md)
     -   [REST API](api.md)
 -   Other
