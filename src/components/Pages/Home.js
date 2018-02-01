@@ -4,14 +4,15 @@ import { state, signal } from 'cerebral/tags'
 import Tour from 'reactour'
 import yeast from 'yeast'
 import _ from 'lodash'
-import { Layout, Grid, Divider, Button, Row, Col, Checkbox, Input, Dropdown, Menu, Select } from 'antd'
-import { Container, Loader, Tab, Form, List } from 'semantic-ui-react'
+import { Layout, Grid, Divider, Button, Row, Col, Checkbox, Input, Dropdown, Menu, Select, Tabs } from 'antd'
+import { Container, Loader, Form, List } from 'semantic-ui-react'
 
 import UploadArea from '../UploadArea'
 import { Selector as ModelSelector } from '../Model'
 
 const { Header, Content, Footer } = Layout
 const { Option } = Select
+const { TabPane } = Tabs
 
 const mkOption = ({ key, text, value }) => (
   <Option key={key} value={value}>
@@ -278,7 +279,7 @@ export default connect(
               </Col>
             </Row>
             <Row justify="center" type="flex">
-              <Col span={24}>
+              <Col span={12}>
                 <Select
                   placeholder="Agent Selection (default: Random)"
                   onChange={(e, { value }) => agentChanged({ agent: value })}
@@ -288,57 +289,49 @@ export default connect(
                 </Select>
               </Col>
             </Row>
-            {/*
             <Row justify="center" type="flex">
-              <Tab
-                menu={{ secondary: true, pointing: true }}
-                data-tut="select-datainput"
-                panes={[
-                  {
-                    menuItem: 'URL',
-                    render: () => (
-                      <div>
-                        <Form
-                          onSubmit={e => {
-                            e.preventDefault()
-                            predictURLAdded()
-                          }}
-                        >
-                          <Input
-                            fluid
-                            placeholder="http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
-                            onChange={e =>
-                              predictURLChanged({
-                                predictURL: e.target.value,
-                              })
-                            }
-                          />
-                        </Form>
-                        {_.isNil(predictInputs) ? null : (
-                          <List>
-                            {_.map(predictInputs, (item, index) => (
-                              <List.Item key={yeast()} index={index}>
-                                {item}
-                              </List.Item>
-                            ))}
-                          </List>
-                        )}
-                      </div>
-                    ),
-                  },
-                  {
-                    menuItem: 'Upload',
-                    render: () => <UploadArea onUploadSuccess={this.onUploadSuccess} />,
-                  },
-                  {
-                    menuItem: 'Dataset',
-                    render: () => (
-                      <Dropdown placeholder="Select Dataset" fluid search selection options={datasetOptions} />
-                    ),
-                  },
-                ]}
-              />
+              <Col span={12}>
+                <Tabs defaultActiveKey="tab-url" data-tut="select-datainput">
+                  <TabPane key="tab-url" tab="URL">
+                    <div>
+                      <Form
+                        onSubmit={e => {
+                          e.preventDefault()
+                          predictURLAdded()
+                        }}
+                      >
+                        <Input
+                          placeholder="http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
+                          onChange={e =>
+                            predictURLChanged({
+                              predictURL: e.target.value,
+                            })
+                          }
+                        />
+                      </Form>
+                      {_.isNil(predictInputs) ? null : (
+                        <List>
+                          {_.map(predictInputs, (item, index) => (
+                            <List.Item key={yeast()} index={index}>
+                              {item}
+                            </List.Item>
+                          ))}
+                        </List>
+                      )}
+                    </div>
+                  </TabPane>
+                  <TabPane key="tab-upload" tab="Upload">
+                    <UploadArea onUploadSuccess={this.onUploadSuccess} />
+                  </TabPane>
+                  <TabPane key="tab-dataset" tab="Dataset">
+                    <Select placeholder="Select dataset" onChange={console.log} style={{ width: '50%' }}>
+                      {datasetOptions}
+                    </Select>
+                  </TabPane>
+                </Tabs>
+              </Col>
             </Row>
+            {/*
             <Divider horizontal />
             <Row justify="center" type="flex" style={{ paddingTop: '2em' }}>
               <Container textAlign="center">

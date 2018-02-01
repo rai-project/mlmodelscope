@@ -111,9 +111,7 @@ export default Module({
       '/about': 'app.aboutRouted',
       '/about/:name': 'app.aboutPageRouted',
     }, // Route definitions
-    query: true, // Query support
-    onlyHash: false, // Use hash urls
-    allowEscape: true, // Will allow none matching routes on same origin to run as normal
+    onlyHash: true, // Use hash urls
   }),
   providers: {
     http: HttpProvider({
