@@ -25,7 +25,7 @@ const process = error => {
   }
 
   if (!_.isNil(code)) {
-    code = <code>{code} :: &nbsp;</code>
+    code = <SyntaxHighlighter>{code} :: &nbsp;</SyntaxHighlighter>
   }
   if (!_.isNil(message)) {
     message = <b>{message}</b>
@@ -76,13 +76,14 @@ export default connect(
   },
   ({ error = null }) => {
     if (_.isNil(error) || (_.isArray(error) && _.isEmpty(error))) {
-      return
+      return null
     }
     if (_.isArray(error)) {
-      error.map(process)
-      return
+      return error.map(process)
     }
 
     process(error)
+
+    return null
   }
 )
