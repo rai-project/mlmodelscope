@@ -1,12 +1,14 @@
-import modelRouted from "./signals/modelRouted";
-import modelSelected from "./signals/modelSelected";
+import { Module } from 'cerebral'
 
-export default {
+import modelRouted from './signals/modelRouted'
+import modelSelected from './signals/modelSelected'
+
+export default Module({
   state: {
-    graph: null
+    graph: null,
   },
   signals: {
     modelRouted,
-    modelSelected
-  }
-};
+    modelSelected,
+  },
+})

@@ -1,3 +1,3 @@
-import { compute } from "cerebral";
+import { Compute } from 'cerebral'
 
-export default e => compute(e, btoa);
+export default e => Compute(e, btoa)

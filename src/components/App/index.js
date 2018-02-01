@@ -1,12 +1,12 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react'
+import { Helmet } from 'react-helmet'
 
-import { connect } from "@cerebral/react";
-import { state, signal } from "cerebral/tags";
-import { Sidebar, Container } from "semantic-ui-react";
+import { connect } from '@cerebral/react'
+import { state, signal } from 'cerebral/tags'
+import { Sidebar, Container } from 'semantic-ui-react'
 
-import Navbar from "./Navbar";
-import Header from "./Header";
+import Navbar from './Navbar'
+import Header from './Header'
 import {
   FrameworkSummaryPage,
   HomePage,
@@ -15,55 +15,55 @@ import {
   PredictionResultsPage,
   AgentPage,
   AgentsPage,
-  AboutPage
-} from "../Pages";
-import Footer from "./Footer";
-import Snackbar from "./Snackbar";
+  AboutPage,
+} from '../Pages'
+import Footer from './Footer'
+import Snackbar from './Snackbar'
 
-import "./App.css";
+import './App.css'
 
-const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif';
+const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif'
 
 export default connect(
   {
     // eslint-disable-next-line
-    currentPage: state`app.currentPage`,
-    appLoaded: signal`app.appLoaded`,
-    appName: state`app.name`,
-    websiteUrl: state`websiteUrl`
+    currentPage: state`currentPage`,
+    appLoaded: signal`appLoaded`,
+    appName: state`name`,
+    websiteUrl: state`websiteUrl`,
   },
   class App extends React.Component {
     componentDidMount() {
       // this.props.appLoaded();
     }
     render() {
-      let Page = null;
+      let Page = null
       switch (this.props.currentPage) {
-        case "Models":
-          Page = ModelSummaryPage;
-          break;
-        case "ModelInformation":
-          Page = ModelInformationPage;
-          break;
-        case "PredictionResults":
-          Page = PredictionResultsPage;
-          break;
-        case "Frameworks":
-          Page = FrameworkSummaryPage;
-          break;
-        case "About":
-          Page = AboutPage;
-          break;
-        case "Agents":
-          Page = AgentsPage;
-          break;
-        case "Agent":
-          Page = AgentPage;
-          break;
-        case "Tutorial":
+        case 'Models':
+          Page = ModelSummaryPage
+          break
+        case 'ModelInformation':
+          Page = ModelInformationPage
+          break
+        case 'PredictionResults':
+          Page = PredictionResultsPage
+          break
+        case 'Frameworks':
+          Page = FrameworkSummaryPage
+          break
+        case 'About':
+          Page = AboutPage
+          break
+        case 'Agents':
+          Page = AgentsPage
+          break
+        case 'Agent':
+          Page = AgentPage
+          break
+        case 'Tutorial':
         default:
-          Page = HomePage;
-          break;
+          Page = HomePage
+          break
       }
 
       return (
@@ -79,17 +79,14 @@ export default connect(
               <div className="App-content">
                 <Navbar />
                 <Header />
-                <Container
-                  className="App-body"
-                  style={{ borderRadius: 0, border: 0, fontFamily }}
-                >
-                  <Page key={"page-" + this.props.currentPage} />
+                <Container className="App-body" style={{ borderRadius: 0, border: 0, fontFamily }}>
+                  <Page key={`page-${this.props.currentPage}`} />
                 </Container>
               </div>
               <div
                 className="App-footer"
                 style={{
-                  fontFamily
+                  fontFamily,
                 }}
               >
                 <Footer />
@@ -97,7 +94,7 @@ export default connect(
             </main>
           </Sidebar.Pusher>
         </div>
-      );
+      )
     }
   }
-);
+)

@@ -1,3 +1,5 @@
 ./src/proto/**/*js
 node_modules/
 build
+build/**/*.js
+coverage/**/*.js

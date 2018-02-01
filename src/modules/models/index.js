@@ -1,9 +1,11 @@
-import model from "../model";
+import { Module } from 'cerebral'
 
-export default {
+import model from '../model'
+
+export default Module({
   state: {
     selectedModels: [],
     model: model.state,
     data: [],
   },
-};
+})

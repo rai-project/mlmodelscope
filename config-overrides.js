@@ -14,20 +14,29 @@
 
 /* eslint-disable import/no-extraneous-dependencies */
 
-const fs = require('fs');
-const { injectBabelPlugin } = require('react-app-rewired');
-const rewireLess = require('react-app-rewire-less');
-const lessToJs = require('less-vars-to-js');
+const fs = require('fs')
+const { compose, injectBabelPlugin } = require('react-app-rewired')
+const rewireIdx = require('react-app-rewire-idx')
+const rewireTypescript = require('react-app-rewire-typescript')
+const rewireLodash = require('react-app-rewire-lodash')
+const rewireLess = require('react-app-rewire-less')
+const lessToJs = require('less-vars-to-js')
 
 // Read the less file in as string
-const loadedVarOverrides = fs.readFileSync('config-overrides-ant-variables.less', 'utf8');
+const loadedVarOverrides = fs.readFileSync('config-overrides-ant-variables.less', 'utf8')
+
+const injector = function(config, env) {
+  return injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config)
+}
 
 // Pass in file contents
-const modifyVars = lessToJs(loadedVarOverrides);
+const modifyVars = lessToJs(loadedVarOverrides)
 
-module.exports = function override(_config, env) {
-  let config = _config;
-  config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
-  config = rewireLess.withLoaderOptions({ modifyVars })(config, env);
-  return config;
-};
+module.exports = compose(
+  rewireIdx,
+  rewireTypescript,
+  rewireLodash,
+  injector,
+  rewireLess.withLoaderOptions({ modifyVars })
+  // other rewires...
+)
