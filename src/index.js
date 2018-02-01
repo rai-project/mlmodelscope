@@ -6,8 +6,6 @@ import ReactGA from 'react-ga'
 import controller from './controller'
 import registerServiceWorker, { unregister } from './registerServiceWorker'
 
-import 'semantic-ui-css/semantic.min.css'
-
 import App from './components/App'
 
 // eslint-disable-next-line
@@ -41,6 +39,7 @@ function renderApp() {
         registrations.map(registration => registration.unregister())
       })
     } catch (e) {
+      // eslint-disable-next-line
       console.log({ error: e })
     }
   }

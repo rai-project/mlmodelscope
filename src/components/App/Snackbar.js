@@ -1,118 +1,88 @@
-import idx from "idx";
-import yeast from "yeast";
-import React, { Component } from "react";
-import { connect } from "@cerebral/react";
-import { state } from "cerebral/tags";
-import Alert from "react-s-alert";
-import { isArray, isNil, isEmpty } from "lodash";
-import { Label, Message, Icon, Divider, Accordion } from "semantic-ui-react";
+import React from 'react'
 
-import "react-s-alert/dist/s-alert-default.css";
-import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import "react-s-alert/dist/s-alert-css-effects/flip.css";
+import idx from 'idx'
+import yeast from 'yeast'
+import _ from 'lodash'
+import { connect } from '@cerebral/react'
+import { state } from 'cerebral/tags'
+import { notification, List, Collapse, Divider } from 'antd'
+import SyntaxHighlighter from 'react-syntax-highlighter'
 
-class ErrorTemplate extends React.Component {
-  handleConfirm() {
-    Alert.close(this.props.id);
+const { Panel } = Collapse
+
+const process = error => {
+  if (_.isNil(error)) {
+    return
   }
-  render() {
-    const { error } = this.props.customFields;
-    let name = error.name;
-    if (isNil(name)) {
-      name = idx(error, _ => _.body.name);
-    }
-    if (isNil(name)) {
-      name = idx(error, _ => _.response.result.name);
-    }
-    let code = idx(error, _ => _.body.code);
-    if (isNil(code)) {
-      code = idx(error, _ => _.response.result.status);
-    }
-    let message = idx(error, _ => _.body.message);
-    if (isNil(message)) {
-      message = idx(error, _ => _.response.result.message);
-    }
-    let stack = idx(error, _ => _.body.stack);
-    if (isNil(stack)) {
-      stack = idx(error, _ => _.response.result.stack);
-    }
+  const name = idx(error, _ => _.body.name) || idx(error, _ => _.response.result.name) || idx(error, _ => _.name)
+  let code = idx(error, _ => _.response.result.status) || idx(error, _ => _.body.code) || idx(error, _ => _.code)
+  let message =
+    idx(error, _ => _.response.result.message) || idx(error, _ => _.body.message) || idx(error, _ => _.message)
+  let stack = idx(error, _ => _.response.result.stack) || idx(error, _ => _.body.stack) || idx(error, _ => _.stack)
 
-    if (!isNil(code)) {
-      code = <code>{code} :: &nbsp;</code>;
-    }
-    if (!isNil(message)) {
-      message = <b>{message}</b>;
-    }
-    if (!isNil(stack)) {
-      const trace = (
-        <Message.List>
+  if (_.isString(stack)) {
+    stack = [stack]
+  }
+
+  if (!_.isNil(code)) {
+    code = <code>{code} :: &nbsp;</code>
+  }
+  if (!_.isNil(message)) {
+    message = <b>{message}</b>
+  }
+  if (!_.isNil(stack)) {
+    const highlight = s => <SyntaxHighlighter>{s}</SyntaxHighlighter>
+    const trace =
+      _.size(stack) === 1 ? (
+        highlight(_.first(stack))
+      ) : (
+        <List>
           {stack.map(s => (
-            <Message.Item key={yeast()} as="pre" style={{ fontSize: "75%" }}>
-              {s}
-            </Message.Item>
+            <List.Item key={yeast()} as="pre" style={{ fontSize: '75%' }}>
+              {highlight(s)}
+            </List.Item>
           ))}
-        </Message.List>
-      );
-      stack = (
-        <div>
-          <Divider />
-          <Accordion
-            panels={[
-              {
-                key: "stack-trace",
-                title: <Label color="red" content="stack trace" />,
-                content: trace
-              }
-            ]}
-          />
-        </div>
-      );
-    }
-    return (
-      <div id={this.props.id} style={this.props.styles}>
-        <Message error color="red" onDismiss={this.props.handleClose}>
-          <Message.Header>
-            <Icon name="warning sign" /> {name}
-          </Message.Header>
-          <Message.Content>
-            <div>
-              {code}
-              {message}
-            </div>
-            {stack}
-          </Message.Content>
-        </Message>
+        </List>
+      )
+    stack = (
+      <div>
+        <Divider />
+        <Collapse>
+          <Panel key="stack-trace" header="Stack Trace">
+            {trace}
+          </Panel>
+        </Collapse>
       </div>
-    );
+    )
   }
-}
 
+  const key = `error-${yeast()}`
+  notification.error({
+    key,
+    message: name,
+    description: (
+      <div>
+        {code}
+        {message}
+        {stack}
+      </div>
+    ),
+    onClose: () => notification.close(key),
+  })
+}
 export default connect(
   {
-    error: state`app.error`
+    error: state`app.error`,
   },
-  class Snackbar extends Component {
-    componentDidUpdate() {
-      const { error = null } = this.props;
-      if (isNil(error) || (isArray(error) && isEmpty(error))) {
-        return;
-      }
-      if (isArray(error)) {
-        error.map(err => Alert.error("error", { customFields: { error } }));
-        return;
-      }
-      Alert.error("error", { customFields: { error } });
+  ({ error = null }) => {
+    if (_.isNil(error) || (_.isArray(error) && _.isEmpty(error))) {
+      return
     }
-    render() {
-      return (
-        <Alert
-          stack={{ limit: 3 }}
-          position="top"
-          timeout={50000}
-          effect="flip"
-          contentTemplate={ErrorTemplate}
-        />
-      );
+    if (_.isArray(error)) {
+      error.map(process)
+      return
     }
+
+    process(error)
   }
-);
+)

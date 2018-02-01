@@ -3,10 +3,11 @@ import { Helmet } from 'react-helmet'
 
 import { connect } from '@cerebral/react'
 import { state, signal } from 'cerebral/tags'
-import { Sidebar, Container } from 'semantic-ui-react'
+import { Layout, BackTop, Icon } from 'antd'
+import styled from 'styled-components'
 
 import Navbar from './Navbar'
-import Header from './Header'
+import Title from './Title'
 import {
   FrameworkSummaryPage,
   HomePage,
@@ -17,12 +18,19 @@ import {
   AgentsPage,
   AboutPage,
 } from '../Pages'
-import Footer from './Footer'
 import Snackbar from './Snackbar'
 
-import './App.css'
+import carmlImage from '../../assets/images/carml_small.png'
+import c3srImage from '../../assets/images/C3SR_color.jpg'
+import uiucImage from '../../assets/images/uiuc_logo_small.png'
 
-const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif'
+const { Header, Footer, Content } = Layout
+
+const Body = styled.div`
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+`
 
 export default connect(
   {
@@ -65,35 +73,58 @@ export default connect(
           Page = HomePage
           break
       }
-
       return (
-        <div className="App">
+        <Body>
           <Helmet>
             <meta charSet="utf-8" />
             <title>{this.props.appName}</title>
             <link rel="canonical" href={this.props.websiteUrl} />
           </Helmet>
-          <Sidebar.Pusher style={{ border: 0, borderRadius: 0 }}>
+          <Layout>
+            <Header style={{ position: 'fixed', width: '100%' }}>
+              <Navbar />
+            </Header>
             <main>
-              <Snackbar />
-              <div className="App-content">
-                <Navbar />
-                <Header />
-                <Container className="App-body" style={{ borderRadius: 0, border: 0, fontFamily }}>
+              <Content style={{ padding: '0 50px', marginTop: 64 }}>
+                <Snackbar />
+                <Layout>
+                  <BackTop />
+                  <Title />
                   <Page key={`page-${this.props.currentPage}`} />
-                </Container>
-              </div>
-              <div
-                className="App-footer"
-                style={{
-                  fontFamily,
-                }}
-              >
-                <Footer />
-              </div>
+                </Layout>
+              </Content>
             </main>
-          </Sidebar.Pusher>
-        </div>
+            {false && (
+              <Footer>
+                <img
+                  src={carmlImage}
+                  size="tiny"
+                  floated="right"
+                  alt="carml"
+                  href="https://github.com/rai-project/carml"
+                />
+                <img
+                  src={c3srImage}
+                  size="small"
+                  floated="right"
+                  alt="illinois"
+                  href="http://c3sr.hwu.crhc.illinois.edu"
+                />
+                <img
+                  src={uiucImage}
+                  size="small"
+                  floated="right"
+                  alt="impact"
+                  href="http://impact.crhc.illinois.edu/"
+                />
+                <h3>
+                  <Icon name="github" />
+                  rai-project/carml
+                </h3>
+              </Footer>
+            )}
+          </Layout>
+        </Body>
       )
     }
   }

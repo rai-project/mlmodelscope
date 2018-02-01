@@ -15,6 +15,7 @@
     "no-underscore-dangle": 0,
     "no-undef": "off",
     "camelcase": "off",
+    "no-shadow": ["error", { "allow": ["_"] }],
 
     /* jsx */
     "jsx-a11y/no-static-element-interactions": 1,
