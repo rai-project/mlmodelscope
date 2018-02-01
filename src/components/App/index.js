@@ -86,7 +86,7 @@ export default connect(
             </Header>
             <main>
               <Content style={{ padding: '0 50px', marginTop: 64 }}>
-                <Snackbar />
+                {false && <Snackbar />}
                 <Layout>
                   <BackTop />
                   <Title />

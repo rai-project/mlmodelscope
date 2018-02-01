@@ -3,31 +3,45 @@ import { connect } from '@cerebral/react'
 import { state, signal } from 'cerebral/tags'
 import Tour from 'reactour'
 import yeast from 'yeast'
-import { keys, size, map, isNil, isEmpty, assignIn, values, uniqBy } from 'lodash'
-import { Container, Grid, Divider, Button, Input, Loader, Tab, Form, List, Checkbox, Dropdown } from 'semantic-ui-react'
+import _ from 'lodash'
+import { Layout, Grid, Divider, Button, Row, Col, Checkbox, Input, Dropdown, Menu, Select } from 'antd'
+import { Container, Loader, Tab, Form, List } from 'semantic-ui-react'
 
 import UploadArea from '../UploadArea'
 import { Selector as ModelSelector } from '../Model'
 
-const fontFamily = '"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif'
+const { Header, Content, Footer } = Layout
+const { Option } = Select
 
-const trace_options = [
-  { key: 0, text: 'None', value: 'NO_TRACE' },
-  { key: 1, text: 'Step', value: 'STEP_TRACE' },
-  { key: 2, text: 'Framework', value: 'FRAMEWORK_TRACE' },
-  { key: 3, text: 'CPU', value: 'CPU_ONLY_TRACE' },
-  { key: 4, text: 'Hardware', value: 'HARDWARE_TRACE' },
-  { key: 5, text: 'Full', value: 'FULL_TRACE' },
-]
+const mkOption = ({ key, text, value }) => (
+  <Option key={key} value={value}>
+    {text}
+  </Option>
+)
 
-const datasetOptions = [
-  { key: 0, value: 'ilsvrc2012', text: 'vision/ilsvrc2012' },
-  { key: 1, value: 'cifar10', text: 'vision/cifar10' },
-  { key: 2, value: 'cifar100', text: 'vision/cifar100' },
-  { key: 3, value: 'caltech256', text: 'vision/caltech256' },
-  { key: 4, value: 'mnist', text: 'vision/mnist' },
-  { key: 5, value: 'custom', text: 'vision/custom' },
-]
+const traceOptions = _.map(
+  [
+    { key: 0, text: 'None', value: 'NO_TRACE' },
+    { key: 1, text: 'Step', value: 'STEP_TRACE' },
+    { key: 2, text: 'Framework', value: 'FRAMEWORK_TRACE' },
+    { key: 3, text: 'CPU', value: 'CPU_ONLY_TRACE' },
+    { key: 4, text: 'Hardware', value: 'HARDWARE_TRACE' },
+    { key: 5, text: 'Full', value: 'FULL_TRACE' },
+  ],
+  mkOption
+)
+
+const datasetOptions = _.map(
+  [
+    { key: 0, value: 'ilsvrc2012', text: 'vision/ilsvrc2012' },
+    { key: 1, value: 'cifar10', text: 'vision/cifar10' },
+    { key: 2, value: 'cifar100', text: 'vision/cifar100' },
+    { key: 3, value: 'caltech256', text: 'vision/caltech256' },
+    { key: 4, value: 'mnist', text: 'vision/mnist' },
+    { key: 5, value: 'custom', text: 'vision/custom' },
+  ],
+  mkOption
+)
 
 export default connect(
   {
@@ -60,7 +74,7 @@ export default connect(
     }
 
     steps = () =>
-      map(
+      _.map(
         [
           {
             selector: '[data-tut="main-header"]',
@@ -161,7 +175,7 @@ export default connect(
           // ...
         ],
         e =>
-          assignIn(e, {
+          _.assignIn(e, {
             style: {
               ...e.style,
               '--reactour-accent': '#0db7c4',
@@ -191,7 +205,7 @@ export default connect(
 
     onUploadSuccess = files => {
       const { predictInputsSet } = this.props
-      const uploadURLs = values(files).map(file => file.uploadURL)
+      const uploadURLs = _.map(file => file.uploadURL)
       predictInputsSet({ predictURLs: uploadURLs })
     }
 
@@ -212,7 +226,7 @@ export default connect(
         isTutorial,
       } = this.props
 
-      const agentsDropdownData = map(uniqBy(agents, 'hostname'), agent => ({
+      const agentsDropdownData = _.map(_.uniqBy(agents, 'hostname'), agent => ({
         key: yeast(),
         text: agent.hostname,
         value: `${agent.host}`,
@@ -221,142 +235,143 @@ export default connect(
       const { isTourOpen, isModelSelectorOpen } = this.state
       return (
         <div>
-          <Container
-            text
-            style={{
-              fontFamily,
-            }}
-          >
-            <Grid data-tut="select-model" data-tut2="select-tracelevel">
-              <Grid.Row centered columns={1}>
+          <div data-tut="select-model" data-tut2="select-tracelevel">
+            <Row justify="space-around" align="middle">
+              <Col span={24}>
                 <ModelSelector open={isModelSelectorOpen} />
-              </Grid.Row>
-              <Grid.Row centered stretched>
-                <Grid.Column width={4} style={{ paddingLeft: 0, paddingTop: '10px' }}>
-                  <Checkbox
-                    toggle
-                    data-tut="select-accelerator"
-                    checked={device === 'GPU'}
-                    label={device === 'GPU' ? 'Using GPU' : 'Using CPU'}
-                    onChange={() => {
-                      if (device === 'GPU') {
-                        deviceChanged({ device: 'CPU' })
-                      } else {
-                        deviceChanged({ device: 'GPU' })
-                      }
-                    }}
-                  />
-                </Grid.Column>
-                <Grid.Column width={5}>
-                  <Input
-                    fluid
-                    data-tut="select-batchsize"
-                    placeholder="Batch Size (default: 1)"
-                    onChange={e => batchSizeChanged({ batchSize: e.target.value })}
-                  />
-                </Grid.Column>
-                <Grid.Column width={7} style={{ paddingRight: 0 }}>
-                  <Dropdown
-                    selection
-                    options={trace_options}
-                    placeholder="Trace Level (default: Full)"
-                    onChange={(e, { value }) => {
-                      traceLevelChanged({ traceLevel: value })
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row centered columns={1}>
-                <Dropdown
-                  selection
-                  options={agentsDropdownData}
+              </Col>
+            </Row>
+            <Row type="flex" justify="space-around" align="middle">
+              <Col span={6}>
+                <Checkbox
+                  toggle
+                  data-tut="select-accelerator"
+                  checked={device === 'GPU'}
+                  onChange={() => {
+                    if (device === 'GPU') {
+                      deviceChanged({ device: 'CPU' })
+                    } else {
+                      deviceChanged({ device: 'GPU' })
+                    }
+                  }}
+                >
+                  {device === 'GPU' ? 'Using GPU' : 'Using CPU'}
+                </Checkbox>
+              </Col>
+              <Col span={6}>
+                <Input
+                  data-tut="select-batchsize"
+                  placeholder="Batch Size (default: 1)"
+                  onChange={e => batchSizeChanged({ batchSize: e.target.value })}
+                />
+              </Col>
+              <Col span={6}>
+                <Select
+                  placeholder="Trace Level (default: Full)"
+                  onChange={value => {
+                    traceLevelChanged({ traceLevel: value })
+                  }}
+                  style={{ width: 300 }}
+                >
+                  {traceOptions}
+                </Select>
+              </Col>
+            </Row>
+            <Row justify="center" type="flex">
+              <Col span={24}>
+                <Select
                   placeholder="Agent Selection (default: Random)"
                   onChange={(e, { value }) => agentChanged({ agent: value })}
-                />
-              </Grid.Row>
-              <Grid.Row centered columns={1}>
-                <Tab
-                  menu={{ secondary: true, pointing: true }}
-                  data-tut="select-datainput"
-                  panes={[
-                    {
-                      menuItem: 'URL',
-                      render: () => (
-                        <div>
-                          <Form
-                            onSubmit={e => {
-                              e.preventDefault()
-                              predictURLAdded()
-                            }}
-                          >
-                            <Input
-                              fluid
-                              placeholder="http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
-                              onChange={e =>
-                                predictURLChanged({
-                                  predictURL: e.target.value,
-                                })
-                              }
-                            />
-                          </Form>
-                          {isNil(predictInputs) ? null : (
-                            <List>
-                              {predictInputs.map((item, index) => (
-                                <List.Item key={yeast()} index={index}>
-                                  {item}
-                                </List.Item>
-                              ))}
-                            </List>
-                          )}
-                        </div>
-                      ),
-                    },
-                    {
-                      menuItem: 'Upload',
-                      render: () => <UploadArea onUploadSuccess={this.onUploadSuccess} />,
-                    },
-                    {
-                      menuItem: 'Dataset',
-                      render: () => (
-                        <Dropdown placeholder="Select Dataset" fluid search selection options={datasetOptions} />
-                      ),
-                    },
-                  ]}
-                />
-              </Grid.Row>
-              <Divider horizontal />
-              <Grid.Row centered columns={1} style={{ paddingTop: '2em' }}>
-                <Container textAlign="center">
-                  <Button
-                    data-tut="select-predict"
-                    as="a"
-                    size="massive"
-                    style={{
-                      color: 'white',
-                      backgroundColor: '#0DB7C4',
-                      borderColor: '#0DB7C4',
-                    }}
-                    disabled={size(keys(selectedModels)) === 0}
-                    onClick={() => {
-                      if (isEmpty(predictInputs)) {
-                        predictURLAdded()
-                      }
-                      inferenceButtonClicked()
-                    }}
-                  >
-                    {isPredicting === true ? (
-                      <Loader active inline inverted>
-                        Predicting
-                      </Loader>
-                    ) : (
-                      'Predict'
-                    )}
-                  </Button>
-                </Container>
-              </Grid.Row>
-            </Grid>
-          </Container>
-          <Tour steps={this.steps()} isOpen={isTourOpen || isTutorial} onRequestClose={this.closeTour} />
+                  style={{ width: '50%' }}
+                >
+                  {agentsDropdownData}
+                </Select>
+              </Col>
+            </Row>
+            {/*
+            <Row justify="center" type="flex">
+              <Tab
+                menu={{ secondary: true, pointing: true }}
+                data-tut="select-datainput"
+                panes={[
+                  {
+                    menuItem: 'URL',
+                    render: () => (
+                      <div>
+                        <Form
+                          onSubmit={e => {
+                            e.preventDefault()
+                            predictURLAdded()
+                          }}
+                        >
+                          <Input
+                            fluid
+                            placeholder="http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
+                            onChange={e =>
+                              predictURLChanged({
+                                predictURL: e.target.value,
+                              })
+                            }
+                          />
+                        </Form>
+                        {_.isNil(predictInputs) ? null : (
+                          <List>
+                            {_.map(predictInputs, (item, index) => (
+                              <List.Item key={yeast()} index={index}>
+                                {item}
+                              </List.Item>
+                            ))}
+                          </List>
+                        )}
+                      </div>
+                    ),
+                  },
+                  {
+                    menuItem: 'Upload',
+                    render: () => <UploadArea onUploadSuccess={this.onUploadSuccess} />,
+                  },
+                  {
+                    menuItem: 'Dataset',
+                    render: () => (
+                      <Dropdown placeholder="Select Dataset" fluid search selection options={datasetOptions} />
+                    ),
+                  },
+                ]}
+              />
+            </Row>
+            <Divider horizontal />
+            <Row justify="center" type="flex" style={{ paddingTop: '2em' }}>
+              <Container textAlign="center">
+                <Button
+                  data-tut="select-predict"
+                  as="a"
+                  size="massive"
+                  style={{
+                    color: 'white',
+                    backgroundColor: '#0DB7C4',
+                    borderColor: '#0DB7C4',
+                  }}
+                  disabled={_.size(_.keys(selectedModels)) === 0}
+                  onClick={() => {
+                    if (_.isEmpty(predictInputs)) {
+                      predictURLAdded()
+                    }
+                    inferenceButtonClicked()
+                  }}
+                >
+                  {isPredicting === true ? (
+                    <Loader active inline inverted>
+                      Predicting
+                    </Loader>
+                  ) : (
+                    'Predict'
+                  )}
+                </Button>
+              </Container>
+            </Row>
+                */}
+          </div>
+          {/* <Tour steps={this.steps()} isOpen={isTourOpen || isTutorial} onRequestClose={this.closeTour} /> */}
         </div>
       )
     }
