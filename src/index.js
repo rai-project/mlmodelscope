@@ -41,7 +41,7 @@ function renderApp() {
         registrations.map(registration => registration.unregister())
       })
     } catch (e) {
-      throw e
+      console.log({ error: e })
     }
   }
 
