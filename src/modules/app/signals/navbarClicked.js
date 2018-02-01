@@ -1,10 +1,10 @@
-import { redirect } from "@cerebral/router/operators";
-import { set, equals } from "cerebral/operators";
-import { state, props, string } from "cerebral/tags";
+import { redirect } from '@cerebral/router/operators'
+import { set, equals } from 'cerebral/operators'
+import { state, props, string } from 'cerebral/tags'
 
-import resetError from "../../common/chains/resetError";
-import openTutorial from "./openTutorial";
-import closeTutorial from "./closeTutorial";
+import resetError from '../../common/chains/resetError'
+import openTutorial from './openTutorial'
+import closeTutorial from './closeTutorial'
 
 export default [
   ...resetError,
@@ -17,6 +17,6 @@ export default [
     Frameworks: [redirect(string`/frameworks`)],
     Models: [redirect(string`/models`)],
     Agents: [redirect(string`/agents`)],
-    About: [redirect(string`/about/introduction`)]
-  }
-];
+    About: [redirect(string`/about/introduction`)],
+  },
+]

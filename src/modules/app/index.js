@@ -59,6 +59,21 @@ export default Module({
   modules: {
     models,
     model,
+    router: Router({
+      routes: {
+        '/': 'homeRouted',
+        '/models': 'modelsRouted',
+        '/model/:name/:version': 'model.modelRouted',
+        '/frameworks': 'frameworksRouted',
+        '/framework/:name/:version': 'frameworkRouted',
+        '/agents': 'agentsRouted',
+        '/agent/:host/:port': 'agentRouted',
+        '/about': 'aboutRouted',
+        '/about/:name': 'aboutPageRouted',
+      }, // Route definitions
+
+      onlyHash: false, // Use hash urls
+    }),
     useragent: UseragentModule({
       media: {
         unsupported: '(max-width: 550px)',
@@ -99,20 +114,7 @@ export default Module({
     closeTutorial,
     aboutPageRouted,
   },
-  router: Router({
-    routes: {
-      '/': 'app.homeRouted',
-      '/models': 'app.modelsRouted',
-      '/model/:name/:version': 'model.modelRouted',
-      '/frameworks': 'app.frameworksRouted',
-      '/framework/:name/:version': 'app.frameworkRouted',
-      '/agents': 'app.agentsRouted',
-      '/agent/:host/:port': 'app.agentRouted',
-      '/about': 'app.aboutRouted',
-      '/about/:name': 'app.aboutPageRouted',
-    }, // Route definitions
-    onlyHash: true, // Use hash urls
-  }),
+
   providers: {
     http: HttpProvider({
       // Prefix all requests with this url
