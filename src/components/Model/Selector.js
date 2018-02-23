@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from '@cerebral/react'
 import { state, signal } from 'cerebral/tags'
-import { Dropdown } from 'semantic-ui-react'
-import { isNil } from 'lodash'
+import { Select, Avatar } from 'antd'
+import idx from 'idx'
+import _ from 'lodash'
 
 import visableModel from '../../computed/visableModels'
 import * as logos from '../../assets/logos'
@@ -17,52 +18,60 @@ export default connect(
   class ModelSelector extends React.Component {
     componentDidMount() {
       const { modelInformationsRequest } = this.props
-      if (isNil(modelInformationsRequest)) {
+      if (_.isNil(modelInformationsRequest)) {
         return
       }
       modelInformationsRequest()
     }
     render() {
-      const { models, selectedModels, open, modelSelected } = this.props
+      const { models, selectedModels = [], open, modelSelected } = this.props
 
       if (!models || models.length === 0) {
         return <div />
       }
-      let ii = 0
-      const selectors = models.map(model => {
-        ii++
-        return {
-          key: `model-${ii}`,
-          value: JSON.stringify(model),
-          text: model.name,
-          description: `model version ${model.version}`,
-          image: {
-            avatar: true,
-            src: logos[model.framework.name.toLowerCase()],
-          },
-        }
+
+      const groupedModels = _.groupBy(models, e => idx(e, _ => _.framework.name))
+      const options = _.map(groupedModels, (frameworkModels, frameworkName) => {
+        const withFrameworkIcon = e => (
+          <div>
+            <Avatar shape="square" size="small" src={logos[frameworkName.toLowerCase()]} />
+            {e}
+          </div>
+        )
+        const es = frameworkModels.map(model => (
+          <Select.Option
+            key={`select-${frameworkName}-${model.name}`}
+            value={JSON.stringify(model)}
+            description={`model version ${model.version}`}
+          >
+            {withFrameworkIcon(model.name)}
+          </Select.Option>
+        ))
+        return (
+          <Select.OptGroup key={`select-${frameworkName}`} label={withFrameworkIcon(frameworkName)}>
+            {es}
+          </Select.OptGroup>
+        )
       })
 
       const extraOpts = {}
+
       if (open && selectedModels.length === 0) {
         extraOpts.open = true
       }
       return (
-        <Dropdown
-          fluid
-          search
-          selection
-          multiple
-          options={selectors}
+        <Select
+          mode="multiple"
+          style={{ width: '100%' }}
           placeholder="Select your Neural Network Model"
-          searchInput={{ type: 'text' }}
-          onChange={(e, { value }) => {
+          onChange={value => {
             modelSelected({
               manifests: value.map(v => JSON.parse(v)),
             })
           }}
-          {...extraOpts}
-        />
+        >
+          {options}
+        </Select>
       )
     }
   }

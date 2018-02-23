@@ -229,7 +229,7 @@
   },
   "proxy": {
     "/api": {
-      "target": "http://localhost:8088",
+      "target": "http://www.mlmodelscope.org:80",
       "ws": true
     }
   }
