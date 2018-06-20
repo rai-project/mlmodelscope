@@ -31,6 +31,7 @@ before_script:
 - ls -R $HOME/protobuf
 install:
 - cd ${TRAVIS_BUILD_DIR}
+- go get github.com/tools/godep
 - go get github.com/mjibson/esc
 - go get github.com/Masterminds/glide
 - go get github.com/golang/dep/cmd/dep
@@ -44,7 +45,11 @@ install:
 - go get google.golang.org/grpc
 - go get github.com/gogo/protobuf/{proto,gogoproto,protoc-gen-gofast,protoc-gen-gogoslick}
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
-- go get github.com/goreleaser/goreleaser
+- go get -d github.com/goreleaser/goreleaser
+- cd $GOPATH/src/github.com/goreleaser/goreleaser
+- dep ensure -vendor-only
+- make setup build
+- cd ${TRAVIS_BUILD_DIR}
 - go get golang.org/x/crypto/acme/autocert
 - glide install --force
 - yarn install
