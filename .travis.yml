@@ -49,6 +49,7 @@ install:
 - cd $GOPATH/src/github.com/goreleaser/goreleaser
 - dep ensure -vendor-only
 - make setup build
+- go install
 - cd ${TRAVIS_BUILD_DIR}
 - go get golang.org/x/crypto/acme/autocert
 - glide install --force
