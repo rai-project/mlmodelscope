@@ -27,6 +27,7 @@ import:
   version: ~1.2.1
 - package: github.com/rai-project/config
 - package: github.com/rai-project/dlframework
+  version: master
   subpackages:
   - http
   - httpapi/restapi
