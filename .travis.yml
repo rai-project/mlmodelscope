@@ -29,6 +29,7 @@ install:
 - gem install fpm
 before_script:
 - ls -R $HOME/protobuf
+- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 install:
 - cd ${TRAVIS_BUILD_DIR}
 - go get github.com/tools/godep
@@ -52,7 +53,6 @@ install:
 - go install
 - cd ${TRAVIS_BUILD_DIR}
 - go get golang.org/x/crypto/acme/autocert
-- glide install --force
 - yarn install
 - yarn bundle
 - rm -fr vendor/github.com/Sirupsen
