@@ -390,7 +390,7 @@ http://dirk.eddelbuettel.com/blog/2018/04/15/
 ### Install CNTK
 
 ```
-./configure --cuda=yes --with-cub=../cub --with-deps=yes  --with-cuda=/usr/local/cuda --with-cudnn=/usr/local --python=no --java=no --with-protobuf=/usr/lib/x86_64-linux-gnu --mpi=no --with-deps=yes
+./configure --cuda=yes --with-cub=../cub --with-deps=yes  --with-cuda=/usr/local/cuda --with-cudnn=/usr/local --python=no --java=no --with-protobuf=/usr/lib/x86_64-linux-gnu --mpi=no --with-deps=yes --with-mkl=/opt/intel/mkl
 ```
 
 
