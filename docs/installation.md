@@ -365,3 +365,20 @@ export GODEBUG=cgocheck=0
 ```
 
 in your  `~/.bashrc` or `~/.zshrc` file and then run either `source ~/.bashrc` or `source ~/.zshrc`
+
+### Errors About Intel Intrinsics
+
+See https://github.com/tensorflow/tensorflow/issues/10220#issuecomment-352110064
+
+```
+for f in avx512fintrin.h avx512pfintrin.h avx512vlintrin.h; do
+   curl -H "User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36" -o $f "https://gcc.gnu.org/viewcvs/gcc/branches/gcc-5-branch/gcc/config/i386/${f}?view=co&revision=245536&content-type=text%2Fplain&pathrev=245536"
+done && sudo mv avx512*intrin.h  /usr/lib/gcc/x86_64-linux-gnu/5/include/
+```
+
+### Debugging CGO Build
+
+```
+go build -x .
+```
+
