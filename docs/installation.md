@@ -382,3 +382,14 @@ done && sudo mv avx512*intrin.h  /usr/lib/gcc/x86_64-linux-gnu/5/include/
 go build -x .
 ```
 
+### Install MKL
+
+http://dirk.eddelbuettel.com/blog/2018/04/15/
+
+
+### Install CNTK
+
+```
+
+```
+
