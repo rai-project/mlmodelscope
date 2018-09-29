@@ -36,6 +36,18 @@ func Start(addr string) {
 	e.Use(AllowCrossOrigin())
 	e.Use(AllowTracedHeaders())
 
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{
+			"https://carml.org",
+			"https://www.carml.org",
+			"https://mlmodelscope.org",
+			"https://www.mlmodelscope.org",
+			"https://mlmodelscope.netlify.com",
+		},
+		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
+
 	chain := []func(*echo.Echo) error{
 		pprofRoutes,
 		swaggerUIAssets,
