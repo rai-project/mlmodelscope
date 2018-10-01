@@ -33,7 +33,7 @@ func Start(addr string) {
 			return uuid.NewV4()
 		},
 	}))
-	e.Use(AllowCrossOrigin())
+	//e.Use(AllowCrossOrigin())
 	e.Use(AllowTracedHeaders())
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -44,8 +44,9 @@ func Start(addr string) {
 			"https://www.mlmodelscope.org",
 			"https://mlmodelscope.netlify.com",
 		},
-		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowCredentials: true,
 	}))
 
 	chain := []func(*echo.Echo) error{
