@@ -30,7 +30,7 @@ var date = moment.utc();
 var version = date.format("YYYY-MM-DDTHH:mm:ss") + "Z";
 var releaseTag = date.format("YYYY-MM-DDTHH-mm-ss") + "Z";
 var buildType = "production";
-var assetsFileName = "pkg/web/bindata_assetfs.go";
+var assetsFileName = "pkg/bindata_assetfs.go";
 var currentDir = __dirname;
 if (process.env.IO_UI_BUILD) buildType = process.env.IO_UI_BUILD;
 
