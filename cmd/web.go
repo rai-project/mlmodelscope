@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/rai-project/carml/pkg/web"
+	"github.com/rai-project/mlmodelscope/pkg/web"
 	"github.com/spf13/cobra"
 )
 

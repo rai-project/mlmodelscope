@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/pkg/profile"
-	"github.com/rai-project/carml/cmd"
+	"github.com/rai-project/mlmodelscope/cmd"
 )
 
 func pprof() {
