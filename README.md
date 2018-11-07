@@ -5,7 +5,6 @@
 [![](https://images.microbadger.com/badges/image/carml/web:amd64.svg)](https://microbadger.com/images/carml/web:amd64 "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/carml/web:amd64.svg)](https://microbadger.com/images/carml/web:amd64 "Get your own version badge on microbadger.com")
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # [Documentation](https://docs.mlmodelscope.org/)
 
