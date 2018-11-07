@@ -7,44 +7,35 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-# [Documentation](https://rai-project.github.io/carml/)
-
-## [Installation Manual](https://rai-project.github.io/carml/#/installation)
-
-
-# Introduction
-
-The recent wide spread of different open sourced machine learning (ML) software, including deep-learning (DL) frameworks, has inspired 
-a great deal of innovation among different users, ranging from framework developers (who develop ML/DL software and frameworks), 
-model developers (who develop ML/DL models), model users (who consumes the models for either model training or model inferencing), 
-and system builders (who develop underlying hardware systems and infrastructures to support the computation of ML/DL workloads). 
-A central task for all of these users experience (though some may play multiple roles) involves (1) instantiating the right 
-hardware system, (2) installing the right ML/DL software packages with dependencies, (3) installing the right ML/DL models and 
-related dataset, (4) configuring the system, software, and models to work together to run the expiriments, and (5) collecting and 
-analyzing experiment results for the needed use case.
-
-The current process of experimenting with different machine learning (ML) packages and deep learning (DL) frameworks as well as their corresponding ML/DL models is, however, daunting. 
-Most likely, many pages of documentation (if available) must be followed to install one ML and/or DL framework, followed by a process to download and use a particular MD and/or DL model. Not to mention the complexity involved with different hardware system configurations and their interplay with any users preexisting system software installation and their complex dependencies.
-
-The CarML (Cognitive ARtifacts for Machine Learning) is a platform allowing people to easily deploy and experiment ML/DL frameworks and models. It allows ML/DL software developers to deploy their software packages, ML model developers to publish and evaluate their models, 
-users to experiment with different models and frameworks, all through a web user interface or a REST api, and system architects to capture system resource usage to inform future system and hardware configuration.
-
-From a user's point of view, CarML simplifies this by offering a repository (also called a model zoo) of different ML models that can be readily used.
-From a ML developer's point of view, CarML offers exposure of the developed model as well as informs the model developer of how the model behaves on real workloads.
+# [Documentation](https://docs.mlmodelscope.org/)
 
 
 
-## Goals
+The current landscape of Machine Learning (ML) and Deep Learning (DL) is rife with non-uniform models, frameworks, and system stacks but lacks standard tools to evaluate and profile models or systems.
+Due to the absence of such tools, the current practice for evaluating and comparing the benefits of proposed AI innovations (be it hardware or software) on end-to-end AI pipelines is both arduous and error prone --- stifling the adoption of the innovations.
 
-The aim is to bridge the gap between machine learning developer and user. This is done by:
+MLModelScope is a hardware/software agnostic, extensible and customizable platform for evaluating and profiling ML models across datasets/frameworks/hardware, and within AI application pipelines.
+MLModelScope lowers the cost and effort for performing model evaluation and profiling, making it easier for others to reproduce, evaluate, and analyze acurracy or performance claims of models and systems.
 
-1.  Allowing users to experiment with machine learning models through a simple and common interface (this can be a web interface of API endpoints)
-2.  Allowing users to use machine learning models that utilize either cutting edge and/or esoteric frameworks (Tensorflow, Caffe, etc...)
-3.  Making it easier for machine learning developers to advertise and deploy their models, gathering extra data (such as failure points) and calculating realistic accuracy results
-4.  Informing the machine learning framework developers on what layers are common and where the difficulties of using and deploying the models are
-5.  Advising the hardware vendors on the choke points (from hardware resources perspective) that are encountered when running machine learning work load
+It is designed to aid in:
 
-CarML, as it currently stands, is a deep learning inference paradigm allowing developers to deploy their deep learning framework and models --- making them available through a common interface. 
-Information about the [architecture](architecture.md) along with the [user interface](webui.md) are discussed in their corresponding sections.
+1. reproducing and comparing with published models, and designing models with performance and deployment in mind,
+2. understanding the model performance (within realworld AI workflows) and its interaction with all levels of the hardware/software stack
+3. discovering models, frameworks and hardware that are applicable to users' datasets.
 
 
+To achieve this, MLModelScope:
+
+- Provides a consistent evaluation, aggregation, and reporting system by defining
+  - techniques to specify and provision workflows with HW/SW stacks
+  - abstractions for evaluation and profiling using different frameworks
+  - data consumption for evaluation outputs
+- Enables profiling of experiments throughout the entire pipeline and at different abstraction levels (application, model, framework, layer, library and hardware, as shown on the right)
+- Is framework and hardware agnostic - with current support for TensorFlow, MXNet, TensorRT, Caffe, Caffe2, CNTK running on X86, PowerPC, and ARM CPU with GPU and FPGA
+- Is extensible and customizable - allowing users to extend MLModelScope by adding models, frameworks, or library and system profilers, and use
+- Can run experiments on separate machines, and behind firewall (does not exposing model weights or machine specification)
+- Allows parallel evaluation (multiple instantiations of the same experiment set-up across systems)
+- Specifies model and framework resources as asset files which can be added easily, even at runtime
+
+
+MLModelScope can be used as an application with a command line, API or web interface, or can be compiled into a standalone library. We also provide an online hub of continuously updated assets, evaluation results, and access to hardware resources — allowing users to discover and evaluate models without installing or configuring systems.
