@@ -1,0 +1,30 @@
+.GlobalFooter-block {
+  display: inline;
+  margin-left: 40px;
+  color: white;
+  text-decoration: none;
+}
+
+.GlobalFooter-block-right {
+  display: inline;
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+}
+
+.C3SR-logo {
+  height: 60px;
+}
+
+.IBM-logo {
+  height: 20px;
+}
+
+.UIUC-logo {
+  height: 20px;
+}
+
+.GlobalFooter-text {
+  font-size: 1.5em;
+  padding: 15px;
+}

@@ -7,15 +7,19 @@
     {{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> parameters.{{&camelCaseName}} - {{&description}}{{/isSingleton}}
 {{/parameters}}
  */
-export function {{&methodName}}(params){
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = '{{&path}}';
-    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = params.headers || {}, form = {};
+export async function {{&methodName}}(params){
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = baseURL + '/api{{&path}}';
+    {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
+
+    if (params && params.headers) {
+        headers = params.headers;
+    }
 
     {{#isSecure}}
         headers = this.setAuthHeaders(headers);
     {{/isSecure}}
     {{#headers}}
-        headers['{{&name}}'] = [{{&value}}];
+        headers['{{&name}}'] = {{&value}};
     {{/headers}}
 
     if (has(params, "requestId")) {
@@ -26,8 +30,10 @@ export function {{&methodName}}(params){
         headers['X-Request-ID'] = uuid();
     }
 
+    if (!has(headers, "Content-Type")) {
+        headers["Content-Type"] =  "application/json; charset=utf-8";
+    }
 
-  return function {{&methodName}}Request({ http, path, resolve }) {
 
     let parameters = params;
 
@@ -44,7 +50,7 @@ export function {{&methodName}}(params){
                 {{#isPatternType}}
                     Object.keys(parameters).forEach(function(parameterName) {
                         if(new RegExp('{{&pattern}}').test(parameterName)){
-                            queryParameters[parameterName] = resolve.value(parameters[parameterName]);
+                            queryParameters[parameterName] = parameters[parameterName];
                         }
                     });
                 {{/isPatternType}}
@@ -55,7 +61,7 @@ export function {{&methodName}}(params){
 
                 {{^isPatternType}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    queryParameters['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
+                    queryParameters['{{&name}}'] = parameters['{{&camelCaseName}}'];
                 }
                 {{/isPatternType}}
             {{/isSingleton}}
@@ -71,14 +77,14 @@ export function {{&methodName}}(params){
             {{/isSingleton}}
             {{^isSingleton}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    headers['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
+                    headers['{{&name}}'] = parameters['{{&camelCaseName}}'];
                 }
             {{/isSingleton}}
         {{/isHeaderParameter}}
 
         {{#isBodyParameter}}
             if(parameters['{{&camelCaseName}}'] !== undefined){
-                body = resolve.value(parameters['{{&camelCaseName}}']);
+                parameters['body'] = JSON.stringify(parameters['{{&camelCaseName}}']);
             }
         {{/isBodyParameter}}
 
@@ -88,7 +94,7 @@ export function {{&methodName}}(params){
             {{/isSingleton}}
             {{^isSingleton}}
                 if(parameters['{{&camelCaseName}}'] !== undefined){
-                    form['{{&name}}'] = resolve.value(parameters['{{&camelCaseName}}']);
+                    form['{{&name}}'] = parameters['{{&camelCaseName}}'];
                 }
             {{/isSingleton}}
         {{/isFormParameter}}
@@ -102,28 +108,32 @@ export function {{&methodName}}(params){
     {{/parameters}}
     queryParameters = mergeQueryParams(parameters, queryParameters);
 
-    let resolvedBody = undefined;
-    if(body && Object.keys(body).length) {
-      resolvedBody = convertObjectWithTemplates(body, resolve);
-    }
 
 
     const queryParams =
       queryParameters && Object.keys(queryParameters).length
         ? "?" + serializeQueryParams(queryParameters)
         : "";
-    const resolvedURL = resolve.value(urlPath) + queryParams;
 
-    return processResponse(
-      http.request( {
-        url: resolvedURL,
-        query: queryParameters,
+    const creds = {
+        credentials: 'include',
+        cache: 'no-cache',
+        mode :'cors'
+    };
+    const options = {
         method: '{{method}}',
         headers,
-        body: resolvedBody,
-      }),
-      path
-    );
-  }
+        ...parameters,
+        ...creds,
+    };
+    
+    const response =  await fetch(urlPath + queryParams, options);
+    const json = await response.json()
+
+
+    return {
+        ...processHeaders(response.headers),
+        ...json
+    }
  };
 

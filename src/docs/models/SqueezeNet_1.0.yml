@@ -1,0 +1,35 @@
+model: 
+    name: Squeezenet
+    version: "1.0"
+    category: image
+    graph:
+        caffe: https://github.com/DeepScale/SqueezeNet/raw/master/SqueezeNet_v1.0/deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/squeezenet_1.0/squeezenet.json
+manifest:
+    caffe: builtin_models/SqueezeNet-v1.0.yml
+    caffe2: builtin_models/SqueezeNet-v1.0.yml
+    tensorrt: builtin_models/SqueezeNet-v1.0.yml
+    mxnet: builtin_models/SqueezeNet-v1.0.yml
+    tensorflow: builtin_models/SqueezeNet-v1.0.yml
+    cntk: builtin_models/SqueezeNet-v1.0.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    Squeezenet achieves similar results to AlexNet, at 50x fewer parameters and 1/500th the size. Small models are more
+    feasible to deploy on hardware with limited memory, require less communication during distributed training, and are
+    easier to distribute to clients. SqueezeNet achieves 57.5% and 80.3% top-1 and top-5 acuracty on ImageNet.
+references:
+    - https://github.com/DeepScale/SqueezeNet
+    - https://arxiv.org/abs/1602.07360

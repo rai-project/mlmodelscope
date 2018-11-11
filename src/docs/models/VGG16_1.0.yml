@@ -1,0 +1,34 @@
+model: 
+    name: VGG16
+    version: "1.0"
+    category: image
+    graph:
+        caffe: https://gist.githubusercontent.com/ksimonyan/211839e770f7b538e2d8/raw/ded9363bd93ec0c770134f4e387d8aaaaa2407ce/VGG_ILSVRC_16_layers_deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/vgg16_1.0/vgg16.json
+manifest:
+    caffe: builtin_models/VGG16.yml
+    caffe2: builtin_models/VGG16.yml
+    tensorrt: builtin_models/VGG16.yml
+    mxnet: builtin_models/VGG16.yml
+    tensorflow: builtin_models/VGG16.yml
+    cntk: builtin_models/VGG16.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    The model is an improved version of the 16-layer model used by the VGG team in the ILSVRC-2014 competition.
+references:
+    - https://gist.github.com/ksimonyan/211839e770f7b538e2d8
+    - https://github.com/BVLC/caffe/wiki/Model-Zoo#models-used-by-the-vgg-team-in-ilsvrc-2014
+    - https://arxiv.org/abs/1409.1556

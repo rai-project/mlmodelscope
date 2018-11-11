@@ -1,0 +1,17 @@
+.Experiment-setup-sider-bar {
+  padding-top: 30px;
+  padding-left: 40px;
+  padding-bottom: 30px;
+  min-height: 60px;
+  height: auto;
+}
+
+.Experiment-setup-title-bar {
+  background-color: #1A263A;
+  color: white;
+}
+
+.Experiment-setup-selection-bar {
+  background-color: #E8E9EB;
+  border: 1px;
+}

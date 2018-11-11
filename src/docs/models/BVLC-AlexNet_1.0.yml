@@ -1,0 +1,43 @@
+model: 
+    name: BVLC-AlexNet
+    version: "1.0"
+    category: image
+    graph:
+        caffe: https://raw.githubusercontent.com/BVLC/caffe/master/models/bvlc_alexnet/deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/bvlc_alexnet_1.0/BVLC-Alexnet.json
+manifest:
+    caffe: builtin_models/BVLC-AlexNet.yml
+    caffe2: builtin_models/BVLC-AlexNet.yml
+    tensorrt: builtin_models/BVLC-AlexNet.yml
+    mxnet: builtin_models/BVLC-AlexNet.yml
+    tensorflow: builtin_models/BVLC-AlexNet.yml
+    cntk: builtin_models/BVLC-AlexNet.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+  This model is a replication of the model described in the AlexNet publication.
+  Differences: not training with the relighting data-augmentation;
+  initializing non-zero biases to 0.1 instead of 1 (found necessary for training, as initialization to 1 gave flat loss).
+  The bundled model is the iteration 360,000 snapshot. The best validation
+  performance during training was iteration 358,000 with validation accuracy
+  57.258% and loss 1.83948. This model obtains a top-1 accuracy 57.1% and a
+  top-5 accuracy 80.2% on the validation set, using just the center crop.
+  (Using the average of 10 crops, (4 + 1 center) * 2 mirror, should obtain
+  a bit higher accuracy.)
+  This model was trained by Evan Shelhamer @shelhamer
+references:
+  - https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet
+  - https://github.com/BVLC/caffe/wiki/Models-accuracy-on-ImageNet-2012-val
+  - http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf

@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Libre+Baskerville:400');
+
+.LandingPage-introduction {
+  background-image: url("../../resources/landingpage/assets/section1-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 560px;
+  position: relative;
+}
+
+.LandingPage-section2 {
+  background-color: white;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  /* position: relative; */
+}
+
+.LandingPage-section3 {
+  background-image: url("../../resources/landingpage/assets/section3-background.png");
+  background-color: #E8E9EB;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 605px;;
+  position: relative;
+}
+
+.LandingPage-section4 {
+  background-color: #1A263A;
+  padding-bottom: 120px;
+  position: relative;
+}
+
+.LandingPage-section5 {
+  background-image: url("../../resources/landingpage/assets/section5-background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: auto;
+}
+
+.Section1-figure1 {
+  top: 335px;
+  left: 8.3%;
+  height: 225px;
+  width: 120px;
+  position: absolute;
+}
+
+.Section1-figure2 {
+  right: 26.4%;
+  height: 185px;
+  width: 100px;
+  position: absolute;
+}
+
+.Section1-figure3 {
+  left: 52%;
+  height: 60px;
+  width: 90px;
+  position: absolute;
+}
+
+.Section1-figure4 {
+  top: 240px;
+  right: 0%;
+  height: 480px;
+  width: 291px;
+  overflow: auto;
+  position: absolute;
+  z-index: 1;
+}
+
+.Section1-text {
+  top: 180px;
+  left: 25%;
+  width: 33.3%;
+  position: absolute;
+}
+
+.Section2-text {
+  /* margin-top: 120px; */
+  margin-left: 25%;
+  width: 33.3%;
+}
+
+.Section2-cards {
+  margin-top: 60px;
+  margin-left: 25%;
+  width: 66.7%;
+  /* display: flex */
+}
+
+.Section2-card {
+  height: 250px;
+  /* flex: 1; */
+}
+
+.Section2-card-icon {
+  height: 60px;
+  width: 60px;
+}
+
+.Section3-text {
+  top: 120px;
+  left: 25%;
+  width: 33.3%;
+  position: absolute;
+}
+
+.Section3-figure {
+  top: 120px;
+  right: 8.3%;
+  width: 29.2%;
+  position: absolute;
+}
+
+.Section4-text {
+  padding-top: 120px;
+  margin-left: 25%;
+  width: 33.3%;
+}
+
+.Section4-figure1 {
+  margin-top: 20px;
+  margin-left: 13.9%;
+  width: 75%;
+}
+
+.Section5-text {
+  float: left;
+  padding-top: 180px;
+  margin-left: 25%;
+  width: 33.3%;
+}
+
+.Section5-figure {
+  float: right;
+  margin-top: 120px;
+  margin-right: 5.6%;
+  width: 36%;
+}

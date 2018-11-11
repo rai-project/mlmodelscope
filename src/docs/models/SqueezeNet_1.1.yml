@@ -1,0 +1,35 @@
+model: 
+    name: Squeezenet
+    version: "1.1"
+    category: image
+    graph:
+        caffe: https://github.com/DeepScale/SqueezeNet/raw/master/SqueezeNet_v1.1/deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/squeezenet_1.1/squeezenet.json
+manifest:
+    caffe: builtin_models/SqueezeNet-v1.1.yml
+    caffe2: builtin_models/SqueezeNet-v1.1.yml
+    tensorrt: builtin_models/SqueezeNet-v1.1.yml
+    mxnet: builtin_models/SqueezeNet-v1.1.yml
+    tensorflow: builtin_models/SqueezeNet-v1.1.yml
+    cntk: builtin_models/SqueezeNet-v1.1.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    SqueezeNet v1.1 has 2.4x less computation than v1.0, without sacrificing accuracy.
+references:
+    - https://github.com/DeepScale/SqueezeNet
+    - https://arxiv.org/abs/1602.07360
+    - https://github.com/dividiti/ck-caffe/tree/master/package/caffemodel-deepscale-squeezenet-1.1
+    - http://cknowledge.org/repo/web.php?template=cknowledge&&wcid=package:59414348b1bdedb5

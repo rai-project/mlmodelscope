@@ -1,0 +1,37 @@
+model: 
+    name: ResNet101
+    version: "1.0"
+    category: image
+    graph:
+        caffe: http://s3.amazonaws.com/store.carml.org/models/caffe/resnet101/ResNet-101-deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/resnet101_1.0/Resnet101.json
+manifest:
+    caffe: builtin_models/ResNet101.yml
+    caffe2: builtin_models/ResNet101.yml
+    tensorrt: builtin_models/ResNet101.yml
+    mxnet: builtin_models/ResNet101.yml
+    tensorflow: builtin_models/ResNet101.yml
+    cntk: builtin_models/ResNet101.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    A Residual learning framework to ease the training of networks that are substantially deeper than those used previously.
+    We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions.
+    We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth.
+    On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers---8x deeper than VGG nets but still having lower complexity.
+    An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task.
+references:
+    - https://github.com/KaimingHe/deep-residual-networks
+    - https://arxiv.org/abs/1512.03385

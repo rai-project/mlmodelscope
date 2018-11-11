@@ -1,0 +1,39 @@
+model: 
+    name: BVLC-Reference-RCNN-ILSVRC13
+    version: "1.0"
+    category: image
+    graph:
+        caffe: https://raw.githubusercontent.com/BVLC/caffe/master/models/bvlc_reference_rcnn_ilsvrc13/deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/bvlc_reference_rcnn_ilsvrc13_1.0/BVLC-Reference-RCNN_ILSVRC13.json
+manifest:
+    caffe: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+    caffe2: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+    tensorrt: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+    mxnet: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+    tensorflow: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+    cntk: builtin_models/BVLC-Reference-RCNN-ILSVRC13.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    The pure Caffe instantiation of the R-CNN model for ILSVRC13 detection.
+    This model was made by transplanting the R-CNN SVM classifiers into a fc-rcnn classification layer, provided here as an off-the-shelf Caffe detector.
+    Try the detection example to see it in action.
+    N.B. For research purposes, make use of the official R-CNN package and not this example.
+    This model was trained by Ross Girshick @rbgirshick
+references:
+    - https://github.com/BVLC/caffe/tree/master/models/bvlc_reference_rcnn_ilsvrc13
+    - https://arxiv.org/abs/1311.2524
+    - http://nbviewer.jupyter.org/github/BVLC/caffe/blob/master/examples/detection.ipynb
+

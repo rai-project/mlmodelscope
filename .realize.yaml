@@ -1,0 +1,46 @@
+settings:
+  files:
+    outputs:
+      status: true
+      name: outputs.log
+    logs:
+      status: true
+      name: logs.log
+    errors:
+      status: true
+      name: errors.log
+  legacy:
+    force: false
+    interval: 100ms
+server:
+  status: true
+  open: false
+  host: localhost
+  port: 5001
+schema:
+  - name: carml
+    path: .
+    commands:
+      generate:
+        status: false
+      build:
+        status: true
+      run:
+        status: true
+    args:
+      - web
+      - -d
+      - -v
+    watcher:
+      preview: true
+      paths:
+        - ../dlframework
+        - ../grpc
+      extensions:
+        - go
+      ignored_paths:
+        - .git
+        - .realize
+        - src
+        - vendor
+        - ../dlframework/vendor

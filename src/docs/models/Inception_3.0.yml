@@ -1,0 +1,35 @@
+model: 
+    name: Inception
+    version: "3.0"
+    category: image
+    graph:
+        caffe: http://s3.amazonaws.com/store.carml.org/models/caffe/inception-v3/deploy_inception-v3.prototxt
+        mmdnn: 
+manifest:
+    caffe: builtin_models/Inception-v3.yml
+    caffe2: builtin_models/Inception-v3.yml
+    tensorrt: builtin_models/Inception-v3.yml
+    mxnet: builtin_models/Inception-v3.yml
+    tensorflow: builtin_models/Inception-v3.yml
+    cntk: builtin_models/Inception-v3.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    Inception-v3 is trained for the ImageNet Large Visual Recognition Challenge using the data from 2012.
+    This is a standard task in computer vision, where models try to classify entire images into 1000 classes, like "Zebra", "Dalmatian" and "Dishwasher".
+references:
+    - https://github.com/soeaver/caffe-model/tree/master/cls
+    - https://github.com/dmlc/mxnet-model-gallery/blob/master/imagenet-1k-inception-v3.md
+    - https://github.com/tensorflow/models/blob/master/research/slim/preprocessing/inception_preprocessing.py

@@ -1,0 +1,17 @@
+.GlobalHeader-header {
+  background-color: white /*#E8E9EB*/;
+  height: 60px;
+  padding-top: 20px;
+}
+
+.GlobalHeader-left-block {
+  float: left;
+  margin-left: 40px;
+  display: inline-block;
+}
+
+.GlobalHeader-right-block {
+  float: right;
+  margin-right: 40px;
+  display: inline-block;
+}

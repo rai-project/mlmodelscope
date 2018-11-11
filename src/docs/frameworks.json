@@ -1,0 +1,24 @@
+{
+  "manifests": [
+    {
+      "name": "Caffe",
+      "version": "1.0"
+    },
+    {
+      "name": "Caffe2",
+      "version": "0.8.1"
+    },
+    {
+      "name": "CNTK",
+      "version": "2.3"
+    },
+    {
+      "name": "MXNet",
+      "version": "0.11.0"
+    },
+    {
+      "name": "TensorRT",
+      "version": "2.1.2"
+    }
+  ]
+}

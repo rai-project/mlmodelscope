@@ -1,0 +1,37 @@
+model: 
+    name: ResNeXt50-32x4d
+    version: "1.0"
+    category: image
+    graph:
+        caffe: http://s3.amazonaws.com/store.carml.org/models/caffe/resnext50-32x4d/deploy_resnext50-32x4d_no_ceil_mode.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/resnext50_32x4d_1.0/resnext50_32x4d.json
+manifest:
+    caffe: builtin_models/ResNeXt50-32x4d.yml
+    caffe2: builtin_models/ResNeXt50-32x4d.yml
+    tensorrt: builtin_models/ResNeXt50-32x4d.yml
+    mxnet: builtin_models/ResNeXt50-32x4d.yml
+    tensorflow: builtin_models/ResNeXt50-32x4d.yml
+    cntk: builtin_models/ResNeXt50-32x4d.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    ResNeXt is a simple, highly modularized network architecture for image classification. Our network is constructed by repeating
+    a building block that aggregates a set of transformations with the same topology. Our simple design results in a homogeneous,
+    multi-branch architecture that has only a few hyper-parameters to set. This strategy exposes a new dimension, which we call
+    “cardinality” (the size of the set of transformations), as an essential factor in addition to the dimensions of depth and width.
+references:
+    - https://github.com/soeaver/caffe-model/tree/master/cls
+    - https://github.com/facebookresearch/ResNeXt
+    - https://github.com/facebookresearch/ResNeXt/blob/master/datasets/README.md

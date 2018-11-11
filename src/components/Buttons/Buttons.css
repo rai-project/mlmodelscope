@@ -1,0 +1,10 @@
+.PrimaryButton {
+  background-color: #E84A27;
+  border-color: #E84A27;
+  width: 360px;
+  height: 60px;
+}
+
+.DisabledButton {
+  background-color: #898989;
+}

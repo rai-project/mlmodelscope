@@ -1,0 +1,34 @@
+model: 
+    name: VGG19
+    version: "1.0"
+    category: image
+    graph:
+        caffe: https://gist.githubusercontent.com/ksimonyan/3785162f95cd2d5fee77/raw/f43eeefc869d646b449aa6ce66f87bf987a1c9b5/VGG_ILSVRC_19_layers_deploy.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/vgg19_1.0/vgg19.json
+manifest:
+    caffe: builtin_models/VGG19.yml
+    caffe2: builtin_models/VGG19.yml
+    tensorrt: builtin_models/VGG19.yml
+    mxnet: builtin_models/VGG19.yml
+    tensorflow: builtin_models/VGG19.yml
+    cntk: builtin_models/VGG19.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    The model is an improved version of the 19-layer model used by the VGG team in the ILSVRC-2014 competition.
+references:
+    - https://gist.github.com/ksimonyan/211839e770f7b538e2d8
+    - https://github.com/BVLC/caffe/wiki/Model-Zoo#models-used-by-the-vgg-team-in-ilsvrc-2014
+    - https://arxiv.org/abs/1409.1556

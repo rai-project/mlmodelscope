@@ -1,0 +1,39 @@
+model: 
+    name: WRN50
+    version: "2.0"
+    category: image
+    graph:
+        caffe: http://s3.amazonaws.com/store.carml.org/models/caffe/wrn50-2/deploy_wrn50-2_no_ceil_mode.prototxt
+        mmdnn: https://s3.amazonaws.com/store.carml.org/models/cntk/models/wrn50_2.0/wrn50.json
+manifest:
+    caffe: builtin_models/WRN50-2.yml
+    caffe2: builtin_models/WRN50-2.yml
+    tensorrt: builtin_models/WRN50-2.yml
+    mxnet: builtin_models/WRN50-2.yml
+    tensorflow: builtin_models/WRN50-2.yml
+    cntk: builtin_models/WRN50-2.yml
+frameworks:
+    - caffe
+    - caffe2
+    - tensorrt
+    - mxnet
+    - tensorflow
+    - cntk
+machines:
+    - minsky1 
+    - power9
+    - Desktop1_X86
+    - ip-172-31-42-188
+    - ip-172-31-48-27
+    - tegra-ubuntu
+description: >
+    This model was used for experiments with Wide Residual Networks (BMVC 2016) http://arxiv.org/abs/1605.07146 by Sergey Zagoruyko and Nikos Komodakis.
+    Deep residual networks were shown to be able to scale up to thousands of layers and still have improving performance. However, each fraction of a percent of improved accuracy costs nearly doubling the number of layers, and so training very deep residual networks has a problem of diminishing feature reuse,
+    which makes these networks very slow to train. To tackle these problems, in this work we conduct a detailed experimental study on the architecture of ResNet blocks,
+    based on which we propose a novel architecture where we decrease depth and increase width of residual networks. We call the resulting network structures wide residual networks (WRNs)
+    and show that these are far superior over their commonly used thin and very deep counterparts
+references:
+    - https://github.com/soeaver/caffe-model/tree/master/cls
+    - https://arxiv.org/abs/1605.07146
+    - https://github.com/szagoruyko/wide-residual-networks
+    - https://github.com/szagoruyko/functional-zoo/blob/master/imagenet-validation.py#L69-L88
