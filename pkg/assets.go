@@ -87,6 +87,7 @@ func assetsRoutes(e *echo.Echo) error {
 		}),
 	)
 	assetGroup.GET("/", index)
+	assetGroup.GET("/*", index)
 	assetGroup.GET("/index.html", index)
 	assetGroup.GET("/favicon.ico", favicon)
 	assetGroup.HEAD("/favicon.ico", favicon)
