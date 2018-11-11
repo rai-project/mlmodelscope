@@ -1,5 +1,0 @@
-# Competitors
-
-## Tensorflow Serving
-
-## PennAI
