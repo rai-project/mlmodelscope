@@ -1,31 +1,12 @@
 package web
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/elazarl/go-bindata-assetfs"
-	"github.com/k0kubun/pp"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
-
-type assetsManifestTy struct {
-	MainCSS               string `json:"main.css"`
-	MainCSSMap            string `json:"main.css.map"`
-	MainJs                string `json:"main.js"`
-	MainJsMap             string `json:"main.js.map"`
-	StaticMediaFlagsPng   string `json:"static/media/flags.png"`
-	StaticMediaIconsEot   string `json:"static/media/icons.eot"`
-	StaticMediaIconsSvg   string `json:"static/media/icons.svg"`
-	StaticMediaIconsTtf   string `json:"static/media/icons.ttf"`
-	StaticMediaIconsWoff  string `json:"static/media/icons.woff"`
-	StaticMediaIconsWoff2 string `json:"static/media/icons.woff2"`
-	StaticMediaLogoSvg    string `json:"static/media/logo.svg"`
-}
-
-var assetsManifest assetsManifestTy
 
 func getAssetFS() *assetfs.AssetFS {
 	return &assetfs.AssetFS{
@@ -100,15 +81,4 @@ func assetsRoutes(e *echo.Echo) error {
 	assetGroup.GET("/static/*", echo.WrapHandler(http.FileServer(getAssetFS())))
 
 	return nil
-}
-
-func init() {
-	data, err := buildAssetManifestJsonBytes()
-	if err != nil {
-		panic(fmt.Sprintf("failed to get assetsManifest %v", err))
-	}
-	if err := json.Unmarshal(data, &assetsManifest); err != nil {
-		pp.Println(err)
-		panic(fmt.Sprintf("failed to unmarshal assetsManifest %v", err))
-	}
 }

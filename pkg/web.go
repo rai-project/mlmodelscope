@@ -3,6 +3,8 @@ package web
 import (
 	"context"
 	"fmt"
+	"mime"
+	"net/http"
 	"os"
 	"os/signal"
 	"strings"
@@ -15,12 +17,22 @@ import (
 	echologger "github.com/rai-project/web/logger"
 )
 
+func webRoutes(e *echo.Echo) error {
+	e.GET("/routes", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, e.Routes())
+	})
+	return nil
+}
+
 func Start(addr string) {
 	e := echo.New()
 
 	e.Logger = &echologger.EchoLogger{
 		Entry: log,
 	}
+
+	mime.AddExtensionType(".js", echo.MIMEApplicationJavaScriptCharsetUTF8)
+	mime.AddExtensionType(".css", "text/css")
 
 	e.Use(middleware.Recover())
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
@@ -56,6 +68,7 @@ func Start(addr string) {
 		assetsRoutes,
 		registryRoutes,
 		apiRoutes,
+		webRoutes,
 	}
 	for _, c := range chain {
 		if err := c(e); err != nil {
