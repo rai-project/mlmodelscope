@@ -10,6 +10,6 @@ func jaegerAssets2(e *echo.Echo) error {
 }
 
 func jaegerAssets(e *echo.Echo) error {
-	e.Any("/jaeger/*", jaegerui.Handle2())
+	e.Any("/jaeger/*", jaegerui.Handle())
 	return nil
 }
