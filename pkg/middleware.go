@@ -59,7 +59,6 @@ func StripPrefix(prefix string, h echo.HandlerFunc) echo.HandlerFunc {
 		if p := strings.TrimPrefix(path, prefix); len(p) < len(path) {
 			url.Path = p
 		}
-		pp.Println(req.Method + "::" + url.Path)
 		return h(c)
 	}
 }

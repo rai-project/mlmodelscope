@@ -52,6 +52,7 @@ func Start(addr string) {
 	chain := []func(*echo.Echo) error{
 		pprofRoutes,
 		swaggerUIAssets,
+		jaegerAssets,
 		assetsRoutes,
 		registryRoutes,
 		apiRoutes,
