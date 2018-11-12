@@ -49,6 +49,7 @@ install:
 - go get github.com/goreleaser/goreleaser
 - npm install
 - npm run bundle
+- dep ensure
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
