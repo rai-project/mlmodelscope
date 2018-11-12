@@ -93,11 +93,11 @@ export default class PublicDataset extends Component {
     var datasets = this.props.datasetOptions
     var selectedDataType = this.state.selectedDataType
     var selectedTechnique = this.state.selectedTechnique
-    if (selectedDataType.length != 0) {
-        datasets = filter(datasets, function(d) { return selectedDataType.indexOf(d.type) != -1})
+    if (selectedDataType.length !== 0) {
+        datasets = filter(datasets, function(d) { return selectedDataType.indexOf(d.type) !== -1})
     }
-    if (selectedTechnique.length != 0) {
-        datasets = filter(datasets, function(d) { return selectedTechnique.indexOf(d.technique) != -1})
+    if (selectedTechnique.length !== 0) {
+        datasets = filter(datasets, function(d) { return selectedTechnique.indexOf(d.technique) !== -1})
     }
     console.log(this.state)
 
@@ -144,7 +144,7 @@ export default class PublicDataset extends Component {
         <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
           Filtered By:
           {
-            (selectedDataType.length == 0 && selectedTechnique.length == 0) ?
+            (selectedDataType.length === 0 && selectedTechnique.length === 0) ?
               <Tag style={{ marginLeft: "20px" }} >
                 ALL
               </Tag>
