@@ -64,6 +64,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
+    "bundle": "npm-run-all clean:build build build:assets",
     "build:swagger": "npm-run-all -p clean:swagger build:swaggeri",
     "build:swaggeri": "node scripts/build_swagger.js",
     "clean:swagger": "rimraf src/swagger",
