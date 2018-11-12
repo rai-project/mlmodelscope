@@ -1,5 +1,5 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/009d36fb286249bd904c4f3b489d53f5)](https://www.codacy.com/app/abduld/carml?utm_source=github.com&utm_medium=referral&utm_content=rai-project/carml&utm_campaign=badger)
-[![Build Status](https://travis-ci.org/rai-project/carml.svg?branch=master)](https://travis-ci.org/rai-project/carml)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/009d36fb286249bd904c4f3b489d53f5)](https://www.codacy.com/app/abduld/mlmodelscope?utm_source=github.com&utm_medium=referral&utm_content=rai-project/mlmodelscope&utm_campaign=badger)
+[![Build Status](https://travis-ci.org/rai-project/mlmodelscope.svg?branch=master)](https://travis-ci.org/rai-project/mlmodelscope)
  [![Docker Stars](https://img.shields.io/docker/stars/carml/web.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/carml/web/stars/count/) [![Docker pulls](https://img.shields.io/docker/pulls/carml/web.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/carml/web/)
 [![Docker Automated build](https://img.shields.io/docker/automated/carml/web.svg?style=plastic)](https://cloud.docker.com/app/carml/repository/docker/carml/web)
 [![](https://images.microbadger.com/badges/image/carml/web:amd64.svg)](https://microbadger.com/images/carml/web:amd64 "Get your own image badge on microbadger.com")
