@@ -6,8 +6,8 @@ import { Table, Tag, Spin } from "antd";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import TraceInfo from "./TraceInfo";
 
-function processNameClassification({ classification: { name } }) {
-  const lower = name
+function processNameClassification({ classification: { label } }) {
+  const lower = label
     .split(",")[0]
     .split(" ")
     .slice(1)
@@ -40,13 +40,13 @@ class ImageInferenceResult extends Component {
       {
         title: "Name",
         dataIndex: "name",
-        key: "name",
+        key: "name"
       },
       {
         title: "Probability",
         dataIndex: "probability",
-        key: "probability",
-      },
+        key: "probability"
+      }
     ];
 
     return this.props.context.result === null ? (
@@ -61,7 +61,7 @@ class ImageInferenceResult extends Component {
               style={{
                 marginTop: "40px",
                 marginLeft: "20%",
-                marginRight: "20%",
+                marginRight: "20%"
               }}
             >
               <img
@@ -84,13 +84,15 @@ class ImageInferenceResult extends Component {
                     style={{
                       marginTop: "40px",
                       marginLeft: "20%",
-                      marginRight: "20%",
+                      marginRight: "20%"
                     }}
                   >
                     <h1 style={{ textAlign: "center" }}>
                       {result.model.name + " V" + result.model.version}
                       <Tag style={{ marginLeft: "20px" }} color="#E84A27">
-                        {result.framework.name + " V" + result.framework.version}
+                        {result.framework.name +
+                          " V" +
+                          result.framework.version}
                       </Tag>
                     </h1>
                     <Table
@@ -104,7 +106,7 @@ class ImageInferenceResult extends Component {
                         width: "60%",
                         marginLeft: "20%",
                         marginRight: "20%",
-                        marginTop: "20px",
+                        marginTop: "20px"
                       }}
                     />
                   </div>
