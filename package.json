@@ -68,6 +68,7 @@
     "build:swagger": "npm-run-all -p clean:swagger build:swaggeri",
     "build:swaggeri": "node scripts/build_swagger.js",
     "clean:swagger": "rimraf src/swagger",
+    "clean:build": "rimraf build",
     "build:assets": "node scripts/build_go_assets.js",
     "precommit": "lint-staged"
   },
