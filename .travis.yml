@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "8"
+- "11.1"
 dist: trusty
 sudo: false
 cache:
@@ -46,12 +46,6 @@ install:
 - go get google.golang.org/grpc
 - go get github.com/gogo/protobuf/{proto,gogoproto,protoc-gen-gofast,protoc-gen-gogoslick}
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
-- go get -d github.com/goreleaser/goreleaser
-- cd $GOPATH/src/github.com/goreleaser/goreleaser
-- dep ensure -vendor-only
-- make setup build
-- go install
-- cd ${TRAVIS_BUILD_DIR}
 - go get golang.org/x/crypto/acme/autocert
 - yarn install
 - yarn bundle
