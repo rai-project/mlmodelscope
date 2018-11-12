@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Layout, Col, Row } from "antd";
-import { isArray, find, upperCase } from "lodash";
+import { isArray, find, upperCase, uniqBy } from "lodash";
 import yeast from "yeast";
 import { withRouter } from "react-router-dom";
 import SelectableCard from "../SelectableCard/index";
@@ -21,7 +21,7 @@ class SelectMachine extends Component {
         // todo: need to filter based on what is selected
         const req = await FrameworkAgents({
           frameworkName: "*",
-          frameworkVersion: "*",
+          frameworkVersion: "*"
         });
         this.props.context.setMachineManifests(req.agents);
       } catch (err) {
@@ -31,7 +31,10 @@ class SelectMachine extends Component {
   }
 
   render() {
-    const machineManifests = this.props.context.machineManifests;
+    const machineManifests = uniqBy(
+      this.props.context.machineManifests,
+      e => e.hostname
+    );
     if (!isArray(machineManifests)) {
       return <div />;
     }
@@ -43,27 +46,54 @@ class SelectMachine extends Component {
               background: "#1A263A",
               color: "white",
               paddingTop: "30px",
-              paddingBottom: "60px",
+              paddingBottom: "60px"
             }}
           >
-            <h2 style={{ marginTop: "60px", marginLeft: "40px", color: "white" }}>
+            <h2
+              style={{ marginTop: "60px", marginLeft: "40px", color: "white" }}
+            >
               Select the machine
             </h2>
           </div>
 
           <div>
             <Row gutter={16}>
-              {machineManifests.map((item, index) => (
-                <Col key={yeast()} span={8} style={{ padding: "10px" }}>
-                  <SelectableCard
-                    title={upperCase(item.architecture)}
-                    content={"Descriptions"}
-                    tooltip={false}
-                    onClick={() => this.props.context.addMachine(item.architecture)}
-                    selected={find(this.props.context.machines, e => e.name === item.architecture)}
-                  />
-                </Col>
-              ))}
+              {machineManifests.map((item, index) => {
+                let { gpuinfo } = item;
+                try {
+                  gpuinfo = JSON.parse(gpuinfo);
+                } catch (e) {
+                  gpuinfo = null;
+                }
+                return (
+                  <Col key={yeast()} span={8} style={{ padding: "10px" }}>
+                    <SelectableCard
+                      title={upperCase(item.architecture)}
+                      content={
+                        <>
+                          <ul>
+                            <li>
+                              <b>Hostname:</b> {item.hostname}
+                            </li>
+                            <li>
+                              <b>GPU:</b>{" "}
+                              {gpuinfo ? gpuinfo.gpus[0].product_name : null}
+                            </li>
+                          </ul>
+                        </>
+                      }
+                      tooltip={false}
+                      onClick={() =>
+                        this.props.context.addMachine(item.architecture)
+                      }
+                      selected={find(
+                        this.props.context.machines,
+                        e => e.name === item.architecture
+                      )}
+                    />
+                  </Col>
+                );
+              })}
             </Row>
           </div>
         </Content>

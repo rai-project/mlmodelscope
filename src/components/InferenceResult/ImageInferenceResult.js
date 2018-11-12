@@ -1,7 +1,7 @@
 import "./InferenceResult.css";
 import React, { Component } from "react";
 import idx from "idx";
-import { sortBy, isNil } from "lodash";
+import { sortBy, isNil, toUpper } from "lodash";
 import { Table, Tag, Spin } from "antd";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import TraceInfo from "./TraceInfo";
@@ -18,7 +18,7 @@ function processNameClassification({ classification: { label } }) {
 
 function processName(item) {
   const { type } = item;
-  switch (type) {
+  switch (toUpper(type)) {
     case "CLASSIFICATION":
       return processNameClassification(item);
     default:
