@@ -1,40 +1,106 @@
 import React, { Component } from "react";
 import { Col, Row, Icon, Dropdown, Menu, Tag, Spin } from "antd";
-import { find } from "lodash";
+import { find, filter, union, remove } from "lodash";
 import SelectableCard from "../SelectableCard/index";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <a // eslint-disable-line
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Image
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a // eslint-disable-line
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Video
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a // eslint-disable-line
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Text
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const dataTypes = ["image", "video", "text", "audio"];
+const techniques = ["classification", "regression", "clustering", "detection"];
+
 
 export default class PublicDataset extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedDataType: [],
+      selectedTechnique: []
+    }
+    this.handleSelectDataType = this.handleSelectDataType.bind(this);
+    this.handleSelectTechnique = this.handleSelectTechnique.bind(this);
+    this.handleRemoveTag = this.handleRemoveTag.bind(this);
+  };
+
+  handleSelectDataType(e) {
+    this.setState({selectedDataType: this.state.selectedDataType.concat([e.key])}) 
+  }
+  
+  handleSelectTechnique(e) {
+    this.setState({selectedTechnique: this.state.selectedTechnique.concat([e.key])}) 
+  }
+
+  handleRemoveTag(key) {
+    console.log(key)
+    remove(this.state.selectedDataType, function(x) { return x === key });
+    remove(this.state.selectedTechnique, function(x) { return x === key });
+    this.setState({ selectedDataType: this.state.selectedDataType, selectedTechnique: this.state.selectedTechnique });
+  }
+
+  renderSelectedFlags(selectedDataType, selectedTechnique) {
+    return(
+      union(selectedDataType, selectedTechnique).map((t) => {
+        console.log(t);
+        return(
+        <Tag key={t} style={{ marginLeft: "20px" }} closable onClose={() => this.handleRemoveTag(t)}>
+          {t.toUpperCase()}
+        </Tag>
+        )
+      }
+      )
+    )
+  }
+
+
+
+  render() {  
+    const dataTypeMenu = (
+      <Menu onClick={this.handleSelectDataType}>
+        {
+          dataTypes.map((type) => 
+            <Menu.Item key={type}>
+              <a // eslint-disable-line
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {capitalize(type)}
+              </a>
+            </Menu.Item>
+          )
+        }
+      </Menu>
+    );
+
+    const techniqueMenu = (
+      <Menu onClick={this.handleSelectTechnique}>
+        {
+          techniques.map((technique) => 
+            <Menu.Item key={technique}>
+              <a // eslint-disable-line
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {capitalize(technique)}
+              </a>
+            </Menu.Item>
+          )
+        }
+      </Menu>
+    );
+
+    var datasets = this.props.datasetOptions
+    var selectedDataType = this.state.selectedDataType
+    var selectedTechnique = this.state.selectedTechnique
+    if (selectedDataType.length != 0) {
+        datasets = filter(datasets, function(d) { return selectedDataType.indexOf(d.type) != -1})
+    }
+    if (selectedTechnique.length != 0) {
+        datasets = filter(datasets, function(d) { return selectedTechnique.indexOf(d.technique) != -1})
+    }
+    console.log(this.state)
+
     return (
       <div>
         <div
@@ -47,7 +113,7 @@ export default class PublicDataset extends Component {
           }}
         >
           <div style={{ display: "inline-block" }}>
-            <Dropdown overlay={menu}>
+            <Dropdown overlay={dataTypeMenu}>
               <a // eslint-disable-line
                 style={{ color: "white" }}
               >
@@ -57,21 +123,11 @@ export default class PublicDataset extends Component {
           </div>
 
           <div style={{ marginLeft: "40px", display: "inline-block" }}>
-            <Dropdown overlay={menu}>
+            <Dropdown overlay={techniqueMenu}>
               <a // eslint-disable-line
                 style={{ color: "white" }}
               >
                 Technique <Icon type="caret-down" theme="outlined" />
-              </a>
-            </Dropdown>
-          </div>
-
-          <div style={{ marginLeft: "40px", display: "inline-block" }}>
-            <Dropdown overlay={menu}>
-              <a // eslint-disable-line
-                style={{ color: "white" }}
-              >
-                Number of Instances <Icon type="caret-down" theme="outlined" />
               </a>
             </Dropdown>
           </div>
@@ -87,20 +143,19 @@ export default class PublicDataset extends Component {
 
         <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
           Filtered By:
-          <Tag style={{ marginLeft: "20px" }} closable>
-            IMAGE
-          </Tag>
-          <Tag style={{ marginLeft: "20px" }} closable>
-            VIDEO
-          </Tag>
-          <Tag style={{ marginLeft: "20px" }} closable>
-            IMAGE CLASSIFICATION
-          </Tag>
+          {
+            (selectedDataType.length == 0 && selectedTechnique.length == 0) ?
+              <Tag style={{ marginLeft: "20px" }} >
+                ALL
+              </Tag>
+              :
+              this.renderSelectedFlags(selectedDataType, selectedTechnique)
+          }
         </div>
 
         <div>
           <Row gutter={1}>
-            {this.props.datasetOptions.map((item, index) =>
+            {datasets.map((item, index) =>
               item.name === "ilsvrc2012" ? (
                 <Col span={8} key={`dataset-${index}`} style={{ padding: "10px" }}>
                   <ExperimentContext.Consumer>

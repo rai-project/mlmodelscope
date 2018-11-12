@@ -11,12 +11,12 @@ const frameworks = [];
 const models = [];
 
 const datasetOptions = [
-  { key: 0, name: "ilsvrc2012", description: "vision/ilsvrc2012", type: "image/classification" },
-  { key: 1, name: "cifar10", description: "vision/cifar10", type: "image/classification" },
-  { key: 2, name: "cifar100", description: "vision/cifar100", type: "image/classification" },
-  { key: 3, name: "caltech256", description: "vision/caltech256", type: "image/classification" },
-  { key: 4, name: "mnist", description: "vision/mnist", type: "image/classification" },
-  { key: 5, name: "custom", description: "vision/custom", type: "image/classification" },
+  { key: 0, name: "ilsvrc2012", description: "vision/ilsvrc2012", type: "image", technique: "classification" },
+  { key: 1, name: "cifar10", description: "vision/cifar10", type: "image", technique: "classification" },
+  { key: 2, name: "cifar100", description: "vision/cifar100", type: "image", technique: "classification" },
+  { key: 3, name: "caltech256", description: "vision/caltech256", type: "image", technique: "classification" },
+  { key: 4, name: "mnist", description: "vision/mnist", type: "image", technique: "classification" },
+  { key: 5, name: "custom", description: "vision/custom", type: "image", technique: "classification" },
 ];
 
 const dataSources = ["Public Dataset", "Import From URL", "Upload From Device"];
