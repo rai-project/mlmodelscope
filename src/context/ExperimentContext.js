@@ -26,16 +26,18 @@ export default class ExperimentProvider extends Component {
         this.setState({
           dataset: this.state.dataset.concat(dataset),
         }),
-      addModel: (name, version) =>
+      addModel: (name, version) => {
         this.setState({
           models: this.state.models.concat({ name: name, version: version }),
-        }),
+        })
+      },
       removeModel: index => {
         if (this.state.models.length === 1) {
           this.setState({ models: [] });
           return;
         }
-        this.setState({ models: this.state.models.splice(index, 1) });
+        this.state.models.splice(index, 1)
+        this.setState({ models: this.state.models });
       },
       addFramework: (name, version) =>
         this.setState({
@@ -46,9 +48,8 @@ export default class ExperimentProvider extends Component {
           this.setState({ frameworks: [] });
           return;
         }
-        this.setState({
-          frameworks: this.state.frameworks.splice(index, 1),
-        });
+        this.state.frameworks.splice(index, 1)
+        this.setState({ frameworks: this.state.frameworks });
       },
       addMachine: (name, version) =>
         this.setState({
