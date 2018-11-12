@@ -25,7 +25,6 @@ before_install:
 - cd $HOME/gopath/src/github.com/rai-project/carml
 - bash scripts/install-protobuf.sh
 install:
-- npm install -g yarn
 - gem install fpm
 before_script:
 - ls -R $HOME/protobuf
@@ -48,8 +47,8 @@ install:
 - go get github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-swagger,protoc-gen-grpc-gateway}
 - go get golang.org/x/crypto/acme/autocert
 - go get github.com/goreleaser/goreleaser
-- yarn install
-- yarn bundle
+- npm install
+- npm run bundle
 - rm -fr vendor/github.com/Sirupsen
 - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
 - goreleaser --snapshot --skip-publish --skip-validate
