@@ -126,6 +126,17 @@ export default class ExperimentSetupSider extends Component {
                 }}
               >
                 <div>MACHINES</div>
+                {context.machines.map((machine, index) => (
+                  <div key={yeast()}>
+                    <Tag
+                      closable
+                      style={{ zIndex: 1 }}
+                      onClose={() => context.removeMachine(index)}
+                    >
+                      {machine.name}
+                    </Tag>
+                  </div>
+                ))}
               </Menu.Item>
             </Menu>
           )}

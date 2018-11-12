@@ -55,6 +55,14 @@ export default class ExperimentProvider extends Component {
         this.setState({
           machines: this.state.machines.concat({ name: name }),
         }),
+      removeMachine: index => {
+        if (this.state.machines.length === 1) {
+          this.setState({ machines: [] });
+          return;
+        }
+        this.state.machines.splice(index, 1)
+        this.setState({ machines: this.state.machines });
+      },
       changeTraceLevel: newLevel =>
         this.setState({
           traceLevel: newLevel,
