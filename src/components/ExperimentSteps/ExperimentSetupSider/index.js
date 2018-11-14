@@ -11,11 +11,12 @@ const { Option } = Select;
 
 const trace_options = [
   { key: 0, text: "None", value: "NO_TRACE" },
-  { key: 1, text: "Step", value: "STEP_TRACE" },
-  { key: 2, text: "Framework", value: "FRAMEWORK_TRACE" },
-  { key: 3, text: "CPU", value: "CPU_ONLY_TRACE" },
-  { key: 4, text: "Hardware", value: "HARDWARE_TRACE" },
-  { key: 5, text: "Full", value: "FULL_TRACE" },
+  { key: 1, text: "Application", value: "APPLICATION_TRACE" },
+  { key: 2, text: "Model", value: "MODEL_TRACE" },
+  { key: 3, text: "Framework", value: "FRAMEWORK_TRACE" },
+  { key: 4, text: "Library", value: "LIBRARY_TRACE" },
+  { key: 5, text: "Hardware", value: "HARDWARE_TRACE" },
+  { key: 6, text: "Full", value: "FULL_TRACE" },
 ];
 
 export default class ExperimentSetupSider extends Component {
