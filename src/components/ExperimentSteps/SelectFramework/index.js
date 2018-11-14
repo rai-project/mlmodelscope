@@ -1,6 +1,6 @@
 import SelectableCard from "../SelectableCard/index";
 import React, { Component } from "react";
-import { Layout, Col, Row } from "antd";
+import { Layout, Col, Row, Card } from "antd";
 import { isArray, find } from "lodash";
 import yeast from "yeast";
 import { withRouter } from "react-router-dom";
@@ -8,6 +8,15 @@ import { FrameworkManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
+const { Meta } = Card;
+var logos = require.context('../../../resources/logos', true);
+
+function frameworkLogo(frameworkName) {
+  let image = logos("./"+frameworkName+".png");
+  return (
+    <img src={image} alt={frameworkName} style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}/>
+  )
+}
 
 class SelectFramework extends Component {
   async componentDidMount() {
@@ -51,15 +60,19 @@ class SelectFramework extends Component {
               {frameworks.map((item, index) => (
                 <Col key={yeast()} span={8} style={{ padding: "10px" }}>
                   <SelectableCard
-                    title={item.name + " V" + item.version}
-                    content={"Descriptions"}
                     tooltip={true}
                     onClick={() => this.props.context.addFramework(item.name, item.version)}
+                    cover={frameworkLogo(item.name.toLowerCase())}
                     selected={find(
                       this.props.context.frameworks,
                       e => e.name === item.name && e.version === item.version
                     )}
+                  >
+                  <Meta
+                    title={item.name + " V" + item.version}
+                    description="Description: TODO"
                   />
+                  </SelectableCard>
                 </Col>
               ))}
             </Row>

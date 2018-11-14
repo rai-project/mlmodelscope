@@ -35,6 +35,7 @@ export default class SelectableCard extends Component {
         onClick={this.handleClick}
         bordered={this.state.selected}
         style={{ height: this.props.height, borderColor: "#e84a27" }}
+        cover={this.props.cover}
         extra={
           this.props.description ? (
             <>
@@ -65,18 +66,6 @@ export default class SelectableCard extends Component {
       >
         {this.props.content}
         {this.props.children}
-
-        {/* <div style={{marginTop: "20px"}}>
-            Instances: 
-          </div>
-
-          <div style={{marginTop: "22px"}}>
-            Format: 
-          </div>
-
-          <div style={{marginTop: "22px"}}>
-            Default Task: 
-          </div> */}
       </Card>
     );
   }
