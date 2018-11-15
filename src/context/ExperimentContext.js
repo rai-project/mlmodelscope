@@ -8,6 +8,7 @@ export default class ExperimentProvider extends Component {
     this.state = {
       batchSize: 1,
       traceLevel: "FULL_TRACE",
+      useGPU: false,
       isPredicting: true,
       imageUrls: [],
       dataset: [],
@@ -70,6 +71,10 @@ export default class ExperimentProvider extends Component {
       setBatchSize: batchSize =>
         this.setState({
           batchSize: batchSize,
+        }),
+      setUseGPU: checked => 
+        this.setState({
+          useGPU: checked
         }),
       startPredicting: () =>
         this.setState({

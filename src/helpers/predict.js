@@ -2,7 +2,19 @@ import yeast from "yeast";
 import uuid from "uuid/v4";
 import { Open, URLs, Close } from "../swagger/index";
 
-function buildOpenParams({ requestId, model, framework, batch_size, trace_level }) {
+function buildDeviceCount(useGPU) {
+  if (useGPU) {
+    return {
+      GPU: 0
+    }
+  } else {
+    return {
+      CPU: 0
+    }
+  }
+}
+
+function buildOpenParams({ requestId, model, framework, batch_size, trace_level, useGPU }) {
   return {
     requestId,
     body: {
@@ -14,9 +26,7 @@ function buildOpenParams({ requestId, model, framework, batch_size, trace_level 
         batch_size: batch_size,
         execution_options: {
           trace_level: trace_level,
-          device_count: {
-            GPU: 0,
-          },
+          device_count: buildDeviceCount(useGPU),
         },
       },
     },
@@ -35,13 +45,13 @@ function pFinally(promise, onFinally) {
   );
 }
 
-export default function predict(imageUrls, models, frameworks, batch_size, trace_level) {
+export default function predict(imageUrls, models, frameworks, batch_size, trace_level, useGPU) {
   let spanHeaders = {};
 
   const run = (imageUrls, model, framework) => {
     let predictor = null;
     const requestId = uuid();
-    let openParams = buildOpenParams({ requestId, model, framework, batch_size, trace_level });
+    let openParams = buildOpenParams({ requestId, model, framework, batch_size, trace_level, useGPU });
     console.log(openParams);
 
     const res = pFinally(
