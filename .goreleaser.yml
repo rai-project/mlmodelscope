@@ -20,6 +20,15 @@ build:
     - goos: linux
       goarch: arm
       goarm: 6
+  env:
+    - CGO_ENABLED=0
+  ldflags: >
+    -s -w
+    -extldflags \"-static\"
+    -X main.GitState=build
+    -X main.GitCommit={{.Commit}}
+    -X main.GitTag={{.Tag}}
+    -X main.BuildDate={{.Date}}
   hooks:
     pre: go generate
     # post: ./script.sh
