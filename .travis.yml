@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - "11.1"
-dist: trusty
+dist: xenial
 sudo: false
 cache:
   yarn: true
@@ -49,9 +49,7 @@ install:
 - go get github.com/goreleaser/goreleaser
 - npm install
 - npm run bundle
-- dep ensure
-- rm -fr vendor/github.com/Sirupsen
-- find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
+- dep ensure -v
 - goreleaser --snapshot --skip-publish --skip-validate
 - cp dist/carml_Linux_x86_64/carml ${TRAVIS_BUILD_DIR}/carml
 script:
