@@ -45,15 +45,6 @@ function makeSlide({ tag, body, compare }) {
             >
               {compare}
             </Link>
-            {/* <a
-              className="button2"
-              href="/experiment"
-              style={{
-                textTransform: "uppercase",
-              }}
-            >
-              {compare}
-            </a> */}
           </div>
         </Col>
       </Row>
@@ -102,9 +93,9 @@ export default class Introduction extends Component {
     return (
       <div
         className="LandingPage-introduction"
-        style={{ minHeight: "60vh", padding: "100px 0", textAlign: "center" }}
+        style={{ textAlign: "center" }}
       >
-        <Carousel autoplay dots={false}>
+        <Carousel autoplay>
           {Message1}
           {Message2}
           {Message3}

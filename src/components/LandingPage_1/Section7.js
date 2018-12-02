@@ -9,13 +9,13 @@ export default class Section7 extends Component {
       <Row
         justify="space-around"
         align="middle"
-        gutter={48}
-        style={{ backgroundColor: "white", color: "black", minHeight: "50vh" }}
+        gutter={{ sm: 48, xs: 0 }}
+        style={{ backgroundColor: "white", color: "black" }}
       >
-        <Col span={8}>
-          <img style={{ marginLeft: "125px", marginTop: "50px" }} src={Image} alt="" />
+        <Col sm={8} xs={24}>
+          <img className="LandingPage-img" src={Image} alt="" />
         </Col>
-        <Col span={8} offset={2} style={{ marginTop: "5%" }}>
+        <Col sm={{ span: 8, offset: 2 }} xs={{ span: 24 }} style={{ marginTop: "5%", padding: "5%" }}>
           <h3 style={{ color: "black", textTransform: "uppercase" }}>No Setup</h3>
           <h2
             style={{

@@ -9,19 +9,15 @@ export default class Section9 extends Component {
       <Row
         justify="space-around"
         align="middle"
-        gutter={48}
+        gutter={{ sm: 48, xs: 0 }}
         style={{ backgroundColor: "white", color: "black", minHeight: "50vh" }}
       >
-        <Col span={8}>
-          <img style={{ marginLeft: "125px", marginTop: "50px" }} src={Image} alt="" />
+        <Col sm={8} xs={24}>
+          <img className="LandingPage-img" src={Image} alt="" />
         </Col>
-        <Col span={8} offset={2} style={{ marginTop: "5%" }}>
+        <Col sm={{ span: 8, offset: 2 }} xs={{ span: 24 }} style={{ marginTop: "5%", padding: "5%"}}>
           <h3 style={{ color: "black", textTransform: "uppercase" }}>Compare</h3>
-          <h2
-            style={{
-              color: "black",
-            }}
-          >
+          <h2 style={{ color: "black" }}>
             Use side by side comparisons, graphs, and tables to draw insights and make an informed
             decision on which tools to use.
           </h2>

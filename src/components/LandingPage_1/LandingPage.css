@@ -8,12 +8,14 @@
   color: #ffffff;
   text-decoration: none;
 }
+
 .button2:hover,
 .button2:focus {
   background: linear-gradient(to bottom, #24a4ff, #24a4ff);
   color: #ffffff;
   text-decoration: none;
 }
+
 .button2:active {
   background: linear-gradient(to bottom, #125296, #1e89fa);
 }
@@ -26,6 +28,7 @@
   color: white;
   background-size: 100%;
 }
+
 .LandingPage-section5 {
   background-color: white;
   padding: 0;
@@ -33,6 +36,7 @@
   min-width: 100%;
   color: white;
 }
+
 .LandingPage-section10 {
   background-color: #1a263a;
   padding: 0;
@@ -40,6 +44,7 @@
   min-width: 100%;
   color: white;
 }
+
 .LandingPage-section2 {
   background-color: white;
   padding: 0;
@@ -63,6 +68,7 @@
   text-decoration: none;
   text-transform: uppercase;
 }
+
 .buttonSmall:hover {
   color: #00000088;
   text-decoration: none;
@@ -77,11 +83,13 @@
   padding: 0;
   min-height: 575px;
 }
+
 .LandingPage-section4 {
   background-color: blue;
   padding: 0;
   min-height: 84px;
 }
+
 .buttonsec6 {
   display: inline-block;
   text-align: left;
@@ -93,16 +101,19 @@
   padding: 15px 15px;
   text-transform: uppercase;
 }
+
 .buttonsec6:hover {
   background: linear-gradient(to bottom, #006ce0, #006ada);
   color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
 }
+
 .buttonsec6:active {
   background: linear-gradient(to bottom, #006ce0, #006ce0);
   text-transform: uppercase;
 }
+
 .buttonsec6:focus {
   text-transform: uppercase;
 }
@@ -122,9 +133,8 @@
 }
 
 .LandingPage-img {
-  height: 50%;
-  width: 50%;
-  margin: 0px 0px;
+  margin: 50px;
+  width: 80%
 }
 
 .LandingPage-title {
@@ -154,4 +164,9 @@
 .LandingPage-button {
   text-align: center;
   font-size: 18px;
+}
+
+.ant-carousel .slick-dots {
+  position: relative;
+  margin-top: 5%;
 }
