@@ -1,7 +1,7 @@
 import SelectableCard from "../SelectableCard/index";
 import React, { Component } from "react";
 import { Layout, Col, Row, Card } from "antd";
-import { isArray, find } from "lodash";
+import { isArray, find, filter, findIndex, size } from "lodash";
 import yeast from "yeast";
 import { withRouter } from "react-router-dom";
 import { FrameworkManifests } from "../../../swagger";
@@ -35,10 +35,28 @@ class SelectFramework extends Component {
   }
 
   render() {
-    const frameworks = this.props.context.frameworkManifests;
+    var frameworks = this.props.context.frameworkManifests;
     if (!isArray(frameworks)) {
       return <div />;
     }
+
+    var selectedModels = this.props.context.models;
+    var models = this.props.context.modelManifests;
+    if (selectedModels.length !== 0) {
+      // find models & frameworks of selected models
+      models = filter(models, function(m) {return findIndex(selectedModels, {name: m.name, version: m.version} ) !== -1})
+      // find frameworks exist for all selected models
+      frameworks = filter(
+        frameworks,
+        function(f) {
+          return size(
+            filter(models, function(o) { return f.name === o.framework.name && f.version === o.framework.version })
+          ) === selectedModels.length
+        }
+      )
+      console.log(frameworks)
+    }
+
     return (
       <Layout style={{ background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
         <Content style={{}}>

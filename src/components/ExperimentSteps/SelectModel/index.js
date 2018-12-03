@@ -8,10 +8,12 @@ import {
   isArray,
   keys,
   uniqBy,
+  filter,
   find,
   findIndex,
   isNil,
-  truncate
+  truncate,
+  size
 } from "lodash";
 import { ModelManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
@@ -80,10 +82,28 @@ class SelectModel extends Component {
       return <div />;
     }
 
-    const models = uniqBy(
-      this.props.context.modelManifests,
+    var models = this.props.context.modelManifests;
+    const selectedFrameworks = this.props.context.frameworks;
+    if (selectedFrameworks.length !== 0) {
+      // find models with selected frameworks
+      models = filter(models, function(o) {return findIndex(selectedFrameworks, o.framework) !== -1})
+      models = filter(
+        models,
+        function(m) {
+          return size(
+            filter(models, function(o) { return m.name === o.name && m.version === o.version})
+          ) === selectedFrameworks.length
+        }
+      )
+    }
+ 
+    models = uniqBy(
+      models,
       e => e.name + e.version
     );
+
+   console.log(models)
+
     const modelsKey = keys(models).sort();
     this.models = models;
     this.modelsKey = modelsKey;
@@ -108,7 +128,7 @@ class SelectModel extends Component {
           <Row gutter={16} type="flex" justify="space-around" align="middle">
             {modelsKey.map(key => {
               const model = models[key];
-              console.log(model);
+              // console.log(model);
               const isSelected = !isNil(
                 find(
                   this.props.context.models,
