@@ -1,6 +1,7 @@
 .GlobalHeader-header {
-  background-color: white /*#E8E9EB*/;
-  height: 60px;
+  background-color: white;
+  height: auto;
+  min-height: 60px;
   padding-top: 20px;
 }
 

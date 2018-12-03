@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./GlobalHeader.css";
-import { Layout, Icon } from "antd";
+import { Layout, Icon, Row, Col } from "antd";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
 
@@ -42,23 +42,27 @@ export default class GlobalHeader extends Component {
   render() {
     return (
       <Header className="GlobalHeader-header">
-        <div className="GlobalHeader-left-block">
+      <Row>
+        <Col xs={{span: 24}} sm={{span: 6}}>
           <NavLink to={"/"}>
             <h2>
               ML <b>ModelScope</b>
             </h2>
           </NavLink>
-        </div>
-        <div className="GlobalHeader-left-block">
+        </Col>
+        <Col xs={{span: 0}} sm={{span: 10}}>
+        </Col>
+        <Col xs={{span: 12}} sm={{span: 4}}>
           <NavLink to={"/experiment"}>
             <h3>Experiment Setup</h3>
           </NavLink>
-        </div>
-        <div className="GlobalHeader-left-block">
+        </Col>
+        <Col xs={{span: 12}} sm={{span: 4}}>
           <a href="https://docs.mlmodelscope.org/">
             <h3>About</h3>
           </a>
-        </div>
+        </Col>
+      </Row>
         {/* <UserContext.Consumer>{context => this.renderUser(context.username)}</UserContext.Consumer> */}
       </Header>
     );
