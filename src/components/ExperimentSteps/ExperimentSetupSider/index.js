@@ -39,6 +39,20 @@ class ExperimentSetupSider extends Component {
     this.props.onPageChange(key);
   }
 
+  disableButton() {
+    if (this.props.future === "predict") {
+      if (
+        this.props.context.imageUrls.length === 0 ||
+        this.props.context.dataset.length === 0 &&
+        this.props.context.models.length === 0 &&
+        this.props.context.frameworks.length === 0
+      ) {
+        return true
+      }
+    }
+    return false
+  }
+
   render() {
     console.log(this.props.context);
     return (
@@ -213,6 +227,7 @@ class ExperimentSetupSider extends Component {
 
         <div style={{ marginTop: "30px" }}>
           <PrimaryButton
+            disabled={this.disableButton()}
             style={{ width: "100%" }}
             text={"Next Step: " + this.props.future.toUpperCase()}
             onClick={() =>
