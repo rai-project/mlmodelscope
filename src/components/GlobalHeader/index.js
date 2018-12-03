@@ -50,14 +50,14 @@ export default class GlobalHeader extends Component {
             </h2>
           </NavLink>
         </Col>
-        <Col xs={{span: 0}} sm={{span: 10}}>
+        <Col xs={{span: 0}} sm={{span: 12}}>
         </Col>
         <Col xs={{span: 12}} sm={{span: 4}}>
           <NavLink to={"/experiment"}>
             <h3>Experiment Setup</h3>
           </NavLink>
         </Col>
-        <Col xs={{span: 12}} sm={{span: 4}}>
+        <Col xs={{span: 12}} sm={{span: 2}}>
           <a href="https://docs.mlmodelscope.org/">
             <h3>About</h3>
           </a>

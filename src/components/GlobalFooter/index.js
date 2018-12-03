@@ -13,11 +13,11 @@ export default class GlobalFooter extends Component {
         className="DarkBlue"
         style={{
           verticalAlign: "middle",
-          height: "100px",
+          height: "auto",
           padding: "0px",
         }}
       >
-      <Row>
+      <Row style={{marginTop: "20px", marginBottom: "20px"}}>
         <Col sm={{span: 4}} xs={{span: 8}}>
           <a href="https://c3sr.com">
             <img src={C3SRLogo} className="C3SR-logo" alt="" />
