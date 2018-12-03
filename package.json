@@ -62,7 +62,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "copy:redirect": "pwd && cp ./_redirects build/",
+    "copy:redirect": "cp ./_redirects build",
     "netlify": "npm-run-all -p build copy:redirect",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
