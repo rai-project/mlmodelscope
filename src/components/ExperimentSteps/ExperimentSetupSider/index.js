@@ -16,7 +16,7 @@ const trace_options = [
   { key: 3, text: "Framework", value: "FRAMEWORK_TRACE" },
   { key: 4, text: "Library", value: "LIBRARY_TRACE" },
   { key: 5, text: "Hardware", value: "HARDWARE_TRACE" },
-  { key: 6, text: "Full", value: "FULL_TRACE" },
+  { key: 6, text: "Full", value: "FULL_TRACE" }
 ];
 
 class ExperimentSetupSider extends Component {
@@ -60,12 +60,16 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto",
+              height: "auto"
             }}
           >
             <div>DATASETS</div>
-            {this.props.context.imageUrls.length !== 0 && <Tag closable>Import from URLs</Tag>}
-            {this.props.context.dataset.length !== 0 && <Tag closable>{this.props.context.dataset[0].name}</Tag>}
+            {this.props.context.imageUrls.length !== 0 && (
+              <Tag closable>Import from URLs</Tag>
+            )}
+            {this.props.context.dataset.length !== 0 && (
+              <Tag closable>{this.props.context.dataset[0].name}</Tag>
+            )}
           </Menu.Item>
 
           <Menu.Item
@@ -75,7 +79,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto",
+              height: "auto"
             }}
           >
             <div>MODELS</div>
@@ -99,7 +103,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto",
+              height: "auto"
             }}
           >
             <div>FRAMEWORKS</div>
@@ -123,7 +127,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto",
+              height: "auto"
             }}
           >
             <div>MACHINES</div>
@@ -141,9 +145,33 @@ class ExperimentSetupSider extends Component {
           </Menu.Item>
         </Menu>
 
-        <div style={{ paddingLeft: "24px" }}>
+        <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
+          <div style={{ display: "inline-block" }}>Using GPU: </div>
+          <div
+            style={{
+              float: "right",
+              marginRight: "20%",
+              display: "inline-block"
+            }}
+          >
+            <Switch
+              defaultUnChecked
+              checkedChildren={<Icon type="check" />}
+              unCheckedChildren={<Icon type="close" />}
+              onChange={checked => this.props.context.setUseGPU(checked)}
+            />
+          </div>
+        </div>
+
+        <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
           <div style={{ display: "inline-block" }}>Batch Size: </div>
-          <div style={{ float: "right", marginRight: "20%", display: "inline-block" }}>
+          <div
+            style={{
+              float: "right",
+              marginRight: "20%",
+              display: "inline-block"
+            }}
+          >
             <InputNumber
               min={1}
               max={10}
@@ -155,7 +183,13 @@ class ExperimentSetupSider extends Component {
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
           <div style={{ display: "inline-block" }}>Trace Level: </div>
-          <div style={{ float: "right", marginRight: "20%", display: "inline-block" }}>
+          <div
+            style={{
+              float: "right",
+              marginRight: "20%",
+              display: "inline-block"
+            }}
+          >
             <Select
               showSearch
               style={{ width: 100 }}
@@ -163,7 +197,9 @@ class ExperimentSetupSider extends Component {
               optionFilterProp="children"
               onChange={value => this.props.context.changeTraceLevel(value)}
               filterOption={(input, option) =>
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option.props.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
               }
             >
               {trace_options.map(option => (
@@ -175,23 +211,13 @@ class ExperimentSetupSider extends Component {
           </div>
         </div>
 
-        <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
-          <div style={{ display: "inline-block" }}>Using GPU: </div>
-          <div style={{ float: "right", marginRight: "20%", display: "inline-block" }}>
-            <Switch
-              checkedChildren={<Icon type="check" />}
-              unCheckedChildren={<Icon type="close" />}
-              defaultUnChecked
-              onChange={(checked) => this.props.context.setUseGPU(checked)}
-            />
-          </div>
-        </div>
-
         <div style={{ marginTop: "30px" }}>
           <PrimaryButton
             style={{ width: "100%" }}
             text={"Next Step: " + this.props.future.toUpperCase()}
-            onClick={() => this.handleClick(this.props.context, this.props.future)}
+            onClick={() =>
+              this.handleClick(this.props.context, this.props.future)
+            }
           />
         </div>
       </Sider>
@@ -199,8 +225,8 @@ class ExperimentSetupSider extends Component {
   }
 }
 
-export default (props => (
+export default props => (
   <ExperimentContext.Consumer>
     {context => <ExperimentSetupSider {...props} context={context} />}
   </ExperimentContext.Consumer>
-));
+);
