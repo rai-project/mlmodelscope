@@ -155,6 +155,7 @@ class SelectModel extends Component {
                 <Col
                   key={`model-${key}`}
                   span={8}
+                  xs={24}
                   style={{ paddingBottom: "10px", paddingTop: "10px" }}
                 >
                   <SelectableCard

@@ -66,7 +66,7 @@ class SelectMachine extends Component {
                   gpuinfo = null;
                 }
                 return (
-                  <Col key={yeast()} span={8} style={{ padding: "10px" }}>
+                  <Col key={yeast()} span={8} xs={24} style={{ padding: "10px" }}>
                     <SelectableCard
                       title={upperCase(item.architecture)}
                       content={

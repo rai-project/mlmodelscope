@@ -76,7 +76,7 @@ class SelectFramework extends Component {
           <div>
             <Row gutter={16}>
               {frameworks.map((item, index) => (
-                <Col key={yeast()} span={8} style={{ padding: "10px" }}>
+                <Col key={yeast()} span={8} xs={24} style={{ padding: "10px" }}>
                   <SelectableCard
                     tooltip={true}
                     onClick={() => this.props.context.addFramework(item.name, item.version)}

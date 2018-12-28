@@ -20,6 +20,13 @@ const trace_options = [
 ];
 
 class ExperimentSetupSider extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false
+    }
+  }
+
   handleClose(context, index) {
     context.removeModel(index);
   }
@@ -56,7 +63,17 @@ class ExperimentSetupSider extends Component {
   render() {
     console.log(this.props.context);
     return (
-      <Sider width="300" style={{ width: "30%", background: "#E8E9EB" }}>
+      <Sider
+      width="300"
+      style={{ width: "30%", background: "#E8E9EB" }}
+      collapsible
+      // collapsed={this.state.collapsed}
+      collapsedWidth={0}
+      // trigger={<Icon
+      //   type='menu-unfold'
+      //   onClick={() => this.setState({collapsed: !this.state.collapsed})}
+      // />}
+      >
         <div className="Experiment-setup-title-bar Experiment-setup-sider-bar">
           <h3 style={{ color: "white" }}>EXPERIMENT SETUP</h3>
         </div>
