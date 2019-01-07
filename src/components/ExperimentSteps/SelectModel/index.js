@@ -154,7 +154,7 @@ class SelectModel extends Component {
               return (
                 <Col
                   key={`model-${key}`}
-                  span={8}
+                  sm={8}
                   xs={24}
                   style={{ paddingBottom: "10px", paddingTop: "10px" }}
                 >

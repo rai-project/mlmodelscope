@@ -157,7 +157,7 @@ export default class PublicDataset extends Component {
           <Row gutter={1}>
             {datasets.map((item, index) =>
               item.name === "ilsvrc2012" ? (
-                <Col span={8} key={`dataset-${index}`} style={{ padding: "10px" }}>
+                <Col sm={8} xs={24} key={`dataset-${index}`} style={{ padding: "10px" }}>
                   <ExperimentContext.Consumer>
                     {context => (
                       <SelectableCard
@@ -171,7 +171,7 @@ export default class PublicDataset extends Component {
                   </ExperimentContext.Consumer>
                 </Col>
               ) : (
-                <Col span={8} style={{ padding: "10px" }}>
+                <Col sm={8} xs={24} style={{ padding: "10px" }}>
                   <Spin tip="Comming Soon...">
                     <SelectableCard
                       item={item}
