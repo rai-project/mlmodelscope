@@ -8,7 +8,7 @@ export default class Router extends Component {
       <Switch>
         {
           Routes.map((route, i) =>
-            <Route exact key={i} path={route.path} component={route.component} />)
+            <Route exact={route.exact === false ? false : true} key={i} path={route.path} component={route.component} />)
         }
       </Switch>
     );
