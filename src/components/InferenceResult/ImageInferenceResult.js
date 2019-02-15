@@ -76,7 +76,7 @@ class ImageInferenceResult extends Component {
                 return null;
               }
               const traceURL = result.traceId
-                ? `http://trace.mlmodelscope.org:16686/trace/${result.traceId}`
+                ? `http://trace.mlmodelscope.org:16686/trace/${result.traceId}?embed`
                 : null;
               return (
                 <div>
