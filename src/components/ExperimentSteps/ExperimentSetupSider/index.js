@@ -33,6 +33,7 @@ class ExperimentSetupSider extends Component {
 
   handleClick(context, key) {
     if (key === "predict" && context.imageUrls.length !== 0) {
+      context.setPredictResult(null);
       predict(
         context.imageUrls,
         context.models,
@@ -46,6 +47,10 @@ class ExperimentSetupSider extends Component {
     this.props.onPageChange(key);
   }
 
+  handleClickResult() {
+    this.props.onPageChange("predict");
+  }
+
   disableButton() {
     if (this.props.future === "predict") {
       if (
@@ -56,6 +61,13 @@ class ExperimentSetupSider extends Component {
       ) {
         return true
       }
+    }
+    return false
+  }
+
+  disableResultButton() {
+    if (this.props.context.result === null) {
+      return true
     }
     return false
   }
@@ -250,6 +262,15 @@ class ExperimentSetupSider extends Component {
             onClick={() =>
               this.handleClick(this.props.context, this.props.future)
             }
+          />
+        </div>
+
+        <div style={{ marginTop: "30px" }}>
+          <PrimaryButton
+            disabled={this.disableResultButton()}
+            style={{ width: "100%" }}
+            text={"Result"}
+            onClick={() => this.handleClickResult()}
           />
         </div>
       </Sider>
