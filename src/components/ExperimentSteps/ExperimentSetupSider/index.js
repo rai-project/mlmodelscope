@@ -54,9 +54,9 @@ class ExperimentSetupSider extends Component {
   disableButton() {
     if (this.props.future === "predict") {
       if (
-        this.props.context.imageUrls.length === 0 ||
-        this.props.context.dataset.length === 0 &&
-        this.props.context.models.length === 0 &&
+        this.props.context.imageUrls.length === 0 &&
+        this.props.context.dataset.length === 0 ||
+        this.props.context.models.length === 0 ||
         this.props.context.frameworks.length === 0
       ) {
         return true
