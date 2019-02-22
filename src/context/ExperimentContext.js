@@ -27,6 +27,9 @@ export default class ExperimentProvider extends Component {
         this.setState({
           dataset: this.state.dataset.concat(dataset),
         }),
+      removeDataset: () => {
+        this.setState({ dataset: [] });
+      },
       addModel: (name, version) => {
         this.setState({
           models: this.state.models.concat({ name: name, version: version }),

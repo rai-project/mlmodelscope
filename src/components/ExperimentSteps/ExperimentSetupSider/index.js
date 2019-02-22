@@ -111,7 +111,9 @@ class ExperimentSetupSider extends Component {
               <Tag closable>Import from URLs</Tag>
             )}
             {this.props.context.dataset.length !== 0 && (
-              <Tag closable>{this.props.context.dataset[0].name}</Tag>
+              <Tag closable onClose={() => this.props.context.removeDataset()}>
+                {this.props.context.dataset[0].name}
+              </Tag>
             )}
           </Menu.Item>
 
