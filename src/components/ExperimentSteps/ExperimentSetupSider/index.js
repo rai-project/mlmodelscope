@@ -108,7 +108,7 @@ class ExperimentSetupSider extends Component {
           >
             <div>DATASETS</div>
             {this.props.context.imageUrls.length !== 0 && (
-              <Tag closable>Import from URLs</Tag>
+              <Tag closable  onClose={() => this.props.context.removeUrls()}>Import from URLs</Tag>
             )}
             {this.props.context.dataset.length !== 0 && (
               <Tag closable onClose={() => this.props.context.removeDataset()}>

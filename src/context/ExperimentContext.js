@@ -35,6 +35,9 @@ export default class ExperimentProvider extends Component {
           models: this.state.models.concat({ name: name, version: version }),
         })
       },
+      removeUrls: () => {
+        this.setState({ imageUrls: [] });
+      },
       removeModel: index => {
         if (this.state.models.length === 1) {
           this.setState({ models: [] });
