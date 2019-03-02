@@ -1,126 +1,107 @@
 import "./InferenceResult.css";
 import React, { Component } from "react";
-import idx from "idx";
-import { sortBy, isNil, toUpper } from "lodash";
-import { Table, Tag, Spin } from "antd";
+import { groupBy } from "lodash";
+import { Collapse, Spin, Radio, Pagination } from "antd";
 import { ExperimentContext } from "../../context/ExperimentContext";
-import TraceInfo from "./TraceInfo";
+import ResultTab from "./ResultTab";
+import { Result } from "antd-mobile";
 
-function processNameClassification({ classification: { label } }) {
-  const lower = label
-    .split(",")[0]
-    .split(" ")
-    .slice(1)
-    .join(" ");
-  const result = lower.charAt(0).toUpperCase() + lower.substr(1);
-  return result;
+function groupByFramework(response) {
+  console.log(response)
+  return groupBy(response, (e) => e.framework.name + " V" + e.framework.version)
 }
 
-function processName(item) {
-  const { type } = item;
-  switch (toUpper(type)) {
-    case "CLASSIFICATION":
-      return processNameClassification(item);
-    default:
-      return "unknown_type_" + type;
-  }
+function groupByModel(response) {
+  console.log(response)
+  return groupBy(response, (e) => e.model.name + " V" + e.model.version)
 }
 
 class ImageInferenceResult extends Component {
-  processResponseFeatures(response) {
-    response = sortBy(response, ["probability"]).reverse();
-    response.forEach(function(item, index) {
-      item["name"] = processName(item);
-    });
-    return response.slice(0, 10);
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 1,
+      page: 1,
+    };
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onChange(pageNumber) {
+    this.setState({page: pageNumber})
   }
 
   render() {
-    const responseHeader = [
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name"
-      },
-      {
-        title: "Probability",
-        dataIndex: "probability",
-        key: "probability"
-      }
-    ];
+    const frameworkGroup = groupByFramework(this.props.context.result);
+    const modelGroup = groupByModel(this.props.context.result);
+    let imageIndex = this.state.page - 1;
 
-    return this.props.context.result === null ? (
-      <div style={{ width: "100%", marginTop: "20%", marginLeft: "50%" }}>
-        <Spin size="large" />
-      </div>
-    ) : (
-      <div>
-        {this.props.context.imageUrls.map((url, index) => (
-          <div>
-            <div
-              style={{
-                marginTop: "40px",
-                marginLeft: "20%",
-                marginRight: "20%"
-              }}
-            >
-              <img
-                src={url}
-                style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}
-                alt=""
-              />
+    if (this.props.context.result === null) {
+      return(
+        <div style={{ width: "100%", marginTop: "20%", marginLeft: "50%" }}>
+          <Spin size="large" />
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <React.Fragment>
+            <div>
+              <div
+                style={{
+                  marginTop: "40px",
+                  marginLeft: "20%",
+                  marginRight: "20%"
+                }}
+              >
+                <img
+                  src={this.props.context.imageUrls[imageIndex]}
+                  style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}
+                  alt=""
+                />
+              </div>
+
+                
+              <React.Fragment>
+                <Radio.Group
+                  style={{ marginTop: "20px", marginLeft: "auto" }}
+                  onChange={(e) => this.setState({value: e.target.value})}
+                  value={this.state.value}>
+                  <Radio value={1}>Compare Model</Radio>
+                  <Radio value={2}>Compare Framework</Radio>
+                </Radio.Group>
+
+                <Collapse style={{marginTop: "20px"}}>
+                  {
+                    this.state.value === 1 ?
+                    Object.keys(frameworkGroup).map(function(key, index) {
+                      return(
+                        <Collapse.Panel header={key} key={index.toString()}>
+                          <ResultTab target="model" data={frameworkGroup[key]} imgIndex={imageIndex}/>
+                        </Collapse.Panel>
+                      )
+                    }) :
+                    Object.keys(modelGroup).map(function(key, index) {
+                      return(
+                        <Collapse.Panel header={key} key={index.toString()}>
+                          <ResultTab target="framework" data={modelGroup[key]} imgIndex={imageIndex}/>
+                        </Collapse.Panel>
+                      )
+                    })
+                  }
+                </Collapse>
+              </React.Fragment>
             </div>
-
-            {this.props.context.result.map(result => {
-              if (isNil(result)) {
-                return null;
-              }
-              const traceURL = result.traceId
-                ? `http://trace.mlmodelscope.org:16686/trace/${result.traceId}?embed`
-                : null;
-              return (
-                <div>
-                  <div
-                    style={{
-                      marginTop: "40px",
-                      marginLeft: "20%",
-                      marginRight: "20%"
-                    }}
-                  >
-                    <h1 style={{ textAlign: "center" }}>
-                      {result.model.name + " V" + result.model.version}
-                      <Tag style={{ marginLeft: "20px" }} color="#E84A27">
-                        {result.framework.name +
-                          " V" +
-                          result.framework.version}
-                      </Tag>
-                    </h1>
-                    <Table
-                      dataSource={this.processResponseFeatures(
-                        idx(result, _ => _.response[index].features)
-                      )}
-                      columns={responseHeader}
-                      showHeader={true}
-                      pagination={false}
-                      style={{
-                        width: "60%",
-                        marginLeft: "20%",
-                        marginRight: "20%",
-                        marginTop: "20px"
-                      }}
-                    />
-                  </div>
-
-                  {result.traceId ? (
-                    <TraceInfo traceURL={traceURL} traceID={result.traceId} />
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-    );
+            <Pagination
+              style={{ marginTop: "20px", float: "right" }}
+              showQuickJumper
+              current={this.state.page}
+              total={this.props.context.imageUrls.length}
+              pageSize={1}
+              onChange={(pageNumber) => this.setState({page: pageNumber})}/>
+          </React.Fragment>
+        </div>
+      )
+    }
   }
 }
 
