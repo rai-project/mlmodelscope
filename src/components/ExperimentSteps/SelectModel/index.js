@@ -1,7 +1,8 @@
 import SelectableCard from "../SelectableCard/index";
 import React, { Component } from "react";
-import { Col, Row, Layout, Icon, Divider, Dropdown, Menu } from "antd";
+import { Col, Row, Layout, Icon, Divider, Dropdown, Menu, Tag } from "antd";
 import yeast from "yeast";
+import { capitalize, remove, indexOf } from "lodash";
 import { withRouter } from "react-router-dom";
 import {
   map,
@@ -19,19 +20,16 @@ import { ModelManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
+const dataTypes = {
+  "image": { "icon": "picture" },
+  "feature": { "icon": "appstore" },
+  "test": { "icon": "file-test" },
+  "audio": { "icon": "sound" }
+};
 
 function typeRender({ type }) {
-  if (type === "image") {
-    return <Icon key={yeast()} type="picture" />;
-  }
-  if (type === "feature") {
-    return <Icon key={yeast()} type="appstore" />;
-  }
-  if (type === "text") {
-    return <Icon key={yeast()} type="file-text" />;
-  }
-  if (type === "audio") {
-    return <Icon key={yeast()} type="sound" />;
+  if (type in dataTypes) {
+    return <Icon key={yeast()} type={dataTypes[type]["icon"]} />;
   }
   return <Icon key={yeast()} type="cluster" />;
 }
@@ -40,8 +38,14 @@ class SelectModel extends Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleSelectInputDataType = this.handleSelectInputDataType.bind(this);
+    this.handleSelectOutputDataType = this.handleSelectOutputDataType.bind(this);
+    this.handleRemoveInputTag = this.handleRemoveInputTag.bind(this);
+    this.handleRemoveOutputTag = this.handleRemoveOutputTag.bind(this);
     this.state = {
-      loaded: false
+      loaded: false,
+      selectedInputDataType: [],
+      selectedOutputDataType: [],
     };
   }
 
@@ -77,6 +81,54 @@ class SelectModel extends Component {
     this.props.context.addModel(model.name, model.version);
   }
 
+  handleRemoveInputTag(key) {
+    console.log(key)
+    remove(this.state.selectedInputDataType, function(x) { return x === key });
+    this.setState({ selectedInputDataType: this.state.selectedInputDataType });
+  }
+
+  handleRemoveOutputTag(key) {
+    console.log(key)
+    remove(this.state.selectedOutputDataType, function(x) { return x === key });
+    this.setState({ selectedOutputDataType: this.state.selectedOutputDataType });
+  }
+
+  handleSelectInputDataType(e) {
+    this.setState({selectedInputDataType: this.state.selectedInputDataType.concat([e.key])}) 
+  }
+
+  handleSelectOutputDataType(e) {
+    this.setState({selectedOutputDataType: this.state.selectedOutputDataType.concat([e.key])}) 
+  }
+
+  renderSelectedInputFlags() {
+    return(
+      this.state.selectedInputDataType.map((t) => {
+        console.log(t);
+        return(
+        <Tag key={t} style={{ marginLeft: "20px" }} closable onClose={() => this.handleRemoveInputTag(t)}>
+          {t.toUpperCase()}
+        </Tag>
+        )
+      }
+      )
+    )
+  }
+
+  renderSelectedOutputFlags() {
+    return(
+      this.state.selectedOutputDataType.map((t) => {
+        console.log(t);
+        return(
+        <Tag key={t} style={{ marginLeft: "20px" }} closable onClose={() => this.handleRemoveOutputTag(t)}>
+          {t.toUpperCase()}
+        </Tag>
+        )
+      }
+      )
+    )
+  }
+
   render() {
     if (!isArray(this.props.context.modelManifests)) {
       return <div />;
@@ -102,7 +154,42 @@ class SelectModel extends Component {
       e => e.name + e.version
     );
 
-   console.log(models)
+    console.log(models);
+    console.log(this.state);
+
+    const inputDataTypeMenu = (
+      <Menu onClick={this.handleSelectInputDataType}>
+        {
+          Object.keys(dataTypes).map((type) => 
+            <Menu.Item key={type}>
+              <a // eslint-disable-line
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {capitalize(type)}
+              </a>
+            </Menu.Item>
+          )
+        }
+      </Menu>
+    );
+
+    const outputDataTypeMenu = (
+      <Menu onClick={this.handleSelectOutputDataType}>
+        {
+          Object.keys(dataTypes).map((type) => 
+            <Menu.Item key={type}>
+              <a // eslint-disable-line
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {capitalize(type)}
+              </a>
+            </Menu.Item>
+          )
+        }
+      </Menu>
+    );
 
     const modelsKey = keys(models).sort();
     this.models = models;
@@ -125,6 +212,61 @@ class SelectModel extends Component {
               Select a model
             </h2>
           </div>
+
+          <div
+            style={{
+              paddingTop: "20px",
+              paddingLeft: "40px",
+              backgroundColor: "#131C2D",
+              height: "60px",
+              color: "white",
+            }}
+          >
+            <div style={{ display: "inline-block" }}>
+              <Dropdown overlay={inputDataTypeMenu}>
+                <a // eslint-disable-line
+                  style={{ color: "white" }}
+                >
+                  Input Data Type <Icon type="caret-down" theme="outlined" />
+                </a>
+              </Dropdown>
+            </div>
+
+            <div style={{ marginLeft: "40px", display: "inline-block" }}>
+              <Dropdown overlay={outputDataTypeMenu}>
+                <a // eslint-disable-line
+                  style={{ color: "white" }}
+                >
+                  Output Data Type <Icon type="caret-down" theme="outlined" />
+                </a>
+              </Dropdown>
+            </div>
+          </div>
+
+
+          <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
+            Input Data Type:
+            {
+              (this.state.selectedInputDataType.length === 0) ?
+                <Tag style={{ marginLeft: "20px" }} >
+                  ALL
+                </Tag>
+                :
+                this.renderSelectedInputFlags()
+            }
+          </div>
+          <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
+            Output Data Type:
+            {
+              (this.state.selectedOutputDataType.length === 0) ?
+                <Tag style={{ marginLeft: "20px" }} >
+                  ALL
+                </Tag>
+                :
+                this.renderSelectedOutputFlags()
+            }
+          </div>
+
           <Row gutter={16} type="flex" justify="space-around" align="middle">
             {modelsKey.map(key => {
               const model = models[key];
@@ -151,7 +293,11 @@ class SelectModel extends Component {
                   <Menu.Item>float32</Menu.Item>
                 </Menu>
               );
-              return (
+
+              if ((this.state.selectedInputDataType.length === 0 || indexOf(this.state.selectedInputDataType, model.inputs[0].type) >= 0) && 
+                  (this.state.selectedOutputDataType.length === 0 || indexOf(this.state.selectedOutputDataType, model.output.type) >= 0)
+              ){
+                return (
                 <Col
                   key={`model-${key}`}
                   sm={8}
@@ -197,7 +343,8 @@ class SelectModel extends Component {
                     </Row>
                   </SelectableCard>
                 </Col>
-              );
+                );
+              }
             })}
           </Row>
         </Content>
