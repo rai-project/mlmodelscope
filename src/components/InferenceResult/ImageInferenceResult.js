@@ -33,6 +33,8 @@ class ImageInferenceResult extends Component {
   render() {
     const frameworkGroup = groupByFramework(this.props.context.result);
     const modelGroup = groupByModel(this.props.context.result);
+    console.log(frameworkGroup)
+    console.log(modelGroup)
     let imageIndex = this.state.page - 1;
     let imageUrl = this.props.context.imageUrls[imageIndex]
 
@@ -96,8 +98,10 @@ class ImageInferenceResult extends Component {
                             />
                           </Collapse.Panel>
                         );
-                      })}
+                      })
+                  }
                 </Collapse>
+
               </React.Fragment>
             </div>
             <Pagination

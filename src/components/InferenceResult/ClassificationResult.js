@@ -40,7 +40,7 @@ export default class ClassificationResult extends Component {
   }
  
   render() {
-    if (isNil(this.data)) {
+    if (isNil(this.features)) {
       return null;
     }
     const traceURL = this.traceId

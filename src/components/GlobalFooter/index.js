@@ -24,18 +24,18 @@ export default class GlobalFooter extends Component {
           </a>
         </Col>
         <Col sm={{span: 2}} xs={{span: 4}}>
-            <a href="https://github.com/rai-project" style={{ color: "white" }}>
+            {/* <a href="https://github.com/rai-project" style={{ color: "white" }}>
               GitHub
-            </a>
+            </a> */}
         </Col>
         <Col sm={{span: 2}} xs={{span: 4}} style={{ color: "white", height: "auto" }}>
-          Terms
+          {/* Terms */}
         </Col>
         <Col sm={{span: 2}} xs={{span: 4}} style={{ color: "white" }}>
-          Privacy
+          {/* Privacy */}
         </Col>
         <Col sm={{span: 2}} xs={{span: 4}} style={{ color: "white" }}>
-          Copyright
+          {/* Copyright */}
         </Col>
         <Col sm={{span: 8}} xs={{span: 24}} style={{height: "10px"}}/>
         <Col sm={{span: 2}} xs={{span: 4}} style={{ color: "white" }}>
