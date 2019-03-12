@@ -5,16 +5,23 @@ import { Open, URLs, Close } from "../swagger/index";
 function buildDeviceCount(useGPU) {
   if (useGPU) {
     return {
-      GPU: 0
-    }
+      GPU: 0,
+    };
   } else {
     return {
-      CPU: 0
-    }
+      CPU: 0,
+    };
   }
 }
 
-function buildOpenParams({ requestId, model, framework, batch_size, trace_level, useGPU }) {
+function buildOpenParams({
+  requestId,
+  model,
+  framework,
+  batch_size,
+  trace_level,
+  useGPU,
+}) {
   return {
     requestId,
     body: {
@@ -45,13 +52,27 @@ function pFinally(promise, onFinally) {
   );
 }
 
-export default function predict(imageUrls, models, frameworks, batch_size, trace_level, useGPU) {
+export default function predict(
+  imageUrls,
+  models,
+  frameworks,
+  batch_size,
+  trace_level,
+  useGPU
+) {
   let spanHeaders = {};
 
   const run = (imageUrls, model, framework) => {
     let predictor = null;
     const requestId = uuid();
-    let openParams = buildOpenParams({ requestId, model, framework, batch_size, trace_level, useGPU });
+    let openParams = buildOpenParams({
+      requestId,
+      model,
+      framework,
+      batch_size,
+      trace_level,
+      useGPU,
+    });
     console.log(openParams);
 
     const res = pFinally(
@@ -116,10 +137,11 @@ export default function predict(imageUrls, models, frameworks, batch_size, trace
   models.map(model =>
     frameworks.map(framework => pairs.push({ model: model, framework: framework }))
   );
-  return Promise.all(pairs.map(pair => run(imageUrls, pair.model, pair.framework))).then(function(
-    features
-  ) {
-    console.log(features);
-    return features;
-  });
+  return Promise.all(pairs.map(pair => run(imageUrls, pair.model, pair.framework))).then(
+    function(features) {
+      console.log(features);
+      // window.last_features = features;
+      return features;
+    }
+  );
 }

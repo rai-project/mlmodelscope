@@ -7,13 +7,13 @@ import ResultTab from "./ResultTab";
 import { Result } from "antd-mobile";
 
 function groupByFramework(response) {
-  console.log(response)
-  return groupBy(response, (e) => e.framework.name + " V" + e.framework.version)
+  // console.log(response)
+  return groupBy(response, e => e.framework.name + " V" + e.framework.version);
 }
 
 function groupByModel(response) {
-  console.log(response)
-  return groupBy(response, (e) => e.model.name + " V" + e.model.version)
+  // console.log(response)
+  return groupBy(response, e => e.model.name + " V" + e.model.version);
 }
 
 class ImageInferenceResult extends Component {
@@ -23,11 +23,11 @@ class ImageInferenceResult extends Component {
       value: 1,
       page: 1,
     };
-    this.onChange = this.onChange.bind(this)
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(pageNumber) {
-    this.setState({page: pageNumber})
+    this.setState({ page: pageNumber });
   }
 
   render() {
@@ -36,13 +36,13 @@ class ImageInferenceResult extends Component {
     let imageIndex = this.state.page - 1;
 
     if (this.props.context.result === null) {
-      return(
+      return (
         <div style={{ width: "100%", marginTop: "20%", marginLeft: "50%" }}>
           <Spin size="large" />
         </div>
-      )
+      );
     } else {
-      return(
+      return (
         <div>
           <React.Fragment>
             <div>
@@ -50,7 +50,7 @@ class ImageInferenceResult extends Component {
                 style={{
                   marginTop: "40px",
                   marginLeft: "20%",
-                  marginRight: "20%"
+                  marginRight: "20%",
                 }}
               >
                 <img
@@ -60,34 +60,40 @@ class ImageInferenceResult extends Component {
                 />
               </div>
 
-                
               <React.Fragment>
                 <Radio.Group
                   style={{ marginTop: "20px", marginLeft: "auto" }}
-                  onChange={(e) => this.setState({value: e.target.value})}
-                  value={this.state.value}>
+                  onChange={e => this.setState({ value: e.target.value })}
+                  value={this.state.value}
+                >
                   <Radio value={1}>Compare Model</Radio>
                   <Radio value={2}>Compare Framework</Radio>
                 </Radio.Group>
 
-                <Collapse style={{marginTop: "20px"}}>
-                  {
-                    this.state.value === 1 ?
-                    Object.keys(frameworkGroup).map(function(key, index) {
-                      return(
-                        <Collapse.Panel header={key} key={index.toString()}>
-                          <ResultTab target="model" data={frameworkGroup[key]} imgIndex={imageIndex}/>
-                        </Collapse.Panel>
-                      )
-                    }) :
-                    Object.keys(modelGroup).map(function(key, index) {
-                      return(
-                        <Collapse.Panel header={key} key={index.toString()}>
-                          <ResultTab target="framework" data={modelGroup[key]} imgIndex={imageIndex}/>
-                        </Collapse.Panel>
-                      )
-                    })
-                  }
+                <Collapse style={{ marginTop: "20px" }}>
+                  {this.state.value === 1
+                    ? Object.keys(frameworkGroup).map(function(key, index) {
+                        return (
+                          <Collapse.Panel header={key} key={index.toString()}>
+                            <ResultTab
+                              target="model"
+                              data={frameworkGroup[key]}
+                              imgIndex={imageIndex}
+                            />
+                          </Collapse.Panel>
+                        );
+                      })
+                    : Object.keys(modelGroup).map(function(key, index) {
+                        return (
+                          <Collapse.Panel header={key} key={index.toString()}>
+                            <ResultTab
+                              target="framework"
+                              data={modelGroup[key]}
+                              imgIndex={imageIndex}
+                            />
+                          </Collapse.Panel>
+                        );
+                      })}
                 </Collapse>
               </React.Fragment>
             </div>
@@ -97,10 +103,11 @@ class ImageInferenceResult extends Component {
               current={this.state.page}
               total={this.props.context.imageUrls.length}
               pageSize={1}
-              onChange={(pageNumber) => this.setState({page: pageNumber})}/>
+              onChange={pageNumber => this.setState({ page: pageNumber })}
+            />
           </React.Fragment>
         </div>
-      )
+      );
     }
   }
 }

@@ -16,15 +16,15 @@ const trace_options = [
   { key: 3, text: "Framework", value: "FRAMEWORK_TRACE" },
   { key: 4, text: "Library", value: "LIBRARY_TRACE" },
   { key: 5, text: "Hardware", value: "HARDWARE_TRACE" },
-  { key: 6, text: "Full", value: "FULL_TRACE" }
+  { key: 6, text: "Full", value: "FULL_TRACE" },
 ];
 
 class ExperimentSetupSider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: false
-    }
+      collapsed: false,
+    };
   }
 
   handleClose(context, index) {
@@ -54,37 +54,37 @@ class ExperimentSetupSider extends Component {
   disableButton() {
     if (this.props.future === "predict") {
       if (
-        this.props.context.imageUrls.length === 0 &&
-        this.props.context.dataset.length === 0 ||
+        (this.props.context.imageUrls.length === 0 &&
+          this.props.context.dataset.length === 0) ||
         this.props.context.models.length === 0 ||
         this.props.context.frameworks.length === 0
       ) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 
   disableResultButton() {
     if (this.props.context.result === null) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   render() {
-    console.log(this.props.context);
+    // console.log(this.props.context);
     return (
       <Sider
-      width="300"
-      style={{ width: "30%", background: "#E8E9EB" }}
-      collapsible
-      // collapsed={this.state.collapsed}
-      collapsedWidth={0}
-      // trigger={<Icon
-      //   type='menu-unfold'
-      //   onClick={() => this.setState({collapsed: !this.state.collapsed})}
-      // />}
+        width="300"
+        style={{ width: "30%", background: "#E8E9EB" }}
+        collapsible
+        // collapsed={this.state.collapsed}
+        collapsedWidth={0}
+        // trigger={<Icon
+        //   type='menu-unfold'
+        //   onClick={() => this.setState({collapsed: !this.state.collapsed})}
+        // />}
       >
         <div className="Experiment-setup-title-bar Experiment-setup-sider-bar">
           <h3 style={{ color: "white" }}>EXPERIMENT SETUP</h3>
@@ -103,12 +103,14 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto"
+              height: "auto",
             }}
           >
             <div>DATASETS</div>
             {this.props.context.imageUrls.length !== 0 && (
-              <Tag closable  onClose={() => this.props.context.removeUrls()}>Import from URLs</Tag>
+              <Tag closable onClose={() => this.props.context.removeUrls()}>
+                Import from URLs
+              </Tag>
             )}
             {this.props.context.dataset.length !== 0 && (
               <Tag closable onClose={() => this.props.context.removeDataset()}>
@@ -124,7 +126,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto"
+              height: "auto",
             }}
           >
             <div>MODELS</div>
@@ -148,7 +150,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto"
+              height: "auto",
             }}
           >
             <div>FRAMEWORKS</div>
@@ -172,7 +174,7 @@ class ExperimentSetupSider extends Component {
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
-              height: "auto"
+              height: "auto",
             }}
           >
             <div>MACHINES</div>
@@ -196,7 +198,7 @@ class ExperimentSetupSider extends Component {
             style={{
               float: "right",
               marginRight: "20%",
-              display: "inline-block"
+              display: "inline-block",
             }}
           >
             <Switch
@@ -214,7 +216,7 @@ class ExperimentSetupSider extends Component {
             style={{
               float: "right",
               marginRight: "20%",
-              display: "inline-block"
+              display: "inline-block",
             }}
           >
             <InputNumber
@@ -232,7 +234,7 @@ class ExperimentSetupSider extends Component {
             style={{
               float: "right",
               marginRight: "20%",
-              display: "inline-block"
+              display: "inline-block",
             }}
           >
             <Select
@@ -242,9 +244,7 @@ class ExperimentSetupSider extends Component {
               optionFilterProp="children"
               onChange={value => this.props.context.changeTraceLevel(value)}
               filterOption={(input, option) =>
-                option.props.children
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
+                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
               {trace_options.map(option => (
@@ -261,9 +261,7 @@ class ExperimentSetupSider extends Component {
             disabled={this.disableButton()}
             style={{ width: "100%" }}
             text={"Next Step: " + this.props.future.toUpperCase()}
-            onClick={() =>
-              this.handleClick(this.props.context, this.props.future)
-            }
+            onClick={() => this.handleClick(this.props.context, this.props.future)}
           />
         </div>
 

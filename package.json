@@ -71,8 +71,7 @@
     "build:swaggeri": "node scripts/build_swagger.js",
     "clean:swagger": "rimraf src/swagger",
     "clean:build": "rimraf build",
-    "build:assets": "node scripts/build_go_assets.js",
-    "precommit": "lint-staged"
+    "build:assets": "node scripts/build_go_assets.js"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.11.0",

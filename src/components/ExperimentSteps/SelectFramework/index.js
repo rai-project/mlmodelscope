@@ -3,19 +3,30 @@ import React, { Component } from "react";
 import { Layout, Col, Row, Card } from "antd";
 import { isArray, find, filter, findIndex, size } from "lodash";
 import yeast from "yeast";
+import semver from "semver";
 import { withRouter } from "react-router-dom";
 import { FrameworkManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
 const { Meta } = Card;
-var logos = require.context('../../../resources/logos', true);
+var logos = require.context("../../../resources/logos", true);
 
 function frameworkLogo(frameworkName) {
-  let image = logos("./"+frameworkName+".png");
+  let image = logos("./" + frameworkName + ".png");
   return (
-    <img src={image} alt={frameworkName} style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}/>
-  )
+    <img
+      src={image}
+      alt={frameworkName}
+      style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+    />
+  );
+}
+
+function versionSatisfied(a0, b0) {
+  const a = semver.coerce(a0).raw;
+  const b = semver.coerce(b0).raw;
+  return semver.satisfies(a, b);
 }
 
 class SelectFramework extends Component {
@@ -44,18 +55,31 @@ class SelectFramework extends Component {
     var models = this.props.context.modelManifests;
     if (selectedModels.length !== 0) {
       // find models & frameworks of selected models
-      models = filter(models, function(m) {return findIndex(selectedModels, {name: m.name, version: m.version} ) !== -1})
+      models = filter(models, function(m) {
+        return (
+          findIndex(selectedModels, {
+            name: m.name,
+            version: m.version,
+          }) !== -1
+        );
+      });
       // find frameworks exist for all selected models
-      frameworks = filter(
-        frameworks,
-        function(f) {
-          return size(
-            filter(models, function(o) { return f.name === o.framework.name && f.version === o.framework.version })
+      frameworks = filter(frameworks, function(f) {
+        return (
+          size(
+            filter(models, function(o) {
+              return (
+                f.name === o.framework.name &&
+                versionSatisfied(f.version, o.framework.version)
+              );
+            })
           ) === selectedModels.length
-        }
-      )
-      console.log(frameworks)
+        );
+      });
+      console.log(frameworks);
     }
+
+    console.log(this.props.context.frameworkManifests);
 
     return (
       <Layout style={{ background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
@@ -79,17 +103,20 @@ class SelectFramework extends Component {
                 <Col key={yeast()} sm={8} xs={24} style={{ padding: "10px" }}>
                   <SelectableCard
                     tooltip={true}
-                    onClick={() => this.props.context.addFramework(item.name, item.version)}
+                    onClick={() =>
+                      this.props.context.addFramework(item.name, item.version)
+                    }
                     cover={frameworkLogo(item.name.toLowerCase())}
                     selected={find(
                       this.props.context.frameworks,
-                      e => e.name === item.name && e.version === item.version
+                      e =>
+                        e.name === item.name && versionSatisfied(e.version, item.version)
                     )}
                   >
-                  <Meta
-                    title={item.name + " V" + item.version}
-                    description="Description: TODO"
-                  />
+                    <Meta
+                      title={item.name + " V" + item.version}
+                      description="Description: TODO"
+                    />
                   </SelectableCard>
                 </Col>
               ))}
