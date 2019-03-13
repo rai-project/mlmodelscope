@@ -38,6 +38,11 @@ class SelectFramework extends Component {
           frameworkName: "*",
           frameworkVersion: "*",
         });
+
+        // START: segmentation demo
+        const segFramework = { name: "Tensorflow", version: "1.12" };
+        req.manifests.unshift(segFramework);
+        // END
         this.props.context.setFrameworkManifests(req.manifests);
       } catch (err) {
         console.error(err);

@@ -11,7 +11,7 @@ export default class ExperimentProvider extends Component {
       useGPU: false,
       isPredicting: true,
       imageUrls: [],
-      dataset: [],
+      dataset: null,
       models: [],
       frameworks: [],
       machines: [],
@@ -25,10 +25,10 @@ export default class ExperimentProvider extends Component {
         }),
       addDataset: dataset =>
         this.setState({
-          dataset: this.state.dataset.concat(dataset),
+          dataset: dataset,
         }),
       removeDataset: () => {
-        this.setState({ dataset: [] });
+        this.setState({ dataset: null });
       },
       addModel: (name, version) => {
         this.setState({

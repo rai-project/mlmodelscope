@@ -1,0 +1,917 @@
+[
+  {
+    "model": {
+      "name": "SSD_MobileNet_v1_COCO",
+      "version": "1.0"
+    },
+    "framework": {
+      "name": "Tensorflow",
+      "version": "1.12"
+    },
+    "traceId": "284ab0f48d9dde06",
+    "response": [
+      {
+        "features": [
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.86591244,
+              "xmin": 0.61140466,
+              "ymax": 0.93742377,
+              "ymin": 0.5743702
+            },
+            "id": "5c8711b195b3273e08766c31",
+            "probability": 0.93641514,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.33361852,
+              "xmin": 0.009948239,
+              "ymax": 0.8168658,
+              "ymin": 0.5892683
+            },
+            "id": "5c8711b195b3273e08766c32",
+            "probability": 0.9113645,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.99396807,
+              "xmin": 0.70932466,
+              "ymax": 0.98910743,
+              "ymin": 0.5812035
+            },
+            "id": "5c8711b195b3273e08766c33",
+            "probability": 0.89299077,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.4244637,
+              "xmin": 0.2909373,
+              "ymax": 0.59217894,
+              "ymin": 0.498848
+            },
+            "id": "5c8711b195b3273e08766c34",
+            "probability": 0.83955055,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.8752326,
+              "xmin": 0.84643495,
+              "ymax": 0.2715362,
+              "ymin": 0.17325094
+            },
+            "id": "5c8711b195b3273e08766c35",
+            "probability": 0.7626647,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.5264904,
+              "xmin": 0.47645587,
+              "ymax": 0.6048353,
+              "ymin": 0.5091996
+            },
+            "id": "5c8711b195b3273e08766c36",
+            "probability": 0.7470054,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.29825932,
+              "xmin": 0.13955207,
+              "ymax": 0.59665895,
+              "ymin": 0.500178
+            },
+            "id": "5c8711b195b3273e08766c37",
+            "probability": 0.6180606,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.9975979,
+              "xmin": 0.97011715,
+              "ymax": 0.27487403,
+              "ymin": 0.19520739
+            },
+            "id": "5c8711b195b3273e08766c38",
+            "probability": 0.56355804,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.6880717,
+              "xmin": 0.6521143,
+              "ymax": 0.23361288,
+              "ymin": 0.1261463
+            },
+            "id": "5c8711b195b3273e08766c39",
+            "probability": 0.5392588,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.8559731,
+              "xmin": 0.8300959,
+              "ymax": 0.26847577,
+              "ymin": 0.1770073
+            },
+            "id": "5c8711b195b3273e08766c3a",
+            "probability": 0.514881,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.48827994,
+              "xmin": 0.44947374,
+              "ymax": 0.61712295,
+              "ymin": 0.5012199
+            },
+            "id": "5c8711b195b3273e08766c3b",
+            "probability": 0.44860813,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.066552065,
+              "xmin": 0.006550053,
+              "ymax": 0.60771894,
+              "ymin": 0.5185528
+            },
+            "id": "5c8711b195b3273e08766c3c",
+            "probability": 0.37734935,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.44778532,
+              "xmin": 0.41988873,
+              "ymax": 0.25116447,
+              "ymin": 0.12888524
+            },
+            "id": "5c8711b195b3273e08766c3d",
+            "probability": 0.37248534,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.75993365,
+              "xmin": 0.6072802,
+              "ymax": 0.9249187,
+              "ymin": 0.58268505
+            },
+            "id": "5c8711b195b3273e08766c3e",
+            "probability": 0.36385623,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.57311946,
+              "xmin": 0.5319516,
+              "ymax": 0.5914922,
+              "ymin": 0.5024371
+            },
+            "id": "5c8711b195b3273e08766c3f",
+            "probability": 0.36055332,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 8,
+              "label": "8: truck",
+              "xmax": 0.6875977,
+              "xmin": 0.55437225,
+              "ymax": 0.62438923,
+              "ymin": 0.4330353
+            },
+            "id": "5c8711b195b3273e08766c40",
+            "probability": 0.35543087,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 10,
+              "label": "10: traffic light",
+              "xmax": 0.19554745,
+              "xmin": 0.17886831,
+              "ymax": 0.43714502,
+              "ymin": 0.39937392
+            },
+            "id": "5c8711b195b3273e08766c41",
+            "probability": 0.32942352,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.6879042,
+              "xmin": 0.55523056,
+              "ymax": 0.62762445,
+              "ymin": 0.4341925
+            },
+            "id": "5c8711b195b3273e08766c42",
+            "probability": 0.32511163,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 3,
+              "label": "3: car",
+              "xmax": 0.9970841,
+              "xmin": 0.96154076,
+              "ymax": 0.59105384,
+              "ymin": 0.50287914
+            },
+            "id": "5c8711b195b3273e08766c43",
+            "probability": 0.3006498,
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c44",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c45",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c46",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c47",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c48",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c49",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4a",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4b",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4c",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4d",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4e",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c4f",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c50",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c51",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c52",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c53",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c54",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c55",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c56",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c57",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c58",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c59",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5a",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5b",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5c",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5d",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5e",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c5f",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c60",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c61",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c62",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c63",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c64",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c65",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c66",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c67",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c68",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c69",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6a",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6b",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6c",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6d",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6e",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c6f",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c70",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c71",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c72",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c73",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c74",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c75",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c76",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c77",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c78",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c79",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7a",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7b",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7c",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7d",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7e",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c7f",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c80",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c81",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c82",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c83",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c84",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c85",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c86",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c87",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c88",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c89",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8a",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8b",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8c",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8d",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8e",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c8f",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c90",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c91",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c92",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c93",
+            "type": "BOUNDINGBOX"
+          },
+          {
+            "bounding_box": {
+              "index": 1,
+              "label": "1: person"
+            },
+            "id": "5c8711b195b3273e08766c94",
+            "type": "BOUNDINGBOX"
+          }
+        ],
+        "id": "f957a468-4064-4df3-b2a3-ca6b83f22693",
+        "input_id": "91c04048-850b-4e91-8a08-667fe86d0956",
+        "request_id": "8367a68c-7036-4159-a822-385c4983a86f"
+      }
+    ]
+  }
+]

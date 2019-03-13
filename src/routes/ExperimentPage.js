@@ -23,6 +23,7 @@ export default class ExperimentPage extends Component {
     this.handleChangePage = this.handleChangePage.bind(this);
     this.state = {
       current: "dataset",
+      // current: "predict",
       future: "model",
     };
   }

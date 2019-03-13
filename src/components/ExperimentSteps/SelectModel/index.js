@@ -22,10 +22,12 @@ import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
 const dataTypes = {
-  image: { icon: "picture" },
-  feature: { icon: "appstore" },
-  test: { icon: "file-test" },
-  audio: { icon: "sound" },
+
+  "image": { "icon": "picture" },
+  "feature": { "icon": "appstore" },
+  "text": { "icon": "file-test" },
+  "audio": { "icon": "sound" },
+  "boundingBox": { "icon": "check-square" },
 };
 
 function typeRender({ type }) {
@@ -66,6 +68,19 @@ class SelectModel extends Component {
           modelName: "*",
           modelVersion: "*",
         });
+
+        // START: For Segmentation Demo
+        const segModel = {
+          description: "TODO",
+          framework: { name: "Tensorflow", version: "1.12" },
+          inputs:[{ type: "image" }],
+          name: "SSD_MobileNet",
+          output: { type: "boundingBox" },
+          version: "1.0"
+        }
+        req.manifests.unshift(segModel)
+        // END
+
         this.props.context.setModelManifests(req.manifests);
         this.setState({ loaded: true });
       } catch (err) {
