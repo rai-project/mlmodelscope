@@ -4,6 +4,8 @@ import { Tabs } from "antd";
 import { sortBy, isNil, toUpper } from "lodash";
 import { Table } from "antd";
 import TraceInfo from "./TraceInfo";
+import ClassificationResult from "./ClassificationResult";
+import SegmentationResult from "./SegmentationResult";
 
 function processNameClassification({ classification: { label } }) {
   const lower = label
@@ -32,56 +34,34 @@ function processResponseFeatures(response) {
   return response.slice(0, 10);
 }
 
-function renderResult(d, target, imgIndex) {
+function renderResult(d, target, imgIndex, imgUrl) {
   if (isNil(d)) {
     return null;
   }
-  const traceURL = d.traceId
-    ? `http://trace.mlmodelscope.org:16686/trace/${d.traceId}?embed`
-    : null;
-  const responseHeader = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name"
-    },
-    {
-      title: "Probability",
-      dataIndex: "probability",
-      key: "probability"
+  var features = idx(d, _ => _.response[imgIndex].features)
+  return(
+    <SegmentationResult features={features} traceId={d.traceId} displayTrace={true} imgUrl={imgUrl} />
+  )
+  try{
+    if (features.type === "CLASSIFICATION") {
+      return(
+        <ClassificationResult features={features} traceId={d.traceId} displayTrace={true} />
+      )
+    } else if (features.type === "BOUNDINGBOX") {
+      return(
+        <SegmentationResult features={features} traceId={d.traceId} displayTrace={true} imgUrl={imgUrl} />
+      )
+    } else {
+      return(
+        <div>{"Type " + features.type + " is not supported yet!"}</div>
+      )
     }
-  ];
-  
-  return (
-      <div>
-        <div
-          style={{
-            marginTop: "40px",
-            marginLeft: "20%",
-            marginRight: "20%"
-          }}
-        >
-          <Table
-            dataSource={processResponseFeatures(
-              idx(d, _ => _.response[imgIndex].features)
-            )}
-            columns={responseHeader}
-            showHeader={true}
-            pagination={false}
-            style={{
-              width: "60%",
-              marginLeft: "20%",
-              marginRight: "20%",
-              marginTop: "20px"
-            }}
-          />
-        </div>
-
-        {d.traceId ? (
-          <TraceInfo traceURL={traceURL} traceID={d.traceId} />
-        ) : null}
-      </div>
-    );
+  }
+  catch(err) {
+    return(
+      <div>{"Something Went Wrong"}</div>
+    )
+  }
 }
 
 export default class ResultTab extends Component {
@@ -94,6 +74,9 @@ export default class ResultTab extends Component {
   render() {
     var target = this.props.target;
     var imgIndex = this.props.imgIndex;
+    var imgUrl = this.props.imgUrl;
+    var features;
+
     return(
       <Tabs defaultActiveKey="0">
         {
@@ -101,8 +84,8 @@ export default class ResultTab extends Component {
             return(
               <Tabs.TabPane tab={d[target].name + " V" + d[target].version} key={index}>
               {
-              renderResult(d, target, imgIndex)
-            })}
+                renderResult(d, target, imgIndex, imgUrl)
+              }
               </Tabs.TabPane>
             )
           })

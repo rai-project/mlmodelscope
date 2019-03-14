@@ -9,12 +9,10 @@ import SegmentationResult from "./SegmentationResult";
 class InferenceResult extends Component {
   render() {
     var resultContent
-    if (this.props.context.imageUrls.length !== 0) {
-      resultContent = <ImageInferenceResult />;
-    } else if (this.props.context.dataset.name === "ilsvrc2012") {
+    if (this.props.context.dataset !== null) {
       resultContent = <DatasetInferenceResult />;
-    } else if (this.props.context.dataset.name === "segmentation") {
-      resultContent = <SegmentationResult />;
+    } else if (this.props.context.imageUrls.length !== 0) {
+      resultContent = <ImageInferenceResult />;
     }
     return (
       <div style={{ width: "100%", background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
@@ -32,7 +30,6 @@ class InferenceResult extends Component {
           </div>
 
           {resultContent}
-          {/* <SegmentationResult /> */}
       </div>
     );
   }

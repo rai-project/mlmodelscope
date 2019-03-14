@@ -54,7 +54,6 @@ class BBoxLabel extends Component {
   }
 }
 
-
 class URLImage extends React.Component {
   state = {
     image: null
@@ -97,7 +96,9 @@ class URLImage extends React.Component {
     if (this.state.image === null) {
       return null
     }
-    var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
+    // FOR Local Test
+    // var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
+    var features = filter(this.props.features, function(o) {return o.probability >= 0.4})
     console.log(features)
     return(
       features.map((data) => {
@@ -120,15 +121,16 @@ class URLImage extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        image={this.state.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-      />
-      {this.renderBBox()}</React.Fragment>
+        <Image
+          x={this.props.x}
+          y={this.props.y}
+          image={this.state.image}
+          ref={node => {
+            this.imageNode = node;
+          }}
+        />
+        {this.renderBBox()}
+      </React.Fragment>
     );
   }
 }
@@ -136,13 +138,13 @@ class URLImage extends React.Component {
 export default class SegmentationResult extends Component {
   render() {
     return(
-      <div style={{margin: "auto"}}>
-        <Stage width={850} height={500} margin={"auto"}>
-          <Layer>
-            <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} />
-          </Layer>
-        </Stage>
-      </div>
+      <Stage width={window.innerWidth-372} height={500}>
+        <Layer>
+          {/* For Local Test */}
+          {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
+          <URLImage src={this.props.imgUrl} x={100} y={50} features={this.props.features}/>
+        </Layer>
+      </Stage>
     )
   }
 }

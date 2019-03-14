@@ -21,18 +21,28 @@ import { ModelManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
-const dataTypes = {
-
+const inputDataTypes = {
   "image": { "icon": "picture" },
-  "feature": { "icon": "appstore" },
-  "text": { "icon": "file-test" },
+  "text": { "icon": "file-text" },
   "audio": { "icon": "sound" },
-  "boundingBox": { "icon": "check-square" },
 };
+const outputDataTypes = {
+  "UNKNOWN": { "icon": "question" },
+  "IMAGE": { "icon": "picture" },
+  "CLASSIFICATION": { "icon": "appstore" },
+  "GEOLOCATION": { "icon": "compass" },
+  "REGION": { "icon": "global" },
+  "TEXT": { "icon": "file-text" },
+  "AUDIO": { "icon": "sound" },
+  "BOUNDINGBOX": { "icon": "border" },
+  "RAW": { "icon": "file-text" },
+}
 
 function typeRender({ type }) {
-  if (type in dataTypes) {
-    return <Icon key={yeast()} type={dataTypes[type]["icon"]} />;
+  if (type in inputDataTypes) {
+    return <Icon key={yeast()} type={inputDataTypes[type]["icon"]} />;
+  } else if (type in outputDataTypes) {
+    return <Icon key={yeast()} type={outputDataTypes[type]["icon"]} />;
   }
   return <Icon key={yeast()} type="cluster" />;
 }
@@ -75,7 +85,7 @@ class SelectModel extends Component {
           framework: { name: "Tensorflow", version: "1.12" },
           inputs:[{ type: "image" }],
           name: "SSD_MobileNet",
-          output: { type: "boundingBox" },
+          output: { type: "BOUNDINGBOX" },
           version: "1.0"
         }
         req.manifests.unshift(segModel)
@@ -193,7 +203,7 @@ class SelectModel extends Component {
 
     const inputDataTypeMenu = (
       <Menu onClick={this.handleSelectInputDataType}>
-        {Object.keys(dataTypes).map(type => (
+        {Object.keys(inputDataTypes).map(type => (
           <Menu.Item key={type}>
             <a // eslint-disable-line
               target="_blank"
@@ -208,7 +218,7 @@ class SelectModel extends Component {
 
     const outputDataTypeMenu = (
       <Menu onClick={this.handleSelectOutputDataType}>
-        {Object.keys(dataTypes).map(type => (
+        {Object.keys(outputDataTypes).map(type => (
           <Menu.Item key={type}>
             <a // eslint-disable-line
               target="_blank"

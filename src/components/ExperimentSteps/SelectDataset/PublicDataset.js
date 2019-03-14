@@ -156,7 +156,7 @@ export default class PublicDataset extends Component {
         <div>
           <Row gutter={1}>
             {datasets.map((item, index) =>
-              item.name === "ilsvrc2012" || item.name === "segmentation" ? (
+              item.name === "ilsvrc2012" ? (
                 <Col sm={8} xs={24} key={`dataset-${index}`} style={{ padding: "10px" }}>
                   <ExperimentContext.Consumer>
                     {context => (

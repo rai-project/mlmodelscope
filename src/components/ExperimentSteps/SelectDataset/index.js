@@ -11,7 +11,6 @@ const frameworks = [];
 const models = [];
 
 const datasetOptions = [
-  { key: 6, name: "segmentation", description: "Demo", type: "image", technique: "segmentation" },
   { key: 0, name: "ilsvrc2012", description: "vision/ilsvrc2012", type: "image", technique: "classification" },
   { key: 1, name: "cifar10", description: "vision/cifar10", type: "image", technique: "classification" },
   { key: 2, name: "cifar100", description: "vision/cifar100", type: "image", technique: "classification" },

@@ -34,6 +34,7 @@ class ImageInferenceResult extends Component {
     const frameworkGroup = groupByFramework(this.props.context.result);
     const modelGroup = groupByModel(this.props.context.result);
     let imageIndex = this.state.page - 1;
+    let imageUrl = this.props.context.imageUrls[imageIndex]
 
     if (this.props.context.result === null) {
       return (
@@ -54,7 +55,7 @@ class ImageInferenceResult extends Component {
                 }}
               >
                 <img
-                  src={this.props.context.imageUrls[imageIndex]}
+                  src={imageUrl}
                   style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}
                   alt=""
                 />
@@ -79,6 +80,7 @@ class ImageInferenceResult extends Component {
                               target="model"
                               data={frameworkGroup[key]}
                               imgIndex={imageIndex}
+                              imgUrl={imageUrl}
                             />
                           </Collapse.Panel>
                         );
@@ -90,6 +92,7 @@ class ImageInferenceResult extends Component {
                               target="framework"
                               data={modelGroup[key]}
                               imgIndex={imageIndex}
+                              imgUrl={imageUrl}
                             />
                           </Collapse.Panel>
                         );
