@@ -3,11 +3,15 @@ import { Stage, Layer, Image, Line, Label, Text, Tag } from "react-konva";
 import predict from "./predict.json";
 import { filter } from "lodash";
 
-
-const colors = {
-  3: "red",
-  10: "blue"
-}
+const colors = [
+  "#e84a27", // UI Orange
+  "#1a263a", // UI Dark Blue
+  "#e22f2f", // Red
+  "#33a02c", // Green
+  "#6a3d9a", // Purple
+  "#1f78b4", // Light Blue
+  "#b15928", // Brown
+]
 
 class Rectangle extends Component {
   render() {
@@ -45,7 +49,6 @@ class BBoxLabel extends Component {
     return(
       <React.Fragment>
         <Label x={this.props.x} y={this.props.y-14}>
-          {/* <Tag fill={this.props.color}><Text text={this.props.text} /></Tag> */}
           <Tag fill={this.props.color}></Tag>
           <Text text={this.props.text} fill="white" fontSize={14}/>
         </Label>
@@ -97,9 +100,11 @@ class URLImage extends React.Component {
       return null
     }
     // FOR Local Test
-    // var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
-    var features = filter(this.props.features, function(o) {return o.probability >= 0.4})
-    console.log(features)
+    var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
+    // var features = filter(this.props.features, function(o) {return o.probability >= 0.4})
+    console.log(features);
+    var colorMap = {};
+    var currentColorIndex = 0;
     return(
       features.map((data) => {
         var bbox = data["bounding_box"]
@@ -108,10 +113,15 @@ class URLImage extends React.Component {
         var y1 = this.props.y + Math.round(bbox.ymin*this.state.height)
         var y2 = this.props.y + Math.round(bbox.ymax*this.state.height)
         var text = bbox.label + ": " + this.probabilityToPercentage(data.probability)
+        if (!(bbox.index in colorMap)) {
+          colorMap[bbox.index] = colors[currentColorIndex];
+          currentColorIndex++;
+        }
+        var color = colorMap[bbox.index];
         return(
           <React.Fragment>
-            <Rectangle x1={x1} x2={x2} y1={y1} y2={y2} color={colors[bbox.index]}/>
-            <BBoxLabel x={x1} y={y1} text={text} color={colors[bbox.index]}/>
+            <Rectangle x1={x1} x2={x2} y1={y1} y2={y2} color={color}/>
+            <BBoxLabel x={x1} y={y1} text={text} color={color}/>
           </React.Fragment>
         )
       })
@@ -139,10 +149,11 @@ export default class SegmentationResult extends Component {
   render() {
     return(
       <Stage width={window.innerWidth-372} height={500}>
+      {/* <Stage width={width} height={height}> */}
         <Layer>
           {/* For Local Test */}
           {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-          <URLImage src={this.props.imgUrl} x={100} y={50} features={this.props.features}/>
+          <URLImage src={this.props.imgUrl} x={0} y={0} features={this.props.features}/>
         </Layer>
       </Stage>
     )
