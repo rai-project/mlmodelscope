@@ -7,33 +7,6 @@ import TraceInfo from "./TraceInfo";
 import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
 
-function processNameClassification({ classification: { label } }) {
-  const lower = label
-    .split(",")[0]
-    .split(" ")
-    .slice(1)
-    .join(" ");
-  const result = lower.charAt(0).toUpperCase() + lower.substr(1);
-  return result;
-}
-function processName(item) {
-  const { type } = item;
-  switch (toUpper(type)) {
-    case "CLASSIFICATION":
-      return processNameClassification(item);
-    default:
-      return "unknown_type_" + type;
-  }
-}
-
-function processResponseFeatures(response) {
-  response = sortBy(response, ["probability"]).reverse();
-  response.forEach(function(item, index) {
-    item["name"] = processName(item);
-  });
-  return response.slice(0, 10);
-}
-
 function renderResult(d, target, imgIndex, imgUrl) {
   if (isNil(d)) {
     return null;
