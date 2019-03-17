@@ -80,15 +80,15 @@ class SelectModel extends Component {
         });
 
         // START: For Segmentation Demo
-        const segModel = {
-          description: "TODO",
-          framework: { name: "Tensorflow", version: "1.12" },
-          inputs:[{ type: "image" }],
-          name: "SSD_MobileNet",
-          output: { type: "BOUNDINGBOX" },
-          version: "1.0"
-        }
-        req.manifests.unshift(segModel)
+        // const segModel = {
+        //   description: "TODO",
+        //   framework: { name: "Tensorflow", version: "1.12" },
+        //   inputs:[{ type: "image" }],
+        //   name: "SSD_MobileNet",
+        //   output: { type: "BOUNDINGBOX" },
+        //   version: "1.0"
+        // }
+        // req.manifests.unshift(segModel)
         // END
 
         this.props.context.setModelManifests(req.manifests);
