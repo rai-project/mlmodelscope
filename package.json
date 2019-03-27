@@ -23,6 +23,7 @@
     "antd-mobile": "^2.2.11",
     "avataaars": "^1.2.1",
     "axios": "^0.18.0",
+    "base-64": "^0.1.0",
     "bizcharts": "^3.5.2",
     "color": "^3.1.0",
     "culori": "^0.7.4",

@@ -4,27 +4,18 @@ import { Layout, Form, Icon, Input } from "antd";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
-import { Login, setBasicAuth } from "../swagger/index";
-import base64 from "base-64";
+import { Signup } from "../swagger/index";
 
 const FormItem = Form.Item;
 
-function encodeUserPassword({username, password}) {
-  return base64.encode(`${username}:${password}`)
-}
-
-class NormalLoginForm extends React.Component {
+class NormalSignupForm extends React.Component {
   handleSubmit = (e, context) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // values["csrf-token"] = getCookie("csrf-token")
         console.log("Received values of form: ", values);
         // context.logIn(values.userName);
-        // setBasicAuth(v)
-        Login({body: {}, headers: {
-          "Authorization": `Basic ${encodeUserPassword(values)}`
-        }})
+        Signup({body: values})
           .catch(err => {
             throw(err)
           })
@@ -49,7 +40,27 @@ class NormalLoginForm extends React.Component {
         {context => (
           <Form onSubmit={e => this.handleSubmit(e, context)}>
             <FormItem>
-              {getFieldDecorator("username", {
+              {getFieldDecorator("firstname", {
+                rules: [{ required: true, message: "Please input your First Name" }],
+              })(
+                <Input
+                  prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+                  placeholder="First Name"
+                />
+              )}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("lastname", {
+                rules: [{ required: true, message: "Please input your Last Name" }],
+              })(
+                <Input
+                  prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+                  placeholder="Last Name"
+                />
+              )}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("userName", {
                 rules: [{ required: true, message: "Please input your username!" }],
               })(
                 <Input
@@ -70,7 +81,7 @@ class NormalLoginForm extends React.Component {
               )}
             </FormItem>
             <FormItem>
-              <PrimaryButton htmlType="submit" text="Login" style={{ width: "100%" }} />
+              <PrimaryButton htmlType="submit" text="Signup" style={{ width: "100%" }} />
             </FormItem>
           </Form>
         )}
@@ -79,9 +90,9 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
+const WrappedNormalSignupForm = Form.create()(NormalSignupForm);
 
-export default class LogInPage extends Component {
+export default class SignupPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,15 +109,15 @@ export default class LogInPage extends Component {
       <Redirect to="/experiment" />
     ) : (
       <Layout className="LightGray" style={{ minHeight: 700 }}>
-        <Helmet title="Login" meta={[{ property: "og:title", content: "Login" }]} />
+        <Helmet title="Signup" meta={[{ property: "og:title", content: "Signup" }]} />
         <header className="DarkBlue">
           <div style={{ marginTop: "40px", marginBottom: "40px", textAlign: "center" }}>
-            <h1 style={{ color: "white" }}> Log into ML ModelScope </h1>
+            <h1 style={{ color: "white" }}> Signup an Account on ML ModelScope </h1>
           </div>
         </header>
 
         <div className="CenterBlock" style={{ marginTop: "40px", width: "40%" }}>
-          <WrappedNormalLoginForm logIn={this.logIn} />
+          <WrappedNormalSignupForm />
         </div>
       </Layout>
     );

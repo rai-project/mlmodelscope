@@ -56,6 +56,33 @@ function processHeaders(headers) {
 }
 
 /**
+ * Set Basic Auth
+ * @method
+ * @name DLFramework#setBasicAuth
+ * @param {string} username
+ * @param {string} password
+ */
+// DLFramework.prototype.setBasicAuth = function(username, password) {
+export async function setBasicAuth(username, password) {
+    this.basic.username = value;
+    this.basic.password = password;
+};
+/**
+ * Set Auth headers
+ * @method
+ * @name DLFramework#setAuthHeaders
+ * @param {object} headerParams - headers object
+ */
+// DLFramework.prototype.setAuthHeaders = function(headerParams) {
+export async function setAuthHeaders(headerParams) {
+    let headers = headerParams ? headerParams : {};
+    if (this.basic.username && this.basic.password) {
+        headers['Authorization'] = 'Basic ' + btoa(this.basic.username + ':' + this.basic.password);
+    }
+    return headers;
+};
+
+/**
  * Close a predictor clear it's memory.
  * @method
  * @name DLFramework#Close
@@ -366,231 +393,6 @@ export async function Open(params) {
  */
 export async function Reset(params) {
     let urlPath = baseURL + '/api/predict/reset';
-    let body = {},
-        queryParameters = {},
-        headers = {},
-        form = {};
-
-    if (params && params.headers) {
-        headers = params.headers;
-    }
-
-    headers['Accept'] = 'application/json';
-    headers['Content-Type'] = 'application/json';
-
-    if (has(params, "requestId")) {
-        headers['X-Request-ID'] = params.requestId;
-    } else if (has(params, "X-Request-ID")) {
-        headers['X-Request-ID'] = params["X-Request-ID"];
-    } else {
-        headers['X-Request-ID'] = uuid();
-    }
-
-    if (!has(headers, "Content-Type")) {
-        headers["Content-Type"] = "application/json; charset=utf-8";
-    }
-
-    let parameters = params;
-
-    if (parameters === undefined) {
-        parameters = {};
-    }
-
-    if (parameters['body'] !== undefined) {
-        parameters['body'] = JSON.stringify(parameters['body']);
-    }
-
-    if (parameters['body'] === undefined) {
-        throw new Error('Missing required  parameter: body');
-    }
-
-    queryParameters = mergeQueryParams(parameters, queryParameters);
-
-    const queryParams =
-        queryParameters && Object.keys(queryParameters).length ?
-        "?" + serializeQueryParams(queryParameters) :
-        "";
-
-    const creds = {
-        credentials: 'include',
-        cache: 'no-cache',
-        mode: 'cors'
-    };
-    const options = {
-        method: 'POST',
-        headers,
-        ...parameters,
-        ...creds,
-    };
-
-    const response = await fetch(urlPath + queryParams, options);
-    const json = await response.json()
-
-    return {
-        ...processHeaders(response.headers),
-        ...json
-    }
-};
-
-/**
- * The result is a prediction feature stream.
- * @method
- * @name DLFramework#DatasetStream
- * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
- */
-export async function DatasetStream(params) {
-    let urlPath = baseURL + '/api/predict/stream/dataset';
-    let body = {},
-        queryParameters = {},
-        headers = {},
-        form = {};
-
-    if (params && params.headers) {
-        headers = params.headers;
-    }
-
-    headers['Accept'] = 'application/json';
-    headers['Content-Type'] = 'application/json';
-
-    if (has(params, "requestId")) {
-        headers['X-Request-ID'] = params.requestId;
-    } else if (has(params, "X-Request-ID")) {
-        headers['X-Request-ID'] = params["X-Request-ID"];
-    } else {
-        headers['X-Request-ID'] = uuid();
-    }
-
-    if (!has(headers, "Content-Type")) {
-        headers["Content-Type"] = "application/json; charset=utf-8";
-    }
-
-    let parameters = params;
-
-    if (parameters === undefined) {
-        parameters = {};
-    }
-
-    if (parameters['body'] !== undefined) {
-        parameters['body'] = JSON.stringify(parameters['body']);
-    }
-
-    if (parameters['body'] === undefined) {
-        throw new Error('Missing required  parameter: body');
-    }
-
-    queryParameters = mergeQueryParams(parameters, queryParameters);
-
-    const queryParams =
-        queryParameters && Object.keys(queryParameters).length ?
-        "?" + serializeQueryParams(queryParameters) :
-        "";
-
-    const creds = {
-        credentials: 'include',
-        cache: 'no-cache',
-        mode: 'cors'
-    };
-    const options = {
-        method: 'POST',
-        headers,
-        ...parameters,
-        ...creds,
-    };
-
-    const response = await fetch(urlPath + queryParams, options);
-    const json = await response.json()
-
-    return {
-        ...processHeaders(response.headers),
-        ...json
-    }
-};
-
-/**
- * The result is a prediction feature stream for each image.
- * @method
- * @name DLFramework#ImagesStream
- * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
- */
-export async function ImagesStream(params) {
-    let urlPath = baseURL + '/api/predict/stream/images';
-    let body = {},
-        queryParameters = {},
-        headers = {},
-        form = {};
-
-    if (params && params.headers) {
-        headers = params.headers;
-    }
-
-    headers['Accept'] = 'application/json';
-    headers['Content-Type'] = 'application/json';
-
-    if (has(params, "requestId")) {
-        headers['X-Request-ID'] = params.requestId;
-    } else if (has(params, "X-Request-ID")) {
-        headers['X-Request-ID'] = params["X-Request-ID"];
-    } else {
-        headers['X-Request-ID'] = uuid();
-    }
-
-    if (!has(headers, "Content-Type")) {
-        headers["Content-Type"] = "application/json; charset=utf-8";
-    }
-
-    let parameters = params;
-
-    if (parameters === undefined) {
-        parameters = {};
-    }
-
-    if (parameters['body'] !== undefined) {
-        parameters['body'] = JSON.stringify(parameters['body']);
-    }
-
-    if (parameters['body'] === undefined) {
-        throw new Error('Missing required  parameter: body');
-    }
-
-    queryParameters = mergeQueryParams(parameters, queryParameters);
-
-    const queryParams =
-        queryParameters && Object.keys(queryParameters).length ?
-        "?" + serializeQueryParams(queryParameters) :
-        "";
-
-    const creds = {
-        credentials: 'include',
-        cache: 'no-cache',
-        mode: 'cors'
-    };
-    const options = {
-        method: 'POST',
-        headers,
-        ...parameters,
-        ...creds,
-    };
-
-    const response = await fetch(urlPath + queryParams, options);
-    const json = await response.json()
-
-    return {
-        ...processHeaders(response.headers),
-        ...json
-    }
-};
-
-/**
- * The result is a prediction feature stream for each url.
- * @method
- * @name DLFramework#URLsStream
- * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
- */
-export async function URLsStream(params) {
-    let urlPath = baseURL + '/api/predict/stream/urls';
     let body = {},
         queryParameters = {},
         headers = {},
@@ -1061,7 +863,6 @@ export async function ModelManifests(params) {
  * @method
  * @name DLFramework#Login
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
  */
 export async function Login(params) {
     let urlPath = baseURL + '/api/auth/login';
@@ -1074,6 +875,7 @@ export async function Login(params) {
         headers = params.headers;
     }
 
+    // headers = this.setAuthHeaders(headers);
     headers['Accept'] = 'application/json';
     headers['Content-Type'] = 'application/json';
 
@@ -1093,14 +895,6 @@ export async function Login(params) {
 
     if (parameters === undefined) {
         parameters = {};
-    }
-
-    if (parameters['body'] !== undefined) {
-        parameters['body'] = JSON.stringify(parameters['body']);
-    }
-
-    if (parameters['body'] === undefined) {
-        throw new Error('Missing required  parameter: body');
     }
 
     queryParameters = mergeQueryParams(parameters, queryParameters);
@@ -1176,6 +970,205 @@ export async function Signup(params) {
 
     if (parameters['body'] === undefined) {
         throw new Error('Missing required  parameter: body');
+    }
+
+    queryParameters = mergeQueryParams(parameters, queryParameters);
+
+    const queryParams =
+        queryParameters && Object.keys(queryParameters).length ?
+        "?" + serializeQueryParams(queryParameters) :
+        "";
+
+    const creds = {
+        credentials: 'include',
+        cache: 'no-cache',
+        mode: 'cors'
+    };
+    const options = {
+        method: 'POST',
+        headers,
+        ...parameters,
+        ...creds,
+    };
+
+    const response = await fetch(urlPath + queryParams, options);
+    const json = await response.json()
+
+    return {
+        ...processHeaders(response.headers),
+        ...json
+    }
+};
+
+/**
+ * Get User's information
+ * @method
+ * @name DLFramework#UserInfo
+ * @param {object} parameters - method options and parameters
+ */
+export async function UserInfo(params) {
+    let urlPath = baseURL + '/api/auth/userinfo';
+    let body = {},
+        queryParameters = {},
+        headers = {},
+        form = {};
+
+    if (params && params.headers) {
+        headers = params.headers;
+    }
+
+    headers['Accept'] = 'application/json';
+    headers['Content-Type'] = 'application/json';
+
+    if (has(params, "requestId")) {
+        headers['X-Request-ID'] = params.requestId;
+    } else if (has(params, "X-Request-ID")) {
+        headers['X-Request-ID'] = params["X-Request-ID"];
+    } else {
+        headers['X-Request-ID'] = uuid();
+    }
+
+    if (!has(headers, "Content-Type")) {
+        headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+
+    let parameters = params;
+
+    if (parameters === undefined) {
+        parameters = {};
+    }
+
+    queryParameters = mergeQueryParams(parameters, queryParameters);
+
+    const queryParams =
+        queryParameters && Object.keys(queryParameters).length ?
+        "?" + serializeQueryParams(queryParameters) :
+        "";
+
+    const creds = {
+        credentials: 'include',
+        cache: 'no-cache',
+        mode: 'cors'
+    };
+    const options = {
+        method: 'GET',
+        headers,
+        ...parameters,
+        ...creds,
+    };
+
+    const response = await fetch(urlPath + queryParams, options);
+    const json = await response.json()
+
+    return {
+        ...processHeaders(response.headers),
+        ...json
+    }
+};
+
+/**
+ * Logout from MLModelScope platform
+ * @method
+ * @name DLFramework#Logout
+ * @param {object} parameters - method options and parameters
+ */
+export async function Logout(params) {
+    let urlPath = baseURL + '/api/auth/logout';
+    let body = {},
+        queryParameters = {},
+        headers = {},
+        form = {};
+
+    if (params && params.headers) {
+        headers = params.headers;
+    }
+
+    headers['Accept'] = 'application/json';
+    headers['Content-Type'] = 'application/json';
+
+    if (has(params, "requestId")) {
+        headers['X-Request-ID'] = params.requestId;
+    } else if (has(params, "X-Request-ID")) {
+        headers['X-Request-ID'] = params["X-Request-ID"];
+    } else {
+        headers['X-Request-ID'] = uuid();
+    }
+
+    if (!has(headers, "Content-Type")) {
+        headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+
+    let parameters = params;
+
+    if (parameters === undefined) {
+        parameters = {};
+    }
+
+    queryParameters = mergeQueryParams(parameters, queryParameters);
+
+    const queryParams =
+        queryParameters && Object.keys(queryParameters).length ?
+        "?" + serializeQueryParams(queryParameters) :
+        "";
+
+    const creds = {
+        credentials: 'include',
+        cache: 'no-cache',
+        mode: 'cors'
+    };
+    const options = {
+        method: 'POST',
+        headers,
+        ...parameters,
+        ...creds,
+    };
+
+    const response = await fetch(urlPath + queryParams, options);
+    const json = await response.json()
+
+    return {
+        ...processHeaders(response.headers),
+        ...json
+    }
+};
+
+/**
+ * Update User Info on MLModelScope platform
+ * @method
+ * @name DLFramework#Update
+ * @param {object} parameters - method options and parameters
+ */
+export async function Update(params) {
+    let urlPath = baseURL + '/api/auth/update';
+    let body = {},
+        queryParameters = {},
+        headers = {},
+        form = {};
+
+    if (params && params.headers) {
+        headers = params.headers;
+    }
+
+    headers = this.setAuthHeaders(headers);
+    headers['Accept'] = 'application/json';
+    headers['Content-Type'] = 'application/json';
+
+    if (has(params, "requestId")) {
+        headers['X-Request-ID'] = params.requestId;
+    } else if (has(params, "X-Request-ID")) {
+        headers['X-Request-ID'] = params["X-Request-ID"];
+    } else {
+        headers['X-Request-ID'] = uuid();
+    }
+
+    if (!has(headers, "Content-Type")) {
+        headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+
+    let parameters = params;
+
+    if (parameters === undefined) {
+        parameters = {};
     }
 
     queryParameters = mergeQueryParams(parameters, queryParameters);
