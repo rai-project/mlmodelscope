@@ -7,42 +7,46 @@ import TraceInfo from "./TraceInfo";
 import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
 
-function renderResult(d, target, imgIndex, imgUrl, displayTrace=false) {
+function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
   if (isNil(d)) {
     return null;
   }
-  var features = idx(d, _ => _.response[imgIndex].features)
+  var features = idx(d, _ => _.response[imgIndex].features);
   // return(
   //   <SegmentationResult features={features} traceId={d.traceId} displayTrace={false} imgUrl={imgUrl} />
   // )
-  try{
+  try {
     if (features[0].type === "CLASSIFICATION") {
-      return(
+      return (
         <ClassificationResult
           features={features}
           traceId={d.traceId}
           displayTrace={displayTrace}
         />
-      )
-    } else if (features[0].type === "BOUNDINGBOX") {
-      return(
+      );
+    }
+    if (features[0].type === "BOUNDINGBOX") {
+      return (
         <SegmentationResult
           features={features}
           traceId={d.traceId}
           displayTrace={displayTrace}
           imgUrl={imgUrl}
         />
-      )
-    } else {
-      return(
-        <div>{"Type " + features.type + " is not supported yet!"}</div>
-      )
+      );
     }
-  }
-  catch(err) {
-    return(
-      <div>{"Something Went Wrong"}</div>
-    )
+    if (features[0].type === "INSTANCESEGMENT") {
+      return <div>Implement INSTANCESEGMENT feature type </div>;
+    }
+    if (features[0].type === "SEMANTICESEGMENT") {
+      return <div>Implement SEMANTICESEGMENT feature type </div>;
+    }
+    if (features[0].type === "IMAGEENHANCEMENT") {
+      return <div>Implement IMAGEENHANCEMENT feature type </div>;
+    }
+    return <div>{"Type " + features.type + " is not supported yet!"}</div>;
+  } catch (err) {
+    return <div>{"Something Went Wrong"}</div>;
   }
 }
 
@@ -54,13 +58,13 @@ export default class ResultTab extends Component {
     this.imgUrl = this.props.imgUrl;
     this.imgIndex = this.props.imgIndex;
     this.state = {
-      "comparison1": this.data.length > 1 ? 0 : null,
-      "comparison2": this.data.length > 1 ? 1 : null
-    }
+      comparison1: this.data.length > 1 ? 0 : null,
+      comparison2: this.data.length > 1 ? 1 : null,
+    };
   }
 
   nameVersionFormat(d) {
-    return(d.name + " V" + d.version)
+    return d.name + " V" + d.version;
   }
 
   renderComparisonPane() {
@@ -70,29 +74,31 @@ export default class ResultTab extends Component {
     var comparison2 = this.state.comparison2;
     var _this = this;
 
-    return(
+    return (
       <Tabs.TabPane tab={capitalize(this.target) + " Comparison"} key={0}>
         <Row>
           <Col span={12}>
-            <Select value={comparison1} onChange={(value) => this.setState({comparison1: value})}>
+            <Select
+              value={comparison1}
+              onChange={value => this.setState({ comparison1: value })}
+            >
               {this.data.map(function(d, index) {
                 var nameVersion = _this.nameVersionFormat(d[target]);
-                if(comparison2 === null || comparison2 !== index) {
-                  return(
-                    <Select.Option value={index}>{nameVersion}</Select.Option>
-                  )
+                if (comparison2 === null || comparison2 !== index) {
+                  return <Select.Option value={index}>{nameVersion}</Select.Option>;
                 }
               })}
             </Select>
           </Col>
           <Col span={12}>
-            <Select value={comparison2} onChange={(value) => this.setState({comparison2: value})}>
+            <Select
+              value={comparison2}
+              onChange={value => this.setState({ comparison2: value })}
+            >
               {this.data.map(function(d, index) {
                 var nameVersion = _this.nameVersionFormat(d[target]);
-                if(comparison1 === null || comparison1 !== index) {
-                  return(
-                    <Select.Option value={index}>{nameVersion}</Select.Option>
-                  )
+                if (comparison1 === null || comparison1 !== index) {
+                  return <Select.Option value={index}>{nameVersion}</Select.Option>;
                 }
               })}
             </Select>
@@ -100,14 +106,24 @@ export default class ResultTab extends Component {
         </Row>
         <Row>
           <Col span={12}>
-            {renderResult(this.data[this.state.comparison1], target, this.imgIndex, this.imgUrl)}
+            {renderResult(
+              this.data[this.state.comparison1],
+              target,
+              this.imgIndex,
+              this.imgUrl
+            )}
           </Col>
           <Col span={12}>
-            {renderResult(this.data[this.state.comparison2], target, this.imgIndex, this.imgUrl)}
+            {renderResult(
+              this.data[this.state.comparison2],
+              target,
+              this.imgIndex,
+              this.imgUrl
+            )}
           </Col>
         </Row>
       </Tabs.TabPane>
-    )
+    );
   }
 
   render() {
@@ -117,23 +133,17 @@ export default class ResultTab extends Component {
     var features;
 
     var _this = this;
-    return(
+    return (
       <Tabs defaultActiveKey="0">
-        {this.data.length > 1 ?
-          this.renderComparisonPane() : null
-        }
-        {
-          this.data.map(function(d, index) {
-            return(
-              <Tabs.TabPane tab={_this.nameVersionFormat(d[target])} key={index+1}>
-              {
-                renderResult(d, target, imgIndex, imgUrl, true)
-              }
-              </Tabs.TabPane>
-            )
-          })
-        }
+        {this.data.length > 1 ? this.renderComparisonPane() : null}
+        {this.data.map(function(d, index) {
+          return (
+            <Tabs.TabPane tab={_this.nameVersionFormat(d[target])} key={index + 1}>
+              {renderResult(d, target, imgIndex, imgUrl, true)}
+            </Tabs.TabPane>
+          );
+        })}
       </Tabs>
-    )
+    );
   }
 }
