@@ -100,8 +100,8 @@ class URLImage extends React.Component {
       return null
     }
     // FOR Local Test
-    var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
-    // var features = filter(this.props.features, function(o) {return o.probability >= 0.4})
+    // var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
+    var features = filter(this.props.features, function(o) {return o.probability >= 0.4})
     console.log(features);
     var colorMap = {};
     var currentColorIndex = 0;
