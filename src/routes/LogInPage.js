@@ -22,9 +22,7 @@ class NormalLoginForm extends React.Component {
         console.log("Received values of form: ", values);
         // context.logIn(values.userName);
         // setBasicAuth(v)
-        Login({body: {}, headers: {
-          "Authorization": `Basic ${encodeUserPassword(values)}`
-        }})
+        Login({body: {}}, values)
           .catch(err => {
             throw(err)
           })

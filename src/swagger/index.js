@@ -56,28 +56,15 @@ function processHeaders(headers) {
 }
 
 /**
- * Set Basic Auth
- * @method
- * @name DLFramework#setBasicAuth
- * @param {string} username
- * @param {string} password
- */
-// DLFramework.prototype.setBasicAuth = function(username, password) {
-export async function setBasicAuth(username, password) {
-    this.basic.username = value;
-    this.basic.password = password;
-};
-/**
  * Set Auth headers
  * @method
  * @name DLFramework#setAuthHeaders
  * @param {object} headerParams - headers object
  */
-// DLFramework.prototype.setAuthHeaders = function(headerParams) {
-export async function setAuthHeaders(headerParams) {
+function setAuthHeaders(params, headerParams) {
     let headers = headerParams ? headerParams : {};
-    if (this.basic.username && this.basic.password) {
-        headers['Authorization'] = 'Basic ' + btoa(this.basic.username + ':' + this.basic.password);
+    if (params.username && params.password) {
+        headers['Authorization'] = 'Basic ' + btoa(params.username + ':' + params.password);
     }
     return headers;
 };
@@ -864,7 +851,7 @@ export async function ModelManifests(params) {
  * @name DLFramework#Login
  * @param {object} parameters - method options and parameters
  */
-export async function Login(params) {
+export async function Login(params, secureParams) {
     let urlPath = baseURL + '/api/auth/login';
     let body = {},
         queryParameters = {},
@@ -875,7 +862,7 @@ export async function Login(params) {
         headers = params.headers;
     }
 
-    // headers = this.setAuthHeaders(headers);
+    headers = setAuthHeaders(secureParams, headers);
     headers['Accept'] = 'application/json';
     headers['Content-Type'] = 'application/json';
 
@@ -1138,7 +1125,7 @@ export async function Logout(params) {
  * @name DLFramework#Update
  * @param {object} parameters - method options and parameters
  */
-export async function Update(params) {
+export async function Update(params, secureParams) {
     let urlPath = baseURL + '/api/auth/update';
     let body = {},
         queryParameters = {},
@@ -1149,7 +1136,7 @@ export async function Update(params) {
         headers = params.headers;
     }
 
-    headers = this.setAuthHeaders(headers);
+    headers = setAuthHeaders(secureParams, headers);
     headers['Accept'] = 'application/json';
     headers['Content-Type'] = 'application/json';
 

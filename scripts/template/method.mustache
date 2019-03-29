@@ -7,7 +7,12 @@
     {{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> parameters.{{&camelCaseName}} - {{&description}}{{/isSingleton}}
 {{/parameters}}
  */
-export async function {{&methodName}}(params){
+{{^isSecure}}
+    export async function {{&methodName}}(params){
+{{/isSecure}}
+{{#isSecure}}
+    export async function {{&methodName}}(params, secureParams){
+{{/isSecure}}
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} urlPath = baseURL + '/api{{&path}}';
     {{#isES6}}let{{/isES6}}{{^isES6}}var{{/isES6}} body = {}, queryParameters = {}, headers = {}, form = {};
 
@@ -16,7 +21,7 @@ export async function {{&methodName}}(params){
     }
 
     {{#isSecure}}
-        headers = this.setAuthHeaders(headers);
+        headers = setAuthHeaders(secureParams, headers);
     {{/isSecure}}
     {{#headers}}
         headers['{{&name}}'] = {{&value}};
