@@ -42,27 +42,26 @@ export default class GlobalHeader extends Component {
   render() {
     return (
       <Header className="GlobalHeader-header">
-      <Row>
-        <Col xs={{span: 24}} sm={{span: 6}}>
-          <NavLink to={"/"}>
-            <h2>
-              ML <b>ModelScope</b>
-            </h2>
-          </NavLink>
-        </Col>
-        <Col xs={{span: 0}} sm={{span: 12}}>
-        </Col>
-        <Col xs={{span: 12}} sm={{span: 4}}>
-          <NavLink to={"/experiment"}>
-            <h3>Experiment Setup</h3>
-          </NavLink>
-        </Col>
-        <Col xs={{span: 12}} sm={{span: 2}}>
-          <a href="https://docs.mlmodelscope.org/">
-            <h3>About</h3>
-          </a>
-        </Col>
-      </Row>
+        <Row>
+          <Col xs={{ span: 24 }} sm={{ span: 6 }}>
+            <NavLink to={"/"}>
+              <h2>
+                ML <b>ModelScope</b>
+              </h2>
+            </NavLink>
+          </Col>
+          <Col xs={{ span: 0 }} sm={{ span: 12 }} />
+          <Col xs={{ span: 12 }} sm={{ span: 4 }}>
+            <NavLink to={"/experiment"}>
+              <h3>Experiment Setup</h3>
+            </NavLink>
+          </Col>
+          <Col xs={{ span: 12 }} sm={{ span: 2 }}>
+            <a href="https://docs.mlmodelscope.org/">
+              <h3>About</h3>
+            </a>
+          </Col>
+        </Row>
         {/* <UserContext.Consumer>{context => this.renderUser(context.username)}</UserContext.Consumer> */}
       </Header>
     );

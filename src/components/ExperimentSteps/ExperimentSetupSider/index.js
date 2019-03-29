@@ -202,7 +202,7 @@ class ExperimentSetupSider extends Component {
             }}
           >
             <Switch
-              defaultUnChecked
+              {/*defaultUnChecked*/}
               checkedChildren={<Icon type="check" />}
               unCheckedChildren={<Icon type="close" />}
               onChange={checked => this.props.context.setUseGPU(checked)}
