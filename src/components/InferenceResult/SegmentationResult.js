@@ -1,48 +1,17 @@
 import React, { Component } from "react";
-import { Stage, Layer, Image, Line, Label, Text, Tag } from "react-konva";
+import { Stage, Layer, Image, Line, Label, Text, Tag, Rect } from "react-konva";
 import predict from "./predict.json";
 import { filter } from "lodash";
 
 const colors = [
   "#e84a27", // UI Orange
-  "#1a263a", // UI Dark Blue
-  "#e22f2f", // Red
   "#33a02c", // Green
+  "#e22f2f", // Red
   "#6a3d9a", // Purple
   "#1f78b4", // Light Blue
   "#b15928", // Brown
+  "#1a263a", // UI Dark Blue
 ]
-
-class Rectangle extends Component {
-  render() {
-    var x1 = this.props.x1;
-    var x2 = this.props.x2;
-    var y1 = this.props.y1;
-    var y2 = this.props.y2;
-    var color = this.props.color;
-
-    return(
-      <React.Fragment>
-        <Line
-          points={[x1, y1, x2, y1]}
-          stroke={color} 
-        />
-        <Line
-          points={[x1, y2, x2, y2]}
-          stroke={color} 
-        />
-        <Line
-          points={[x1, y1, x1, y2]}
-          stroke={color} 
-        />
-        <Line
-          points={[x2, y1, x2, y2]}
-          stroke={color} 
-        />
-      </React.Fragment>
-    )
-  }
-}
 
 class BBoxLabel extends Component {
   render() {
@@ -58,43 +27,74 @@ class BBoxLabel extends Component {
 }
 
 class URLImage extends React.Component {
-  state = {
-    image: null
-  };
+  render() {
+    return (
+      <Image
+        x={this.props.x}
+        y={this.props.y}
+        image={this.props.image}
+        ref={node => {
+          this.imageNode = node;
+        }}
+      />
+    );
+  }
+}
+
+export default class SegmentationResult extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      image: null,
+      width: null,
+      height: null,
+      mouseOn: null
+    }
+  }
+
   componentDidMount() {
     this.loadImage();
   }
-  componentDidUpdate(oldProps) {
-    if (oldProps.src !== this.props.src) {
-      this.loadImage();
-    }
-  }
+
   componentWillUnmount() {
-    this.image.removeEventListener('load', this.handleLoad);
+    this.state.image.removeEventListener('load', this.handleLoad);
   }
+
   loadImage() {
     // save to "this" to remove "load" handler on unmount
-    this.image = new window.Image();
-    this.image.src = this.props.src;
-    this.image.addEventListener('load', this.handleLoad);
+    this.state.image = new window.Image();
+    this.state.image.src = this.props.imgUrl;
+    this.state.image.addEventListener('load', this.handleLoad);
   }
+
   handleLoad = () => {
     // after setState react-konva will update canvas and redraw the layer
     // because "image" property is changed
     this.setState({
-      image: this.image,
-      width: this.image.width,
-      height: this.image.height
+      width: this.state.image.width,
+      height: this.state.image.height
     });
-    console.log(this.image.width)
-    console.log(this.image.height)
+    console.log(this.state.image.width)
+    console.log(this.state.image.height)
     // if you keep same image object during source updates
     // you will have to update layer manually:
-    // this.imageNode.getLayer().batchDraw();
-  };
+    // this.state.imageNode.getLayer().batchDraw();
+  }
+
   probabilityToPercentage(probability){
     return((probability * 100).toFixed(0) + "%")
   }
+
+  handleMouseEnter = (e) => {
+    console.log(e);
+    this.setState({mouseOn: e.currentTarget.attrs.id})
+  };
+  
+  handleMouseLeave = (e) => {
+    console.log("Mouse Leave");
+    this.setState({mouseOn: null})
+  };
+
   renderBBox() {
     if (this.state.image === null) {
       return null
@@ -105,13 +105,14 @@ class URLImage extends React.Component {
     console.log(features);
     var colorMap = {};
     var currentColorIndex = 0;
+    var mouseOn = this.state.mouseOn;
     return(
-      features.map((data) => {
+      features.map((data, index) => {
         var bbox = data["bounding_box"]
-        var x1 = this.props.x + Math.round(bbox.xmin*this.state.width)
-        var x2 = this.props.x + Math.round(bbox.xmax*this.state.width)
-        var y1 = this.props.y + Math.round(bbox.ymin*this.state.height)
-        var y2 = this.props.y + Math.round(bbox.ymax*this.state.height)
+        var x1 = Math.round(bbox.xmin*this.state.width)
+        var x2 = Math.round(bbox.xmax*this.state.width)
+        var y1 = Math.round(bbox.ymin*this.state.height)
+        var y2 = Math.round(bbox.ymax*this.state.height)
         var text = bbox.label + ": " + this.probabilityToPercentage(data.probability)
         if (!(bbox.index in colorMap)) {
           colorMap[bbox.index] = colors[currentColorIndex];
@@ -120,8 +121,22 @@ class URLImage extends React.Component {
         var color = colorMap[bbox.index];
         return(
           <React.Fragment>
-            <Rectangle x1={x1} x2={x2} y1={y1} y2={y2} color={color}/>
+          <Rect
+            id={index}
+            x={x1}
+            y={y1}
+            width={x2-x1}
+            height={y2-y1}
+            fillEnabled="false"
+            stroke={color}
+            strokeWidth={5}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+          />
+          {
+            mouseOn === index && 
             <BBoxLabel x={x1} y={y1} text={text} color={color}/>
+          }
           </React.Fragment>
         )
       })
@@ -129,33 +144,20 @@ class URLImage extends React.Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <Image
-          x={this.props.x}
-          y={this.props.y}
-          image={this.state.image}
-          ref={node => {
-            this.imageNode = node;
-          }}
-        />
-        {this.renderBBox()}
-      </React.Fragment>
-    );
-  }
-}
-
-export default class SegmentationResult extends Component {
-  render() {
-    return(
-      <Stage width={window.innerWidth-372} height={500}>
-      {/* <Stage width={width} height={height}> */}
-        <Layer>
-          {/* For Local Test */}
-          {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-          <URLImage src={this.props.imgUrl} x={0} y={0} features={this.props.features}/>
-        </Layer>
-      </Stage>
-    )
+    if (this.state.width === null) {
+      return null;
+    } else {
+      return(
+        <Stage width={window.innerWidth-372} height={500}>
+        {/* <Stage width={width} height={height}> */}
+          <Layer>
+            {/* For Local Test */}
+            {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
+            <URLImage image={this.state.image} x={0} y={0} features={this.props.features}/>
+            {this.renderBBox()}
+          </Layer>
+        </Stage>
+      )
+    }
   }
 }
