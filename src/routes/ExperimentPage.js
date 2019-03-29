@@ -7,70 +7,37 @@ import SelectModel from "../components/ExperimentSteps/SelectModel";
 import SelectFramework from "../components/ExperimentSteps/SelectFramework";
 import SelectMachine from "../components/ExperimentSteps/SelectMachine";
 import InferenceResult from "../components/InferenceResult";
-import ExperimentProvider from "../context/ExperimentContext";
+import ExperimentProvider, { ExperimentContext } from "../context/ExperimentContext";
 import Error from "../components/Error";
 
-const siderMenuNextStep = {
-  dataset: "model",
-  model: "framework",
-  framework: "machine",
-  machine: "predict",
-};
-
 export default class ExperimentPage extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChangePage = this.handleChangePage.bind(this);
-    this.state = {
-      current: "dataset",
-      future: "model",
-    };
-  }
-
-  handleChangePage(s) {
-    if (s !== "predict") {
-      this.setState({ current: s });
-      this.setState({ future: siderMenuNextStep[s] });
-    } else {
-      this.setState({ current: s });
-    }
-  }
-
-  render() {
-    var currentPage = null;
-    switch (this.state.current) {
+  renderCurrentPage(currentPage) {
+    switch (currentPage) {
+      case "task":
+        return <div>Not Implemented Yet</div>;
       case "dataset":
-        currentPage = <SelectDataset />;
-        break;
+        return <SelectDataset />;
       case "model":
-        currentPage = <SelectModel />;
-        break;
-      case "framework":
-        currentPage = <SelectFramework />;
-        break;
+        return <SelectModel />;
       case "machine":
-        currentPage = <SelectMachine />;
-        break;
+        return <SelectMachine />;
       case "predict":
-        currentPage = <InferenceResult />;
-        break;
+        return <InferenceResult />;
       default:
         console.log({ error: "route page not found" });
         break;
     }
-
+  }
+  render() {
     return (
       <Layout style={{ background: "#E8E9EB" }}>
         <Helmet title="Experiment" meta={[{ property: "og:title", content: "Experiment" }]} />
         <ExperimentProvider>
-          <ExperimentSetupSider
-            onPageChange={this.handleChangePage}
-            current={this.state.current}
-            future={this.state.future}
-            siderMenuNextStep={siderMenuNextStep}
-          />
+          <ExperimentSetupSider />
           <Error>
-            {currentPage}
+            <ExperimentContext.Consumer>
+              {ctx => this.renderCurrentPage(ctx.currentPage)}
+            </ExperimentContext.Consumer>
           </Error>
         </ExperimentProvider>
       </Layout>

@@ -6,6 +6,7 @@ export default class ExperimentProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentPage: "task",
       batchSize: 1,
       traceLevel: "FULL_TRACE",
       useGPU: false,
@@ -19,6 +20,10 @@ export default class ExperimentProvider extends Component {
       modelManifests: null,
       frameworkManifests: null,
       machineManifests: null,
+      setPage: page => 
+        this.setState({
+          currentPage: page,
+        }),
       addUrl: url =>
         this.setState({
           imageUrls: this.state.imageUrls.concat(url),

@@ -44,23 +44,23 @@ class ExperimentSetupSider extends Component {
       ).then(result => context.setPredictResult(result));
       console.log(context);
     }
-    this.props.onPageChange(key);
+    // this.props.onPageChange(key);
+    context.setPage(key)
   }
 
   handleClickResult() {
     this.props.onPageChange("predict");
   }
 
-  disableButton() {
-    if (this.props.future === "predict") {
-      if (
-        (this.props.context.imageUrls.length === 0 &&
-          this.props.context.dataset.length === 0) ||
-        this.props.context.models.length === 0 ||
-        this.props.context.frameworks.length === 0
-      ) {
-        return true;
-      }
+  disablePredictButton() {
+    if (
+      (this.props.context.imageUrls.length === 0 &&
+        this.props.context.dataset === null) ||
+      this.props.context.models.length === 0 ||
+      this.props.context.frameworks.length === 0 ||
+      this.props.context.machines.length === 0
+    ) {
+      return true;
     }
     return false;
   }
@@ -97,7 +97,7 @@ class ExperimentSetupSider extends Component {
           onClick={e => this.handleClick(this.props.context, e.key)}
         >
           <Menu.Item
-            key="dataset"
+            key="task"
             style={{
               paddingTop: "30px",
               paddingBottom: "30px",
@@ -106,7 +106,7 @@ class ExperimentSetupSider extends Component {
               height: "auto",
             }}
           >
-            <div>DATASETS</div>
+            <div>TASKS</div>
             {this.props.context.imageUrls.length !== 0 && (
               <Tag closable onClose={() => this.props.context.removeUrls()}>
                 Import from URLs
@@ -143,7 +143,7 @@ class ExperimentSetupSider extends Component {
             ))}
           </Menu.Item>
 
-          <Menu.Item
+          {/* <Menu.Item
             key="framework"
             style={{
               paddingTop: "30px",
@@ -165,7 +165,7 @@ class ExperimentSetupSider extends Component {
                 </Tag>
               </div>
             ))}
-          </Menu.Item>
+          </Menu.Item> */}
 
           <Menu.Item
             key="machine"
@@ -190,7 +190,29 @@ class ExperimentSetupSider extends Component {
               </div>
             ))}
           </Menu.Item>
-        </Menu>
+          <Menu.Item
+            key="dataset"
+            style={{
+              paddingTop: "30px",
+              paddingBottom: "30px",
+              paddingleft: "40px",
+              minHeight: "60px",
+              height: "auto",
+            }}
+          >
+            <div>DATASET</div>
+            {this.props.context.imageUrls.length !== 0 && (
+              <Tag closable onClose={() => this.props.context.removeUrls()}>
+                Import from URLs
+              </Tag>
+            )}
+            {this.props.context.dataset !== null && (
+              <Tag closable onClose={() => this.props.context.removeDataset()}>
+                {this.props.context.dataset.name}
+              </Tag>
+            )}
+          </Menu.Item>
+       </Menu>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
           <div style={{ display: "inline-block" }}>Using GPU: </div>
@@ -202,7 +224,7 @@ class ExperimentSetupSider extends Component {
             }}
           >
             <Switch
-              {/*defaultUnChecked*/}
+              // {/*defaultUnChecked*/}
               checkedChildren={<Icon type="check" />}
               unCheckedChildren={<Icon type="close" />}
               onChange={checked => this.props.context.setUseGPU(checked)}
@@ -258,10 +280,10 @@ class ExperimentSetupSider extends Component {
 
         <div style={{ marginTop: "30px" }}>
           <PrimaryButton
-            disabled={this.disableButton()}
+            disabled={this.disablePredictButton()}
             style={{ width: "100%" }}
-            text={"Next Step: " + this.props.future.toUpperCase()}
-            onClick={() => this.handleClick(this.props.context, this.props.future)}
+            text={"Predict"}
+            onClick={() => this.handleClick(this.props.context, "predict")}
           />
         </div>
 
