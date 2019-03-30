@@ -2,6 +2,7 @@ import SelectableCard from "../SelectableCard/index";
 import React, { Component } from "react";
 import { Layout, Col, Row, Card } from "antd";
 import yeast from "yeast";
+import idx from "idx";
 import { withRouter } from "react-router-dom";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 import ExperimentContentTitle from "../ExperimentContentTitle";
@@ -12,35 +13,35 @@ const taskList = [
   {
     name: "Classification",
     input: "image",
-    output: "CLASSIFICATION",
+    output: "classification",
     image: "classification.png",
     description: "TODO"
   },
   {
     name: "Object Detection",
     input: "image",
-    output: "BOUNDINGBOX",
+    output: "boundingbox",
     image: "objectDetection.png",
     description: "TODO"
   },
   {
     name: "Semantic Segmentation",
     input: "image",
-    output: "SEMSEGMENTATION",
+    output: "semanticsegment",
     image: "semanticSegmentation.png",
     description: "TODO"
   },
   {
     name: "Instance Segmentation",
     input: "image",
-    output: "INSTANCESEGMENTATION",
+    output: "instancesegment",
     image: "instanceSegmentation.png",
     description: "TODO"
   },
   {
     name: "Image Enhancement",
     input: "image",
-    output: "IMAGEENHANCEMENT",
+    output: "image",
     image: "imageEnhancement.png",
     description: "TODO"
   }
@@ -59,6 +60,10 @@ function taskImage(task) {
 }
 
 class SelectTask extends Component {
+  isSelected(item) {
+    return item.name === idx(this.props.context.task, _ => _.name);
+  }
+
   render() {
     return (
       <Layout style={{ background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
@@ -75,7 +80,7 @@ class SelectTask extends Component {
                       this.props.context.setTask(item)
                     }
                     cover={taskImage(item)}
-                    selected={false}
+                    selected={this.isSelected(item)}
                   >
                     <Meta
                       title={item.name}
