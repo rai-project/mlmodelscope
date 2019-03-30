@@ -1,12 +1,22 @@
 import React, { Component } from "react";
-import "./GlobalHeader.css";
-import { Layout, Icon, Row, Col } from "antd";
+import { Layout, Menu, Icon, Drawer, Button } from "antd";
 import { NavLink } from "react-router-dom";
+import windowSize from "react-window-size";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
 
 const { Header } = Layout;
 
-export default class GlobalHeader extends Component {
+class GlobalHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mobile_menu_open: false,
+    };
+    this.renderUser = this.renderUser.bind(this);
+    this.menu = this.menu.bind(this);
+    this.toggleMobileMenuOpen = this.toggleMobileMenuOpen.bind(this);
+  }
+
   renderUser(username) {
     if (username == null) {
       return (
@@ -39,31 +49,87 @@ export default class GlobalHeader extends Component {
     );
   }
 
-  render() {
+  menu({ mode }) {
+    const item_style = {
+      paddingTop: "20px",
+      float: "right",
+      alignContent: "right",
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
+    };
     return (
-      <Header className="GlobalHeader-header">
-        <Row>
-          <Col xs={{ span: 24 }} sm={{ span: 6 }}>
-            <NavLink to={"/"}>
-              <h2>
-                ML <b>ModelScope</b>
-              </h2>
-            </NavLink>
-          </Col>
-          <Col xs={{ span: 0 }} sm={{ span: 12 }} />
-          <Col xs={{ span: 12 }} sm={{ span: 4 }}>
-            <NavLink to={"/experiment"}>
-              <h3>Experiment Setup</h3>
-            </NavLink>
-          </Col>
-          <Col xs={{ span: 12 }} sm={{ span: 2 }}>
-            <a href="https://docs.mlmodelscope.org/">
-              <h3>About</h3>
-            </a>
-          </Col>
-        </Row>
+      <Menu mode={mode} style={{ float: "right" }}>
+        <Menu.Item key="news" title="News" style={item_style}>
+          <NavLink to={"/experiment"}>
+            <h3>News</h3>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="usage" title="Usage" style={item_style}>
+          <NavLink to={"/experiment"}>
+            <h3>Usage</h3>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="experiment" title="Experiment" style={item_style}>
+          <NavLink to={"/experiment"}>
+            <h3>Experiment</h3>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="about" title="About" style={item_style}>
+          <a href="https://docs.mlmodelscope.org/">
+            <h3>About</h3>
+          </a>
+        </Menu.Item>
         {/* <UserContext.Consumer>{context => this.renderUser(context.username)}</UserContext.Consumer> */}
+      </Menu>
+    );
+  }
+
+  toggleMobileMenuOpen() {
+    this.setState({ mobile_menu_open: !this.state.mobile_menu_open });
+  }
+
+  render() {
+    const breakpoint = 640;
+    const { windowWidth } = this.props;
+    const { mobile_menu_open } = this.state;
+    const is_mobile = windowWidth <= breakpoint;
+    const is_mobile_menu_open = is_mobile && mobile_menu_open;
+    // console.log({ windowWidth, is_mobile, mobile_menu_open, is_mobile_menu_open });
+    return (
+      <Header
+        style={{
+          backgroundColor: "white",
+          height: "auto",
+          minHeight: "60px",
+          paddingTop: "20px",
+        }}
+      >
+        <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
+          ML<b>ModelScope</b>
+        </NavLink>
+        {is_mobile && !is_mobile_menu_open ? (
+          <Icon
+            style={{
+              float: "right",
+              paddingTop: "20px",
+            }}
+            onClick={() => this.toggleMobileMenuOpen()}
+            type="bars"
+          />
+        ) : null}
+        <Drawer
+          placement="right"
+          closable={true}
+          onClose={() => this.toggleMobileMenuOpen()}
+          visible={is_mobile_menu_open}
+        >
+          <Menu>{this.menu({ mode: "inline" })}</Menu>
+        </Drawer>
+        {is_mobile ? null : this.menu({ mode: "horizontal" })}
       </Header>
     );
   }
 }
+
+export default windowSize(GlobalHeader);
