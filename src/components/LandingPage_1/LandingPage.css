@@ -78,12 +78,6 @@
   text-transform: uppercase;
 }
 
-.LandingPage-section3 {
-  background-color: white;
-  padding: 0;
-  min-height: 575px;
-}
-
 .LandingPage-section4 {
   background-color: blue;
   padding: 0;
@@ -134,7 +128,7 @@
 
 .LandingPage-img {
   margin: 50px;
-  width: 80%
+  width: 80%;
 }
 
 .LandingPage-title {

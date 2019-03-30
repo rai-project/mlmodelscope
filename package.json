@@ -52,6 +52,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-syntax-highlighter": "^10.1.1",
+    "react-window-size": "^1.2.2",
     "snappyjs": "^0.6.0",
     "styled-components": "^4.1.2",
     "swagger-js-codegen": "^1.12.0",
