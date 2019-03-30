@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import CardWithIcon from "../Card/CardWithIcon";
-import Section1BG from "../../resources/landingpage/assets/section1-background.jpg";
 import Section1Fig1 from "../../resources/landingpage/assets/section1-figure-1.png";
 import Section1Fig2 from "../../resources/landingpage/assets/section1-figure-2.png";
 import Section1Fig3 from "../../resources/landingpage/assets/section1-figure-3.png";
@@ -40,8 +39,8 @@ export default class Section1 extends Component {
           <div className="Section2-text">
             <h2>NO NEED TO SETUP</h2>
             <p>
-              Find exactly what you need by exploring and reviewing results of different AI
-              experiment configurations; without the hassle of installation.
+              Find exactly what you need by exploring and reviewing results of different
+              AI experiment configurations; without the hassle of installation.
             </p>
           </div>
 
@@ -87,9 +86,9 @@ export default class Section1 extends Component {
           <div className="Section3-text">
             <h2>ONE PLATFORM ONE PLAYGROUND</h2>
             <p>
-              Bring together dispersed tools into one platform to explore the performance of
-              different combinations. Discover the most efficient frameworks, models and hardware
-              for your specific experiment in ont platform.
+              Bring together dispersed tools into one platform to explore the performance
+              of different combinations. Discover the most efficient frameworks, models
+              and hardware for your specific experiment in ont platform.
             </p>
           </div>
           <img className="Section3-figure" src={Section3Fig} />
@@ -99,9 +98,10 @@ export default class Section1 extends Component {
           <div className="Section4-text">
             <h2 style={{ color: "white" }}>COMPARE ALL</h2>
             <p style={{ color: "white" }}>
-              Use side by side comparisons, graphs, and tables to draw insights and make an informed
-              decision on which tools to use. View all the important metrics on your inference to
-              get an overall understanding and to and go deeper into the details.
+              Use side by side comparisons, graphs, and tables to draw insights and make
+              an informed decision on which tools to use. View all the important metrics
+              on your inference to get an overall understanding and to and go deeper into
+              the details.
             </p>
           </div>
 

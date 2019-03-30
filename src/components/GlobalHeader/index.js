@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Drawer, Button } from "antd";
+import { Layout, Menu, Icon, Drawer } from "antd";
 import { NavLink } from "react-router-dom";
 import windowSize from "react-window-size";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
 
 const { Header } = Layout;
+
+const userLoginEnabled = false;
 
 class GlobalHeader extends Component {
   constructor(props) {
@@ -17,71 +19,68 @@ class GlobalHeader extends Component {
     this.toggleMobileMenuOpen = this.toggleMobileMenuOpen.bind(this);
   }
 
-  renderUser(username) {
-    if (username == null) {
-      return (
-        <React.Fragment>
-          <div className="GlobalHeader-right-block">
-            <h3>Sign Up</h3>
-          </div>
-          <NavLink to="/login">
-            <div className="GlobalHeader-right-block">
-              <h3>Login</h3>
-            </div>
-          </NavLink>
-        </React.Fragment>
-      );
+  renderUser({ username, item_style }) {
+    if (userLoginEnabled === false) {
+      return null;
     }
-    return (
-      <React.Fragment>
-        <div className="GlobalHeader-right-block">
-          <h3>Log Out</h3>
-        </div>
+    if (username == null) {
+      return [
+        <Menu.Item key="signup" title="Sign up" style={item_style}>
+          Sign Up
+        </Menu.Item>,
+        <Menu.Item key="login" title="Login" style={item_style}>
+          <NavLink to="/login">Login</NavLink>
+        </Menu.Item>,
+      ];
+    }
+
+    return [
+      <Menu.Item key="logout" title="Logout" style={item_style}>
+        <NavLink to="/logout">Login</NavLink>
+      </Menu.Item>,
+      <Menu.Item key="User" title="user" style={item_style}>
         <NavLink to="/my">
-          <div className="GlobalHeader-right-block">
-            <h3>
-              <Icon type="user" />
-              {username}
-            </h3>
-          </div>
+          <Icon type="user" />
+          {username}
         </NavLink>
-      </React.Fragment>
-    );
+      </Menu.Item>,
+    ];
   }
 
   menu({ mode }) {
-    const item_style = {
-      paddingTop: "20px",
-      float: "right",
+    let item_style = {
       alignContent: "right",
-      display: "flex",
+      fontWeight: "bold",
       justifyContent: "space-around",
       alignItems: "center",
+      fontSize: "18px",
     };
+    if (mode === "horizontal") {
+      item_style["paddingTop"] = "20px";
+    }
     return (
-      <Menu mode={mode} style={{ float: "right" }}>
-        <Menu.Item key="news" title="News" style={item_style}>
-          <NavLink to={"/experiment"}>
-            <h3>News</h3>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="usage" title="Usage" style={item_style}>
-          <NavLink to={"/experiment"}>
-            <h3>Usage</h3>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="experiment" title="Experiment" style={item_style}>
-          <NavLink to={"/experiment"}>
-            <h3>Experiment</h3>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="about" title="About" style={item_style}>
-          <a href="https://docs.mlmodelscope.org/">
-            <h3>About</h3>
-          </a>
-        </Menu.Item>
-        {/* <UserContext.Consumer>{context => this.renderUser(context.username)}</UserContext.Consumer> */}
-      </Menu>
+      <UserContext.Consumer>
+        {context => (
+          <Menu mode={mode} style={{ float: "right" }}>
+            <Menu.Item key="usecase" title="Use Case" style={item_style}>
+              <NavLink to={"/usecase"}>Use Case</NavLink>
+            </Menu.Item>
+            <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
+              <NavLink to={"/evaluations"}>Evaluations</NavLink>
+            </Menu.Item>
+            <Menu.Item key="demo" title="Demo" style={item_style}>
+              <NavLink to={"/experiment"}>Demo</NavLink>
+            </Menu.Item>
+            <Menu.Item key="news" title="News" style={item_style}>
+              <NavLink to={"/experiment"}>News</NavLink>
+            </Menu.Item>
+            <Menu.Item key="about" title="About" style={item_style}>
+              <a href="https://docs.mlmodelscope.org/">About</a>
+            </Menu.Item>
+            {this.renderUser({ username: context.username, item_style })}
+          </Menu>
+        )}
+      </UserContext.Consumer>
     );
   }
 
@@ -90,7 +89,7 @@ class GlobalHeader extends Component {
   }
 
   render() {
-    const breakpoint = 640;
+    const breakpoint = 900;
     const { windowWidth } = this.props;
     const { mobile_menu_open } = this.state;
     const is_mobile = windowWidth <= breakpoint;
@@ -102,20 +101,22 @@ class GlobalHeader extends Component {
           backgroundColor: "white",
           height: "auto",
           minHeight: "60px",
-          paddingTop: "20px",
+          paddingTop: "10px",
         }}
       >
         <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
-          ML<b>ModelScope</b>
+          <b>MLModelScope</b>
         </NavLink>
         {is_mobile && !is_mobile_menu_open ? (
           <Icon
             style={{
               float: "right",
-              paddingTop: "20px",
+              paddingTop: "24px",
+              fontSize: "2em",
             }}
             onClick={() => this.toggleMobileMenuOpen()}
             type="bars"
+            theme="outlined"
           />
         ) : null}
         <Drawer
