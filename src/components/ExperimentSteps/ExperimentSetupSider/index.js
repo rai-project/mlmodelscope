@@ -92,7 +92,7 @@ class ExperimentSetupSider extends Component {
 
         <Menu
           mode="inline"
-          selectedKeys={[this.props.current]}
+          selectedKeys={[this.props.context.currentPage]}
           style={{ border: 1, backgroundColor: "#E8E9EB" }}
           onClick={e => this.handleClick(this.props.context, e.key)}
         >
@@ -107,14 +107,9 @@ class ExperimentSetupSider extends Component {
             }}
           >
             <div>TASKS</div>
-            {this.props.context.imageUrls.length !== 0 && (
-              <Tag closable onClose={() => this.props.context.removeUrls()}>
-                Import from URLs
-              </Tag>
-            )}
-            {this.props.context.dataset !== null && (
-              <Tag closable onClose={() => this.props.context.removeDataset()}>
-                {this.props.context.dataset.name}
+            {this.props.context.task !== null && (
+              <Tag closable onClose={() => this.props.context.setTask(null)}>
+                {this.props.context.task.name}
               </Tag>
             )}
           </Menu.Item>

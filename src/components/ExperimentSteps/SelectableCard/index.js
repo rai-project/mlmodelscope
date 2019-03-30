@@ -7,7 +7,7 @@ export default class SelectableCard extends Component {
     super(props);
     this.state = {
       drawerVisible: this.props.drawerVisible || false,
-      selected: this.props.selected || false,
+      // selected: this.props.selected || false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.onDrawerOpen = this.onDrawerOpen.bind(this);
@@ -27,14 +27,15 @@ export default class SelectableCard extends Component {
   }
 
   render() {
+    var borderColor = this.props.selected ? "#e84a27" : "white";
     return (
       <Card
         hoverable
         type={"inner"}
         title={this.props.title}
         onClick={this.handleClick}
-        bordered={this.state.selected}
-        style={{ height: this.props.height, borderColor: "#e84a27" }}
+        bordered={true}
+        style={{ height: this.props.height, borderColor: borderColor }}
         cover={this.props.cover}
         extra={
           this.props.description ? (
