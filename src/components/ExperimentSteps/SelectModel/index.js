@@ -1,9 +1,9 @@
 import SelectableCard from "../SelectableCard/index";
 import React, { Component } from "react";
-import { Col, Row, Layout, Icon, Divider, Dropdown, Menu, Tag } from "antd";
+import { Col, Row, Layout, Icon, Divider, Dropdown, Menu, Tag, Checkbox } from "antd";
 import yeast from "yeast";
 import semver from "semver";
-import { capitalize, remove, indexOf } from "lodash";
+import { capitalize, remove, indexOf, orderBy } from "lodash";
 import { withRouter } from "react-router-dom";
 import {
   map,
@@ -17,7 +17,7 @@ import {
   truncate,
   size,
 } from "lodash";
-import { ModelManifests } from "../../../swagger";
+import { ModelManifests, FrameworkManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
 
 const { Content } = Layout;
@@ -36,6 +36,18 @@ const outputDataTypes = {
   "AUDIO": { "icon": "sound" },
   "BOUNDINGBOX": { "icon": "border" },
   "RAW": { "icon": "file-text" },
+}
+
+var logos = require.context("../../../resources/logos", true);
+function frameworkLogo(frameworkName) {
+  let image = logos("./" + frameworkName + ".png");
+  return (
+    <img
+      src={image}
+      alt={frameworkName}
+      style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+    />
+  );
 }
 
 function typeRender({ type }) {
@@ -79,20 +91,19 @@ class SelectModel extends Component {
           modelVersion: "*",
         });
 
-        // START: For Segmentation Demo
-        // const segModel = {
-        //   description: "TODO",
-        //   framework: { name: "Tensorflow", version: "1.12" },
-        //   inputs:[{ type: "image" }],
-        //   name: "SSD_MobileNet",
-        //   output: { type: "BOUNDINGBOX" },
-        //   version: "1.0"
-        // }
-        // req.manifests.unshift(segModel)
-        // END
-
         this.props.context.setModelManifests(req.manifests);
         this.setState({ loaded: true });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (this.props.context.frameworkManifests === null) {
+      try {
+        const req = await FrameworkManifests({
+          frameworkName: "*",
+          frameworkVersion: "*",
+        });
+        this.props.context.setFrameworkManifests(req.manifests);
       } catch (err) {
         console.error(err);
       }
@@ -173,63 +184,42 @@ class SelectModel extends Component {
     });
   }
 
+  handleCheck(e, item, index) {
+    // console.log(e.target)
+    if (e.target.checked === true) {
+      this.props.context.addFramework(item.name, item.version);
+      console.log(true)
+    } else {
+      console.log(false)
+      this.props.context.removeFramework(index);
+    }
+  }
+
   render() {
-    if (!isArray(this.props.context.modelManifests)) {
+    var models = this.props.context.modelManifests;
+    var frameworks = this.props.context.frameworkManifests;
+    if (!isArray(models) || !isArray(frameworks)) {
       return <div />;
     }
+    console.log(this.props.context)
 
-    var models = this.props.context.modelManifests;
+    // Filter by selected framework
     const selectedFrameworks = this.props.context.frameworks;
     if (selectedFrameworks.length !== 0) {
       // find models with selected frameworks
       models = filter(models, function(o) {
         return findIndex(selectedFrameworks, o.framework) !== -1;
       });
-      models = filter(models, function(m) {
-        return (
-          size(
-            filter(models, function(o) {
-              return m.name === o.name && versionSatisfied(m.version, o.version);
-            })
-          ) === selectedFrameworks.length
-        );
+    }
+    // Filter by selected task
+    var selectedTask = this.props.context.task;
+    if (selectedTask !== null) {
+      models = filter(models, function(o) {
+        return o.inputs[0].type === selectedTask.input && o.output.type === selectedTask.output;
       });
     }
-
-    models = uniqBy(models, e => e.name + e.version);
-
-    // console.log(models);
-    // console.log(this.state);
-
-    const inputDataTypeMenu = (
-      <Menu onClick={this.handleSelectInputDataType}>
-        {Object.keys(inputDataTypes).map(type => (
-          <Menu.Item key={type}>
-            <a // eslint-disable-line
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {capitalize(type)}
-            </a>
-          </Menu.Item>
-        ))}
-      </Menu>
-    );
-
-    const outputDataTypeMenu = (
-      <Menu onClick={this.handleSelectOutputDataType}>
-        {Object.keys(outputDataTypes).map(type => (
-          <Menu.Item key={type}>
-            <a // eslint-disable-line
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {capitalize(type)}
-            </a>
-          </Menu.Item>
-        ))}
-      </Menu>
-    );
+    // Sort by model name to make sure the same model will showup side by side
+    models = orderBy(models, ["name", "version"]);
 
     const modelsKey = keys(models).sort();
     this.models = models;
@@ -251,52 +241,20 @@ class SelectModel extends Component {
             </h2>
           </div>
 
-          <div
-            style={{
-              paddingTop: "20px",
-              paddingLeft: "40px",
-              backgroundColor: "#131C2D",
-              height: "60px",
-              color: "white",
-            }}
-          >
-            <div style={{ display: "inline-block" }}>
-              <Dropdown overlay={inputDataTypeMenu}>
-                <a // eslint-disable-line
-                  style={{ color: "white" }}
-                >
-                  Input Data Type <Icon type="caret-down" theme="outlined" />
-                </a>
-              </Dropdown>
-            </div>
-
-            <div style={{ marginLeft: "40px", display: "inline-block" }}>
-              <Dropdown overlay={outputDataTypeMenu}>
-                <a // eslint-disable-line
-                  style={{ color: "white" }}
-                >
-                  Output Data Type <Icon type="caret-down" theme="outlined" />
-                </a>
-              </Dropdown>
-            </div>
-          </div>
-
-          <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
-            Input Data Type:
-            {this.state.selectedInputDataType.length === 0 ? (
-              <Tag style={{ marginLeft: "20px" }}>ALL</Tag>
-            ) : (
-              this.renderSelectedInputFlags()
-            )}
-          </div>
-          <div style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "40px" }}>
-            Output Data Type:
-            {this.state.selectedOutputDataType.length === 0 ? (
-              <Tag style={{ marginLeft: "20px" }}>ALL</Tag>
-            ) : (
-              this.renderSelectedOutputFlags()
-            )}
-          </div>
+          <Row>
+          {frameworks.map((item, index) => (
+            <Col
+              key={"model-"+index.toString()}
+              sm={4}
+              xs={8}
+              style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+              {frameworkLogo(item.name.toLowerCase())}
+              <Checkbox onChange={(e) => this.handleCheck(e, item, index)}>
+                {item.name + " V" + item.version}
+              </Checkbox>
+            </Col>
+          ))}
+          </Row>
 
           <Row gutter={16} type="flex" justify="space-around" align="middle">
             {modelsKey.map(key => {
@@ -360,11 +318,14 @@ class SelectModel extends Component {
                         <Divider orientation="right">
                           <div style={{ color: "#aaa", fontSize: "10pt" }}>Options</div>
                         </Divider>
-                        <Col span={8}>
+                        <Col span={4}>
+                          {frameworkLogo(model.framework.name.toLowerCase())}
+                        </Col>
+                        <Col span={8} offset={2}>
                           ({map(model.inputs, typeRender)}) → {typeRender(model.output)}
                         </Col>
 
-                        <Col span={8} offset={8}>
+                        <Col span={8} offset={2}>
                           <Dropdown overlay={menu}>
                             <>
                               data type <Icon type="down" />
