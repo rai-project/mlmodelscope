@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import ImageInferenceResult from "./ImageInferenceResult";
 import DatasetInferenceResult from "./DatasetInferenceResult";
-import SegmentationResult from "./SegmentationResult";
 
 
 class InferenceResult extends Component {

@@ -11,6 +11,7 @@ export default class ExperimentProvider extends Component {
       traceLevel: "FULL_TRACE",
       useGPU: false,
       isPredicting: true,
+      task: null,
       imageUrls: [],
       dataset: null,
       models: [],
@@ -23,6 +24,10 @@ export default class ExperimentProvider extends Component {
       setPage: page => 
         this.setState({
           currentPage: page,
+        }),
+      setTask: task =>
+        this.setState({
+          task: task,
         }),
       addUrl: url =>
         this.setState({

@@ -3,8 +3,8 @@ import Helmet from "react-helmet";
 import { Layout } from "antd";
 import SelectDataset from "../components/ExperimentSteps/SelectDataset";
 import ExperimentSetupSider from "../components/ExperimentSteps/ExperimentSetupSider";
+import SelectTask from "../components/ExperimentSteps/SelectTask";
 import SelectModel from "../components/ExperimentSteps/SelectModel";
-import SelectFramework from "../components/ExperimentSteps/SelectFramework";
 import SelectMachine from "../components/ExperimentSteps/SelectMachine";
 import InferenceResult from "../components/InferenceResult";
 import ExperimentProvider, { ExperimentContext } from "../context/ExperimentContext";
@@ -14,7 +14,7 @@ export default class ExperimentPage extends Component {
   renderCurrentPage(currentPage) {
     switch (currentPage) {
       case "task":
-        return <div>Not Implemented Yet</div>;
+        return <SelectTask />;
       case "dataset":
         return <SelectDataset />;
       case "model":

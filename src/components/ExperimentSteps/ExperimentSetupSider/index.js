@@ -143,30 +143,6 @@ class ExperimentSetupSider extends Component {
             ))}
           </Menu.Item>
 
-          {/* <Menu.Item
-            key="framework"
-            style={{
-              paddingTop: "30px",
-              paddingBottom: "30px",
-              paddingleft: "40px",
-              minHeight: "60px",
-              height: "auto",
-            }}
-          >
-            <div>FRAMEWORKS</div>
-            {this.props.context.frameworks.map((framework, index) => (
-              <div key={yeast()}>
-                <Tag
-                  closable
-                  style={{ zIndex: 1 }}
-                  onClose={() => this.props.context.removeFramework(index)}
-                >
-                  {framework.name + " v" + framework.version}
-                </Tag>
-              </div>
-            ))}
-          </Menu.Item> */}
-
           <Menu.Item
             key="machine"
             style={{

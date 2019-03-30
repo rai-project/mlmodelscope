@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import idx from "idx";
 import { Tabs } from "antd";
-import { capitalize, sortBy, isNil, toUpper } from "lodash";
-import { Table, Row, Col, Select } from "antd";
-import TraceInfo from "./TraceInfo";
+import { capitalize, isNil } from "lodash";
+import { Row, Col, Select } from "antd";
 import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
 
@@ -68,7 +67,6 @@ export default class ResultTab extends Component {
   }
 
   renderComparisonPane() {
-    var selections = this.data;
     var target = this.target;
     var comparison1 = this.state.comparison1;
     var comparison2 = this.state.comparison2;
@@ -130,7 +128,6 @@ export default class ResultTab extends Component {
     var target = this.props.target;
     var imgIndex = this.props.imgIndex;
     var imgUrl = this.props.imgUrl;
-    var features;
 
     var _this = this;
     return (
