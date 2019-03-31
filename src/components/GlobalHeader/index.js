@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Layout, Menu, Icon, Drawer } from "antd";
 import { NavLink } from "react-router-dom";
-import windowSize from "react-window-size";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
+import ViewContext from "../../context/ViewContext"; // eslint-disable-line
 
 const { Header } = Layout;
 
 const userLoginEnabled = false;
 
-class GlobalHeader extends Component {
+export default class GlobalHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -89,48 +89,47 @@ class GlobalHeader extends Component {
   }
 
   render() {
-    const breakpoint = 900;
-    const { windowWidth } = this.props;
     const { mobile_menu_open } = this.state;
-    const is_mobile = windowWidth <= breakpoint;
-    const is_mobile_menu_open = is_mobile && mobile_menu_open;
     // console.log({ windowWidth, is_mobile, mobile_menu_open, is_mobile_menu_open });
     return (
-      <Header
-        style={{
-          backgroundColor: "white",
-          height: "auto",
-          minHeight: "60px",
-          paddingTop: "10px",
-        }}
-      >
-        <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
-          <b>MLModelScope</b>
-        </NavLink>
-        {is_mobile && !is_mobile_menu_open ? (
-          <Icon
+      <ViewContext.Consumer>
+        {context => (
+          <Header
             style={{
-              float: "right",
-              paddingTop: "24px",
-              fontSize: "2em",
+              backgroundColor: "white",
+              height: "auto",
+              minHeight: "60px",
+              paddingTop: "10px",
             }}
-            onClick={() => this.toggleMobileMenuOpen()}
-            type="bars"
-            theme="outlined"
-          />
-        ) : null}
-        <Drawer
-          placement="right"
-          closable={true}
-          onClose={() => this.toggleMobileMenuOpen()}
-          visible={is_mobile_menu_open}
-        >
-          <Menu>{this.menu({ mode: "inline" })}</Menu>
-        </Drawer>
-        {is_mobile ? null : this.menu({ mode: "horizontal" })}
-      </Header>
+          >
+            <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
+              <b>MLModelScope</b>
+            </NavLink>
+            {context.isMobile && !mobile_menu_open ? (
+              <Icon
+                style={{
+                  float: "right",
+                  paddingTop: "24px",
+                  fontSize: "2em",
+                }}
+                onClick={() => this.toggleMobileMenuOpen()}
+                className="iconHamburger"
+                type="menu"
+                theme="outlined"
+              />
+            ) : null}
+            <Drawer
+              placement="right"
+              closable={true}
+              onClose={() => this.toggleMobileMenuOpen()}
+              visible={context.isMobile && mobile_menu_open}
+            >
+              <Menu>{this.menu({ mode: "inline" })}</Menu>
+            </Drawer>
+            {context.isMobile ? null : this.menu({ mode: "horizontal" })}
+          </Header>
+        )}
+      </ViewContext.Consumer>
     );
   }
 }
-
-export default windowSize(GlobalHeader);

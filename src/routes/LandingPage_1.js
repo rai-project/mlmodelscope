@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Introduction from "../components/LandingPage_1/Introduction";
 import Section2 from "../components/LandingPage_1/Section2";
 import Section3 from "../components/LandingPage_1/Section3";
@@ -10,6 +11,7 @@ import Section8 from "../components/LandingPage_1/Section8";
 import Section9 from "../components/LandingPage_1/Section9";
 import Section10 from "../components/LandingPage_1/Section10";
 import { Layout } from "antd";
+
 const { Content } = Layout;
 
 export default class LandingPage extends Component {
