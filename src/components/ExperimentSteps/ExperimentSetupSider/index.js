@@ -56,7 +56,6 @@ class ExperimentSetupSider extends Component {
       (this.props.context.imageUrls.length === 0 &&
         this.props.context.dataset === null) ||
       this.props.context.models.length === 0 ||
-      this.props.context.frameworks.length === 0 ||
       this.props.context.machines.length === 0
     ) {
       return true;

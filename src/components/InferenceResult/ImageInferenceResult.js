@@ -5,6 +5,7 @@ import { Collapse, Spin, Radio, Pagination } from "antd";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import ResultTab from "./ResultTab";
 import { Result } from "antd-mobile";
+import yeast from "yeast";
 
 function groupByFramework(response) {
   // console.log(response)
@@ -73,10 +74,10 @@ class ImageInferenceResult extends Component {
                   <Radio value={2}>Compare Framework</Radio>
                 </Radio.Group>
 
-                <Collapse style={{ marginTop: "20px" }}>
-                  {this.state.value === 1
-                    ? Object.keys(frameworkGroup).map(function(key, index) {
-                        return (
+                {this.state.value === 1
+                  ? Object.keys(frameworkGroup).map(function(key, index) {
+                      return (
+                        <Collapse key={yeast()} style={{ marginTop: "20px" }}>
                           <Collapse.Panel header={key} key={index.toString()}>
                             <ResultTab
                               target="model"
@@ -85,10 +86,12 @@ class ImageInferenceResult extends Component {
                               imgUrl={imageUrl}
                             />
                           </Collapse.Panel>
-                        );
-                      })
-                    : Object.keys(modelGroup).map(function(key, index) {
-                        return (
+                        </Collapse>
+                      );
+                    })
+                  : Object.keys(modelGroup).map(function(key, index) {
+                      return (
+                        <Collapse key={yeast()} style={{ marginTop: "20px" }}>
                           <Collapse.Panel header={key} key={index.toString()}>
                             <ResultTab
                               target="framework"
@@ -97,11 +100,10 @@ class ImageInferenceResult extends Component {
                               imgUrl={imageUrl}
                             />
                           </Collapse.Panel>
-                        );
-                      })
+                        </Collapse>
+                      );
+                    })
                   }
-                </Collapse>
-
               </React.Fragment>
             </div>
             <Pagination

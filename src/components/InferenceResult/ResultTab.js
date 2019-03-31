@@ -130,6 +130,7 @@ export default class ResultTab extends Component {
     var imgUrl = this.props.imgUrl;
 
     var _this = this;
+    console.log(this.data)
     return (
       <Tabs defaultActiveKey="0">
         {this.data.length > 1 ? this.renderComparisonPane() : null}
