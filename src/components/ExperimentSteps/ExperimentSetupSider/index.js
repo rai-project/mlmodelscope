@@ -37,7 +37,6 @@ class ExperimentSetupSider extends Component {
       predict(
         context.imageUrls,
         context.models,
-        context.frameworks,
         context.batchSize,
         context.traceLevel,
         context.useGPU
@@ -108,7 +107,7 @@ class ExperimentSetupSider extends Component {
           >
             <div>TASKS</div>
             {this.props.context.task !== null && (
-              <Tag closable onClose={() => this.props.context.setTask(null)}>
+              <Tag>
                 {this.props.context.task.name}
               </Tag>
             )}
@@ -132,7 +131,7 @@ class ExperimentSetupSider extends Component {
                   style={{ zIndex: 1 }}
                   onClose={() => this.handleClose(this.props.context, index)}
                 >
-                  {model.name + " v" + model.version}
+                  {model.framework.name + " " + model.name + " v" + model.version}
                 </Tag>
               </div>
             ))}

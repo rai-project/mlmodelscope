@@ -17,7 +17,6 @@ function buildDeviceCount(useGPU) {
 function buildOpenParams({
   requestId,
   model,
-  framework,
   batch_size,
   trace_level,
   useGPU,
@@ -25,8 +24,8 @@ function buildOpenParams({
   return {
     requestId,
     body: {
-      framework_name: framework.name,
-      framework_version: framework.version,
+      framework_name: model.framework.name,
+      framework_version: model.framework.version,
       model_name: model.name,
       model_version: model.version,
       options: {
@@ -55,20 +54,18 @@ function pFinally(promise, onFinally) {
 export default function predict(
   imageUrls,
   models,
-  frameworks,
   batch_size,
   trace_level,
   useGPU
 ) {
   let spanHeaders = {};
 
-  const run = (imageUrls, model, framework) => {
+  const run = (imageUrls, model) => {
     let predictor = null;
     const requestId = uuid();
     let openParams = buildOpenParams({
       requestId,
       model,
-      framework,
       batch_size,
       trace_level,
       useGPU,
@@ -111,7 +108,7 @@ export default function predict(
         .then(response => {
           return {
             model: model,
-            framework: framework,
+            framework: model.framework,
             traceId: spanHeaders["x-b3-traceid"],
             response: response.responses,
           };
@@ -133,11 +130,11 @@ export default function predict(
     );
     return res;
   };
-  let pairs = [];
-  models.map(model =>
-    frameworks.map(framework => pairs.push({ model: model, framework: framework }))
-  );
-  return Promise.all(pairs.map(pair => run(imageUrls, pair.model, pair.framework))).then(
+  // let pairs = [];
+  // models.map(model =>
+  //   frameworks.map(framework => pairs.push({ model: model, framework: framework }))
+  // );
+  return Promise.all(models.map(model => run(imageUrls, model))).then(
     function(features) {
       console.log(features);
       // window.last_features = features;

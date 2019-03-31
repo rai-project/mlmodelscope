@@ -40,9 +40,9 @@ export default class ExperimentProvider extends Component {
       removeDataset: () => {
         this.setState({ dataset: null });
       },
-      addModel: (name, version) => {
+      addModel: (model) => {
         this.setState({
-          models: this.state.models.concat({ name: name, version: version }),
+          models: this.state.models.concat(model),
         })
       },
       removeUrls: () => {
