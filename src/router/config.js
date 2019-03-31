@@ -1,5 +1,5 @@
 // import LandingPage from '../routes/LandingPage'
-import LandingPage from "../routes/LandingPage_1";
+import LandingPage from "../routes/LandingPage";
 import ExperimentPage from "../routes/ExperimentPage";
 import LogInPage from "../routes/LogInPage";
 import InitialSetupPage from "../routes/InitialSetupPage";
@@ -40,7 +40,7 @@ const routes = [
     path: "/conference",
     component: ConferencePage,
     exact: false,
-  }
+  },
 ];
 
 export default routes;

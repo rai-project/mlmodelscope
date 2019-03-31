@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { enquireScreen } from "enquire-js";
+// import { enquireIsMobile } from "./enquireScreen";
 
 const ViewContext = React.createContext();
 export default ViewContext;
 
-const mobileQuery = "only screen and (max-width: 840.99px)";
-
 let isMobile;
 enquireScreen(b => {
   isMobile = b;
-}, mobileQuery);
+});
 
 export class ViewProvider extends Component {
   constructor(props) {
@@ -22,9 +21,19 @@ export class ViewProvider extends Component {
   componentDidMount() {
     enquireScreen(b => {
       this.setState({ isMobile: !!b });
-    }, mobileQuery);
+    });
   }
 
+  // componentDidMount() {
+  //     this.unregisterEnquire = enquireIsMobile(ismobile => {
+  //         const { isMobile } = this.state;
+  //         if (isMobile !== ismobile) {
+  //             this.setState({
+  //                 isMobile: ismobile
+  //             });
+  //         }
+  //     });
+  // }
   render() {
     return (
       <ViewContext.Provider value={this.state}>
