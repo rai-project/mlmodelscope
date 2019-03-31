@@ -22,6 +22,7 @@
     "gg-editor": "^1.3.4",
     "http-proxy-middleware": "^0.19.1",
     "idx": "^2.5.2",
+    "image-js": "^0.21.6",
     "is-promise": "^2.1.0",
     "js-yaml": "^3.12.0",
     "json-loader": "^0.5.7",
