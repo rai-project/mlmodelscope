@@ -20,7 +20,7 @@ export default class LandingPage extends Component {
       <Content>
         <Banner />
         <Section2 />
-        <Section3 />
+        <Section3 breakpoint={850} />
         <Section5 />
         <Section6 />
         <Section7 />

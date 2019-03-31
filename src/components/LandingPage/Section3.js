@@ -1,12 +1,15 @@
 import "./LandingPage.css";
 import { Row as AntdRow, Col as AntdCol, Icon } from "antd";
 import React, { Component } from "react";
-import ViewContext from "../../context/ViewContext"; // eslint-disable-line
+import withSizes from "react-sizes";
+
+const mapSizesToProps = ({ width }, { breakpoint }) => ({
+  isMobile: width < breakpoint,
+});
 
 const Color1 = "#D2F0F7";
 const Color2 = "#2E3F8F";
 const Color3 = "#1A263A";
-
 const Black = "#464445";
 
 const Row = ({ style, children }) => (
@@ -105,7 +108,7 @@ const Info = function({ isMobile, href, color, children }) {
   );
 };
 
-export default class Section3 extends Component {
+class Section3 extends Component {
   renderWebPage({ isMobile }) {
     const minHeight = isMobile ? "250px" : "575px";
     return (
@@ -172,13 +175,9 @@ export default class Section3 extends Component {
   }
 
   render() {
-    // const breakpoint = 1024;
-    // const { windowWidth } = this.props;
-    // const isMobile = windowWidth < breakpoint;
-    return (
-      <ViewContext.Consumer>
-        {context => this.renderWebPage({ isMobile: context.isMobile })}
-      </ViewContext.Consumer>
-    );
+    const { isMobile } = this.props;
+    return this.renderWebPage({ isMobile });
   }
 }
+
+export default withSizes(mapSizesToProps)(Section3);

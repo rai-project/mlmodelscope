@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import { Layout, Menu, Icon, Drawer } from "antd";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
-import ViewContext from "../../context/ViewContext"; // eslint-disable-line
+import withSizes from "react-sizes";
 
 const { Header } = Layout;
 
 const userLoginEnabled = false;
 
-export default class GlobalHeader extends Component {
+const mapSizesToProps = ({ width }, { breakpoint }) => ({
+  isMobile: width < breakpoint,
+});
+
+class GlobalHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,46 +94,44 @@ export default class GlobalHeader extends Component {
 
   render() {
     const { mobile_menu_open } = this.state;
-    // console.log({ windowWidth, is_mobile, mobile_menu_open, is_mobile_menu_open });
+    const { isMobile } = this.props;
     return (
-      <ViewContext.Consumer>
-        {context => (
-          <Header
+      <Header
+        style={{
+          backgroundColor: "white",
+          height: "auto",
+          minHeight: "60px",
+          paddingTop: "10px",
+        }}
+      >
+        <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
+          <b>MLModelScope</b>
+        </NavLink>
+        {isMobile && !mobile_menu_open ? (
+          <Icon
             style={{
-              backgroundColor: "white",
-              height: "auto",
-              minHeight: "60px",
-              paddingTop: "10px",
+              float: "right",
+              paddingTop: "24px",
+              fontSize: "2em",
             }}
-          >
-            <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
-              <b>MLModelScope</b>
-            </NavLink>
-            {context.isMobile && !mobile_menu_open ? (
-              <Icon
-                style={{
-                  float: "right",
-                  paddingTop: "24px",
-                  fontSize: "2em",
-                }}
-                onClick={() => this.toggleMobileMenuOpen()}
-                className="iconHamburger"
-                type="menu"
-                theme="outlined"
-              />
-            ) : null}
-            <Drawer
-              placement="right"
-              closable={true}
-              onClose={() => this.toggleMobileMenuOpen()}
-              visible={context.isMobile && mobile_menu_open}
-            >
-              <Menu>{this.menu({ mode: "inline" })}</Menu>
-            </Drawer>
-            {context.isMobile ? null : this.menu({ mode: "horizontal" })}
-          </Header>
-        )}
-      </ViewContext.Consumer>
+            onClick={() => this.toggleMobileMenuOpen()}
+            className="iconHamburger"
+            type="menu"
+            theme="outlined"
+          />
+        ) : null}
+        <Drawer
+          placement="right"
+          closable={true}
+          onClose={() => this.toggleMobileMenuOpen()}
+          visible={isMobile && mobile_menu_open}
+        >
+          <Menu>{this.menu({ mode: "inline" })}</Menu>
+        </Drawer>
+        {isMobile ? null : this.menu({ mode: "horizontal" })}
+      </Header>
     );
   }
 }
+
+export default withSizes(mapSizesToProps)(GlobalHeader);
