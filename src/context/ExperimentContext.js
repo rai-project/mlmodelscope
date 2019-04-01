@@ -25,10 +25,15 @@ export default class ExperimentProvider extends Component {
         this.setState({
           currentPage: page,
         }),
-      setTask: task =>
+      setTask: task => {
+        if (this.state.task !== null && task.name === this.state.task.name) {
+          return;
+        }
         this.setState({
           task: task,
-        }),
+          models: [],
+        })
+      },
       addUrl: url =>
         this.setState({
           imageUrls: this.state.imageUrls.concat(url),

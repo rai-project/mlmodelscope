@@ -35,7 +35,6 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
     }
     if (features[0].type === "INSTANCESEGMENT") {
       return <div>Implement INSTANCESEGMENT feature type </div>;
-      );
     }
     if (features[0].type === "SEMANTICSEGMENT") {
       return (
@@ -45,7 +44,7 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
           displayTrace={displayTrace}
           imgUrl={imgUrl}
         />
-      );
+      )
     }
     if (features[0].type === "IMAGEENHANCEMENT") {
       return <div>Implement IMAGEENHANCEMENT feature type </div>;
