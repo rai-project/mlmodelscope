@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import QueueAnim from "rc-queue-anim";
-import { Row, Col } from "antd";
-import withSizes from "react-sizes";
-
 import "./LandingPage.css";
+
+import { Col, Row } from "antd";
+import QueueAnim from "rc-queue-anim";
+import React, { Component } from "react";
+import withSizes from "react-sizes";
 
 const mapSizesToProps = ({ width }, { breakpoint }) => ({
   isMobile: width < breakpoint,
@@ -15,21 +15,31 @@ class Banner extends Component {
     return (
       <div className="LandingPage-Banner">
         <QueueAnim type={isMobile ? "bottom" : "left"} delay={300}>
-          <Row type="flex" justify="space-around" align="middle">
-            <Col sm={16} xs={24}>
+          <Row
+            type="flex"
+            justify="space-around"
+            align="middle"
+            style={{ paddingTop: "20vh" }}
+          >
+            <Col sm={8} xs={12}>
               <h1
                 key="h1"
                 style={{
-                  fontSize: "36px",
+                  fontSize: "35px",
                   color: "white",
                 }}
               >
-                Reproducible and Uniform Machine Learning Model Evaluation and Profiling
+                Reproducible Machine Learning Evaluation
               </h1>
             </Col>
           </Row>
-          <Row type="flex" justify="space-around" align="middle">
-            <Col sm={12} xs={24}>
+          <Row
+            type="flex"
+            justify="space-around"
+            align="middle"
+            style={{ paddingBottom: "30vh" }}
+          >
+            <Col sm={12} xs={18}>
               <p
                 key="h2"
                 style={{
@@ -37,8 +47,8 @@ class Banner extends Component {
                   color: "white",
                 }}
               >
-                MLModelScope makes it easier to reproduce, compare and understand accuracy
-                or performance claims of models and systems
+                MLModelScope allows you to reproduce, compare, and analyze accuracy and
+                performance claims across models and systems
               </p>
             </Col>
           </Row>
