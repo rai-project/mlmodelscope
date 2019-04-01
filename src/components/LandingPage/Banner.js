@@ -47,8 +47,8 @@ class Banner extends Component {
                   color: "white",
                 }}
               >
-                MLModelScope allows you to reproduce, compare, and analyze accuracy and
-                performance claims across models and systems
+                <b>MLModelScope</b> allows you to reproduce, compare, and analyze accuracy
+                and performance claims across models and systems
               </p>
             </Col>
           </Row>

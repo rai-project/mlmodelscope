@@ -75,19 +75,19 @@ class GlobalHeader extends Component {
             mode={mode}
             style={{ float: "right", lineHeight: "64px" }}
           >
-            <Menu.Item key="usecases" title="Use Cases" style={item_style}>
+            <Menu.Item key="usecases" style={item_style}>
               <NavLink to={"/usecases"}>Use Case</NavLink>
             </Menu.Item>
-            <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
+            <Menu.Item key="evaluations" style={item_style}>
               <NavLink to={"/evaluations"}>Evaluations</NavLink>
             </Menu.Item>
-            <Menu.Item key="experiment" title="Playground" style={item_style}>
+            <Menu.Item key="experiment" style={item_style}>
               <NavLink to={"/experiment"}>Playground</NavLink>
             </Menu.Item>
-            <Menu.Item key="news" title="News" style={item_style}>
+            <Menu.Item key="news" style={item_style}>
               <NavLink to={"/news"}>News</NavLink>
             </Menu.Item>
-            <Menu.Item key="about" title="About" style={item_style}>
+            <Menu.Item key="about" style={item_style}>
               <a href="https://docs.mlmodelscope.org/">About</a>
             </Menu.Item>
             {this.renderUser({ username: context.username, item_style })}
