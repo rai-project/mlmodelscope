@@ -3,6 +3,7 @@ import { Layout, Menu, Icon, Drawer } from "antd";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../context/UserContext"; // eslint-disable-line
 import withSizes from "react-sizes";
+import { withRouter } from "react-router-dom";
 
 const { Header } = Layout;
 
@@ -18,9 +19,13 @@ class GlobalHeader extends Component {
     this.state = {
       mobile_menu_open: false,
     };
+    this.toggleMobileMenuOpen = this.toggleMobileMenuOpen.bind(this);
     this.renderUser = this.renderUser.bind(this);
     this.menu = this.menu.bind(this);
-    this.toggleMobileMenuOpen = this.toggleMobileMenuOpen.bind(this);
+  }
+
+  toggleMobileMenuOpen() {
+    this.setState({ mobile_menu_open: !this.state.mobile_menu_open });
   }
 
   renderUser({ username, item_style }) {
@@ -51,28 +56,32 @@ class GlobalHeader extends Component {
     ];
   }
 
-  menu({ mode }) {
+  menu({ mode, theme, activeLinkKey }) {
     let item_style = {
       alignContent: "right",
       fontWeight: "bold",
       justifyContent: "space-around",
       alignItems: "center",
-      fontSize: "18px",
+      fontSize: "16px",
     };
-    if (mode === "horizontal") {
-      item_style["paddingTop"] = "10px";
-    }
+
+    console.log(activeLinkKey);
     return (
       <UserContext.Consumer>
         {context => (
-          <Menu mode={mode} style={{ float: "right" }}>
+          <Menu
+            theme={theme}
+            selectedKeys={[`${activeLinkKey.replace(/^\/|\/$/g, "")}`]}
+            mode={mode}
+            style={{ float: "right", lineHeight: "64px" }}
+          >
             <Menu.Item key="usecases" title="Use Cases" style={item_style}>
               <NavLink to={"/usecases"}>Use Case</NavLink>
             </Menu.Item>
             <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
               <NavLink to={"/evaluations"}>Evaluations</NavLink>
             </Menu.Item>
-            <Menu.Item key="playground" title="Playground" style={item_style}>
+            <Menu.Item key="experiment" title="Playground" style={item_style}>
               <NavLink to={"/experiment"}>Playground</NavLink>
             </Menu.Item>
             <Menu.Item key="news" title="News" style={item_style}>
@@ -88,24 +97,21 @@ class GlobalHeader extends Component {
     );
   }
 
-  toggleMobileMenuOpen() {
-    this.setState({ mobile_menu_open: !this.state.mobile_menu_open });
-  }
-
   render() {
     const { mobile_menu_open } = this.state;
     const { isMobile } = this.props;
+    const activeLinkKey = this.props.location.pathname;
     return (
       <Header
         className="show-shadow"
         style={{
-          backgroundColor: "white",
-          // position: "fixed",
-          // zIndex: "1",
-          // width: "100%",
+          backgroundColor: "#19263a",
+          position: "fixed",
+          zIndex: "1",
+          width: "100%",
         }}
       >
-        <NavLink to={"/"} style={{ float: "left", color: "#1A263A", fontSize: "24px" }}>
+        <NavLink to={"/"} style={{ float: "left", color: "white", fontSize: "20px" }}>
           <b>MLModelScope</b>
         </NavLink>
         {isMobile && !mobile_menu_open ? (
@@ -114,6 +120,7 @@ class GlobalHeader extends Component {
               float: "right",
               paddingTop: "20px",
               fontSize: "2em",
+              color: "white",
             }}
             onClick={() => this.toggleMobileMenuOpen()}
             className="iconHamburger"
@@ -122,17 +129,21 @@ class GlobalHeader extends Component {
           />
         ) : null}
         <Drawer
+          title="MLModelScope"
           placement="right"
           closable={true}
           onClose={() => this.toggleMobileMenuOpen()}
           visible={isMobile && mobile_menu_open}
+          style={{ color: "#19263A" }}
         >
-          {this.menu({ mode: "horizontal" })}
+          {this.menu({ mode: "inline", theme: "light", activeLinkKey })}
         </Drawer>
-        {isMobile ? null : this.menu({ mode: "horizontal" })}
+        {isMobile
+          ? null
+          : this.menu({ mode: "horizontal", theme: "dark", activeLinkKey })}
       </Header>
     );
   }
 }
 
-export default withSizes(mapSizesToProps)(GlobalHeader);
+export default withRouter(withSizes(mapSizesToProps)(GlobalHeader));

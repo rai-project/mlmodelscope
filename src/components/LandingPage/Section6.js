@@ -15,11 +15,15 @@ export default class Section6 extends Component {
         <Col sm={8} xs={24}>
           <img className="LandingPage-img" src={Image} alt="" />
         </Col>
-        <Col sm={{ span: 8, offset: 2 }} xs={{ span: 24 }} style={{ marginTop: "5%", padding: "5%" }}>
+        <Col
+          sm={{ span: 8, offset: 2 }}
+          xs={{ span: 24 }}
+          style={{ marginTop: "5%", padding: "5%" }}
+        >
           <h3 style={{ color: "white", textTransform: "uppercase" }}>ONE PLATFORM</h3>
           <h2 style={{ color: "white" }}>
-            Bring together dispersed tools into one platform to explore the performance of different
-            combinations.
+            Bring together dispersed tools into one platform to explore the performance of
+            different combinations.
           </h2>
           <a
             className="buttonsec6"
@@ -29,7 +33,8 @@ export default class Section6 extends Component {
             }}
             href="/experiment"
           >
-            DISCOVER PLATFORM <Icon style={{ fontSize: 20 }} size="large" type="arrow-right" />
+            DISCOVER PLATFORM{" "}
+            <Icon style={{ fontSize: 20 }} size="large" type="arrow-right" />
           </a>
         </Col>
       </Row>

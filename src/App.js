@@ -35,7 +35,6 @@ class App extends Component {
                 <Router />
               </Error>
             </Layout.Content>
-
             <GlobalFooter />
           </Layout>
         </ReactRouter>
