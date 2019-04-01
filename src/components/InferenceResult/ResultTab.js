@@ -6,15 +6,13 @@ import { Row, Col, Select } from "antd";
 import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
 import ImageEnhancementResult from "./ImageEnhancementResult";
+import SemanticSegmentationResult from "./SemanticSegmentationResult";
 
 function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
   if (isNil(d)) {
     return null;
   }
   var features = idx(d, _ => _.response[imgIndex].features);
-  // return(
-  //   <SegmentationResult features={features} traceId={d.traceId} displayTrace={false} imgUrl={imgUrl} />
-  // )
   try {
     if (features[0].type === "CLASSIFICATION") {
       return (
@@ -37,9 +35,17 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
     }
     if (features[0].type === "INSTANCESEGMENT") {
       return <div>Implement INSTANCESEGMENT feature type </div>;
+      );
     }
-    if (features[0].type === "SEMANTICESEGMENT") {
-      return <div>Implement SEMANTICESEGMENT feature type </div>;
+    if (features[0].type === "SEMANTICSEGMENT") {
+      return (
+        <SemanticSegmentationResult
+          features={features}
+          traceId={d.traceId}
+          displayTrace={displayTrace}
+          imgUrl={imgUrl}
+        />
+      );
     }
     if (features[0].type === "IMAGEENHANCEMENT") {
       return <div>Implement IMAGEENHANCEMENT feature type </div>;

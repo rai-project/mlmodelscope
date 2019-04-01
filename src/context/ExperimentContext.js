@@ -6,7 +6,7 @@ export default class ExperimentProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: "predict",
+      currentPage: "task",
       batchSize: 1,
       traceLevel: "FULL_TRACE",
       useGPU: false,
