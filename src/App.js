@@ -29,14 +29,12 @@ class App extends Component {
               backgroundColor: "#E8E9EB",
             }}
           >
-            <GlobalHeader />
-
+            <GlobalHeader breakpoint={850} />
             <Layout.Content style={{ flex: 1 }}>
               <Error>
                 <Router />
               </Error>
             </Layout.Content>
-
             <GlobalFooter />
           </Layout>
         </ReactRouter>

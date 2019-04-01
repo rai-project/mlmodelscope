@@ -121,7 +121,7 @@ class SelectModel extends Component {
       this.props.context.removeModel(index);
       return;
     }
-    this.props.context.addModel(model.name, model.version);
+    this.props.context.addModel(model);
   }
 
   handleRemoveInputTag(key) {
@@ -218,6 +218,7 @@ class SelectModel extends Component {
         return o.inputs[0].type === selectedTask.input && o.output.type === selectedTask.output;
       });
     }
+
     // Sort by model name to make sure the same model will showup side by side
     models = orderBy(models, ["name", "version"]);
 
@@ -263,7 +264,11 @@ class SelectModel extends Component {
               const isSelected = !isNil(
                 find(
                   this.props.context.models,
-                  e => e.name === model.name && versionSatisfied(e.version, model.version)
+                  e =>
+                    e.name === model.name &&
+                    versionSatisfied(e.version, model.version) &&
+                    e.framework.name === model.framework.name &&
+                    versionSatisfied(e.framework.version, model.framework.version)
                 )
               );
 

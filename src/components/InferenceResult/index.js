@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import ImageInferenceResult from "./ImageInferenceResult";
 import DatasetInferenceResult from "./DatasetInferenceResult";
+import ImageEnhancementResult from "./ImageEnhancementResult";
 
 
 class InferenceResult extends Component {
@@ -29,6 +30,7 @@ class InferenceResult extends Component {
           </div>
 
           {resultContent}
+          {/* <ImageEnhancementResult /> */}
       </div>
     );
   }

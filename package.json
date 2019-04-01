@@ -54,6 +54,7 @@
     "react-scripts": "2.1.8",
     "react-syntax-highlighter": "^10.2.1",
     "react-window-size": "^1.2.2",
+    "react-sizes": "^1.0.4",
     "snappyjs": "^0.6.0",
     "speedscope": "^1.5.0",
     "styled-components": "^4.2.0",

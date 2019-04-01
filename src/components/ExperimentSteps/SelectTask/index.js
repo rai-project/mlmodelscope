@@ -60,6 +60,13 @@ function taskImage(task) {
 }
 
 class SelectTask extends Component {
+  constructor(props) {
+    super(props)
+    if (this.props.context.task === null) {
+      this.props.context.setTask(taskList[0])
+    }
+  }
+
   isSelected(item) {
     return item.name === idx(this.props.context.task, _ => _.name);
   }

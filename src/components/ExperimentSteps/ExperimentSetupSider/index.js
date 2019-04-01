@@ -33,11 +33,10 @@ class ExperimentSetupSider extends Component {
 
   handleClick(context, key) {
     if (key === "predict" && context.imageUrls.length !== 0) {
-      context.setPredictResult(null);
+      context.startPredicting();
       predict(
         context.imageUrls,
         context.models,
-        context.frameworks,
         context.batchSize,
         context.traceLevel,
         context.useGPU
@@ -54,10 +53,10 @@ class ExperimentSetupSider extends Component {
 
   disablePredictButton() {
     if (
+      this.props.context.isPredicting ||
       (this.props.context.imageUrls.length === 0 &&
         this.props.context.dataset === null) ||
       this.props.context.models.length === 0 ||
-      this.props.context.frameworks.length === 0 ||
       this.props.context.machines.length === 0
     ) {
       return true;
@@ -108,7 +107,7 @@ class ExperimentSetupSider extends Component {
           >
             <div>TASKS</div>
             {this.props.context.task !== null && (
-              <Tag closable onClose={() => this.props.context.setTask(null)}>
+              <Tag>
                 {this.props.context.task.name}
               </Tag>
             )}
@@ -132,7 +131,7 @@ class ExperimentSetupSider extends Component {
                   style={{ zIndex: 1 }}
                   onClose={() => this.handleClose(this.props.context, index)}
                 >
-                  {model.name + " v" + model.version}
+                  {model.framework.name + " " + model.name + " v" + model.version}
                 </Tag>
               </div>
             ))}

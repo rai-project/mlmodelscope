@@ -6,11 +6,11 @@ export default class ExperimentProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: "task",
+      currentPage: "predict",
       batchSize: 1,
       traceLevel: "FULL_TRACE",
       useGPU: false,
-      isPredicting: true,
+      isPredicting: false,
       task: null,
       imageUrls: [],
       dataset: null,
@@ -40,9 +40,9 @@ export default class ExperimentProvider extends Component {
       removeDataset: () => {
         this.setState({ dataset: null });
       },
-      addModel: (name, version) => {
+      addModel: (model) => {
         this.setState({
-          models: this.state.models.concat({ name: name, version: version }),
+          models: this.state.models.concat(model),
         })
       },
       removeUrls: () => {
@@ -95,14 +95,12 @@ export default class ExperimentProvider extends Component {
       startPredicting: () =>
         this.setState({
           isPredicting: true,
-        }),
-      finishPredicting: () =>
-        this.setState({
-          isPredicting: false,
+          result: null
         }),
       setPredictResult: result =>
         this.setState({
           result: result,
+          isPredicting: false,
         }),
       setModelManifests: modelManifests =>
         this.setState({

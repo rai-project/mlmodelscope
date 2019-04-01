@@ -5,6 +5,7 @@ import { capitalize, isNil } from "lodash";
 import { Row, Col, Select } from "antd";
 import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
+import ImageEnhancementResult from "./ImageEnhancementResult";
 
 function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
   if (isNil(d)) {
@@ -42,6 +43,7 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
     }
     if (features[0].type === "IMAGEENHANCEMENT") {
       return <div>Implement IMAGEENHANCEMENT feature type </div>;
+      // return <ImageEnhancementResult features={features}/>;
     }
     return <div>{"Type " + features.type + " is not supported yet!"}</div>;
   } catch (err) {
@@ -130,6 +132,7 @@ export default class ResultTab extends Component {
     var imgUrl = this.props.imgUrl;
 
     var _this = this;
+    console.log(this.data)
     return (
       <Tabs defaultActiveKey="0">
         {this.data.length > 1 ? this.renderComparisonPane() : null}
