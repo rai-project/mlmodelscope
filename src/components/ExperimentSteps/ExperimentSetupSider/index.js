@@ -48,7 +48,8 @@ class ExperimentSetupSider extends Component {
   }
 
   handleClickResult() {
-    this.props.onPageChange("predict");
+    // this.props.onPageChange("predict");
+    this.props.context.setPage("predict");
   }
 
   disablePredictButton() {
@@ -128,7 +129,7 @@ class ExperimentSetupSider extends Component {
               <div key={yeast()}>
                 <Tag
                   closable
-                  style={{ zIndex: 1 }}
+                  style={{ zIndex: 1, height: "auto", whiteSpace: "pre-wrap" }}
                   onClose={() => this.handleClose(this.props.context, index)}
                 >
                   {model.framework.name + " " + model.name + " v" + model.version}
