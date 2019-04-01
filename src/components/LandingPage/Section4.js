@@ -12,23 +12,62 @@ const SubMenu = Menu.SubMenu;
 
 export default class Section4 extends Component {
   render() {
-    return (
-      <Row justify="space-around" align="center">
+    return [
+      <Row
+        type="flex"
+        justify="space-around"
+        align="middle"
+        style={{
+          backgroundColor: "white",
+        }}
+      >
+        <Col span={8}>
+          <p
+            style={{
+              fontSize: "20pt",
+              marginTop: "20px",
+              color: "#1A263A",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            What is MLModelScope?
+          </p>
+        </Col>
+      </Row>,
+      <Row
+        type="flex"
+        justify="space-around"
+        align="middle"
+        style={{
+          backgroundColor: "white",
+        }}
+      >
+        <Col span={16}>
+          <p
+            style={{
+              fontSize: "16pt",
+              marginTop: "20px",
+              color: "#1A263A",
+            }}
+          >
+            MLModelScope is a open source reproducible model evaluation and profiling
+            platform that shields heterogeneity (frameworks, datasets, models, hardware
+            configurations) away. This one-stop open platform is designed to enable
+            machine learning application, model, and system developers to quickly find,
+            test, deploy, and benchmark combinations of models, frameworks and hardware
+            configurations.
+          </p>
+        </Col>
+      </Row>,
+      <Row type="flex" justify="space-around" align="stetch">
         <Col
           style={{
-            minHeight: "575px",
             backgroundColor: "white",
             textAlign: "left",
           }}
           span={8}
         >
-          <a
-            style={{ textDecoration: "none", marginLeft: "50px", marginTop: "50px" }}
-            className="buttonSmall"
-            href="/"
-          >
-            EXPERIMENT
-          </a>
           <div style={{ paddingRight: "0px", marginRight: "30px" }}>
             <Menu onClick={handleClick} style={{ width: "100%" }} mode="vertical">
               <SubMenu
@@ -38,10 +77,11 @@ export default class Section4 extends Component {
                   position: "absolute",
                   height: "145px",
                 }}
+                itemIcon={<div />}
+                expandIcon={<div />}
                 title={
                   <span style={{ textDecoration: "none", fontSize: "15pt" }}>
-                    <Icon type="right" />
-                    Choose or bring-your-own dataset
+                    <Icon type="right" />A comprehensive evaluation system
                   </span>
                 }
               />
@@ -54,8 +94,8 @@ export default class Section4 extends Component {
                   marginRight: "30px",
                 }}
               >
-                A wide array of datasets, including public available ones, users contributed ones,
-                or proprietary ones (only you see your own dataset).
+                Bring together dispersed tools into one platform to explore the
+                performance of different combinations
               </p>
               <SubMenu
                 style={{
@@ -65,10 +105,12 @@ export default class Section4 extends Component {
                   position: "absolute",
                   height: "145px",
                 }}
+                itemIcon={<div />}
+                expandIcon={<div />}
                 title={
                   <span style={{ textDecoration: "none", fontSize: "15pt" }}>
                     <Icon type="right" />
-                    Select or deploy-your-own models
+                    Simplify ..
                   </span>
                 }
               />
@@ -81,8 +123,8 @@ export default class Section4 extends Component {
                   marginRight: "30px",
                 }}
               >
-                A rich set of machine learning and deep learning models, built from literature or
-                contributed by developers directly.
+                Take away the pain of comparing tools by eliminating the cumbersome
+                installation process and the stress of sorting dependencies
               </p>
               <SubMenu
                 style={{
@@ -91,10 +133,12 @@ export default class Section4 extends Component {
                   position: "absolute",
                   height: "145px",
                 }}
+                itemIcon={<div />}
+                expandIcon={<div />}
                 title={
                   <span style={{ textDecoration: "none", fontSize: "15pt" }}>
                     <Icon type="right" />
-                    Pick or integrate-your-own hardware
+                    Pick best system combination
                   </span>
                 }
               />
@@ -107,14 +151,16 @@ export default class Section4 extends Component {
                   marginRight: "30px",
                 }}
               >
-                A variety of hardware configurations from well-known X86, POWER and ARM systems to
-                specialized accelerators such as GPUs and FPGAs to third-party proprietary
-                accelerators.
+                Discover the most efficient frameworks, models and hardware for your
+                specific experiment Use side by side comparisons, graphs, and tables to
+                draw insights and make an informed decision on which tools to use
               </p>
             </Menu>
           </div>
-          <Row style={{ marginTop: "486px" }} className="FunctionalOverview-section4">
-            <Col style={{ minHeight: "60px", backgroundColor: "white", textAlign: "left" }}>
+          <Row style={{ marginTop: "486px" }}>
+            <Col
+              style={{ minHeight: "60px", backgroundColor: "white", textAlign: "left" }}
+            >
               <a href="/experiment" style={{ textDecoration: "none" }}>
                 <p
                   style={{
@@ -125,21 +171,37 @@ export default class Section4 extends Component {
                     textTransform: "uppercase",
                   }}
                 >
-                  Explore Features
-                  <Icon style={{ marginLeft: "20px" }} type="arrow-right" theme="outlined" />
+                  Learn More
+                  <Icon
+                    style={{ marginLeft: "20px" }}
+                    type="arrow-right"
+                    theme="outlined"
+                  />
                 </p>{" "}
               </a>
             </Col>
           </Row>
         </Col>
-        <Col style={{ minHeight: "50vh", backgroundColor: "#1a263a", textAlign: "left" }} span={16}>
+        <Col
+          style={{
+            backgroundColor: "#1a263a",
+            textAlign: "right",
+            alignContent: "right",
+          }}
+          span={16}
+        >
           <img
             alt="back"
-            style={{ height: "100%", width: "60%", marginLeft: "70px", marginTop: "60px" }}
+            style={{
+              height: "93%",
+              width: "70%",
+              marginLeft: "70px",
+              marginTop: "60px",
+            }}
             src={sec4back}
           />
         </Col>
-      </Row>
-    );
+      </Row>,
+    ];
   }
 }

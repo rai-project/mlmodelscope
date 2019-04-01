@@ -129,11 +129,8 @@ class Section3 extends Component {
             HOW TO CHOOSE RIGHT <br /> MODELS?{" "}
           </Title>
           <Body color={Black} isMobile={isMobile}>
-            Find the latest models as published in the literature for your task (be it
-            classification, object detection, tracking, machine translation and more) and
-            directly run those models using either standard dataset or your own dataset -
-            without worrying about the hassle of installing any software. See how those
-            models perform and compare with each other and draw your own conclusion.
+            Bring together dispersed tools into one platform to explore the performance of
+            different combinations
           </Body>
           <Info isMobile={isMobile}>Test Your Models</Info>
         </Col>

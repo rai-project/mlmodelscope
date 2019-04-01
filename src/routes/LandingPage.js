@@ -19,8 +19,9 @@ export default class LandingPage extends Component {
     return (
       <Content>
         <Banner breakpoint={850} />
-        <Section2 />
-        <Section3 breakpoint={850} />
+        {/* <Section2 id="Content0_0" key="Content0_0" /> */}
+        {/* <Section3 breakpoint={850} /> */}
+        <Section4 />
         <Section5 />
         <Section6 />
         <Section7 />
