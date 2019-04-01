@@ -60,23 +60,23 @@ class GlobalHeader extends Component {
       fontSize: "18px",
     };
     if (mode === "horizontal") {
-      item_style["paddingTop"] = "20px";
+      item_style["paddingTop"] = "10px";
     }
     return (
       <UserContext.Consumer>
         {context => (
           <Menu mode={mode} style={{ float: "right" }}>
-            <Menu.Item key="usecase" title="Use Case" style={item_style}>
-              <NavLink to={"/usecase"}>Use Case</NavLink>
+            <Menu.Item key="usecases" title="Use Cases" style={item_style}>
+              <NavLink to={"/usecases"}>Use Case</NavLink>
             </Menu.Item>
             <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
               <NavLink to={"/evaluations"}>Evaluations</NavLink>
             </Menu.Item>
-            <Menu.Item key="demo" title="Demo" style={item_style}>
-              <NavLink to={"/experiment"}>Demo</NavLink>
+            <Menu.Item key="playground" title="Playground" style={item_style}>
+              <NavLink to={"/experiment"}>Playground</NavLink>
             </Menu.Item>
             <Menu.Item key="news" title="News" style={item_style}>
-              <NavLink to={"/experiment"}>News</NavLink>
+              <NavLink to={"/news"}>News</NavLink>
             </Menu.Item>
             <Menu.Item key="about" title="About" style={item_style}>
               <a href="https://docs.mlmodelscope.org/">About</a>
@@ -97,21 +97,22 @@ class GlobalHeader extends Component {
     const { isMobile } = this.props;
     return (
       <Header
+        className="show-shadow"
         style={{
           backgroundColor: "white",
-          height: "auto",
-          minHeight: "60px",
-          paddingTop: "10px",
+          // position: "fixed",
+          // zIndex: "1",
+          // width: "100%",
         }}
       >
-        <NavLink to={"/"} style={{ float: "left", color: "#000", fontSize: "24px" }}>
+        <NavLink to={"/"} style={{ float: "left", color: "#1A263A", fontSize: "24px" }}>
           <b>MLModelScope</b>
         </NavLink>
         {isMobile && !mobile_menu_open ? (
           <Icon
             style={{
               float: "right",
-              paddingTop: "24px",
+              paddingTop: "20px",
               fontSize: "2em",
             }}
             onClick={() => this.toggleMobileMenuOpen()}
@@ -126,7 +127,7 @@ class GlobalHeader extends Component {
           onClose={() => this.toggleMobileMenuOpen()}
           visible={isMobile && mobile_menu_open}
         >
-          <Menu>{this.menu({ mode: "inline" })}</Menu>
+          {this.menu({ mode: "horizontal" })}
         </Drawer>
         {isMobile ? null : this.menu({ mode: "horizontal" })}
       </Header>

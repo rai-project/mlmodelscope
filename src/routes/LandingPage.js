@@ -18,7 +18,7 @@ export default class LandingPage extends Component {
   render() {
     return (
       <Content>
-        <Banner />
+        <Banner breakpoint={850} />
         <Section2 />
         <Section3 breakpoint={850} />
         <Section5 />

@@ -14,13 +14,7 @@ function buildDeviceCount(useGPU) {
   }
 }
 
-function buildOpenParams({
-  requestId,
-  model,
-  batch_size,
-  trace_level,
-  useGPU,
-}) {
+function buildOpenParams({ requestId, model, batch_size, trace_level, useGPU }) {
   return {
     requestId,
     body: {
@@ -51,13 +45,7 @@ function pFinally(promise, onFinally) {
   );
 }
 
-export default function predict(
-  imageUrls,
-  models,
-  batch_size,
-  trace_level,
-  useGPU
-) {
+export default function predict(imageUrls, models, batch_size, trace_level, useGPU) {
   let spanHeaders = {};
 
   const run = (imageUrls, model) => {
@@ -78,8 +66,8 @@ export default function predict(
           throw error;
         })
         .then(response => {
-          console.log("URLs", { response });
-          console.log({ urls: imageUrls });
+          // console.log("URLs", { response });
+          // console.log({ urls: imageUrls });
           predictor = response;
           spanHeaders = predictor.headers;
           return URLs({
@@ -106,6 +94,7 @@ export default function predict(
           });
         })
         .then(response => {
+          console.log({ response: response.responses });
           return {
             model: model,
             framework: model.framework,
@@ -134,11 +123,9 @@ export default function predict(
   // models.map(model =>
   //   frameworks.map(framework => pairs.push({ model: model, framework: framework }))
   // );
-  return Promise.all(models.map(model => run(imageUrls, model))).then(
-    function(features) {
-      console.log(features);
-      // window.last_features = features;
-      return features;
-    }
-  );
+  return Promise.all(models.map(model => run(imageUrls, model))).then(function(features) {
+    console.log(features);
+    // window.last_features = features;
+    return features;
+  });
 }
