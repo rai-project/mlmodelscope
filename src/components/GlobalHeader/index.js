@@ -81,8 +81,8 @@ class GlobalHeader extends Component {
             <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
               <NavLink to={"/evaluations"}>Evaluations</NavLink>
             </Menu.Item>
-            <Menu.Item key="experiment" title="Playground" style={item_style}>
-              <NavLink to={"/experiment"}>Playground</NavLink>
+            <Menu.Item key="playground" title="Playground" style={item_style}>
+              <NavLink to={"/playground"}>Playground</NavLink>
             </Menu.Item>
             <Menu.Item key="news" title="News" style={item_style}>
               <NavLink to={"/news"}>News</NavLink>
