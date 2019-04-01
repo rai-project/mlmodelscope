@@ -14,9 +14,9 @@ class Banner extends Component {
     const { isMobile } = this.props;
     return (
       <div className="LandingPage-Banner">
-        <Row type="flex" justify="space-around" align="middle">
-          <Col>
-            <QueueAnim type={isMobile ? "bottom" : "right"} delay={300}>
+        <QueueAnim type={isMobile ? "bottom" : "left"} delay={300}>
+          <Row type="flex" justify="space-around" align="middle">
+            <Col sm={16} xs={24}>
               <h1
                 key="h1"
                 style={{
@@ -26,6 +26,10 @@ class Banner extends Component {
               >
                 Reproducible and Uniform Machine Learning Model Evaluation and Profiling
               </h1>
+            </Col>
+          </Row>
+          <Row type="flex" justify="space-around" align="middle">
+            <Col sm={12} xs={24}>
               <p
                 key="h2"
                 style={{
@@ -36,9 +40,9 @@ class Banner extends Component {
                 MLModelScope makes it easier to reproduce, compare and understand accuracy
                 or performance claims of models and systems
               </p>
-            </QueueAnim>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </QueueAnim>
       </div>
     );
   }

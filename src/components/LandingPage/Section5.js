@@ -1,19 +1,47 @@
-import React, { Component } from "react";
-import { Row, Col } from "antd";
-
 import "./LandingPage.css";
+import { List, Row, Col, Card } from "antd";
+import React, { Component } from "react";
 
 export default class Section5 extends Component {
   render() {
-    return (
-      <Row type="flex" justify="space-around" align="middle">
-        <Col span={9}>
-          <h2 style={{ marginTop: "20px", color: "black", textAlign: "center" }}>
-            A common platform that shields heterogeneity (frameworks, datasets, models, hardware
-            configurations) away from you so that you can focus on what you need to accomplish.{" "}
-          </h2>
+    return [
+      <Row
+        gutter={2}
+        type="flex"
+        justify="space-around"
+        align="middle"
+        style={{
+          backgroundColor: "white",
+        }}
+      >
+        <Col sm={8} xs={24}>
+          <Card
+            hoverable
+            cover={
+              <img alt="image1" style={{ width: "100%" }} src="/static/images/TODO.jpg" />
+            }
+          >
+            <Card.Meta title="Hardware/Software Agnostic" description="TODO" />
+          </Card>
         </Col>
-      </Row>
-    );
+        <Col sm={8} xs={24}>
+          <p style={{ color: "white" }}>Hardware/Software Agnostic</p>
+          <ul>
+            <li>
+              <p>
+                Supports common frameworks, TensorFlow, PyTorch, MXNet, Caffe2, TensorRT,
+                Caffe, and CNTK
+              </p>
+            </li>
+            <li>
+              <p>Runs on ARM, Power, and x86 with CPU, GPU, and FPGA</p>
+            </li>
+            <li>
+              <p>Linux and macOS</p>
+            </li>
+          </ul>
+        </Col>
+      </Row>,
+    ];
   }
 }

@@ -1,43 +1,44 @@
 import "./LandingPage.css";
-import { Row, Col, Icon } from "antd";
+import { List, Row, Col, Card } from "antd";
 import React, { Component } from "react";
-import Image from "../../resources/landingpage/frontpage_dots.svg";
 
 export default class Section6 extends Component {
   render() {
-    return (
+    return [
       <Row
+        gutter={2}
+        type="flex"
         justify="space-around"
         align="middle"
-        gutter={{ sm: 48, xs: 0 }}
-        style={{ backgroundColor: "#1a263a", color: "white", minHeight: "50vh" }}
+        style={{
+          backgroundColor: "white",
+        }}
       >
         <Col sm={8} xs={24}>
-          <img className="LandingPage-img" src={Image} alt="" />
+          <p style={{ color: "white" }}>Extensible and Customizable</p>
+          <ul>
+            <li>
+              <p>Built from a set of modular components, easy to customize</p>
+            </li>
+            <li>
+              <p>
+                Easy to extend by adding models, frameworks, processing functions, and
+                profilers
+              </p>
+            </li>
+          </ul>
         </Col>
-        <Col
-          sm={{ span: 8, offset: 2 }}
-          xs={{ span: 24 }}
-          style={{ marginTop: "5%", padding: "5%" }}
-        >
-          <h3 style={{ color: "white", textTransform: "uppercase" }}>ONE PLATFORM</h3>
-          <h2 style={{ color: "white" }}>
-            Bring together dispersed tools into one platform to explore the performance of
-            different combinations.
-          </h2>
-          <a
-            className="buttonsec6"
-            style={{
-              textAlign: "left",
-              textTransform: "uppercase",
-            }}
-            href="/experiment"
+        <Col sm={8} xs={24}>
+          <Card
+            hoverable
+            cover={
+              <img alt="image1" style={{ width: "100%" }} src="/static/images/TODO.jpg" />
+            }
           >
-            DISCOVER PLATFORM{" "}
-            <Icon style={{ fontSize: 20 }} size="large" type="arrow-right" />
-          </a>
+            <Card.Meta title="Extensible and Customizable" description="TODO" />
+          </Card>
         </Col>
-      </Row>
-    );
+      </Row>,
+    ];
   }
 }
