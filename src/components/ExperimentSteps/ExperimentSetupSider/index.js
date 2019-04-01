@@ -33,7 +33,7 @@ class ExperimentSetupSider extends Component {
 
   handleClick(context, key) {
     if (key === "predict" && context.imageUrls.length !== 0) {
-      context.setPredictResult(null);
+      context.startPredicting();
       predict(
         context.imageUrls,
         context.models,
@@ -53,6 +53,7 @@ class ExperimentSetupSider extends Component {
 
   disablePredictButton() {
     if (
+      this.props.context.isPredicting ||
       (this.props.context.imageUrls.length === 0 &&
         this.props.context.dataset === null) ||
       this.props.context.models.length === 0 ||
