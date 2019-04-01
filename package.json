@@ -55,6 +55,7 @@
     "react-syntax-highlighter": "^10.2.1",
     "react-window-size": "^1.2.2",
     "snappyjs": "^0.6.0",
+    "speedscope": "^1.5.0",
     "styled-components": "^4.2.0",
     "swagger-js-codegen": "^1.12.0",
     "swagger-ts-generator": "^1.1.56",
