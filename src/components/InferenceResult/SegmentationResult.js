@@ -1,7 +1,9 @@
+import "./InferenceResult.css";
 import React, { Component } from "react";
 import { Stage, Layer, Image, Label, Text, Tag, Rect } from "react-konva";
 import predict from "./predict.json";
-import { filter } from "lodash";
+import { filter, split, capitalize } from "lodash";
+import { Row, Col, Table } from "antd";
 
 const colors = [
   "#e84a27", // UI Orange
@@ -49,6 +51,7 @@ export default class SegmentationResult extends Component {
       width: null,
       height: null,
       mouseOn: null,
+      filteredFeatures: null,
     };
   }
 
@@ -140,25 +143,86 @@ export default class SegmentationResult extends Component {
     });
   }
 
+  renderTable() {
+    const columns = [{
+      title: 'Class Index',
+      dataIndex: 'index',
+      key: 'index',
+    }, {
+      title: 'Class Label',
+      dataIndex: 'label',
+      key: 'label',
+    }, {
+      title: 'Probability',
+      dataIndex: 'probability',
+      key: 'probability',
+    }];
+
+    function processLabel(label) {
+      label = split(label, " ", 2)
+      console.log(label)
+      return capitalize(label[1])
+    }
+
+    var dataSource = this.state.filteredFeatures.map((d, index) => {
+      return (
+        {
+          key: index,
+          index: d.bounding_box.index,
+          label: processLabel(d.bounding_box.label),
+          probability: d.probability,
+        }
+      )
+    })
+
+    return(
+      <Table
+        style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
+        pagination={false}
+        size={"small"}
+        dataSource={dataSource}
+        columns={columns}
+        onRow={(record, index) => {
+          return {
+            onMouseEnter: (event) => {this.setState({mouseOn: index})},  // 鼠标移入行
+            onMouseLeave: (event) => {this.setState({mouseOn: null})}
+          }
+        }}
+        rowSelection={{selectedRowKeys: [this.state.mouseOn]}}
+      />
+    )
+  }
+
   render() {
     if (this.state.width === null) {
       return null;
     } else {
+      this.state.filteredFeatures = filter(this.props.features, function(o) {
+        return o.probability >= 0.4;
+      })
       return (
-        <Stage width={window.innerWidth - 372} height={500}>
-          {/* <Stage width={width} height={height}> */}
-          <Layer>
-            {/* For Local Test */}
-            {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-            <URLImage
-              image={this.state.image}
-              x={0}
-              y={0}
-              features={this.props.features}
-            />
-            {this.renderBBox()}
-          </Layer>
-        </Stage>
+        <React.Fragment>
+          <Row>
+            <Col span={12}>
+              <Stage width={(window.innerWidth - 380)/2} height={500}>
+                {/* <Stage width={width} height={height}> */}
+                <Layer>
+                  {/* For Local Test */}
+                  {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
+                  <URLImage
+                    image={this.state.image}
+                    x={0}
+                    y={0}
+                  />
+                  {this.renderBBox()}
+                </Layer>
+              </Stage>
+            </Col>
+            <Col span={12}>
+              {this.renderTable()}
+            </Col>
+          </Row>
+        </React.Fragment>
       );
     }
   }
