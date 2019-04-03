@@ -24,8 +24,24 @@ class GlobalHeader extends Component {
     this.menu = this.menu.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.resizeHeaderOnScroll);
+  }
+
   toggleMobileMenuOpen() {
     this.setState({ mobile_menu_open: !this.state.mobile_menu_open });
+  }
+
+  resizeHeaderOnScroll() {
+    const distanceY = window.pageYOffset || document.documentElement.scrollTop,
+      shrinkOn = 50,
+      headerEl = document.getElementById("global-header");
+    console.log(headerEl);
+    if (distanceY > shrinkOn) {
+      headerEl.classList.add("shrink");
+    } else {
+      headerEl.classList.remove("shrink");
+    }
   }
 
   renderUser({ username, item_style }) {
@@ -81,8 +97,8 @@ class GlobalHeader extends Component {
             <Menu.Item key="evaluations" style={item_style}>
               <NavLink to={"/evaluations"}>Evaluations</NavLink>
             </Menu.Item>
-            <Menu.Item key="experiment" style={item_style}>
-              <NavLink to={"/experiment"}>Playground</NavLink>
+            <Menu.Item key="playground" title="Playground" style={item_style}>
+              <NavLink to={"/playground"}>Playground</NavLink>
             </Menu.Item>
             <Menu.Item key="news" style={item_style}>
               <NavLink to={"/news"}>News</NavLink>
@@ -103,6 +119,7 @@ class GlobalHeader extends Component {
     const activeLinkKey = this.props.location.pathname;
     return (
       <Header
+        id="global-header"
         className="show-shadow"
         style={{
           backgroundColor: "#19263a",
