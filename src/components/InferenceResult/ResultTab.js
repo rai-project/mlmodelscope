@@ -7,6 +7,7 @@ import ClassificationResult from "./ClassificationResult";
 import SegmentationResult from "./SegmentationResult";
 import ImageEnhancementResult from "./ImageEnhancementResult";
 import SemanticSegmentationResult from "./SemanticSegmentationResult";
+import InstanceSegmentationResult from "./InstanceSegmentationResult";
 
 function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
   if (isNil(d)) {
@@ -34,7 +35,12 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
       );
     }
     if (features[0].type === "INSTANCESEGMENT") {
-      return <div>Implement INSTANCESEGMENT feature type </div>;
+      return (
+        <InstanceSegmentationResult
+          features={features}
+          imgUrl={imgUrl}
+        />
+      );
     }
     if (features[0].type === "SEMANTICSEGMENT") {
       return (
@@ -46,9 +52,8 @@ function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
         />
       )
     }
-    if (features[0].type === "IMAGEENHANCEMENT") {
-      return <div>Implement IMAGEENHANCEMENT feature type </div>;
-      // return <ImageEnhancementResult features={features}/>;
+    if (features[0].type === "RAW_IMAGE") {
+      return <ImageEnhancementResult features={features}/>;
     }
     return <div>{"Type " + features.type + " is not supported yet!"}</div>;
   } catch (err) {
