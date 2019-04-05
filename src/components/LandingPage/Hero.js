@@ -3,12 +3,18 @@ import { Col, Row } from "antd";
 import QueueAnim from "rc-queue-anim";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
+import { MLModelScope } from "@components/Common";
 
 const style = {
-  backgroundColor: "#19263a",
-  minHeight: "200px",
+  background: "#19263a",
+  // background:
+  // "linear-gradient(180deg, rgba(25,38,58,1) 31%, rgba(25,38,58,0.9220063025210083) 71%, rgba(25,38,58,0.8) 85%, rgba(255,255,255,0) 100%)",
+  background:
+    "linear-gradient(180deg, rgba(25,38,58,1) 31%, rgba(25,38,58,0.9220063025210083) 71%, rgba(25,38,58,0.8) 85%)",
+  minHeight: "100vh",
   width: "100%",
   color: "white",
+  fontWeight: "200",
   backgroundSize: "100%",
   paddingTop: "100px",
   textAlign: "center",
@@ -27,14 +33,16 @@ class Hero extends Component {
             align="middle"
             style={{ paddingTop: "20vh" }}
           >
-            <Col sm={8} xs={12}>
+            <Col sm={12} xs={12}>
               <h1
-                key="h1"
                 style={{
-                  fontSize: "35px",
+                  fontSize: "2rem",
+                  fontWeight: 600,
                   color: "white",
                 }}
               >
+                <MLModelScope />
+                <br />
                 Reproducible Machine Learning Evaluation
               </h1>
             </Col>
@@ -45,16 +53,15 @@ class Hero extends Component {
             align="middle"
             style={{ paddingBottom: "30vh" }}
           >
-            <Col sm={12} xs={18}>
+            <Col sm={16} xs={18}>
               <p
                 key="h2"
                 style={{
-                  fontSize: "20px",
+                  fontSize: "1.5rem",
                   color: "white",
                 }}
               >
-                <b>MLModelScope</b> allows you to reproduce, compare, and analyze accuracy
-                and performance claims across models and systems
+                Compare and analyze accuracy and performance across models and systems in
               </p>
             </Col>
           </Row>

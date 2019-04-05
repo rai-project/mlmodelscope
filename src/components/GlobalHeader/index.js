@@ -6,6 +6,7 @@ import withSizes from "react-sizes";
 import { withRouter } from "react-router-dom";
 import Color from "color";
 import { css } from "glamor";
+import { MLModelScope } from "@components/Common";
 
 const { Header } = Layout;
 
@@ -169,11 +170,8 @@ class GlobalHeader extends Component {
           width: "100%",
         }}
       >
-        <NavLink
-          to={"/"}
-          style={{ float: "left", color: "white", fontSize: "20px", fontWeight: 400 }}
-        >
-          <span style={{ fontWeight: 200 }}>ML</span> ModelScope
+        <NavLink to={"/"} style={{ float: "left", color: "white", fontSize: "20px" }}>
+          <MLModelScope />
         </NavLink>
         {isMobile && !mobile_menu_open ? (
           <Icon
