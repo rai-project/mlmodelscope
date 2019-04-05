@@ -20,18 +20,6 @@
   background: linear-gradient(to bottom, #125296, #1e89fa);
 }
 
-.LandingPage-Banner {
-  /* from https://mycolor.space/gradient?ori=circle&hex=%231A263A&hex2=%23424357&sub=1 */
-  /* background-image: radial-gradient(circle, #1a263a, #242d41, #2e3448, #383b50, #424357); */
-  background-color: #19263a;
-  min-height: 200px;
-  width: 100%;
-  color: white;
-  background-size: 100%;
-  padding-top: 100px;
-  text-align: center;
-}
-
 .LandingPage-section2 {
   background-color: white;
   padding: 0;

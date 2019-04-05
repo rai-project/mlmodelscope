@@ -1,19 +1,25 @@
 import "./LandingPage.css";
-
 import { Col, Row } from "antd";
 import QueueAnim from "rc-queue-anim";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
-const mapSizesToProps = ({ width }, { breakpoint }) => ({
-  isMobile: width < breakpoint,
-});
+const style = {
+  backgroundColor: "#19263a",
+  minHeight: "200px",
+  width: "100%",
+  color: "white",
+  backgroundSize: "100%",
+  paddingTop: "100px",
+  textAlign: "center",
+};
 
-class Banner extends Component {
+@withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
+class Hero extends Component {
   render() {
     const { isMobile } = this.props;
     return (
-      <div className="LandingPage-Banner">
+      <div style={style}>
         <QueueAnim type={isMobile ? "bottom" : "left"} delay={300}>
           <Row
             type="flex"
@@ -58,4 +64,4 @@ class Banner extends Component {
   }
 }
 
-export default withSizes(mapSizesToProps)(Banner);
+export default Hero;
