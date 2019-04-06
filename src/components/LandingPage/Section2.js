@@ -1,11 +1,13 @@
 import "./LandingPage.css";
 import { List, Row, Col, Card } from "antd";
 import React, { Component } from "react";
+import yeast from "yeast";
 
 export default class Section2 extends Component {
   render() {
     return [
       <Row
+        key={yeast()}
         type="flex"
         justify="space-around"
         align="middle"
@@ -28,6 +30,7 @@ export default class Section2 extends Component {
         </Col>
       </Row>,
       <Row
+        key={yeast()}
         gutter={2}
         type="flex"
         justify="space-around"

@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 export default class Section0 extends Component {
   render() {
     return (
-      <Row type="flex" justify="space-around" align="stetch">
+      <Row type="flex" justify="space-around">
         <Col
           style={{
             backgroundColor: "white",

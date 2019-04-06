@@ -37,7 +37,6 @@ class GlobalHeader extends Component {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop,
       shrinkOn = 50,
       headerEl = document.getElementById("global-header");
-    console.log(headerEl);
     if (distanceY > shrinkOn) {
       headerEl.classList.add("shrink");
     } else {

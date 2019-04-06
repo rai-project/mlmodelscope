@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+
 import { Row, Col } from "antd";
+import yeast from "yeast";
 
 export default class Section9 extends Component {
   render() {
     return [
       <Row
+        key={yeast()}
         type="flex"
         justify="space-around"
         align="middle"
@@ -27,6 +30,7 @@ export default class Section9 extends Component {
         </Col>
       </Row>,
       <Row
+        key={yeast()}
         type="flex"
         justify="space-around"
         align="middle"

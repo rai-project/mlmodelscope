@@ -1,11 +1,13 @@
-import "./LandingPage.css";
-import { List, Row, Col, Card } from "antd";
 import React, { Component } from "react";
+
+import { Row, Col, Card } from "antd";
+import yeast from "yeast";
 
 export default class Section7 extends Component {
   render() {
     return [
       <Row
+        key={yeast()}
         gutter={2}
         type="flex"
         justify="space-around"

@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
+import yeast from "yeast";
 
-export default class Section0 extends Component {
+export default class WhatIsMLModelScope extends Component {
   render() {
     return [
       <Row
         type="flex"
         justify="space-around"
         align="middle"
+        key={yeast()}
         style={{
           backgroundColor: "white",
         }}
@@ -30,6 +32,7 @@ export default class Section0 extends Component {
         type="flex"
         justify="space-around"
         align="middle"
+        key={yeast()}
         style={{
           backgroundColor: "white",
         }}

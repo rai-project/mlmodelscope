@@ -23,17 +23,15 @@ function resolveSrc(dir) {
 
 function rewireSVGR(svgrLoaderOptions) {
   return function(config) {
-    const babelLoader = getBabelLoader(config);
     const svgReactLoader = {
       test: /\.svg$/,
       use: [
         {
-          loader: babelLoader.loader,
-          options: babelLoader.options,
-        },
-        {
           loader: require.resolve(`@svgr/webpack`),
           options: svgrLoaderOptions,
+        },
+        {
+          loader: "url-loader",
         },
       ],
     };
@@ -48,7 +46,7 @@ module.exports = override(
   addDecoratorsLegacy(),
   disableEsLint(),
   // useBabelRc(),
-  rewireSVGR({ babel: false, icon: true }),
+  // rewireSVGR({ icon: true }),
   fixBabelImports("antd", {
     libraryName: "antd",
     libraryDirectory: "es",
