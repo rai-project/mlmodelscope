@@ -1,5 +1,5 @@
 import "./LandingPage.css";
-import { Col, Row } from "antd";
+import { Col, Row, Icon } from "antd";
 import QueueAnim from "rc-queue-anim";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
@@ -20,12 +20,27 @@ const style = {
   textAlign: "center",
 };
 
+const infoStyle = {
+  height: "40px",
+  position: "fixed",
+  bottom: "2%",
+  width: "100%",
+  color: "white",
+  fontSize: "1.5rem",
+  opacity: "1",
+};
+
 @withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class Hero extends Component {
   render() {
     const { isMobile } = this.props;
     return (
       <div style={style}>
+        <h1 style={infoStyle}>
+          Learn More
+          <br />
+          <Icon type="down" width={"4.5rem"} height={"1.5rem"} />
+        </h1>
         <QueueAnim type={isMobile ? "bottom" : "left"} delay={300}>
           <Row
             type="flex"
@@ -36,13 +51,20 @@ class Hero extends Component {
             <Col sm={12} xs={12}>
               <h1
                 style={{
-                  fontSize: "2rem",
+                  fontSize: "3rem",
                   fontWeight: 600,
                   color: "white",
                 }}
               >
                 <MLModelScope />
-                <br />
+              </h1>
+              <h1
+                style={{
+                  fontSize: "2rem",
+                  fontWeight: 600,
+                  color: "white",
+                }}
+              >
                 Reproducible Machine Learning Evaluation
               </h1>
             </Col>

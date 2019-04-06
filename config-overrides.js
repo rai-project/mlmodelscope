@@ -1,10 +1,12 @@
 const {
   override,
+  getBabelLoader,
   addDecoratorsLegacy,
   fixBabelImports,
   disableEsLint,
   addLessLoader,
   addWebpackAlias,
+  addBabelPlugin,
   useBabelRc,
   addTslintLoader,
 } = require("customize-cra");
@@ -19,12 +21,34 @@ function resolveSrc(dir) {
   return path.join(__dirname, "src", dir);
 }
 
+function rewireSVGR(svgrLoaderOptions) {
+  return function(config) {
+    const babelLoader = getBabelLoader(config);
+    const svgReactLoader = {
+      test: /\.svg$/,
+      use: [
+        {
+          loader: babelLoader.loader,
+          options: babelLoader.options,
+        },
+        {
+          loader: require.resolve(`@svgr/webpack`),
+          options: svgrLoaderOptions,
+        },
+      ],
+    };
+    config.module.rules.unshift(svgReactLoader);
+    return config;
+  };
+}
+
 const primaryColor = "#19263a";
 
 module.exports = override(
   addDecoratorsLegacy(),
   disableEsLint(),
   // useBabelRc(),
+  rewireSVGR({ babel: false, icon: true }),
   fixBabelImports("antd", {
     libraryName: "antd",
     libraryDirectory: "es",

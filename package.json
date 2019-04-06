@@ -88,6 +88,7 @@
     "build:assets": "node scripts/build_go_assets.js"
   },
   "devDependencies": {
+    "@svgr/webpack": "^4.1.0",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
     "eslint-config-prettier": "^4.1.0",
