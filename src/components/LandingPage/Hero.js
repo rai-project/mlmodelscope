@@ -1,11 +1,14 @@
-import "./LandingPage.css";
-import { Col, Row, Icon } from "antd";
+import React, { Component } from "react";
+
+import { Col, Row, Card, Avatar } from "antd";
 import QueueAnim from "rc-queue-anim";
 import Animate from "rc-animate";
-import React, { Component } from "react";
+import { TweenOneGroup } from "rc-tween-one";
 import withSizes from "react-sizes";
 import { withScroll } from "react-fns";
 import { MLModelScope } from "@components/Common";
+import OverPack from "rc-scroll-anim/lib/ScrollOverPack";
+import { default as Face } from "avataaars";
 import { ReactComponent as WideChevron } from "./assets/wide_chevron.svg";
 
 const style = {
@@ -28,6 +31,67 @@ const infoStyle = {
   color: "white",
   fontSize: "1.5rem",
   opacity: "1",
+};
+
+const ModelUserIcon = function() {
+  return (
+    <Face
+      style={{ width: "100px", height: "100px" }}
+      avatarStyle="Transparent"
+      avatarBackground="#19263a"
+      topType="ShortHairShortCurly"
+      accessoriesType="Round"
+      hairColor="Auburn"
+      facialHairType="Blank"
+      clotheType="GraphicShirt"
+      clotheColor="Blue03"
+      graphicType="Diamond"
+      eyeType="Default"
+      eyebrowType="Default"
+      mouthType="Smile"
+      skinColor="Light"
+    />
+  );
+};
+
+const ModelDeveloperIcon = function() {
+  return (
+    <Face
+      style={{ width: "100px", height: "100px" }}
+      avatarStyle="Transparent"
+      avatarBackground="#19263a"
+      topType="LongHairNotTooLong"
+      accessoriesType="Blank"
+      hairColor="BrownDark"
+      facialHairType="Blank"
+      clotheType="BlazerShirt"
+      eyeType="Default"
+      eyebrowType="Default"
+      mouthType="Default"
+      skinColor="Light"
+    />
+  );
+};
+
+const SystemDeveloperIcon = function() {
+  return (
+    <Face
+      style={{ width: "100px", height: "100px" }}
+      avatarStyle="Transparent"
+      avatarBackground="#19263a"
+      topType="ShortHairShortFlat"
+      accessoriesType="Prescription02"
+      hairColor="BrownDark"
+      facialHairType="BeardLight"
+      facialHairColor="BrownDark"
+      clotheType="Hoodie"
+      clotheColor="Blue03"
+      eyeType="Default"
+      eyebrowType="Default"
+      mouthType="Default"
+      skinColor="Light"
+    />
+  );
 };
 
 function LearnMore(props) {
@@ -68,6 +132,7 @@ function LearnMore(props) {
 @withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class Hero extends Component {
   render() {
+    console.log({ ModelDeveloperIcon });
     const { isMobile } = this.props;
     return (
       <div style={style}>
@@ -103,7 +168,7 @@ class Hero extends Component {
             type="flex"
             justify="space-around"
             align="middle"
-            style={{ paddingBottom: "30vh" }}
+            style={{ paddingBottom: "20vh" }}
           >
             <Col sm={16} xs={18}>
               <p
@@ -115,6 +180,68 @@ class Hero extends Component {
               >
                 Compare and analyze accuracy and performance across models and systems in
               </p>
+            </Col>
+          </Row>
+          <Row
+            type="flex"
+            justify="space-around"
+            align="middle"
+            gutter={16}
+            style={{ paddingBottom: "2rem" }}
+          >
+            <Col lg={6} md={20} sm={20} xs={20}>
+              <Card
+                hoverable
+                bordered={false}
+                title={"Model Users"}
+                extra={<a href="#">Learn More</a>}
+              >
+                <Card.Meta
+                  avatar={
+                    <div style={{ transform: "translateY(-125px)" }}>
+                      <ModelUserIcon />
+                    </div>
+                  }
+                  description={
+                    <h3 style={{ color: "#1A263A" }}>
+                      Find the best model tailored to your dataset
+                    </h3>
+                  }
+                />
+              </Card>
+            </Col>
+            <Col lg={6} md={20} sm={20} xs={20}>
+              <Card
+                hoverable
+                bordered={false}
+                title={"Model Developer"}
+                extra={<a href="#">Learn More</a>}
+              >
+                <Card.Meta
+                  avatar={
+                    <div style={{ transform: "translateY(-125px)" }}>
+                      <ModelDeveloperIcon />
+                    </div>
+                  }
+                />
+                Model Developer
+              </Card>
+            </Col>
+            <Col lg={6} md={20} sm={20} xs={20}>
+              <Card
+                hoverable
+                bordered={false}
+                title={"System Architects"}
+                extra={<a href="#">Learn More</a>}
+              >
+                <Card.Meta
+                  avatar={
+                    <div style={{ transform: "translateY(-125px)" }}>
+                      <SystemDeveloperIcon />
+                    </div>
+                  }
+                />
+              </Card>
             </Col>
           </Row>
           <LearnMore {...this.props} />

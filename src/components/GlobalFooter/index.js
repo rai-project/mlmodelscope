@@ -47,6 +47,7 @@ export default function GlobalFooter() {
           <a href="http://impact.crhc.illinois.edu">
             <UIUCLogo style={{ height: "2rem", marginLeft: "10%" }} />
           </a>
+          />
         </Col>
       </Row>
     </Footer>
