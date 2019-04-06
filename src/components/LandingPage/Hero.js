@@ -1,14 +1,15 @@
 import "./LandingPage.css";
 import { Col, Row, Icon } from "antd";
 import QueueAnim from "rc-queue-anim";
+import Animate from "rc-animate";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
+import { withScroll } from "react-fns";
 import { MLModelScope } from "@components/Common";
 import { ReactComponent as WideChevron } from "./assets/wide_chevron.svg";
 
 const style = {
-  background:
-    "linear-gradient(180deg, rgba(25,38,58,1) 31%, rgba(25,38,58,0.9220063025210083) 71%, rgba(25,38,58,0.8) 85%)",
+  background: "linear-gradient(180deg, rgba(25,38,58,1) 60%, rgba(255,255,255,0.8) 80%)",
   minHeight: "100vh",
   width: "100%",
   color: "white",
@@ -29,6 +30,41 @@ const infoStyle = {
   opacity: "1",
 };
 
+function LearnMore(props) {
+  const { y } = props;
+  const show = y <= 10;
+  return (
+    <Animate delay={300} transitionAppear transitionName="fade">
+      {show ? (
+        <Row
+          type="flex"
+          justify="space-around"
+          align="middle"
+          style={{
+            ...infoStyle,
+            color: "#1A263A",
+            textAlign: "center",
+          }}
+        >
+          <Col sm={8} xs={8}>
+            Learn More
+            <br />
+            <WideChevron
+              style={{
+                width: "3rem",
+                objectFit: "cover",
+                overflow: "visible",
+                transform: "translate(-4.5rem,-2rem)",
+              }}
+            />
+          </Col>
+        </Row>
+      ) : null}
+    </Animate>
+  );
+}
+
+@withScroll
 @withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class Hero extends Component {
   render() {
@@ -81,25 +117,7 @@ class Hero extends Component {
               </p>
             </Col>
           </Row>
-          <Row
-            type="flex"
-            justify="space-around"
-            align="middle"
-            style={{ ...infoStyle, textAlign: "center" }}
-          >
-            <Col sm={8} xs={8}>
-              Learn More
-              <br />
-              <WideChevron
-                style={{
-                  width: "3rem",
-                  objectFit: "cover",
-                  overflow: "visible",
-                  transform: "translate(-4.5rem,-2rem)",
-                }}
-              />
-            </Col>
-          </Row>
+          <LearnMore {...this.props} />
         </QueueAnim>
       </div>
     );
