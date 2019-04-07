@@ -7,6 +7,7 @@ import UseCasesPage from "../routes/UseCasesPage";
 import EvaluationsPage from "../routes/EvaluationsPage";
 import UserPage from "../routes/UserPage";
 import ConferencePage from "../routes/ConferencePage";
+import NewsPage from "../routes/NewsPage";
 
 const routes = [
   {
@@ -23,10 +24,6 @@ const routes = [
   },
   {
     path: "/playground",
-    component: ExperimentPage,
-  },
-  {
-    path: "/experiment/*",
     component: ExperimentPage,
   },
   {
@@ -48,6 +45,11 @@ const routes = [
   {
     path: "/conference",
     component: ConferencePage,
+    exact: false,
+  },
+  {
+    path: "/news",
+    component: NewsPage,
     exact: false,
   },
 ];
