@@ -141,7 +141,7 @@ class Hero extends Component {
             type="flex"
             justify="space-around"
             align="middle"
-            style={{ paddingTop: "20vh" }}
+            style={{ paddingTop: "10vh" }}
           >
             <Col sm={12} xs={12}>
               <h1
@@ -168,7 +168,7 @@ class Hero extends Component {
             type="flex"
             justify="space-around"
             align="middle"
-            style={{ paddingBottom: "20vh" }}
+            style={{ paddingBottom: "10vh" }}
           >
             <Col sm={16} xs={18}>
               <p
