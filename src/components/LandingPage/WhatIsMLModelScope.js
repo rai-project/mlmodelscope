@@ -1,63 +1,178 @@
 import React, { Component } from "react";
 
-import { Row, Col } from "antd";
+import { Row as AntdRow, Col, Divider as AntDivider } from "antd";
 import yeast from "yeast";
 import { MLModelScope } from "@components/Common";
+import {
+  ModelUser as ModelUserIcon,
+  SystemDeveloper as SystemDeveloperIcon,
+  ModelDeveloper as ModelDeveloperIcon,
+} from "./UserAvatars";
+
+const Row = function({ style, justify, children }) {
+  style = style || {};
+  return (
+    <AntdRow
+      type="flex"
+      justify={justify || "start"}
+      align="middle"
+      style={{
+        marginLeft: "1rem",
+        color: "#5a5a5a",
+        ...style,
+      }}
+    >
+      {children}
+    </AntdRow>
+  );
+};
+
+const Divider = function() {
+  return (
+    <Row>
+      <Col lg={{ span: 18, offset: 2 }} xs={{ span: 20, offset: 1 }}>
+        <AntDivider />
+      </Col>
+    </Row>
+  );
+};
 
 export default class WhatIsMLModelScope extends Component {
   render() {
-    return [
-      <Row
-        type="flex"
-        justify="space-around"
-        align="middle"
-        key={yeast()}
-        style={{
-          backgroundColor: "white",
-        }}
-      >
-        <Col span={8} sm={8} xs={24}>
-          <p
-            style={{
-              fontSize: "20pt",
-              marginTop: "20px",
-              color: "#19263a",
-              fontWeight: "500",
-              textAlign: "center",
-            }}
-          >
-            What is MLModelScope?
-          </p>
-        </Col>
-      </Row>,
-      <Row
-        type="flex"
-        justify="space-around"
-        align="middle"
-        key={yeast()}
-        style={{
-          color: "white",
-          paddingTop: "20px",
-          fontWeight: "200",
-          backgroundColor: "#19263a",
-        }}
-      >
-        <Col span={14} sm={14} xs={20}>
-          <p
-            style={{
-              fontSize: "16pt",
-              textAlign: "center",
-            }}
-          >
-            <MLModelScope /> is an <b>open source</b> model evaluation and profiling
-            platform that <b>shields heterogeneity</b> (models, datasets, frameworks,
-            hardware configurations) away. This one-stop platform is designed to enable{" "}
-            <b>machine learning application, model, and system developers</b> to quickly
-            discover, evaluate, benchmark combinations of models, frameworks, hardware
-            configurations and profile experiments in depth
-          </p>
-        </Col>
-      </Row>,
-    ];
+    return (
+      <React.Fragment>
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+        </Row>
+        <AntDivider />
+
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+        </Row>
+        <AntDivider />
+
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+        </Row>
+        <AntDivider />
+
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+        </Row>
+        <AntDivider />
+
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+        </Row>
+        <AntDivider />
+
+        <Row
+          style={{
+            marginTop: "4rem",
+            fontSize: "1.5rem",
+            fontWeight: "300",
+          }}
+        >
+          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
+            <ModelUserIcon width="10rem" height="10rem" />
+          </Col>
+          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
+            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
+              Built for ML Evaluation.
+            </p>
+            MLModelScope Provides a consistent evaluation, aggregation, and reporting
+            system by defining techniques to specify and provision workflows with HW/SW
+            stacks abstractions for evaluation and profiling using different frameworks
+            data consumption for evaluation outputs
+          </Col>
+        </Row>
+        <AntDivider />
+      </React.Fragment>
+    );
   }
 }

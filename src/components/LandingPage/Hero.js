@@ -8,7 +8,11 @@ import withSizes from "react-sizes";
 import { withScroll } from "react-fns";
 import { MLModelScope } from "@components/Common";
 import OverPack from "rc-scroll-anim/lib/ScrollOverPack";
-import { default as Face } from "avataaars";
+import {
+  ModelUser as ModelUserIcon,
+  SystemDeveloper as SystemDeveloperIcon,
+  ModelDeveloper as ModelDeveloperIcon,
+} from "./UserAvatars";
 import { ReactComponent as WideChevron } from "./assets/wide_chevron.svg";
 
 const style = {
@@ -31,67 +35,6 @@ const infoStyle = {
   color: "white",
   fontSize: "1.5rem",
   opacity: "1",
-};
-
-const ModelUserIcon = function() {
-  return (
-    <Face
-      style={{ width: "100px", height: "100px" }}
-      avatarStyle="Transparent"
-      avatarBackground="#19263a"
-      topType="ShortHairShortCurly"
-      accessoriesType="Round"
-      hairColor="Auburn"
-      facialHairType="Blank"
-      clotheType="GraphicShirt"
-      clotheColor="Blue03"
-      graphicType="Diamond"
-      eyeType="Default"
-      eyebrowType="Default"
-      mouthType="Smile"
-      skinColor="Light"
-    />
-  );
-};
-
-const ModelDeveloperIcon = function() {
-  return (
-    <Face
-      style={{ width: "100px", height: "100px" }}
-      avatarStyle="Transparent"
-      avatarBackground="#19263a"
-      topType="LongHairNotTooLong"
-      accessoriesType="Blank"
-      hairColor="BrownDark"
-      facialHairType="Blank"
-      clotheType="BlazerShirt"
-      eyeType="Default"
-      eyebrowType="Default"
-      mouthType="Default"
-      skinColor="Light"
-    />
-  );
-};
-
-const SystemDeveloperIcon = function() {
-  return (
-    <Face
-      style={{ width: "100px", height: "100px" }}
-      avatarStyle="Transparent"
-      avatarBackground="#19263a"
-      topType="ShortHairShortFlat"
-      accessoriesType="Prescription02"
-      hairColor="BrownDark"
-      facialHairType="BeardLight"
-      facialHairColor="BrownDark"
-      clotheType="Hoodie"
-      clotheColor="Blue03"
-      eyeType="Default"
-      eyebrowType="Default"
-      mouthType="Default"
-      skinColor="Light"
-    />
-  );
 };
 
 function LearnMore(props) {
@@ -232,12 +175,18 @@ class Hero extends Component {
                 hoverable
                 bordered={false}
                 title={"System Architects"}
-                extra={<a href="#">Learn More</a>}
+                extra={
+                  <a href="#" style={{ fontSize: "12px", fontWeight: 100 }}>
+                    Learn More
+                  </a>
+                }
               >
                 <Card.Meta
-                  avatar={
-                    <div style={{ transform: "translateY(-125px)" }}>
-                      <SystemDeveloperIcon />
+                  avatar={<SystemDeveloperIcon />}
+                  description={
+                    <div style={{ color: "#1A263A", fontWeight: 400 }}>
+                      Analyse ML workloads across systems, accelerators, and software
+                      stacks
                     </div>
                   }
                 />

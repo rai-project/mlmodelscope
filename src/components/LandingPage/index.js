@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Layout } from "antd";
 import yeast from "yeast";
 
-import Hero from "@components/LandingPage/Hero";
+// import Hero from "@components/LandingPage/Hero";
+import Hero from "@components/LandingPage/Hero2";
 import WhatIsMLModelScope from "@components/LandingPage/WhatIsMLModelScope";
 import Section1 from "@components/LandingPage/Section1";
 // import Section2 from "@components/LandingPage/Section2";
@@ -23,7 +24,8 @@ export default class LandingPage extends Component {
       <Content>
         <div style={{ marginTop: "50px" }} />
         <Hero breakpoint={850} />
-        {/* <WhatIsMLModelScope /> */}
+        {/* <Hero breakpoint={850} /> */}
+        <WhatIsMLModelScope breakpoint={850} />
         {/* <Section1 /> */}
         {/* <Section2 /> */}
         {/* <Section3 /> */}

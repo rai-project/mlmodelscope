@@ -26,7 +26,7 @@ class App extends Component {
               display: "flex",
               minHeight: "100vh",
               flexDirection: "column",
-              backgroundColor: "#E8E9EB",
+              backgroundColor: "#fff",
             }}
           >
             <GlobalHeader breakpoint={850} />
