@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Typography, Carousel } from "antd";
 import LightBox from "./LightBox";
+import ImageCarousel from "./ImageCarousel";
 import yeast from "yeast";
 
 var news_images = require.context("../../resources/news", true);
@@ -35,13 +36,9 @@ export default class News extends Component {
         }}
       >
         <Row type="flex" aligh="middle">
-          <Col sm={24} md={12} lg={8}>
-            <Carousel autoplay>
-              {this.props.data.images.map(src => {
-                return <img key={yeast()} alt="" src={news_images("./" + src)} />;
-              })}
-            </Carousel>
-          </Col>
+          {this.props.data.images.length > 0 &&
+            <ImageCarousel images={this.props.data.images}/>
+          }
           <Col sm={24} md={10} lg={14} offset={2}>
             <Row>
               <Typography.Title>{this.props.data.title}</Typography.Title>

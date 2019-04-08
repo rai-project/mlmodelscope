@@ -34,6 +34,7 @@ module.exports = function override(config, env) {
     modifyVars: {
       // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
       "@primary-color": "#19263a",
+      "@layout-body-background": "white",
       "@menu-dark-color": "white",
       "@menu-dark-bg": "#19263a",
       "@menu-dark-item-active-bg": "#E94A37",

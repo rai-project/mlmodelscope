@@ -24,7 +24,7 @@ function getRandomColor() {
   var color = new Array(3)
   // TODO: magically, change to random color will cause filter not work
   // for (var i = 0; i < 3; i++) {
-    // color[i] = getRandomInt(225);
+  //   color[i] = getRandomInt(225);
   // }
   color[0] = 232;
   color[1] = 74;
@@ -60,9 +60,18 @@ class URLImage extends Component {
 }
 
 class MaskImage extends Component {
+  componentDidMount() {
+    this.imageNode.cache();
+  }
+
+  componentWillUnmount() {
+    this.imageNode.clearCache();
+  }
+
   render() {
     return (
       <Image
+        id={this.props.id}
         filters={[Konva.Filters.Mask]}
         threshold={10}
         x={this.props.x}
@@ -70,7 +79,11 @@ class MaskImage extends Component {
         width={this.props.width}
         height={this.props.height}
         image={this.props.image}
-        ref={ (node: Konva.Image) => { if(node) {node.cache();} }}
+        ref={node => {
+          this.imageNode = node;
+        }}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
       />
     );
   }
@@ -112,11 +125,15 @@ class Mask extends Component {
     var y2 = Math.round(this.props.instance_segment.ymax * this.imageHeight);
     return(
       <MaskImage
+        key={yeast()}
+        id={this.props.id}
         image={image}
         x={x1}
         y={y1}
         width={x2-x1}
         height={y2-y1}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
       />
     )
   }
@@ -221,15 +238,15 @@ export default class InstanceSegmentationResult extends Component {
     var width = this.state.width;
     var height = this.state.height;
     return this.state.filteredFeatures.map((data, index) => {
-      // if (index !== 0) {
-      //   return null;
-      // }
       return(
         <Mask
           key={index}
+          id={index}
           instance_segment={data["instance_segment"]}
           width={width}
           height={height}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
         />
       )
     })

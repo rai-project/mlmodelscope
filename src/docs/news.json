@@ -3,31 +3,47 @@
     "title": "MLModelScope at NVIDIA GTC 2019",
     "date": "03/19/2019",
     "images": [],
-    "posters": ["poster.jpg"],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://www.nvidia.com/en-us/gtc/poster-gallery/ai-and-deep-learning/"
   },
   {
     "title": "MLModelScope at SC 2018",
     "date": "11/11/2018",
-    "images": ["sc18_poweruser.jpg", "sc18_poster.jpg"],
-    "posters": ["poster.jpg"],
+    "images": [
+      "sc18_poweruser.jpg",
+      "sc18_poster.jpg"
+    ],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://sc18.supercomputing.org/presentation/?id=post172&sess=sess324"
   },
   {
     "title": "MLModelScope at IBM AI Week 2018",
     "date": "11/01/2018",
-    "images": [],
-    "posters": ["poster.jpg"],
+    "images": [
+      "AI_Week_2018.jpg"
+    ],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://www.research.ibm.com/artificial-intelligence/ai-research-week/"
   },
   {
     "title": "MLModelScope at IBM Design Thinking 2018",
     "date": "10/01/2018",
-    "images": ["ibm_design_image1.jpg", "ibm_design_image2.jpg"],
-    "posters": ["poster.jpg"],
+    "images": [
+      "ibm_design_image1.jpg",
+      "ibm_design_image2.jpg"
+    ],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://www.ibm.com/design/thinking/"
   },
@@ -35,7 +51,9 @@
     "title": "MLModelScope at AAAI Exibit 2018",
     "date": "2/2/2018",
     "images": [],
-    "posters": ["poster.jpg"],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://aaai.org/Conferences/AAAI-18/"
   },
@@ -43,7 +61,9 @@
     "title": "MLModelScope at CES 2017 IBM Booth",
     "date": "December 2017",
     "images": [],
-    "posters": ["poster.jpg"],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://www.ibm.com/events/ces"
   },
@@ -51,7 +71,9 @@
     "title": "MLModelScope at NIPS Exibit 2017",
     "date": "November 2017",
     "images": [],
-    "posters": ["poster.jpg"],
+    "posters": [
+      "poster.jpg"
+    ],
     "content": "",
     "link": "https://nips.cc/Conferences/2017"
   }
