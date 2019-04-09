@@ -11,7 +11,7 @@ const FeatureRow = function({ isMobile, children }) {
   return (
     <Row
       type="flex"
-      justify="space-around"
+      justify="center"
       align="middle"
       gutter={16}
       style={{
@@ -31,7 +31,14 @@ const FeatureRow = function({ isMobile, children }) {
 
 const FeatureCard = function({ title, children }) {
   return (
-    <Col lg={8} md={16} sm={24} style={{ padding: "10px", alignSelf: "stretch" }}>
+    <Col
+      xxl={4}
+      xl={8}
+      lg={16}
+      md={16}
+      sm={24}
+      style={{ padding: "10px", alignSelf: "stretch" }}
+    >
       <Card
         hoverable
         style={
@@ -67,36 +74,33 @@ class DetailedFeatures extends Component {
       <React.Fragment>
         <PanelsHeading>Features</PanelsHeading>
         <FeatureRow isMobile={isMobile}>
-          <FeatureCard title={"Models"}>
+          <FeatureCard title={"Model Agnostic"}>
             Run hundreds of builtin models that span modalities. All popular models for
             classification, segmentation, image enhancement, and object detection are
             supported.
           </FeatureCard>
-          <FeatureCard title={"Frameworks"}>
-            Publish your models or systems to the MLModelScope and exposed them through
-            the online hub to gather feedback such as realistic accuracy results and
-            failure points.
+          <FeatureCard title={"Framework Agnostic"}>
+            Compare performance and accuracy results for the same models across
+            frameworks. Side-by-side comparison results clearly reveal the pros and cons
+            of various framework.
           </FeatureCard>
-          <FeatureCard title={"Systems"}>
+          <FeatureCard title={"System Agnostic"}>
             Experiment on Linux, Android, iOS, and macOS running on X86, ARM, and PowerPC
             CPU architectures and leverage accelerators such as GPUs and FPGAs.
           </FeatureCard>
         </FeatureRow>
         <FeatureRow isMobile={isMobile}>
           <FeatureCard title={"Publish Workflows"}>
-            Publish your models or systems to the MLModelScope and exposed them through
-            the online hub to gather feedback such as realistic accuracy results and
-            failure points.
+            Publish your models or systems to the MLModelScope and exposed them to gather
+            feedback such as accuracy results and failure points.
           </FeatureCard>
           <FeatureCard title={"Workflow Analysis"}>
-            Publish your models or systems to the MLModelScope and exposed them through
-            the online hub to gather feedback such as realistic accuracy results and
-            failure points.
+            Profile workflows across levels of HW/SW abstractions and capture system
+            performance and resource usage with real world end-to-end AI workloads..
           </FeatureCard>
-          <FeatureCard title={"Workflow Analysis"}>
-            Publish your models or systems to the MLModelScope and exposed them through
-            the online hub to gather feedback such as realistic accuracy results and
-            failure points.
+          <FeatureCard title={"Dataset Accuracy"}>
+            Evaluate the workflow using popular datasets and metrics or bring your own
+            dataset and perform model, framework, and system evaluation on that.
           </FeatureCard>
         </FeatureRow>
       </React.Fragment>

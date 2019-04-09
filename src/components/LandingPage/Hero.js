@@ -5,7 +5,6 @@ import QueueAnim from "rc-queue-anim";
 import withSizes from "react-sizes";
 import { withScroll } from "react-fns";
 import Color from "color";
-import { Link } from "react-router-dom";
 
 const primaryColor = "#1A263A";
 
@@ -77,9 +76,17 @@ class Hero extends Component {
                 padding: "10px",
               }}
             >
-              <Link to="http://docs.mlmodelscope.org" style={{ color: "white" }}>
+              <a
+                href="http://docs.mlmodelscope.org"
+                style={{
+                  color: "white",
+                  margin: "auto",
+                  verticalAlign: "middle",
+                  textAlign: "center",
+                }}
+              >
                 Learn More
-              </Link>
+              </a>
             </Col>
             {isMobile ? null : (
               <React.Fragment>
@@ -96,9 +103,17 @@ class Hero extends Component {
                     padding: "10px",
                   }}
                 >
-                  <Link to="http://docs.mlmodelscope.org" style={{ color: "white" }}>
+                  <a
+                    href="http://docs.mlmodelscope.org"
+                    style={{
+                      color: "white",
+                      margin: "auto",
+                      verticalAlign: "middle",
+                      textAlign: "center",
+                    }}
+                  >
                     Get Started
-                  </Link>
+                  </a>
                 </Col>
                 <Col
                   lg={{ span: 4 }}
@@ -113,9 +128,17 @@ class Hero extends Component {
                     padding: "10px",
                   }}
                 >
-                  <Link to="/experiment" style={{ color: "white" }}>
+                  <a
+                    href="/experiment"
+                    style={{
+                      color: "white",
+                      margin: "auto",
+                      verticalAlign: "middle",
+                      textAlign: "center",
+                    }}
+                  >
                     Demo
-                  </Link>
+                  </a>
                 </Col>
               </React.Fragment>
             )}

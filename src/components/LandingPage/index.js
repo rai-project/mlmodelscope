@@ -17,7 +17,7 @@ export default class LandingPage extends Component {
         <Features breakpoint={1010} />
         <Users breakpoint={1010} />
         <DetailedFeatures breakpoint={1010} />
-        <LearnMore breakpoint={1010} />
+        {/* <LearnMore breakpoint={1010} /> */}
       </Content>
     );
   }
