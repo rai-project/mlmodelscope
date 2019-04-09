@@ -21,6 +21,7 @@ const FeatureRow = function({ isMobile, children }) {
         paddingBottom: "10px",
         paddingLeft: isMobile ? "50px" : "150px",
         paddingRight: isMobile ? "50px" : "150px",
+        alignItems: "stretch",
       }}
     >
       {children}
@@ -30,7 +31,7 @@ const FeatureRow = function({ isMobile, children }) {
 
 const FeatureCard = function({ title, children }) {
   return (
-    <Col lg={8} md={16} sm={24} style={{ padding: "10px" }}>
+    <Col lg={8} md={16} sm={24} style={{ padding: "10px", alignSelf: "stretch" }}>
       <Card
         hoverable
         style={
@@ -46,8 +47,7 @@ const FeatureCard = function({ title, children }) {
           color: TextColor,
         }}
         bodyStyle={{
-          fontWeight: 400,
-          fontSize: "1.5rem",
+          fontSize: "1.2rem",
           color: TextColor,
         }}
         title={title}
@@ -67,24 +67,23 @@ class DetailedFeatures extends Component {
       <React.Fragment>
         <PanelsHeading>Features</PanelsHeading>
         <FeatureRow isMobile={isMobile}>
+          <FeatureCard title={"Models"}>
+            Run hundreds of builtin models that span modalities. All popular models for
+            classification, segmentation, image enhancement, and object detection are
+            supported.
+          </FeatureCard>
           <FeatureCard title={"Frameworks"}>
             Publish your models or systems to the MLModelScope and exposed them through
             the online hub to gather feedback such as realistic accuracy results and
             failure points.
           </FeatureCard>
-          <FeatureCard title={"Models"}>
-            MLModelScope contains hundreds of builtin models. These models span different
-            frameworks and allow one to evaluate accuracy, performance, and energy across
-            frameworks.
-          </FeatureCard>
           <FeatureCard title={"Systems"}>
-            MLModelScope has been tested on Linux, Android, iOS, and macOS running on X86,
-            ARM, and PowerPC CPU architectures and leverage accelerators such as GPUs and
-            FPGAs.
+            Experiment on Linux, Android, iOS, and macOS running on X86, ARM, and PowerPC
+            CPU architectures and leverage accelerators such as GPUs and FPGAs.
           </FeatureCard>
         </FeatureRow>
         <FeatureRow isMobile={isMobile}>
-          <FeatureCard title={"Publish Your Workflow"}>
+          <FeatureCard title={"Publish Workflows"}>
             Publish your models or systems to the MLModelScope and exposed them through
             the online hub to gather feedback such as realistic accuracy results and
             failure points.
