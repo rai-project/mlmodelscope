@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Row as AntdRow, Col, Divider as AntDivider } from "antd";
 import yeast from "yeast";
 import { MLModelScope } from "@components/Common";
+import withSizes from "react-sizes";
 import {
   ModelUser as ModelUserIcon,
   SystemDeveloper as SystemDeveloperIcon,
@@ -37,142 +38,99 @@ const Divider = function() {
   );
 };
 
-export default class WhatIsMLModelScope extends Component {
+const Panel = function({
+  style = {},
+  title,
+  isMobile,
+  position = "left",
+  text,
+  icon,
+  children,
+}) {
+  text = text || children || "";
+  text = title ? (
+    <React.Fragment>
+      <p style={{ fontSize: "2.8rem", fontWeight: 500, marginBlockEnd: 0 }}>{title}</p>
+      {text}
+    </React.Fragment>
+  ) : (
+    text
+  );
+  return (
+    <React.Fragment>
+      <Row
+        style={{
+          marginTop: "4rem",
+          fontSize: "1.5rem",
+          fontWeight: "300",
+          ...style,
+        }}
+      >
+        {position === "left" ? (
+          <React.Fragment>
+            <Col
+              lg={{ span: isMobile ? 20 : 14, offset: 2 }}
+              xs={{ span: isMobile ? 20 : 14, offset: 1 }}
+            >
+              {text}
+            </Col>
+            {isMobile ? null : (
+              <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
+                {icon}
+              </Col>
+            )}
+            ,
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            {isMobile ? null : (
+              <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
+                {icon}
+              </Col>
+            )}
+            <Col
+              lg={{ span: isMobile ? 20 : 14, offset: 0 }}
+              xs={{ span: isMobile ? 20 : 14, offset: 0 }}
+            >
+              {text}
+            </Col>
+            ,
+          </React.Fragment>
+        )}
+      </Row>
+      <Divider />
+    </React.Fragment>
+  );
+};
+
+@withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
+class WhatIsMLModelScope extends Component {
   render() {
+    const { isMobile } = this.props;
     return (
       <React.Fragment>
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
+        <Panel
+          isMobile={isMobile}
+          position="left"
+          title="Comprehensive ML Evaluation."
+          icon={<ModelUserIcon width="10rem" height="10rem" />}
         >
-          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-        </Row>
-        <AntDivider />
+          Bring together dispersed tools into one platform to explore the performance of
+          different frameworks, models, and systems.
+        </Panel>
 
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
+        <Panel
+          isMobile={isMobile}
+          position="right"
+          title={"Pick best system combination."}
+          icon={<ModelUserIcon width="10rem" height="10rem" />}
         >
-          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-        </Row>
-        <AntDivider />
-
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
-        >
-          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-        </Row>
-        <AntDivider />
-
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
-        >
-          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-        </Row>
-        <AntDivider />
-
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
-        >
-          <Col lg={{ span: 14, offset: 2 }} xs={{ span: 10, offset: 1 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-          <Col lg={{ span: 4, offset: 1 }} xs={{ span: 8, offset: 0 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-        </Row>
-        <AntDivider />
-
-        <Row
-          style={{
-            marginTop: "4rem",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-          }}
-        >
-          <Col lg={{ span: 4, offset: 2 }} xs={{ span: 8, offset: 1 }}>
-            <ModelUserIcon width="10rem" height="10rem" />
-          </Col>
-          <Col lg={{ span: 14, offset: 0 }} xs={{ span: 10, offset: 0 }}>
-            <p style={{ fontSize: "2.8rem", fontWeight: 500 }}>
-              Built for ML Evaluation.
-            </p>
-            MLModelScope Provides a consistent evaluation, aggregation, and reporting
-            system by defining techniques to specify and provision workflows with HW/SW
-            stacks abstractions for evaluation and profiling using different frameworks
-            data consumption for evaluation outputs
-          </Col>
-        </Row>
-        <AntDivider />
+          Bring together dispersed tools into one platform to explore the performance of
+          different frameworks, models, and systems.
+        </Panel>
       </React.Fragment>
     );
   }
 }
+
+export default WhatIsMLModelScope;
