@@ -73,6 +73,7 @@ module.exports = override(
     modifyVars: {
       // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
       "@primary-color": primaryColor,
+      "@layout-body-background": "white",
       "@menu-dark-color": "white",
       "@menu-dark-bg": primaryColor,
       "@menu-highlight-color": Color(primaryColor)

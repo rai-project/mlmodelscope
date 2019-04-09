@@ -64,7 +64,7 @@ class ExperimentPage extends Component {
     }
 
     return (
-      <Layout style={{ background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
+      <Layout style={{ margin: "0px 20px 120px 20px" }}>
         <Content style={{}}>
           <div
             style={{

@@ -30,7 +30,7 @@ export default class ExperimentPage extends Component {
   }
   render() {
     return (
-      <Layout style={{ background: "#E8E9EB" }}>
+      <Layout>
         <Helmet title="Experiment" meta={[{ property: "og:title", content: "Experiment" }]} />
         <ExperimentProvider>
           <ExperimentSetupSider />

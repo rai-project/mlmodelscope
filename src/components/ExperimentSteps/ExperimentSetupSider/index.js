@@ -77,7 +77,7 @@ class ExperimentSetupSider extends Component {
     return (
       <Sider
         width="300"
-        style={{ width: "30%", background: "#E8E9EB" }}
+        style={{ width: "30%" }}
         collapsible
         // collapsed={this.state.collapsed}
         collapsedWidth={0}
@@ -93,7 +93,7 @@ class ExperimentSetupSider extends Component {
         <Menu
           mode="inline"
           selectedKeys={[this.props.context.currentPage]}
-          style={{ border: 1, backgroundColor: "#E8E9EB" }}
+          style={{ border: 1 }}
           onClick={e => this.handleClick(this.props.context, e.key)}
         >
           <Menu.Item
@@ -186,7 +186,7 @@ class ExperimentSetupSider extends Component {
        </Menu>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
-          <div style={{ display: "inline-block" }}>Using GPU: </div>
+          <div style={{ display: "inline-block", color: "white" }}>Using GPU: </div>
           <div
             style={{
               float: "right",
@@ -204,7 +204,7 @@ class ExperimentSetupSider extends Component {
         </div>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
-          <div style={{ display: "inline-block" }}>Batch Size: </div>
+          <div style={{ display: "inline-block", color: "white" }}>Batch Size: </div>
           <div
             style={{
               float: "right",
@@ -222,7 +222,7 @@ class ExperimentSetupSider extends Component {
         </div>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
-          <div style={{ display: "inline-block" }}>Trace Level: </div>
+          <div style={{ display: "inline-block", color: "white" }}>Trace Level: </div>
           <div
             style={{
               float: "right",

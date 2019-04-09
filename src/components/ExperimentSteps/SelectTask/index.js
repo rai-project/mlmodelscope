@@ -54,7 +54,7 @@ function taskImage(task) {
     <img
       src={image}
       alt={task.name}
-      style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}
+      style={{ width: "99%", marginLeft: "auto", marginRight: "auto" }}
     />
   );
 }
@@ -73,7 +73,7 @@ class SelectTask extends Component {
 
   render() {
     return (
-      <Layout style={{ background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
+      <Layout style={{ margin: "0px 20px 120px 20px" }}>
         <Content style={{}}>
           <ExperimentContentTitle text={"Select the Task"} />
 
