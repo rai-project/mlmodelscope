@@ -1,5 +1,6 @@
-import "./index.css";
-import "@ibm/plex/scss/ibm-plex.scss";
+import "typeface-lato";
+import "typeface-source-code-pro";
+// import "@ibm/plex/scss/ibm-plex.scss";
 
 import React from "react";
 import ReactDOM from "react-dom";

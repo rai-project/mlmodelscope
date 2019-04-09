@@ -4,10 +4,10 @@ import Helmet from "react-helmet";
 import { Row, Col, Layout, Steps } from "antd";
 import CardWithIcon from "../components/Card/CardWithIcon";
 import DisabledButton from "../components/Buttons/DisabledButton";
-import Section2Fig1 from "../resources/landingpage/assets/section2-figure-1.svg";
-import Section2Fig2 from "../resources/landingpage/assets/section2-figure-2.svg";
-import Section2Fig3 from "../resources/landingpage/assets/section2-figure-3.svg";
-import Section2Fig4 from "../resources/landingpage/assets/section2-figure-4.svg";
+import Section2Fig1 from "@resources/landingpage/assets/section2-figure-1.svg";
+import Section2Fig2 from "@resources/landingpage/assets/section2-figure-2.svg";
+import Section2Fig3 from "@resources/landingpage/assets/section2-figure-3.svg";
+import Section2Fig4 from "@resources/landingpage/assets/section2-figure-4.svg";
 const { Content } = Layout;
 const Step = Steps.Step;
 

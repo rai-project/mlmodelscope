@@ -34,7 +34,7 @@ class App extends Component {
                 <Router />
               </Error>
             </Layout.Content>
-            <GlobalFooter />
+            <GlobalFooter breakpoint={850} />
           </Layout>
         </ReactRouter>
       </UserProvider>

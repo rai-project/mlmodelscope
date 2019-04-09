@@ -1,49 +1,94 @@
-const { injectBabelPlugin } = require("react-app-rewired");
-const rewireLess = require("react-app-rewire-less");
-const rewireIdx = require("react-app-rewire-idx");
+const {
+  override,
+  getBabelLoader,
+  addDecoratorsLegacy,
+  fixBabelImports,
+  disableEsLint,
+  addLessLoader,
+  addWebpackAlias,
+  addBabelPlugin,
+  useBabelRc,
+  addTslintLoader,
+} = require("customize-cra");
+const path = require("path");
+const Color = require("color");
 
-module.exports = function override(config, env) {
-  config = injectBabelPlugin(
-    [
-      "import",
-      {
-        libraryName: "antd",
-        libraryDirectory: "es",
-        style: true,
-      },
-    ],
-    config
-  );
-  config = injectBabelPlugin(
-    ["import", { libraryName: "antd-mobile", libraryDirectory: "lib" }, "antd-mobile"],
-    config
-  );
-  config = injectBabelPlugin(
-    [
-      "import",
-      {
-        libraryName: "lodash",
-        libraryDirectory: "",
-        camel2DashComponentName: false, // default: true
-      },
-      "lodash",
-    ],
-    config
-  );
-  config = rewireLess.withLoaderOptions({
+function resolve(...dir) {
+  return path.join(__dirname, ...dir);
+}
+
+function resolveSrc(...dir) {
+  return path.join(__dirname, "src", ...dir);
+}
+
+function rewireSVGR(svgrLoaderOptions) {
+  return function(config) {
+    const svgReactLoader = {
+      test: /\.svg$/,
+      use: [
+        {
+          loader: require.resolve(`@svgr/webpack`),
+          options: svgrLoaderOptions,
+        },
+        {
+          loader: "url-loader",
+        },
+      ],
+    };
+    config.module.rules.unshift(svgReactLoader);
+    return config;
+  };
+}
+
+const primaryColor = "#19263a";
+
+module.exports = override(
+  addDecoratorsLegacy(),
+  disableEsLint(),
+  // useBabelRc(),
+  // rewireSVGR({ icon: true }),
+  fixBabelImports("antd", {
+    libraryName: "antd",
+    libraryDirectory: "es",
+    style: true,
+  }),
+  fixBabelImports("antd-mobile", { libraryName: "antd-mobile", libraryDirectory: "lib" }),
+  fixBabelImports("lodash", {
+    libraryName: "lodash",
+    libraryDirectory: "",
+    camel2DashComponentName: false, // default: true
+  }),
+  addWebpackAlias({
+    ["@"]: resolve("src"),
+    ["@components"]: resolveSrc("components"),
+    ["@context"]: resolveSrc("context"),
+    ["@routes"]: resolveSrc("routes"),
+    ["@resources"]: resolveSrc("resources"),
+    ["@icons"]: resolveSrc("resources", "icons"),
+    ["@helpers"]: resolveSrc("helpers"),
+    ["@common"]: resolveSrc("common"),
+  }),
+  addLessLoader({
+    javascriptEnabled: true,
     modifyVars: {
       // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
-      "@primary-color": "#19263a",
+      "@primary-color": primaryColor,
       "@layout-body-background": "white",
       "@menu-dark-color": "white",
-      "@menu-dark-bg": "#19263a",
+      "@menu-dark-bg": primaryColor,
+      "@menu-highlight-color": Color(primaryColor)
+        .lighten(0.2)
+        .hex(),
+      "@item-active-bg": Color(primaryColor)
+        .lighten(0.2)
+        .hex(),
+      "@item-hover-bg": Color(primaryColor)
+        .lighten(0.2)
+        .hex(),
       "@menu-dark-item-active-bg": "#E94A37",
-      "@font-family": `"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif`,
-      "@code-family": `"IBM Plex Mono", "Menlo", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace`,
+      "@font-family": `"Lato", "IBM Plex Sans Condensed", "Helvetica Neue", Arial, sans-serif`,
+      "@code-family": `"Source Code Pro", "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace`,
     },
-    javascriptEnabled: true,
-  })(config, env);
-
-  config = rewireIdx(config, env);
-  return config;
-};
+  }),
+  addTslintLoader()
+);

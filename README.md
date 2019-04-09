@@ -31,7 +31,7 @@ To achieve this, MLModelScope:
   - data consumption for evaluation outputs
 - Enables profiling of experiments throughout the entire pipeline and at different abstraction levels (application, model, framework, layer, library and hardware, as shown on the right)
 - Is framework and hardware agnostic - with current support for TensorFlow, MXNet, TensorRT, Caffe, Caffe2, CNTK running on X86, PowerPC, and ARM CPU with GPU and FPGA
-- Is extensible and customizable - allowing users to extend MLModelScope by adding models, frameworks, or library and system profilers, and use
+- Is extensible and customizable - allowing users to extend MLModelScope by adding models, frameworks, or library and system profilers.
 - Can run experiments on separate machines, and behind firewall (does not exposing model weights or machine specification)
 - Allows parallel evaluation (multiple instantiations of the same experiment set-up across systems)
 - Specifies model and framework resources as asset files which can be added easily, even at runtime

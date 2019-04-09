@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Layout, Menu, Icon, Drawer } from "antd";
 import { NavLink } from "react-router-dom";
-import UserContext from "../../context/UserContext"; // eslint-disable-line
+import UserContext from "@context/UserContext"; // eslint-disable-line
 import withSizes from "react-sizes";
 import { withRouter } from "react-router-dom";
+import Color from "color";
+import { css } from "glamor";
+import { MLModelScope } from "@components/Common";
 
 const { Header } = Layout;
 
 const userLoginEnabled = false;
 
-const mapSizesToProps = ({ width }, { breakpoint }) => ({
-  isMobile: width < breakpoint,
-});
-
+@withRouter
+@withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class GlobalHeader extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,6 @@ class GlobalHeader extends Component {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop,
       shrinkOn = 50,
       headerEl = document.getElementById("global-header");
-    console.log(headerEl);
     if (distanceY > shrinkOn) {
       headerEl.classList.add("shrink");
     } else {
@@ -44,16 +44,16 @@ class GlobalHeader extends Component {
     }
   }
 
-  renderUser({ username, item_style }) {
+  renderUser({ username, menu_item_style, link_style, link_active_style }) {
     if (userLoginEnabled === false) {
       return null;
     }
     if (username == null) {
       return [
-        <Menu.Item key="signup" title="Sign up" style={item_style}>
+        <Menu.Item key="signup" title="Sign up" style={menu_item_style}>
           Sign Up
         </Menu.Item>,
-        <Menu.Item key="login" title="Login" style={item_style}>
+        <Menu.Item key="login" title="Login" style={menu_item_style}>
           <NavLink to="/login">Login</NavLink>
         </Menu.Item>,
       ];
@@ -61,10 +61,12 @@ class GlobalHeader extends Component {
 
     return [
       <Menu.Item key="logout" title="Logout" style={item_style}>
-        <NavLink to="/logout">Login</NavLink>
+        <NavLink to="/logout" style={link_style} link_active_style={link_active_style}>
+          Login
+        </NavLink>
       </Menu.Item>,
       <Menu.Item key="User" title="user" style={item_style}>
-        <NavLink to="/my">
+        <NavLink to="/my" style={link_style} link_active_style={link_active_style}>
           <Icon type="user" />
           {username}
         </NavLink>
@@ -73,15 +75,25 @@ class GlobalHeader extends Component {
   }
 
   menu({ mode, theme, activeLinkKey }) {
-    let item_style = {
+    const menu_item_style = css({
       alignContent: "right",
-      fontWeight: "bold",
       justifyContent: "space-around",
       alignItems: "center",
+    });
+    const link_style = css({
       fontSize: "16px",
-    };
+      "&:hover": {
+        // background: Color("#19263a")
+        //   .lighten(0.2)
+        //   .hex(),
 
-    console.log(activeLinkKey);
+        textWeight: "bold",
+        borderBottom: "2px solid currentColor",
+      },
+    });
+
+    const link_active_style = css({ fontWeight: "600" });
+
     return (
       <UserContext.Consumer>
         {context => (
@@ -91,22 +103,51 @@ class GlobalHeader extends Component {
             mode={mode}
             style={{ float: "right", lineHeight: "64px" }}
           >
-            <Menu.Item key="usecases" title="Use Cases" style={item_style}>
-              <NavLink to={"/usecases"}>Use Case</NavLink>
+            <Menu.Item key="usecases" {...menu_item_style}>
+              <NavLink
+                to={"/usecases"}
+                {...link_style}
+                link_active_style={link_active_style}
+              >
+                Use Case
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="evaluations" title="Evaluations" style={item_style}>
-              <NavLink to={"/evaluations"}>Evaluations</NavLink>
+            <Menu.Item key="evaluations" {...menu_item_style}>
+              <NavLink
+                to={"/evaluations"}
+                {...link_style}
+                link_active_style={link_active_style}
+              >
+                Evaluations
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="playground" title="Playground" style={item_style}>
-              <NavLink to={"/playground"}>Playground</NavLink>
+            <Menu.Item key="playground" {...menu_item_style}>
+              <NavLink
+                to={"/playground"}
+                {...link_style}
+                link_active_style={link_active_style}
+              >
+                Playground
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="news" title="News" style={item_style}>
-              <NavLink to={"/news"}>News</NavLink>
+            <Menu.Item key="news" {...menu_item_style}>
+              <NavLink to={"/news"} {...link_style} link_active_style={link_active_style}>
+                News
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="about" title="About" style={item_style}>
-              <a href="https://docs.mlmodelscope.org/">About</a>
+            <Menu.Item key="about" {...menu_item_style}>
+              <a {...link_style} href="https://docs.mlmodelscope.org/">
+                About
+              </a>
             </Menu.Item>
-            {this.renderUser({ username: context.username, item_style })}
+            {/*
+            {this.renderUser({
+              username: context.username,
+              menu_item_Style,
+              link_style,
+              link_active_style,
+            })}
+          */}
           </Menu>
         )}
       </UserContext.Consumer>
@@ -129,7 +170,7 @@ class GlobalHeader extends Component {
         }}
       >
         <NavLink to={"/"} style={{ float: "left", color: "white", fontSize: "20px" }}>
-          <b>MLModelScope</b>
+          <MLModelScope />
         </NavLink>
         {isMobile && !mobile_menu_open ? (
           <Icon
@@ -163,4 +204,4 @@ class GlobalHeader extends Component {
   }
 }
 
-export default withRouter(withSizes(mapSizesToProps)(GlobalHeader));
+export default GlobalHeader;
