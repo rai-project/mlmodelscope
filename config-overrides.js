@@ -13,12 +13,12 @@ const {
 const path = require("path");
 const Color = require("color");
 
-function resolve(dir) {
-  return path.join(__dirname, dir);
+function resolve(...dir) {
+  return path.join(__dirname, ...dir);
 }
 
-function resolveSrc(dir) {
-  return path.join(__dirname, "src", dir);
+function resolveSrc(...dir) {
+  return path.join(__dirname, "src", ...dir);
 }
 
 function rewireSVGR(svgrLoaderOptions) {
@@ -64,6 +64,7 @@ module.exports = override(
     ["@context"]: resolveSrc("context"),
     ["@routes"]: resolveSrc("routes"),
     ["@resources"]: resolveSrc("resources"),
+    ["@icons"]: resolveSrc("resources", "icons"),
     ["@helpers"]: resolveSrc("helpers"),
     ["@common"]: resolveSrc("common"),
   }),
