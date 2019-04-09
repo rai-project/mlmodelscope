@@ -70,23 +70,25 @@ const Panel = function({
         style={{
           fontSize: "1.5rem",
           fontWeight: "300",
-          paddingLeft: isMobile ? "0" : "50px",
           ...style,
         }}
       >
         {position === "left" || isMobile ? (
           <React.Fragment>
-            <Col span={isMobile ? 18 : 14}>{text}</Col>
+            <Col span={isMobile ? 20 : 14}>{text}</Col>
             {isMobile ? null : (
-              <Col lg={{ span: 5, offset: 1 }} xs={{ span: 8, offset: 0 }}>
+              <Col span={3} offset={1}>
                 {icon}
               </Col>
             )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {isMobile ? null : <Col span={5}>{icon}</Col>}
-            <Col span={isMobile ? 18 : 14}>{text}</Col>,
+            {isMobile ? null : <Col span={3}>{icon}</Col>}
+            <Col span={isMobile ? 20 : 14} offset={1}>
+              {text}
+            </Col>
+            ,
           </React.Fragment>
         )}
       </Row>

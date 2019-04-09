@@ -29,7 +29,7 @@ class Features extends Component {
   render() {
     const { isMobile } = this.props;
     return (
-      <React.Fragment>
+      <>
         <Panel
           isMobile={isMobile}
           style={{
@@ -101,7 +101,7 @@ class Features extends Component {
           object detection, tracking, machine translation and more) and directly run those
           models using either standard dataset or your own dataset.
         </Panel>
-      </React.Fragment>
+      </>
     );
   }
 }
