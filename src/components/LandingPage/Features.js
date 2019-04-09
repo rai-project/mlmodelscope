@@ -10,17 +10,32 @@ import {
 } from "./UserAvatars";
 import Panel from "./Panel";
 import { Button, Icon } from "antd";
+import { ReactComponent as MachineIcon } from "@icons/machine.svg";
+import { ReactComponent as DecisionIcon } from "@icons/decision.svg";
+import { ReactComponent as GearIcon } from "@icons/gear.svg";
+import { ReactComponent as CircuitIcon } from "@icons/circuit.svg";
+import { ReactComponent as GrowthIcon } from "@icons/growth.svg";
+import { ReactComponent as TubeIcon } from "@icons/tube.svg";
 
 const primaryColor = "#1A263A";
+const textColor = "#5a5a5a";
 
 const LearnMore = function({ link }) {
   return (
     <Button ghost type="dashed" href={link}>
-      <div style={{ color: primaryColor }}>
+      <div style={{ color: textColor }}>
         Learn More
         <Icon type="right" />
       </div>
     </Button>
+  );
+};
+
+const Link = function({ children, href }) {
+  return (
+    <a style={{ color: textColor }} href={href}>
+      {children}
+    </a>
   );
 };
 
@@ -37,53 +52,106 @@ class Features extends Component {
           }}
           position="left"
           title="Built for ML Evaluation."
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <MachineIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
-          Bring together dispersed ML tools into one platform to explore the performance
-          across frameworks, models, and systems.
+          Bring together dispersed ML tools into one platform to explore the accuracy and
+          performance across frameworks, models, and systems.
         </Panel>
 
         <Panel
           isMobile={isMobile}
           position="right"
           title={"Reproducible and Versioned."}
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <DecisionIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
-          Specify the software, hardware, and model evaluation requirements and versions
-          through a manifest file and run within a Docker container using well-defined
-          pre- and post-processing operations.
+          Specify the software, hardware, and model evaluation requirements and run using
+          well-defined pre- and post-processing operations to maintain reproducibility of
+          your experiments.
         </Panel>
 
         <Panel
           isMobile={isMobile}
           position="left"
           title="Local and Remote Measurements."
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <GearIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
-          Bring together dispersed tools into one platform to explore the performance of
-          different frameworks, models, and systems.
+          Perform local and remote evaluations using the integrated website or
+          command-line. Embed it in your C, Python, or Java program by using the REST API
+          or by compiling it as a library.
         </Panel>
 
         <Panel
           isMobile={isMobile}
           position="right"
           title={"Framework and System Agnostic."}
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <GrowthIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
-          Builtin framework support for TensorFlow, TFLite, PyTorch, MXNet, Caffe2,
-          TensorRT, Caffe, and CNTK. Run on Linux, macOS, Windows, Android, and iOS on
-          ARM, Power, and X86 while leveraging CPU, GPU, or FPGA acceleration.
+          Builtin framework support for{" "}
+          <Link href={"https://github.com/rai-project/tensorflow"}>TensorFlow</Link>,
+          <Link href={"https://github.com/rai-project/tflite"}>TFLite</Link>,{" "}
+          <Link href={"https://github.com/rai-project/pytorch"}>PyTorch</Link>, MXNet,
+          <Link href={"https://github.com/rai-project/caffe2"}>Caffe2</Link>,{" "}
+          <Link href={"https://github.com/rai-project/tensorrt"}>TensorRT</Link>,{" "}
+          <Link href={"https://github.com/rai-project/caffe"}>Caffe</Link>, and{" "}
+          <Link href={"https://github.com/rai-project/cntk"}>CNTK</Link> and Support for
+          Linux, macOS, Windows, Android, and iOS on ARM, Power, and X86 with CPU, GPU, or
+          FPGA acceleration.
         </Panel>
 
         <Panel
           isMobile={isMobile}
           position="left"
           title="Extensible and Customizable."
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <TubeIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
           Bring together dispersed tools into one platform to explore the performance of
@@ -94,7 +162,16 @@ class Features extends Component {
           isMobile={isMobile}
           position="right"
           title={"Built-in Models and Datasets."}
-          icon={<ModelUserIcon width="10rem" height="10rem" />}
+          icon={
+            <CircuitIcon
+              style={{
+                height: "200px",
+                width: "200px",
+                objectFit: "cover",
+                overflow: "visible",
+              }}
+            />
+          }
           link={<LearnMore link={""} />}
         >
           Find the latest models as published within MLModelScope (be it classification,
