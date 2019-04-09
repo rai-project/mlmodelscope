@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Avatar from "avataaars";
 
@@ -29,7 +29,7 @@ export const ModelDeveloper = function({ width, height }) {
       style={{ width: width || "100px", height: height || "100px" }}
       avatarStyle="Transparent"
       avatarBackground="#19263a"
-      topType="LongHairNotTooLong"
+      topType="LongHairStraight"
       accessoriesType="Blank"
       hairColor="BrownDark"
       facialHairType="Blank"
@@ -37,7 +37,7 @@ export const ModelDeveloper = function({ width, height }) {
       eyeType="Default"
       eyebrowType="Default"
       mouthType="Default"
-      skinColor="Light"
+      skinColor="Pale"
     />
   );
 };

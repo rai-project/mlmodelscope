@@ -1,43 +1,23 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
-import yeast from "yeast";
 
-// import Hero from "@components/LandingPage/Hero";
-import Hero from "@components/LandingPage/Hero2";
-import Features from "@components/LandingPage/Features";
-import Section1 from "@components/LandingPage/Section1";
-// import Section2 from "@components/LandingPage/Section2";
-// import Section3 from "@components/LandingPage/Section3";
-// import Section4 from "@components/LandingPage/Section4";
-// import Section5 from "@components/LandingPage/Section5";
-// import Section6 from "@components/LandingPage/Section6";
-// import Section7 from "@components/LandingPage/Section7";
-// import Section8 from "@components/LandingPage/Section8";
-// import Section9 from "@components/LandingPage/Section9";
-// import Section10 from "@components/LandingPage/Section10";
+import Hero from "./Hero";
+import Features from "./Features";
+import Users from "./Users";
+import DetailedFeatures from "./DetailedFeatures";
+import LearnMore from "./LearnMore";
 
 const { Content } = Layout;
-
-const primaryColor = "#1A263A";
 
 export default class LandingPage extends Component {
   render() {
     return (
-      <Content style={{ marginTop: "50px" }}>
+      <Content style={{ marginTop: "50px", marginBottom: "50px" }}>
         <Hero breakpoint={850} />
-        {/* <Hero breakpoint={850} /> */}
-        <Features breakpoint={850} />
-        {/* <Users breakpoint={850} /> */}
-        {/* <Section1 /> */}
-        {/* <Section2 /> */}
-        {/* <Section3 /> */}
-        {/* <Section4 /> */}
-        {/* <Section5 /> */}
-        {/* <Section6 /> */}
-        {/* <Section7 /> */}
-        {/* <Section8 /> */}
-        {/* <Section9 /> */}
-        {/* <Section10 />  */}
+        <Features breakpoint={1010} />
+        <Users breakpoint={1010} />
+        <DetailedFeatures breakpoint={1010} />
+        <LearnMore breakpoint={1010} />
       </Content>
     );
   }

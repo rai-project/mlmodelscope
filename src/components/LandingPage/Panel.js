@@ -1,5 +1,21 @@
 import React from "react";
-import { Row as AntdRow, Col, Divider as AntDivider } from "antd";
+import { Row as AntdRow, Col, Divider as AntDivider, Button, Icon } from "antd";
+import Color from "color";
+
+export const PrimaryColor = "#1A263A";
+export const TextColor = "#5a5a5a";
+export const OrangeColor = "#E94A37";
+
+export const LightPrimaryColor = Color(PrimaryColor)
+  .lighten(0.5)
+  .hex();
+export const DarkerPrimary = Color(PrimaryColor)
+  .darken(0.5)
+  .hex();
+
+export const LightOrange = Color(OrangeColor)
+  .lighten(0.2)
+  .hex();
 
 const Row = function({ style, justify, children }) {
   style = style || {};
@@ -28,6 +44,47 @@ const Divider = function() {
   );
 };
 
+export const Link = function({ children, href }) {
+  return (
+    <a style={{ color: TextColor }} href={href}>
+      {children}
+    </a>
+  );
+};
+
+export const PanelsHeading = function({ isMobile = false, children, style = {} }) {
+  return (
+    <AntdRow
+      type="flex"
+      justify="space-around"
+      style={{
+        backgroundColor: PrimaryColor,
+        fontSize: isMobile ? "2rem" : "3.5rem",
+        color: "white",
+        textAlign: "left",
+        textShadow: `5px 5px ${LightPrimaryColor}`,
+        marginTop: "4rem",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+        ...style,
+      }}
+    >
+      <Col>{children}</Col>
+    </AntdRow>
+  );
+};
+
+export const LearnMoreButton = function({ link }) {
+  return (
+    <Button ghost type="dashed" href={link}>
+      <div style={{ color: TextColor }}>
+        Learn More
+        <Icon type="right" />
+      </div>
+    </Button>
+  );
+};
+
 const Panel = function({
   style = {},
   title,
@@ -37,6 +94,7 @@ const Panel = function({
   text,
   icon,
   link,
+  divider = true,
   children,
 }) {
   text = text || children || "";
@@ -77,24 +135,23 @@ const Panel = function({
       >
         {position === "left" || isMobile ? (
           <React.Fragment>
-            <Col span={isMobile ? 20 : 10}>{text}</Col>
+            <Col span={isMobile ? 20 : 12}>{text}</Col>
             {isMobile ? null : (
-              <Col span={4} offset={2}>
+              <Col span={3} offset={2}>
                 {icon}
               </Col>
             )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {isMobile ? null : <Col span={4}>{icon}</Col>}
-            <Col span={isMobile ? 20 : 10} offset={2}>
+            <Col span={3}>{icon}</Col>
+            <Col span={isMobile ? 20 : 12} offset={2}>
               {text}
             </Col>
-            ,
           </React.Fragment>
         )}
       </Row>
-      <Divider />
+      {divider ? <Divider /> : null}
     </React.Fragment>
   );
 };

@@ -1,43 +1,13 @@
 import React, { Component } from "react";
 
-import yeast from "yeast";
-import { MLModelScope } from "@components/Common";
 import withSizes from "react-sizes";
-import {
-  ModelUser as ModelUserIcon,
-  SystemDeveloper as SystemDeveloperIcon,
-  ModelDeveloper as ModelDeveloperIcon,
-} from "./UserAvatars";
-import Panel from "./Panel";
-import { Button, Icon } from "antd";
+import Panel, { Link, LearnMoreButton as LearnMore } from "./Panel";
 import { ReactComponent as MachineIcon } from "@icons/machine.svg";
 import { ReactComponent as DecisionIcon } from "@icons/decision.svg";
 import { ReactComponent as GearIcon } from "@icons/gear.svg";
 import { ReactComponent as CircuitIcon } from "@icons/circuit.svg";
 import { ReactComponent as GrowthIcon } from "@icons/growth.svg";
 import { ReactComponent as TubeIcon } from "@icons/tube.svg";
-
-const primaryColor = "#1A263A";
-const textColor = "#5a5a5a";
-
-const LearnMore = function({ link }) {
-  return (
-    <Button ghost type="dashed" href={link}>
-      <div style={{ color: textColor }}>
-        Learn More
-        <Icon type="right" />
-      </div>
-    </Button>
-  );
-};
-
-const Link = function({ children, href }) {
-  return (
-    <a style={{ color: textColor }} href={href}>
-      {children}
-    </a>
-  );
-};
 
 @withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class Features extends Component {
@@ -154,12 +124,13 @@ class Features extends Component {
           }
           link={<LearnMore link={""} />}
         >
-          Bring together dispersed tools into one platform to explore the performance of
-          different frameworks, models, and systems.
+          Add support to systems, performance counters, models, and frameworks with
+          minimal code changes.
         </Panel>
 
         <Panel
           isMobile={isMobile}
+          divider={false}
           position="right"
           title={"Built-in Models and Datasets."}
           icon={
