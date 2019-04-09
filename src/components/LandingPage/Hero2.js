@@ -9,19 +9,6 @@ import { Link } from "react-router-dom";
 
 const primaryColor = "#1A263A";
 
-const style = {
-  // background: "linear-gradient(180deg, rgba(25,38,58,1) 60%, rgba(255,255,255,0.8) 80%)",
-  background: primaryColor,
-  minHeight: "50vh",
-  width: "100%",
-  color: "white",
-  fontWeight: "200",
-  backgroundSize: "100%",
-  paddingTop: "100px",
-  paddingBottom: "1.5rem",
-  textAlign: "center",
-};
-
 const infoStyle = {
   position: "absolute",
   top: "100vh",
@@ -45,14 +32,28 @@ class Hero extends Component {
       .hex();
     const { isMobile } = this.props;
     return (
-      <div style={style}>
+      <div
+        style={{
+          // background: "linear-gradient(180deg, rgba(25,38,58,1) 60%, rgba(255,255,255,0.8) 80%)",
+          background: primaryColor,
+          minHeight: "60vh",
+          width: "100%",
+          color: "white",
+          fontWeight: "200",
+          backgroundSize: "100%",
+          paddingTop: "100px",
+          paddingBottom: "3rem",
+          textAlign: "center",
+          paddingLeft: isMobile ? "50px" : "150px",
+        }}
+      >
         <QueueAnim type={isMobile ? "bottom" : "left"} delay={300}>
           <Row type="flex" justify="start" style={{ paddingTop: "5vh" }}>
             <Col
-              lg={{ span: 18, offset: 2 }}
-              xs={{ span: 20, offset: 1 }}
+              lg={{ span: 18 }}
+              xs={{ span: 20 }}
               style={{
-                fontSize: "4.5rem",
+                fontSize: isMobile ? "2rem" : "4.5rem",
                 fontWeight: 800,
                 color: "white",
                 textAlign: "left",
@@ -62,20 +63,17 @@ class Hero extends Component {
               Reproduce and Analyze Diverse Machine Learning Workloads
             </Col>
           </Row>
-          <Row
-            type="flex"
-            justify="start"
-            gutter={16}
-            style={{ marginTop: "3rem", marginLeft: "10px" }}
-          >
+          <Row type="flex" justify="start" gutter={16} style={{ marginTop: "3rem" }}>
             <Col
-              lg={{ span: 4, offset: 2 }}
-              xs={{ span: 20, offset: 1 }}
+              lg={{ span: 4 }}
+              xs={{ span: 20 }}
               style={{
-                fontSize: "1.5rem",
+                fontSize: isMobile ? "1rem" : "1.5rem",
+                fontWeight: "bold",
                 backgroundColor: lightPrimary,
                 borderColor: lightPrimary,
                 borderStyle: "dashed",
+                marginLeft: "10px",
                 padding: "10px",
               }}
             >
@@ -86,10 +84,11 @@ class Hero extends Component {
             {isMobile ? null : (
               <React.Fragment>
                 <Col
-                  lg={{ span: 4, offset: 0 }}
-                  xs={{ span: 20, offset: 1 }}
+                  lg={{ span: 4 }}
+                  xs={{ span: 20 }}
                   style={{
                     fontSize: "1.5rem",
+                    fontWeight: "bold",
                     backgroundColor: lightPrimary,
                     borderColor: lightPrimary,
                     borderStyle: "dashed",
@@ -102,10 +101,11 @@ class Hero extends Component {
                   </Link>
                 </Col>
                 <Col
-                  lg={{ span: 4, offset: 0 }}
-                  xs={{ span: 20, offset: 1 }}
+                  lg={{ span: 4 }}
+                  xs={{ span: 20 }}
                   style={{
                     fontSize: "1.5rem",
+                    fontWeight: "bold",
                     backgroundColor: lightPrimary,
                     borderColor: lightPrimary,
                     borderStyle: "dashed",

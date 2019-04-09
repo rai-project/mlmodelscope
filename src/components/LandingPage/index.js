@@ -4,7 +4,7 @@ import yeast from "yeast";
 
 // import Hero from "@components/LandingPage/Hero";
 import Hero from "@components/LandingPage/Hero2";
-import WhatIsMLModelScope from "@components/LandingPage/WhatIsMLModelScope";
+import Features from "@components/LandingPage/Features";
 import Section1 from "@components/LandingPage/Section1";
 // import Section2 from "@components/LandingPage/Section2";
 // import Section3 from "@components/LandingPage/Section3";
@@ -18,14 +18,16 @@ import Section1 from "@components/LandingPage/Section1";
 
 const { Content } = Layout;
 
+const primaryColor = "#1A263A";
+
 export default class LandingPage extends Component {
   render() {
     return (
-      <Content>
-        <div style={{ marginTop: "50px" }} />
+      <Content style={{ marginTop: "50px" }}>
         <Hero breakpoint={850} />
         {/* <Hero breakpoint={850} /> */}
-        <WhatIsMLModelScope breakpoint={850} />
+        <Features breakpoint={850} />
+        {/* <Users breakpoint={850} /> */}
         {/* <Section1 /> */}
         {/* <Section2 /> */}
         {/* <Section3 /> */}
