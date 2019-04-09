@@ -36,9 +36,9 @@ export default class News extends Component {
         }}
       >
         <Row type="flex" aligh="middle">
-          {this.props.data.images.length > 0 &&
-            <ImageCarousel images={this.props.data.images}/>
-          }
+          {this.props.data.images.length > 0 && (
+            <ImageCarousel images={this.props.data.images} />
+          )}
           <Col sm={24} md={10} lg={14} offset={2}>
             <Row>
               <Typography.Title>{this.props.data.title}</Typography.Title>

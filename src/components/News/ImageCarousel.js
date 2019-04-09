@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Typography, Carousel } from "antd";
+import { Row, Col, Carousel } from "antd";
 import yeast from "yeast";
 
 var news_images = require.context("../../resources/news", true);
@@ -14,6 +14,6 @@ export default class News extends Component {
           })}
         </Carousel>
       </Col>
-    )
+    );
   }
 }
