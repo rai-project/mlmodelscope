@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { ExperimentContext } from "../../context/ExperimentContext";
 import ImageInferenceResult from "./ImageInferenceResult";
 import DatasetInferenceResult from "./DatasetInferenceResult";
-import ImageEnhancementResult from "./ImageEnhancementResult";
 
 
 class InferenceResult extends Component {
@@ -15,7 +14,7 @@ class InferenceResult extends Component {
       resultContent = <ImageInferenceResult />;
     }
     return (
-      <div style={{ width: "100%", background: "#E8E9EB", margin: "0px 20px 120px 20px" }}>
+      <div style={{ width: "100%", margin: "0px 20px 120px 20px" }}>
           <div
             style={{
               background: "#1A263A",
@@ -30,7 +29,6 @@ class InferenceResult extends Component {
           </div>
 
           {resultContent}
-          {/* <ImageEnhancementResult /> */}
       </div>
     );
   }

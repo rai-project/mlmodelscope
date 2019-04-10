@@ -43,12 +43,10 @@ class ExperimentSetupSider extends Component {
       ).then(result => context.setPredictResult(result));
       console.log(context);
     }
-    // this.props.onPageChange(key);
     context.setPage(key)
   }
 
   handleClickResult() {
-    // this.props.onPageChange("predict");
     this.props.context.setPage("predict");
   }
 
@@ -73,7 +71,6 @@ class ExperimentSetupSider extends Component {
   }
 
   render() {
-    // console.log(this.props.context);
     return (
       <Sider
         width="300"
@@ -106,7 +103,7 @@ class ExperimentSetupSider extends Component {
               height: "auto",
             }}
           >
-            <div>TASKS</div>
+            <div style={{color: this.props.context.currentPage === "task" ? "white" : "black"}}>TASKS</div>
             {this.props.context.task !== null && (
               <Tag>
                 {this.props.context.task.name}
@@ -124,7 +121,7 @@ class ExperimentSetupSider extends Component {
               height: "auto",
             }}
           >
-            <div>MODELS</div>
+            <div style={{color: this.props.context.currentPage === "model" ? "white" : "black"}}>MODELS</div>
             {this.props.context.models.map((model, index) => (
               <div key={yeast()}>
                 <Tag
@@ -148,7 +145,7 @@ class ExperimentSetupSider extends Component {
               height: "auto",
             }}
           >
-            <div>MACHINES</div>
+            <div style={{color: this.props.context.currentPage === "machine" ? "white" : "black"}}>MACHINES</div>
             {this.props.context.machines.map((machine, index) => (
               <div key={yeast()}>
                 <Tag
@@ -171,7 +168,7 @@ class ExperimentSetupSider extends Component {
               height: "auto",
             }}
           >
-            <div>DATASET</div>
+            <div style={{color: this.props.context.currentPage === "dataset" ? "white" : "black"}}>DATASET</div>
             {this.props.context.imageUrls.length !== 0 && (
               <Tag closable onClose={() => this.props.context.removeUrls()}>
                 Import from URLs
