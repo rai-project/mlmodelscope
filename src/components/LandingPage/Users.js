@@ -7,7 +7,7 @@ import {
   SystemDeveloper as SystemDeveloperIcon,
   ModelDeveloper as ModelDeveloperIcon,
 } from "./UserAvatars";
-import Panel, { PanelsHeading, LearnMoreButton as LearnMore } from "./Panel";
+import Panel, { PanelsHeading, LearnMoreButton as LearnMore } from "../Panel";
 
 @withSizes(({ width }, { breakpoint }) => ({ isMobile: width < breakpoint }))
 class Users extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Panel, { PanelsHeading } from "./Panel";
+import Panel, { PanelsHeading } from "../Panel";
 
 export default function() {
   return (

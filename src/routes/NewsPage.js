@@ -17,7 +17,6 @@ export default class NewsPage extends Component {
             return(
               <React.Fragment>
                 <News key={yeast()} data={data} />
-                <div style={{marginTop: "20px", marginBottom: "20px", backgroundColor: "#1a263a", height: "5px", width: "100%"}} />
               </React.Fragment>
             )
           })

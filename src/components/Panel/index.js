@@ -137,15 +137,15 @@ const Panel = function({
           <React.Fragment>
             <Col span={isMobile ? 20 : 12}>{text}</Col>
             {isMobile ? null : (
-              <Col span={3} offset={2}>
+              icon && <Col span={3} offset={2}>
                 {icon}
               </Col>
             )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Col span={3}>{icon}</Col>
-            <Col span={isMobile ? 20 : 12} offset={2}>
+            { icon && <Col span={3}>{icon}</Col> }
+            <Col span={isMobile ? 20 : 12} offset={icon ? 2 : 0}>
               {text}
             </Col>
           </React.Fragment>

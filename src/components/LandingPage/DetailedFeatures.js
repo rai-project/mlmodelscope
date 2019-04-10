@@ -5,7 +5,7 @@ import withSizes from "react-sizes";
 
 import { ReactComponent as TubeIcon, TextColor } from "@icons/tube.svg";
 
-import { PanelsHeading } from "./Panel";
+import { PanelsHeading } from "../Panel";
 
 const FeatureRow = function({ isMobile, children }) {
   return (

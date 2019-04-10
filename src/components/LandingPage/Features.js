@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import withSizes from "react-sizes";
-import Panel, { Link, LearnMoreButton as LearnMore } from "./Panel";
+import Panel, { Link, LearnMoreButton as LearnMore } from "../Panel";
 import { ReactComponent as MachineIcon } from "@icons/machine.svg";
 import { ReactComponent as DecisionIcon } from "@icons/decision.svg";
 import { ReactComponent as GearIcon } from "@icons/gear.svg";
