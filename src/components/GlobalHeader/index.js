@@ -109,7 +109,7 @@ class GlobalHeader extends Component {
                 {...link_style}
                 link_active_style={link_active_style}
               >
-                Use Case
+                Use Cases
               </NavLink>
             </Menu.Item>
             <Menu.Item key="evaluations" {...menu_item_style}>
