@@ -80,8 +80,12 @@ export default class ClassificationResult extends Component {
           />
         </div>
 
-        {this.displayTrace && this.traceId ? (
-          <TraceInfo traceURL={traceURL} traceID={this.traceId} />
+        {this.traceId ? (
+          <TraceInfo
+            traceURL={traceURL}
+            traceID={this.traceId}
+            displayTrace={this.displayTrace}
+          />
         ) : null}
       </div>
     );

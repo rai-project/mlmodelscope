@@ -45,9 +45,13 @@ export default class TraceInfo extends Component {
       <React.Fragment>
         <Divider />
         <h1 style={{ textAlign: "center" }}>
-          <a href={this.props.traceURL}> Profile Trace </a>
+          <a href={this.props.traceURL}>
+            {this.props.displayTrace ? "Profile Trace" : "Click for Profile Trace" }
+          </a>
         </h1>
-        <Iframe position="relative" url={this.props.traceURL} width="100%" height="500px" />
+        {this.props.displayTrace &&
+          <Iframe position="relative" url={this.props.traceURL} width="100%" height="500px" />
+        }
         <Divider />
         {this.state.graphData !== null && (
           <div style={{ marginTop: "40px" }}>

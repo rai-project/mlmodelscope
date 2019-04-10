@@ -15,7 +15,7 @@ class InferenceResult extends Component {
       resultContent = <ImageInferenceResult />;
     }
     return (
-      <div>
+      <div style={{width: "100%"}}>
           <ExperimentContentTitle text="Inference Result" />
 
           {resultContent}
