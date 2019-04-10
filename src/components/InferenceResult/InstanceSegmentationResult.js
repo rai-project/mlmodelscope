@@ -3,6 +3,7 @@ import Konva from "konva";
 import { Stage, Layer, Image, Label, Text, Tag, Rect } from "react-konva";
 import { filter, split, capitalize } from "lodash";
 import { Row, Col, Table } from "antd";
+import PercentageStep from "./PercentageStep";
 import Imagejs from "image-js";
 import yeast from "yeast";
 
@@ -147,6 +148,7 @@ export default class InstanceSegmentationResult extends Component {
       width: (window.innerWidth - 380)/2,
       height: null,
       mouseOn: null,
+      filterValue: 0.95,
       filteredFeatures: null,
     };
   }
@@ -306,13 +308,20 @@ export default class InstanceSegmentationResult extends Component {
       return null;
     }
     
+    var filterValue = this.state.filterValue;
     this.state.filteredFeatures = filter(this.props.features, function(o) {
-      return o.probability >= 0.95;
+      return o.probability >= filterValue;
     })
 
     return (
       <React.Fragment>
-        <Row>
+        <PercentageStep
+          min={50}
+          max={100}
+          default={filterValue}
+          onChange={(value) => this.setState({filterValue: value})}
+        />
+        <Row style={{marginTop: "20px"}}>
           <Col span={12}>
             <Stage width={this.state.width} height={this.state.height}>
               <Layer>
