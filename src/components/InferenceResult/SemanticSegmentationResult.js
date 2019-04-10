@@ -14,24 +14,6 @@ const colors = [
   [26, 38, 58], // UI Dark Blue
 ];
 
-
-class URLImage extends React.Component {
-  render() {
-    return (
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        image={this.props.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-        scaleX={this.props.scaleX || 1}
-        scaleY={this.props.scaleY || 1}
-      />
-    );
-  }
-}
-
 class SemanticMask extends Component {
   constructor(props) {
     super(props);
@@ -79,12 +61,12 @@ class SemanticMask extends Component {
     var image = new window.Image();
     image.src = rgbaimg.toDataURL();
     return(
-      <URLImage
+      <Image
         image={image}
         x={0}
         y={0}
-        scaleX={this.props.width/this.width}
-        scaleY={this.props.height/this.height}
+        width={this.props.width}
+        height={this.props.height}
       />
     )
   }
@@ -95,7 +77,7 @@ export default class SemanticSegmentationResult extends Component {
     super(props);
     this.state = {
       image: null,
-      width: null,
+      width: window.innerWidth - 380,
       height: null,
       mouseOn: null,
     };
@@ -121,8 +103,7 @@ export default class SemanticSegmentationResult extends Component {
     // after setState react-konva will update canvas and redraw the layer
     // because "image" property is changed
     this.setState({
-      width: this.state.image.width,
-      height: this.state.image.height,
+      height: (this.state.width / this.state.image.width) * this.state.image.height,
     });
     console.log(this.state.image.width);
     console.log(this.state.image.height);
@@ -136,12 +117,14 @@ export default class SemanticSegmentationResult extends Component {
       return null;
     } else {
       return (
-        <Stage width={window.innerWidth - 372} height={1000}>
+        <Stage width={this.state.width} height={this.state.height}>
           <Layer>
             {/* For Local Test */}
             {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-            <URLImage
+            <Image
               image={this.state.image}
+              width={this.state.width}
+              height={this.state.height}
               x={0}
               y={0}
             />

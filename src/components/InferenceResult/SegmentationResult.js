@@ -28,27 +28,12 @@ class BBoxLabel extends Component {
   }
 }
 
-class URLImage extends React.Component {
-  render() {
-    return (
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        image={this.props.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-      />
-    );
-  }
-}
-
 export default class SegmentationResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
-      width: null,
+      width: (window.innerWidth - 380)/2,
       height: null,
       mouseOn: null,
       filteredFeatures: null,
@@ -74,8 +59,7 @@ export default class SegmentationResult extends Component {
     // after setState react-konva will update canvas and redraw the layer
     // because "image" property is changed
     this.setState({
-      width: this.state.image.width,
-      height: this.state.image.height,
+      height: (this.state.width / this.state.image.width) * this.state.image.height,
     });
     console.log(this.state.image.width);
     console.log(this.state.image.height);
@@ -204,15 +188,16 @@ export default class SegmentationResult extends Component {
         <React.Fragment>
           <Row>
             <Col span={12}>
-              <Stage width={(window.innerWidth - 380)/2} height={500}>
-                {/* <Stage width={width} height={height}> */}
+              <Stage width={this.state.width} height={this.state.height}>
                 <Layer>
                   {/* For Local Test */}
                   {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-                  <URLImage
+                  <Image
                     image={this.state.image}
                     x={0}
                     y={0}
+                    width={this.state.width}
+                    height={this.state.height}
                   />
                   {this.renderBBox()}
                 </Layer>

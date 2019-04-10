@@ -77,7 +77,11 @@ class ImageInferenceResult extends Component {
                 {this.state.value === 1
                   ? Object.keys(frameworkGroup).map(function(key, index) {
                       return (
-                        <Collapse key={yeast()} style={{ marginTop: "20px" }}>
+                        <Collapse
+                          defaultActiveKey={frameworkGroup.length > 1 ? [] : ['0']}
+                          key={yeast()}
+                          style={{ marginTop: "20px" }}
+                        >
                           <Collapse.Panel header={key} key={index.toString()}>
                             <ResultTab
                               target="model"
@@ -91,7 +95,11 @@ class ImageInferenceResult extends Component {
                     })
                   : Object.keys(modelGroup).map(function(key, index) {
                       return (
-                        <Collapse key={yeast()} style={{ marginTop: "20px" }}>
+                        <Collapse
+                          defaultActiveKey={modelGroup.length > 1 ? [] : ['0']}
+                          key={yeast()}
+                          style={{ marginTop: "20px" }}
+                        >
                           <Collapse.Panel header={key} key={index.toString()}>
                             <ResultTab
                               target="framework"

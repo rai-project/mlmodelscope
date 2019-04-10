@@ -144,7 +144,7 @@ export default class ResultTab extends Component {
     var _this = this;
     console.log(this.data)
     return (
-      <Tabs defaultActiveKey="0">
+      <Tabs defaultActiveKey={this.data.length > 1 ? "0" : "1"}>
         {this.data.length > 1 ? this.renderComparisonPane() : null}
         {this.data.map(function(d, index) {
           return (
