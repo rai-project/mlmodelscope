@@ -64,8 +64,8 @@ class ExperimentPage extends Component {
     }
 
     return (
-      <Layout style={{ margin: "0px 20px 120px 20px" }}>
-        <Content style={{}}>
+      <Layout>
+        <Content>
           <div
             style={{
               background: "#1A263A",
@@ -87,12 +87,14 @@ class ExperimentPage extends Component {
                 {source}
               </div>
             ))}
-            <h2 style={{ marginTop: "60px", marginLeft: "40px", color: "white" }}>
+            <h2 style={{ marginTop: "60px", marginLeft: "5%", color: "white" }}>
               Select the dataset that is most similar to your own
             </h2>
           </div>
 
-          {dataSourceComponent}
+          <div style={{width: "90%", margin: "auto"}}>
+            {dataSourceComponent}
+          </div>
         </Content>
       </Layout>
     );

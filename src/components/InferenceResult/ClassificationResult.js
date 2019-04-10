@@ -44,7 +44,7 @@ export default class ClassificationResult extends Component {
       return null;
     }
     const traceURL = this.traceId
-      ? `http://trace.mlmodelscope.org:16686/trace/${this.traceId}?embed`
+      ? `http://trace.mlmodelscope.org:16686/trace/${this.traceId}?uiEmbed=v0`
       : null;
     const responseHeader = [
       {
@@ -64,8 +64,6 @@ export default class ClassificationResult extends Component {
         <div
           style={{
             marginTop: "40px",
-            marginLeft: "20%",
-            marginRight: "20%"
           }}
         >
           <Table
@@ -74,9 +72,9 @@ export default class ClassificationResult extends Component {
             showHeader={true}
             pagination={false}
             style={{
-              width: "60%",
-              marginLeft: "20%",
-              marginRight: "20%",
+              width: "90%",
+              marginLeft: "5%",
+              marginRight: "5%",
               marginTop: "20px"
             }}
           />

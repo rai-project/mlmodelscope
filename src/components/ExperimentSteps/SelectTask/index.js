@@ -73,11 +73,11 @@ class SelectTask extends Component {
 
   render() {
     return (
-      <Layout style={{ margin: "0px 20px 120px 20px" }}>
-        <Content style={{}}>
+      <Layout>
+        <Content>
           <ExperimentContentTitle text={"Select the Task"} />
 
-          <div>
+          <div style={{width: "90%", margin: "auto"}}>
             <Row gutter={16}>
               {taskList.map((item, index) => (
                 <Col key={yeast()} md={8} sm={12} xs={24} style={{ padding: "10px" }}>

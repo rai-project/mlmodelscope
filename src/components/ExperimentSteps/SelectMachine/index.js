@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import SelectableCard from "../SelectableCard/index";
 import { FrameworkAgents } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
+import ExperimentContentTitle from "../ExperimentContentTitle";
 
 const { Content } = Layout;
 
@@ -39,24 +40,11 @@ class SelectMachine extends Component {
       return <div />;
     }
     return (
-      <Layout style={{ margin: "0px 20px 120px 20px" }}>
-        <Content style={{}}>
-          <div
-            style={{
-              background: "#1A263A",
-              color: "white",
-              paddingTop: "30px",
-              paddingBottom: "60px"
-            }}
-          >
-            <h2
-              style={{ marginTop: "60px", marginLeft: "40px", color: "white" }}
-            >
-              Select the machine
-            </h2>
-          </div>
+      <Layout>
+        <Content>
+          <ExperimentContentTitle text="Select the machine" />
 
-          <div>
+          <div style={{width: "90%", margin: "auto"}}>
             <Row gutter={16}>
               {machineManifests.map((item, index) => {
                 let { gpuinfo } = item;

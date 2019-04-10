@@ -19,6 +19,7 @@ import {
 } from "lodash";
 import { ModelManifests, FrameworkManifests } from "../../../swagger";
 import { ExperimentContext } from "../../../context/ExperimentContext";
+import ExperimentContentTitle from "../ExperimentContentTitle";
 
 const { Content } = Layout;
 const inputDataTypes = {
@@ -227,21 +228,11 @@ class SelectModel extends Component {
     this.modelsKey = modelsKey;
 
     return (
-      <Layout style={{ margin: "0px 20px 120px 20px" }}>
+      <Layout>
         <Content>
-          <div
-            style={{
-              background: "#1A263A",
-              color: "white",
-              paddingTop: "30px",
-              paddingBottom: "60px",
-            }}
-          >
-            <h2 style={{ marginTop: "60px", marginLeft: "40px", color: "white" }}>
-              Select a model
-            </h2>
-          </div>
+          <ExperimentContentTitle text="Select a model" />
 
+          <div style={{width: "90%", margin: "auto"}}>
           <Row>
           {frameworks.map((item, index) => (
             <Col
@@ -344,6 +335,7 @@ class SelectModel extends Component {
               }
             })}
           </Row>
+          </div>
         </Content>
       </Layout>
     );
