@@ -29,7 +29,7 @@ class App extends Component {
             }}
           >
             <GlobalHeader breakpoint={850} />
-            <Layout.Content style={{ flex: 1 }}>
+            <Layout.Content style={{ flex: 1, marginTop: "64px" }}>
               <Error>
                 <Router />
               </Error>

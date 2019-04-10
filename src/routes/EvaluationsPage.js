@@ -9,7 +9,7 @@ import AboutContent from "!raw-loader!./../docs/about.md";
 export default class EvaluationsPage extends Component {
   render() {
     return (
-      <Layout.Content style={{ marginTop: "60px", marginLeft: "40px", padding: "30px" }}>
+      <Layout.Content style={{ marginLeft: "40px", padding: "30px" }}>
         <Helmet title="About" meta={[{ property: "og:title", content: "About" }]} />
         <Markdown source={AboutContent} />
       </Layout.Content>

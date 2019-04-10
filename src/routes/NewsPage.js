@@ -10,7 +10,7 @@ export default class NewsPage extends Component {
   render() {
     console.log(news);
     return (
-      <Content style={{ marginTop: "60px", marginLeft: "40px", padding: "30px" }}>
+      <Content style={{ marginLeft: "40px", padding: "30px" }}>
         <Helmet title="News" meta={[{ property: "og:title", content: "News" }]} />
         {
           news.map(data => {
