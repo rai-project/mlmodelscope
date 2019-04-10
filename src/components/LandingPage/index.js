@@ -12,7 +12,7 @@ const { Content } = Layout;
 export default class LandingPage extends Component {
   render() {
     return (
-      <Content style={{ marginTop: "50px", marginBottom: "50px" }}>
+      <Content style={{ marginBottom: "50px" }}>
         <Hero breakpoint={850} />
         <Features breakpoint={1010} />
         <Users breakpoint={1010} />
