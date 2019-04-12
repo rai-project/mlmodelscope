@@ -22,14 +22,11 @@ function getRandomInt(max) {
 }
 
 function getRandomColor() {
-  var color = new Array(3)
-  // TODO: magically, change to random color will cause filter not work
-  // for (var i = 0; i < 3; i++) {
-  //   color[i] = getRandomInt(225);
-  // }
-  color[0] = 232;
-  color[1] = 74;
-  color[2] = 39;
+  var color = new Array(4)
+  for (var i = 0; i < 3; i++) {
+    color[i] = getRandomInt(225);
+  }
+  color[3] = 255;
   return color;
 }
 
@@ -46,86 +43,40 @@ class BBoxLabel extends Component {
   }
 }
 
-class URLImage extends Component {
-  render() {
-    return (
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        width={this.props.width}
-        height={this.props.height}
-        image={this.props.image}
-      />
-    );
-  }
-}
-
-class MaskImage extends Component {
-  componentDidMount() {
-    this.imageNode.cache();
-  }
-
-  componentWillUnmount() {
-    this.imageNode.clearCache();
-  }
-
-  render() {
-    return (
-      <Image
-        id={this.props.id}
-        filters={[Konva.Filters.Mask]}
-        threshold={10}
-        x={this.props.x}
-        y={this.props.y}
-        width={this.props.width}
-        height={this.props.height}
-        image={this.props.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-        onMouseEnter={this.props.onMouseEnter}
-        onMouseLeave={this.props.onMouseLeave}
-      />
-    );
-  }
-}
-
-
 class Mask extends Component {
   constructor(props) {
     super(props);
     this.imageWidth = props.width;
     this.imageHeight = props.height;
+    this.color = props.color;
     this.floatmask = props.instance_segment.float_mask;
     this.instanceWidth = props.instance_segment.width;
     this.instanceHeight = props.instance_segment.height;
-    this.maskImage = new Array(this.floatmask.length * 3);
+    this.maskImage = new Array(this.floatmask.length * 4);
   }
 
   convertFloatMaskToImage() {
-    var white = [255, 255, 255];
-    var fill = getRandomColor();
+    var white = [255, 255, 255, 0];
     for (let i = 0; i < this.floatmask.length; i++) {
-      var color = this.floatmask[i] >= 0.5 ? fill : white;
-      this.maskImage[i*3] = color[0];
-      this.maskImage[i*3+1] = color[1];
-      this.maskImage[i*3+2] = color[2];
+      var color = this.floatmask[i] >= 0.5 ? this.color : white;
+      this.maskImage[i*4] = color[0];
+      this.maskImage[i*4+1] = color[1];
+      this.maskImage[i*4+2] = color[2];
+      this.maskImage[i*4+3] = color[3];
     }
   }
 
   render() {
     this.convertFloatMaskToImage();
-    var img = new Imagejs(this.instanceWidth, this.instanceHeight, this.maskImage, {kind: "RGB"})
-    var rgbaimg = img.rgba8();
+    var img = new Imagejs(this.instanceWidth, this.instanceHeight, this.maskImage, {kind: "RGBA"})
     var image = new window.Image();
-    image.src = rgbaimg.toDataURL();
-    console.log(rgbaimg.toDataURL());
+    image.src = img.toDataURL();
     var x1 = Math.round(this.props.instance_segment.xmin * this.imageWidth);
     var x2 = Math.round(this.props.instance_segment.xmax * this.imageWidth);
     var y1 = Math.round(this.props.instance_segment.ymin * this.imageHeight);
     var y2 = Math.round(this.props.instance_segment.ymax * this.imageHeight);
     return(
-      <MaskImage
+      <Image
         key={yeast()}
         id={this.props.id}
         image={image}
@@ -143,13 +94,21 @@ class Mask extends Component {
 export default class InstanceSegmentationResult extends Component {
   constructor(props) {
     super(props);
+    var filteredFeatures = filter(props.features, function(o) {
+      return o.probability >= 0.95;
+    });
+    var maskColors = [];
+    for (var i = 0; i < filteredFeatures.length; i++) {
+      maskColors.push(getRandomColor())
+    } 
     this.state = {
       image: null,
       width: (window.innerWidth - 380)/2,
       height: null,
       mouseOn: null,
       filterValue: 0.95,
-      filteredFeatures: null,
+      filteredFeatures: filteredFeatures,
+      maskColors: maskColors,
     };
   }
 
@@ -188,7 +147,9 @@ export default class InstanceSegmentationResult extends Component {
 
   handleMouseEnter = e => {
     console.log(e);
-    this.setState({ mouseOn: e.currentTarget.attrs.id });
+    if (e.currentTarget.attrs.id !== this.state.mouseOn) {
+      this.setState({ mouseOn: e.currentTarget.attrs.id });
+    }
   };
 
   handleMouseLeave = e => {
@@ -239,6 +200,7 @@ export default class InstanceSegmentationResult extends Component {
   renderInstanceMask() {
     var width = this.state.width;
     var height = this.state.height;
+    var maskColors = this.state.maskColors;
     return this.state.filteredFeatures.map((data, index) => {
       return(
         <Mask
@@ -247,6 +209,7 @@ export default class InstanceSegmentationResult extends Component {
           instance_segment={data["instance_segment"]}
           width={width}
           height={height}
+          color={maskColors[index]}
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         />
@@ -303,15 +266,28 @@ export default class InstanceSegmentationResult extends Component {
     )
   }
 
+  handleChangeFilter = (value) => {
+    console.log(this.props.features)
+    var filteredFeatures = filter(this.props.features, function(o) {
+      return o.probability >= value;
+    });
+    var maskColors = this.state.maskColors;
+    for (var i = maskColors.length; i < filteredFeatures.length; i++) {
+      maskColors.push(getRandomColor())
+    }
+    this.setState({
+      filterValue: value,
+      filteredFeatures: filteredFeatures,
+      maskColors: maskColors
+    })
+  }
+
   render() {
     if (this.state.height === null) {
       return null;
     }
     
     var filterValue = this.state.filterValue;
-    this.state.filteredFeatures = filter(this.props.features, function(o) {
-      return o.probability >= filterValue;
-    })
 
     return (
       <React.Fragment>
@@ -319,15 +295,15 @@ export default class InstanceSegmentationResult extends Component {
           min={50}
           max={100}
           default={filterValue}
-          onChange={(value) => this.setState({filterValue: value})}
+          onChange={this.handleChangeFilter}
         />
         <Row style={{marginTop: "20px"}}>
           <Col span={12}>
             <Stage width={this.state.width} height={this.state.height}>
-              <Layer>
+              <Layer listening={false}>
                 {/* For Local Test */}
                 {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-                <URLImage
+                <Image
                   image={this.state.image}
                   x={0}
                   y={0}
@@ -336,7 +312,7 @@ export default class InstanceSegmentationResult extends Component {
                 />
                 {this.renderBBox()}
               </Layer>
-              <Layer opacity={0.5}>
+              <Layer opacity={0.7}>
                 {this.renderInstanceMask()}
               </Layer>
             </Stage>
