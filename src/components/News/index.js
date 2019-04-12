@@ -45,6 +45,7 @@ export default class News extends Component {
           this.props.data.images.length > 0 &&
             <ImageCarousel images={this.props.data.images}/>
         }
+        iconSize={6}
         link={<LearnMore link={this.props.data.link} />}
       >
         {dateToYMD(new Date(this.props.data.date)) + "\n" + this.props.data.content}
