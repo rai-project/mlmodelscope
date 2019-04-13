@@ -76,7 +76,7 @@ export const PanelsHeading = function({ isMobile = false, children, style = {} }
 
 export const LearnMoreButton = function({ link }) {
   return (
-    <Button ghost type="dashed" href={link}>
+    <Button ghost type="dashed" href={(link = "http://docs.mlmodelscope.org")}>
       <div style={{ color: TextColor }}>
         Learn More
         <Icon type="right" />
@@ -136,15 +136,17 @@ const Panel = function({
         {position === "left" || isMobile ? (
           <React.Fragment>
             <Col span={isMobile ? 20 : 12}>{text}</Col>
-            {isMobile ? null : (
-              icon && <Col span={3} offset={2}>
-                {icon}
-              </Col>
-            )}
+            {isMobile
+              ? null
+              : icon && (
+                  <Col span={3} offset={2}>
+                    {icon}
+                  </Col>
+                )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            { icon && <Col span={3}>{icon}</Col> }
+            {icon && <Col span={3}>{icon}</Col>}
             <Col span={isMobile ? 20 : 12} offset={icon ? 2 : 0}>
               {text}
             </Col>

@@ -129,7 +129,7 @@ class Hero extends Component {
                   }}
                 >
                   <a
-                    href="/experiment"
+                    href="/demo"
                     style={{
                       color: "white",
                       margin: "auto",
