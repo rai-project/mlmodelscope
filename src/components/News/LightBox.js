@@ -124,7 +124,7 @@ export default class LightBox extends Component {
                     <img
                       alt=""
                       src={news_images("./" + src)}
-                      style={{ maxHeight: "100%", maxWidth: "100%" }}
+                      style={{ width: "100%" }}
                     />
                   </div>
                 );

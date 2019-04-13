@@ -7,7 +7,7 @@ var news_images = require.context("../../resources/news", true);
 export default class News extends Component {
   render() {
     return (
-      <Carousel autoplay>
+      <Carousel autoplay dots="false">
         {this.props.images.map(src => {
           return <img key={yeast()} alt="" src={news_images("./" + src)} />;
         })}
