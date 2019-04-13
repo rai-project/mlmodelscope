@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Col, Row, Layout, Icon, Divider, Dropdown, Menu, Tag, Checkbox } from "antd";
 import yeast from "yeast";
 import semver from "semver";
-import { capitalize, remove, indexOf, orderBy } from "lodash";
+import { capitalize, remove, indexOf, orderBy, lowerCase, upperCase } from "lodash";
 import { withRouter } from "react-router-dom";
 import {
   map,
@@ -22,22 +22,37 @@ import { ExperimentContext } from "../../../context/ExperimentContext";
 import ExperimentContentTitle from "../ExperimentContentTitle";
 
 const { Content } = Layout;
+const typeIcons = {
+  unknown: { icon: "question" },
+  image: { icon: "picture" },
+  text: { icon: "file-text" },
+  audio: { icon: "sound" },
+  classification: { icon: "appstore" },
+  geolocation: { icon: "compass" },
+  region: { icon: "global" },
+  semanticsegment: { icon: "radius-bottomleft" },
+  instancesegment: { icon: "border-bottom" },
+  text: { icon: "file-text" },
+  audio: { icon: "sound" },
+  boundingbox: { icon: "border" },
+  raw: { icon: "file-text" },
+};
 const inputDataTypes = {
-  "image": { "icon": "picture" },
-  "text": { "icon": "file-text" },
-  "audio": { "icon": "sound" },
+  image: { icon: "picture" },
+  text: { icon: "file-text" },
+  audio: { icon: "sound" },
 };
 const outputDataTypes = {
-  "UNKNOWN": { "icon": "question" },
-  "IMAGE": { "icon": "picture" },
-  "CLASSIFICATION": { "icon": "appstore" },
-  "GEOLOCATION": { "icon": "compass" },
-  "REGION": { "icon": "global" },
-  "TEXT": { "icon": "file-text" },
-  "AUDIO": { "icon": "sound" },
-  "BOUNDINGBOX": { "icon": "border" },
-  "RAW": { "icon": "file-text" },
-}
+  UNKNOWN: { icon: "question" },
+  IMAGE: { icon: "picture" },
+  CLASSIFICATION: { icon: "appstore" },
+  GEOLOCATION: { icon: "compass" },
+  REGION: { icon: "global" },
+  TEXT: { icon: "file-text" },
+  AUDIO: { icon: "sound" },
+  BOUNDINGBOX: { icon: "border" },
+  RAW: { icon: "file-text" },
+};
 
 var logos = require.context("../../../resources/logos", true);
 function frameworkLogo(frameworkName) {
@@ -52,9 +67,24 @@ function frameworkLogo(frameworkName) {
 }
 
 function typeRender({ type }) {
-  if (type in inputDataTypes) {
+  if (lowerCase(type) in typeIcons) {
+    type = lowerCase(type);
+    return <Icon key={yeast()} type={typeIcons[type]["icon"]} />;
+  }
+  if (lowerCase(type) in inputDataTypes) {
+    type = lowerCase(type);
     return <Icon key={yeast()} type={inputDataTypes[type]["icon"]} />;
-  } else if (type in outputDataTypes) {
+  }
+  if (upperCase(type) in inputDataTypes) {
+    type = upperCase(type);
+    return <Icon key={yeast()} type={inputDataTypes[type]["icon"]} />;
+  }
+  if (lowerCase(type) in outputDataTypes) {
+    type = lowerCase(type);
+    return <Icon key={yeast()} type={outputDataTypes[type]["icon"]} />;
+  }
+  if (upperCase(type) in outputDataTypes) {
+    type = upperCase(type);
     return <Icon key={yeast()} type={outputDataTypes[type]["icon"]} />;
   }
   return <Icon key={yeast()} type="cluster" />;
@@ -171,7 +201,7 @@ class SelectModel extends Component {
 
   renderSelectedOutputFlags() {
     return this.state.selectedOutputDataType.map(t => {
-      console.log(t);
+      // console.log(t);
       return (
         <Tag
           key={t}
@@ -189,9 +219,9 @@ class SelectModel extends Component {
     // console.log(e.target)
     if (e.target.checked === true) {
       this.props.context.addFramework(item.name, item.version);
-      console.log(true)
+      console.log(true);
     } else {
-      console.log(false)
+      console.log(false);
       this.props.context.removeFramework(index);
     }
   }
@@ -202,7 +232,7 @@ class SelectModel extends Component {
     if (!isArray(models) || !isArray(frameworks)) {
       return <div />;
     }
-    console.log(this.props.context)
+    // console.log(this.props.context);
 
     // Filter by selected framework
     const selectedFrameworks = this.props.context.frameworks;
@@ -216,7 +246,9 @@ class SelectModel extends Component {
     var selectedTask = this.props.context.task;
     if (selectedTask !== null) {
       models = filter(models, function(o) {
-        return o.inputs[0].type === selectedTask.input && o.output.type === selectedTask.output;
+        return (
+          o.inputs[0].type === selectedTask.input && o.output.type === selectedTask.output
+        );
       });
     }
 
@@ -232,109 +264,111 @@ class SelectModel extends Component {
         <Content>
           <ExperimentContentTitle text="Select a model" />
 
-          <div style={{width: "90%", margin: "auto"}}>
-          <Row>
-          {frameworks.map((item, index) => (
-            <Col
-              key={"model-"+index.toString()}
-              sm={4}
-              xs={8}
-              style={{ paddingBottom: "10px", paddingTop: "10px" }}>
-              {frameworkLogo(item.name.toLowerCase())}
-              <Checkbox onChange={(e) => this.handleCheck(e, item, index)}>
-                {item.name + " V" + item.version}
-              </Checkbox>
-            </Col>
-          ))}
-          </Row>
+          <div style={{ width: "90%", margin: "auto" }}>
+            <Row>
+              {frameworks.map((item, index) => (
+                <Col
+                  key={"model-" + index.toString()}
+                  sm={4}
+                  xs={8}
+                  style={{ paddingBottom: "10px", paddingTop: "10px" }}
+                >
+                  {frameworkLogo(item.name.toLowerCase())}
+                  <Checkbox onChange={e => this.handleCheck(e, item, index)}>
+                    {item.name + " V" + item.version}
+                  </Checkbox>
+                </Col>
+              ))}
+            </Row>
 
-          <Row gutter={16} type="flex" justify="space-around" align="middle">
-            {modelsKey.map(key => {
-              const model = models[key];
-              // console.log(model);
-              const isSelected = !isNil(
-                find(
-                  this.props.context.models,
-                  e =>
-                    e.name === model.name &&
-                    versionSatisfied(e.version, model.version) &&
-                    e.framework.name === model.framework.name &&
-                    versionSatisfied(e.framework.version, model.framework.version)
-                )
-              );
+            <Row gutter={16} type="flex" justify="space-around" align="middle">
+              {modelsKey.map(key => {
+                const model = models[key];
+                // console.log(model);
+                const isSelected = !isNil(
+                  find(
+                    this.props.context.models,
+                    e =>
+                      e.name === model.name &&
+                      versionSatisfied(e.version, model.version) &&
+                      e.framework.name === model.framework.name &&
+                      versionSatisfied(e.framework.version, model.framework.version)
+                  )
+                );
 
-              const menu = (
-                <Menu>
-                  <Menu.Item>int8</Menu.Item>
-                  <Menu.Item>
-                    {/* <a
+                const menu = (
+                  <Menu>
+                    <Menu.Item>int8</Menu.Item>
+                    <Menu.Item>
+                      {/* <a
                       target="_blank"
                       rel="noopener noreferrer"
                       href="http://www.alipay.com/"
                     > */}
-                    float16
-                    {/* </a> */}
-                  </Menu.Item>
-                  <Menu.Item>float32</Menu.Item>
-                </Menu>
-              );
-
-              if (
-                (this.state.selectedInputDataType.length === 0 ||
-                  indexOf(this.state.selectedInputDataType, model.inputs[0].type) >= 0) &&
-                (this.state.selectedOutputDataType.length === 0 ||
-                  indexOf(this.state.selectedOutputDataType, model.output.type) >= 0)
-              ) {
-                return (
-                  <Col
-                    key={`model-${key}`}
-                    sm={8}
-                    xs={24}
-                    style={{ paddingBottom: "10px", paddingTop: "10px" }}
-                  >
-                    <SelectableCard
-                      title={model.name + " V" + model.version}
-                      content={truncate(model.description, {
-                        length: 140,
-                        separator: " ",
-                      })}
-                      descriptionTitle={`${model.name} Information`}
-                      description={model.description}
-                      minHeight="200px"
-                      onClick={() => this.handleSelect(isSelected, key)}
-                      selected={isSelected}
-                    >
-                      <Row
-                        onClick={e => e.stopPropagation()}
-                        type="flex"
-                        justify="end"
-                        align="bottom"
-                        style={{ color: "#aaa", fontSize: "10pt" }}
-                      >
-                        <Divider orientation="right">
-                          <div style={{ color: "#aaa", fontSize: "10pt" }}>Options</div>
-                        </Divider>
-                        <Col span={4}>
-                          {frameworkLogo(model.framework.name.toLowerCase())}
-                        </Col>
-                        <Col span={8} offset={2}>
-                          ({map(model.inputs, typeRender)}) → {typeRender(model.output)}
-                        </Col>
-
-                        <Col span={8} offset={2}>
-                          <Dropdown overlay={menu}>
-                            <>
-                              data type <Icon type="down" />
-                            </>
-                          </Dropdown>
-                        </Col>
-                      </Row>
-                    </SelectableCard>
-                  </Col>
+                      float16
+                      {/* </a> */}
+                    </Menu.Item>
+                    <Menu.Item>float32</Menu.Item>
+                  </Menu>
                 );
-              }
-            })}
-          </Row>
+
+                if (
+                  (this.state.selectedInputDataType.length === 0 ||
+                    indexOf(this.state.selectedInputDataType, model.inputs[0].type) >=
+                      0) &&
+                  (this.state.selectedOutputDataType.length === 0 ||
+                    indexOf(this.state.selectedOutputDataType, model.output.type) >= 0)
+                ) {
+                  return (
+                    <Col
+                      key={`model-${key}`}
+                      sm={8}
+                      xs={24}
+                      style={{ paddingBottom: "10px", paddingTop: "10px" }}
+                    >
+                      <SelectableCard
+                        title={model.name + " V" + model.version}
+                        content={truncate(model.description, {
+                          length: 140,
+                          separator: " ",
+                        })}
+                        descriptionTitle={`${model.name} Information`}
+                        description={model.description}
+                        minHeight="200px"
+                        onClick={() => this.handleSelect(isSelected, key)}
+                        selected={isSelected}
+                      >
+                        <Row
+                          onClick={e => e.stopPropagation()}
+                          type="flex"
+                          justify="end"
+                          align="bottom"
+                          style={{ color: "#aaa", fontSize: "10pt" }}
+                        >
+                          <Divider orientation="right">
+                            <div style={{ color: "#aaa", fontSize: "10pt" }}>Options</div>
+                          </Divider>
+                          <Col span={4}>
+                            {frameworkLogo(model.framework.name.toLowerCase())}
+                          </Col>
+                          <Col span={8} offset={2}>
+                            ({map(model.inputs, typeRender)}) → {typeRender(model.output)}
+                          </Col>
+
+                          <Col span={8} offset={2}>
+                            <Dropdown overlay={menu}>
+                              <>
+                                data type <Icon type="down" />
+                              </>
+                            </Dropdown>
+                          </Col>
+                        </Row>
+                      </SelectableCard>
+                    </Col>
+                  );
+                }
+              })}
+            </Row>
           </div>
         </Content>
       </Layout>

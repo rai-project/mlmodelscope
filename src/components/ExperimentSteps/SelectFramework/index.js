@@ -120,7 +120,7 @@ class SelectFramework extends Component {
                   >
                     <Meta
                       title={item.name + " V" + item.version}
-                      description="Description: TODO"
+                      {/*description="Description: TODO"*/}
                     />
                   </SelectableCard>
                 </Col>

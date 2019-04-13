@@ -19,6 +19,9 @@ const trace_options = [
   { key: 6, text: "Full", value: "FULL_TRACE" },
 ];
 
+const primaryColor = "#1a253a";
+const orangeColor = "#e94a36"
+
 class ExperimentSetupSider extends Component {
   constructor(props) {
     super(props);
@@ -96,11 +99,13 @@ class ExperimentSetupSider extends Component {
           <Menu.Item
             key="task"
             style={{
+              margin: 0,
               paddingTop: "30px",
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
+              backgroundColor: this.props.context.currentPage === "task" ? orangeColor : "white",
             }}
           >
             <div style={{color: this.props.context.currentPage === "task" ? "white" : "black"}}>TASKS</div>
@@ -114,35 +119,38 @@ class ExperimentSetupSider extends Component {
           <Menu.Item
             key="model"
             style={{
+              margin: 0,
               paddingTop: "30px",
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
+              backgroundColor: this.props.context.currentPage === "model" ? orangeColor : "white",
             }}
           >
             <div style={{color: this.props.context.currentPage === "model" ? "white" : "black"}}>MODELS</div>
             {this.props.context.models.map((model, index) => (
-              <div key={yeast()}>
                 <Tag
                   closable
+                  key={yeast()}
                   style={{ zIndex: 1, height: "auto", whiteSpace: "pre-wrap" }}
                   onClose={() => this.handleClose(this.props.context, index)}
                 >
                   {model.framework.name + " " + model.name + " v" + model.version}
                 </Tag>
-              </div>
             ))}
           </Menu.Item>
 
           <Menu.Item
             key="machine"
             style={{
+              margin: 0,
               paddingTop: "30px",
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
+              backgroundColor: this.props.context.currentPage === "machine" ? orangeColor : "white",
             }}
           >
             <div style={{color: this.props.context.currentPage === "machine" ? "white" : "black"}}>MACHINES</div>
@@ -161,11 +169,13 @@ class ExperimentSetupSider extends Component {
           <Menu.Item
             key="dataset"
             style={{
+              margin: 0,
               paddingTop: "30px",
               paddingBottom: "30px",
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
+              backgroundColor: this.props.context.currentPage === "dataset" ? orangeColor : "white",
             }}
           >
             <div style={{color: this.props.context.currentPage === "dataset" ? "white" : "black"}}>DATASET</div>
@@ -183,7 +193,7 @@ class ExperimentSetupSider extends Component {
        </Menu>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
-          <div style={{ display: "inline-block", color: "white" }}>Using GPU: </div>
+          <div style={{ display: "inline-block", color: "white" }}>Use GPU: </div>
           <div
             style={{
               float: "right",
