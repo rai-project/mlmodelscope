@@ -15,37 +15,37 @@ const taskList = [
     input: "image",
     output: "classification",
     image: "classification.png",
-    description: "Assigning an input image one label from a fixed set of categories"
+    description: "Assigning an input image one label from a fixed set of categories",
   },
   {
     name: "Object Detection",
     input: "image",
     output: "boundingbox",
     image: "objectDetection.png",
-    description: "Detecting instances of semantic objects such as humans, buildings, or cars in images"
+    description: "Detecting instances of semantic objects in images",
   },
   {
     name: "Semantic Segmentation",
     input: "image",
     output: "semanticsegment",
     image: "semanticSegmentation.png",
-    description: "Label each pixel in the image with a category label"
+    description: "Label each pixel in the image with a category label",
   },
   {
     name: "Instance Segmentation",
     input: "image",
     output: "instancesegment",
     image: "instanceSegmentation.png",
-    description: "Label each foreground pixel with object and instance"
+    description: "Label each foreground pixel with object and instance",
   },
   {
     name: "Image Enhancement",
     input: "image",
     output: "image",
     image: "imageEnhancement.png",
-    description: "Improving the quality and the information content of original image"
-  }
-]
+    description: "Improving the quality and the information content of original image",
+  },
+];
 
 var logos = require.context("../../../resources/taskSample", true);
 function taskImage(task) {
@@ -61,9 +61,9 @@ function taskImage(task) {
 
 class SelectTask extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     if (this.props.context.task === null) {
-      this.props.context.setTask(taskList[0])
+      this.props.context.setTask(taskList[0]);
     }
   }
 
@@ -77,22 +77,17 @@ class SelectTask extends Component {
         <Content>
           <ExperimentContentTitle text={"Select the Task"} />
 
-          <div style={{width: "90%", margin: "auto"}}>
+          <div style={{ width: "90%", margin: "auto" }}>
             <Row gutter={16} type={"flex"}>
               {taskList.map((item, index) => (
                 <Col key={yeast()} md={8} sm={12} xs={24} style={{ padding: "10px" }}>
                   <SelectableCard
                     tooltip={true}
-                    onClick={() =>
-                      this.props.context.setTask(item)
-                    }
+                    onClick={() => this.props.context.setTask(item)}
                     cover={taskImage(item)}
                     selected={this.isSelected(item)}
                   >
-                    <Meta
-                      title={item.name}
-                      description={item.description}
-                    />
+                    <Meta title={item.name} description={item.description} />
                   </SelectableCard>
                 </Col>
               ))}
