@@ -79,7 +79,7 @@ class DetailedFeatures extends Component {
             classification, segmentation, image enhancement, and object detection are
             supported.
           </FeatureCard>
-          <FeatureCard title={"Popular Framework"}>
+          <FeatureCard title={"Framework Integration"}>
             Compare performance and accuracy results for the same models across
             frameworks. Side-by-side comparison results clearly reveal the pros and cons
             of various framework.
