@@ -20,7 +20,7 @@ const trace_options = [
 ];
 
 const primaryColor = "#1a253a";
-const orangeColor = "#e94a36"
+const orangeColor = "#e94a36";
 
 class ExperimentSetupSider extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class ExperimentSetupSider extends Component {
       ).then(result => context.setPredictResult(result));
       console.log(context);
     }
-    context.setPage(key)
+    context.setPage(key);
   }
 
   handleClickResult() {
@@ -105,14 +105,19 @@ class ExperimentSetupSider extends Component {
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
-              backgroundColor: this.props.context.currentPage === "task" ? orangeColor : "white",
+              backgroundColor:
+                this.props.context.currentPage === "task" ? orangeColor : "white",
             }}
           >
-            <div style={{color: this.props.context.currentPage === "task" ? "white" : "black"}}>TASKS</div>
+            <div
+              style={{
+                color: this.props.context.currentPage === "task" ? "white" : "black",
+              }}
+            >
+              TASKS
+            </div>
             {this.props.context.task !== null && (
-              <Tag>
-                {this.props.context.task.name}
-              </Tag>
+              <Tag>{this.props.context.task.name}</Tag>
             )}
           </Menu.Item>
 
@@ -125,19 +130,26 @@ class ExperimentSetupSider extends Component {
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
-              backgroundColor: this.props.context.currentPage === "model" ? orangeColor : "white",
+              backgroundColor:
+                this.props.context.currentPage === "model" ? orangeColor : "white",
             }}
           >
-            <div style={{color: this.props.context.currentPage === "model" ? "white" : "black"}}>MODELS</div>
+            <div
+              style={{
+                color: this.props.context.currentPage === "model" ? "white" : "black",
+              }}
+            >
+              MODELS
+            </div>
             {this.props.context.models.map((model, index) => (
-                <Tag
-                  closable
-                  key={yeast()}
-                  style={{ zIndex: 1, height: "auto", whiteSpace: "pre-wrap" }}
-                  onClose={() => this.handleClose(this.props.context, index)}
-                >
-                  {model.framework.name + " " + model.name + " v" + model.version}
-                </Tag>
+              <Tag
+                closable
+                key={yeast()}
+                style={{ zIndex: 1, height: "auto", whiteSpace: "pre-wrap" }}
+                onClose={() => this.handleClose(this.props.context, index)}
+              >
+                {model.framework.name + " " + model.name + " v" + model.version}
+              </Tag>
             ))}
           </Menu.Item>
 
@@ -150,10 +162,17 @@ class ExperimentSetupSider extends Component {
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
-              backgroundColor: this.props.context.currentPage === "machine" ? orangeColor : "white",
+              backgroundColor:
+                this.props.context.currentPage === "machine" ? orangeColor : "white",
             }}
           >
-            <div style={{color: this.props.context.currentPage === "machine" ? "white" : "black"}}>MACHINES</div>
+            <div
+              style={{
+                color: this.props.context.currentPage === "machine" ? "white" : "black",
+              }}
+            >
+              MACHINES
+            </div>
             {this.props.context.machines.map((machine, index) => (
               <div key={yeast()}>
                 <Tag
@@ -175,10 +194,17 @@ class ExperimentSetupSider extends Component {
               paddingleft: "40px",
               minHeight: "60px",
               height: "auto",
-              backgroundColor: this.props.context.currentPage === "dataset" ? orangeColor : "white",
+              backgroundColor:
+                this.props.context.currentPage === "dataset" ? orangeColor : "white",
             }}
           >
-            <div style={{color: this.props.context.currentPage === "dataset" ? "white" : "black"}}>DATASET</div>
+            <div
+              style={{
+                color: this.props.context.currentPage === "dataset" ? "white" : "black",
+              }}
+            >
+              DATASET
+            </div>
             {this.props.context.imageUrls.length !== 0 && (
               <Tag closable onClose={() => this.props.context.removeUrls()}>
                 Import from URLs
@@ -190,7 +216,7 @@ class ExperimentSetupSider extends Component {
               </Tag>
             )}
           </Menu.Item>
-       </Menu>
+        </Menu>
 
         <div style={{ paddingLeft: "24px", marginTop: "30px" }}>
           <div style={{ display: "inline-block", color: "white" }}>Use GPU: </div>
@@ -269,7 +295,7 @@ class ExperimentSetupSider extends Component {
           <PrimaryButton
             disabled={this.disableResultButton()}
             style={{ width: "100%" }}
-            text={"Result"}
+            text={"Results"}
             onClick={() => this.handleClickResult()}
           />
         </div>

@@ -1,6 +1,6 @@
-import './Buttons.css';
-import React, { Component } from 'react';
-import { Button, Icon } from 'antd';
+import "./Buttons.css";
+import React, { Component } from "react";
+import { Button, Icon } from "antd";
 
 export default class PrimaryButton extends Component {
   render() {
@@ -16,6 +16,6 @@ export default class PrimaryButton extends Component {
         {this.props.text}
         <Icon type="right" />
       </Button>
-    )
+    );
   }
 }
