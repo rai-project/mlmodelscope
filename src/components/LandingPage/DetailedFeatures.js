@@ -32,7 +32,7 @@ const FeatureRow = function({ isMobile, children }) {
 const FeatureCard = function({ title, children }) {
   return (
     <Col
-      xxl={4}
+      xxl={8}
       xl={8}
       lg={16}
       md={16}
@@ -74,12 +74,12 @@ class DetailedFeatures extends Component {
       <React.Fragment>
         <PanelsHeading>Features</PanelsHeading>
         <FeatureRow isMobile={isMobile}>
-          <FeatureCard title={"Model Agnostic"}>
+          <FeatureCard title={"Over 300 Models"}>
             Run hundreds of builtin models that span modalities. All popular models for
             classification, segmentation, image enhancement, and object detection are
             supported.
           </FeatureCard>
-          <FeatureCard title={"Framework Agnostic"}>
+          <FeatureCard title={"Popular Framework"}>
             Compare performance and accuracy results for the same models across
             frameworks. Side-by-side comparison results clearly reveal the pros and cons
             of various framework.
