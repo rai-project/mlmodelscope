@@ -8,7 +8,7 @@ export default class ExperimentProvider extends Component {
     this.state = {
       currentPage: "task",
       batchSize: 1,
-      traceLevel: "FULL_TRACE",
+      traceLevel: "FRAMEWORK_TRACE",
       useGPU: false,
       isPredicting: false,
       task: null,
