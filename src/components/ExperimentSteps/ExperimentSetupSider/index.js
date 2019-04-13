@@ -77,7 +77,7 @@ class ExperimentSetupSider extends Component {
     return (
       <Sider
         width="300"
-        style={{ width: "30%" }}
+        style={{ width: "30%", backgroundColor: primaryColor }}
         collapsible
         // collapsed={this.state.collapsed}
         collapsedWidth={0}

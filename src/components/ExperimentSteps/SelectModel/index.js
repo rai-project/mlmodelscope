@@ -61,7 +61,7 @@ function frameworkLogo(frameworkName) {
     <img
       src={image}
       alt={frameworkName}
-      style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+      style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}
     />
   );
 }
