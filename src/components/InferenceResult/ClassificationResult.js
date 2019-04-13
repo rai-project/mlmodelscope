@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import idx from "idx"
 import { sortBy, isNil, toUpper } from "lodash";
 import { Table } from "antd";
-import TraceInfo from "./TraceInfo";
 
 function processNameClassification({ classification: { label } }) {
   const lower = label
@@ -34,8 +33,6 @@ function processResponseFeatures(response) {
 export default class ClassificationResult extends Component {
   constructor(props) {
     super(props);
-    this.traceId = this.props.traceId;
-    this.displayTrace = this.props.displayTrace;
     this.features = this.props.features
   }
  
@@ -43,9 +40,6 @@ export default class ClassificationResult extends Component {
     if (isNil(this.features)) {
       return null;
     }
-    const traceURL = this.traceId
-      ? `http://trace.mlmodelscope.org:16686/trace/${this.traceId}?uiEmbed=v0`
-      : null;
     const responseHeader = [
       {
         title: "Name",
@@ -60,29 +54,23 @@ export default class ClassificationResult extends Component {
     ];
     
     return (
-      <div>
-        <div
+      <div
+        style={{
+          marginTop: "40px",
+        }}
+      >
+        <Table
+          dataSource={processResponseFeatures(this.features)}
+          columns={responseHeader}
+          showHeader={true}
+          pagination={false}
           style={{
-            marginTop: "40px",
+            width: "90%",
+            marginLeft: "5%",
+            marginRight: "5%",
+            marginTop: "20px"
           }}
-        >
-          <Table
-            dataSource={processResponseFeatures(this.features)}
-            columns={responseHeader}
-            showHeader={true}
-            pagination={false}
-            style={{
-              width: "90%",
-              marginLeft: "5%",
-              marginRight: "5%",
-              marginTop: "20px"
-            }}
-          />
-        </div>
-
-        {this.displayTrace && this.traceId ? (
-          <TraceInfo traceURL={traceURL} traceID={this.traceId} />
-        ) : null}
+        />
       </div>
     );
   }

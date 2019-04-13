@@ -15,35 +15,35 @@ const taskList = [
     input: "image",
     output: "classification",
     image: "classification.png",
-    description: "TODO"
+    description: "Assigning an input image one label from a fixed set of categories"
   },
   {
     name: "Object Detection",
     input: "image",
     output: "boundingbox",
     image: "objectDetection.png",
-    description: "TODO"
+    description: "Detecting instances of semantic objects such as humans, buildings, or cars in images"
   },
   {
     name: "Semantic Segmentation",
     input: "image",
     output: "semanticsegment",
     image: "semanticSegmentation.png",
-    description: "TODO"
+    description: "Label each pixel in the image with a category label"
   },
   {
     name: "Instance Segmentation",
     input: "image",
     output: "instancesegment",
     image: "instanceSegmentation.png",
-    description: "TODO"
+    description: "Label each foreground pixel with object and instance"
   },
   {
     name: "Image Enhancement",
     input: "image",
     output: "image",
     image: "imageEnhancement.png",
-    description: "TODO"
+    description: "Improving the quality and the information content of original image"
   }
 ]
 
@@ -78,7 +78,7 @@ class SelectTask extends Component {
           <ExperimentContentTitle text={"Select the Task"} />
 
           <div style={{width: "90%", margin: "auto"}}>
-            <Row gutter={16}>
+            <Row gutter={16} type={"flex"}>
               {taskList.map((item, index) => (
                 <Col key={yeast()} md={8} sm={12} xs={24} style={{ padding: "10px" }}>
                   <SelectableCard

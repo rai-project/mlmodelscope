@@ -2,7 +2,10 @@
   {
     "title": "MLModelScope at NVIDIA GTC 2019",
     "date": "03/19/2019",
-    "images": [],
+    "images": [
+      "NVIDIA_GTC_2019_Poster.png",
+      "GTC-2019-GTL.jpg"
+    ],
     "posters": [
       "poster.jpg"
     ],
@@ -60,7 +63,9 @@
   {
     "title": "MLModelScope at CES 2018 IBM Booth",
     "date": "1/9/2018",
-    "images": [],
+    "images": [
+      "ces_2018.jpg"
+    ],
     "posters": [
       "poster.jpg"
     ],
@@ -70,7 +75,10 @@
   {
     "title": "MLModelScope at NIPS Exibit 2017",
     "date": "12/4/2017",
-    "images": [],
+    "images": [
+      "NIPS_2017_1.jpg",
+      "NIPS_2017_2.jpg"
+    ],
     "posters": [
       "poster.jpg"
     ],

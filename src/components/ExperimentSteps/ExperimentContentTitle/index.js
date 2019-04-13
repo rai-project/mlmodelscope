@@ -6,6 +6,7 @@ export default class ExperimentContentTitle extends Component {
       <div
         style={{
           background: "#1A263A",
+          width: "100%",
           color: "white",
           paddingTop: "30px",
           paddingBottom: "60px",

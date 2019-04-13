@@ -8,54 +8,60 @@ import SegmentationResult from "./SegmentationResult";
 import ImageEnhancementResult from "./ImageEnhancementResult";
 import SemanticSegmentationResult from "./SemanticSegmentationResult";
 import InstanceSegmentationResult from "./InstanceSegmentationResult";
+import TraceInfo from "./TraceInfo";
 
 function renderResult(d, target, imgIndex, imgUrl, displayTrace = false) {
   if (isNil(d)) {
     return null;
   }
   var features = idx(d, _ => _.response[imgIndex].features);
+  var resultComponent = null;
   try {
     if (features[0].type === "CLASSIFICATION") {
-      return (
-        <ClassificationResult
-          features={features}
-          traceId={d.traceId}
-          displayTrace={displayTrace}
-        />
-      );
+      resultComponent = <ClassificationResult features={features} />
     }
     if (features[0].type === "BOUNDINGBOX") {
-      return (
+      resultComponent =
         <SegmentationResult
           features={features}
-          traceId={d.traceId}
-          displayTrace={displayTrace}
           imgUrl={imgUrl}
         />
-      );
     }
     if (features[0].type === "INSTANCESEGMENT") {
-      return (
+      resultComponent =
         <InstanceSegmentationResult
           features={features}
           imgUrl={imgUrl}
         />
-      );
     }
     if (features[0].type === "SEMANTICSEGMENT") {
-      return (
+      resultComponent =
         <SemanticSegmentationResult
           features={features}
-          traceId={d.traceId}
-          displayTrace={displayTrace}
           imgUrl={imgUrl}
         />
-      )
     }
     if (features[0].type === "RAW_IMAGE") {
-      return <ImageEnhancementResult features={features}/>;
+      resultComponent = <ImageEnhancementResult features={features} />
     }
-    return <div>{"Type " + features.type + " is not supported yet!"}</div>;
+    if (resultComponent === null) {
+      return <div>{"Type " + features.type + " is not supported yet!"}</div>;
+    }
+    else {
+      var traceComponent = d.traceId ? (
+        <TraceInfo
+          traceURL={`http://trace.mlmodelscope.org:16686/trace/${d.traceId}?uiEmbed=v0`}
+          traceID={d.traceId}
+          displayTrace={displayTrace}
+        />
+      ) : null;
+      return (
+        <div>
+          {resultComponent}
+          {traceComponent}
+        </div>
+      )
+    }
   } catch (err) {
     return <div>{"Something Went Wrong"}</div>;
   }
@@ -144,7 +150,7 @@ export default class ResultTab extends Component {
     var _this = this;
     console.log(this.data)
     return (
-      <Tabs defaultActiveKey="0">
+      <Tabs defaultActiveKey={this.data.length > 1 ? "0" : "1"}>
         {this.data.length > 1 ? this.renderComparisonPane() : null}
         {this.data.map(function(d, index) {
           return (

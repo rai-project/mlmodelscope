@@ -13,10 +13,10 @@ export default class NewsPage extends Component {
       <Content style={{ marginLeft: "40px", padding: "30px" }}>
         <Helmet title="News" meta={[{ property: "og:title", content: "News" }]} />
         {
-          news.map(data => {
+          news.map((data, index) => {
             return(
               <React.Fragment>
-                <News key={yeast()} data={data} />
+                <News key={yeast()} data={data} index={index} />
               </React.Fragment>
             )
           })

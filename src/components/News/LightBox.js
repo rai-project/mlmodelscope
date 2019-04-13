@@ -89,24 +89,24 @@ export default class LightBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      total: props.images.length,
       currentSlide: 0,
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(i) {
-    document.getElementById("myModal").style.display = "block";
     this.setState({ currentSlide: i });
   }
 
   render() {
     return (
       <React.Fragment>
-        <ImagePreview images={this.props.images} handleClick={this.handleClick} />
-        <div id="myModal" class="modal">
+        {/* <ImagePreview images={this.props.images} handleClick={this.handleClick} /> */}
+        <div id={"myModal" + this.props.index.toString()} class="modal">
           <span
             class="close cursor"
-            onClick={() => (document.getElementById("myModal").style.display = "none")}
+            onClick={() => (document.getElementById("myModal" + this.props.index.toString()).style.display = "none")}
           >
             <Icon type="close" style={{ color: "white" }} />
           </span>
@@ -124,7 +124,7 @@ export default class LightBox extends Component {
                     <img
                       alt=""
                       src={news_images("./" + src)}
-                      style={{ maxHeight: "100%", maxWidth: "100%" }}
+                      style={{ width: "100%" }}
                     />
                   </div>
                 );
@@ -133,18 +133,18 @@ export default class LightBox extends Component {
 
             <a
               class="prev"
-              onClick={() => this.setState({ currentSlide: this.state.currentSlide - 1 })}
+              onClick={() => this.setState({ currentSlide: Math.abs((this.state.currentSlide - 1) % this.state.total) })}
             >
               &#10094;
             </a>
             <a
               class="next"
-              onClick={() => this.setState({ currentSlide: this.state.currentSlide + 1 })}
+              onClick={() => this.setState({ currentSlide: Math.abs((this.state.currentSlide + 1) % this.state.total) })}
             >
               &#10095;
             </a>
 
-            <ImagePreview images={this.props.images} handleClick={this.handleClick} />
+            {/* <ImagePreview images={this.props.images} handleClick={this.handleClick} /> */}
           </div>
         </div>
       </React.Fragment>

@@ -96,7 +96,9 @@ const Panel = function({
   link,
   divider = true,
   children,
+  iconSize = 3,
 }) {
+  var contentSize = icon ? 12 : 12 + iconSize;
   text = text || children || "";
   if (link) {
     text = (
@@ -135,19 +137,19 @@ const Panel = function({
       >
         {position === "left" || isMobile ? (
           <React.Fragment>
-            <Col span={isMobile ? 20 : 12}>{text}</Col>
+            <Col span={isMobile ? 20 : contentSize}>{text}</Col>
             {isMobile
               ? null
               : icon && (
-                  <Col span={3} offset={2}>
+                  <Col span={iconSize} offset={2}>
                     {icon}
                   </Col>
                 )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {icon && <Col span={3}>{icon}</Col>}
-            <Col span={isMobile ? 20 : 12} offset={icon ? 2 : 0}>
+            {icon && <Col span={iconSize}>{icon}</Col>}
+            <Col span={isMobile ? 20 : contentSize} offset={icon ? 2 : 0}>
               {text}
             </Col>
           </React.Fragment>

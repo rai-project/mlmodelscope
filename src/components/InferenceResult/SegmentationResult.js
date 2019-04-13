@@ -4,6 +4,7 @@ import { Stage, Layer, Image, Label, Text, Tag, Rect } from "react-konva";
 import predict from "./predict.json";
 import { filter, split, capitalize } from "lodash";
 import { Row, Col, Table } from "antd";
+import PercentageStep from "./PercentageStep";
 
 const colors = [
   "#e84a27", // UI Orange
@@ -28,29 +29,15 @@ class BBoxLabel extends Component {
   }
 }
 
-class URLImage extends React.Component {
-  render() {
-    return (
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        image={this.props.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-      />
-    );
-  }
-}
-
 export default class SegmentationResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
-      width: null,
+      width: (window.innerWidth - 380)/2,
       height: null,
       mouseOn: null,
+      filterValue: 0.5,
       filteredFeatures: null,
     };
   }
@@ -74,8 +61,7 @@ export default class SegmentationResult extends Component {
     // after setState react-konva will update canvas and redraw the layer
     // because "image" property is changed
     this.setState({
-      width: this.state.image.width,
-      height: this.state.image.height,
+      height: (this.state.width / this.state.image.width) * this.state.image.height,
     });
     console.log(this.state.image.width);
     console.log(this.state.image.height);
@@ -104,14 +90,14 @@ export default class SegmentationResult extends Component {
     }
     // FOR Local Test
     // var features = filter(predict[0]["response"][0]["features"], function(o) {return o.probability >= 0.4})
-    var features = filter(this.props.features, function(o) {
-      return o.probability >= 0.4;
-    });
-    console.log(features);
+    // var features = filter(this.props.features, function(o) {
+    //   return o.probability >= 0.4;
+    // });
+    // console.log(features);
     var colorMap = {};
     var currentColorIndex = 0;
     var mouseOn = this.state.mouseOn;
-    return features.map((data, index) => {
+    return this.state.filteredFeatures.map((data, index) => {
       var bbox = data["bounding_box"];
       var x1 = Math.round(bbox.xmin * this.state.width);
       var x2 = Math.round(bbox.xmax * this.state.width);
@@ -194,25 +180,35 @@ export default class SegmentationResult extends Component {
   }
 
   render() {
+
+    console.log(this.state)
     if (this.state.width === null) {
       return null;
     } else {
+      var filterValue = this.state.filterValue;
       this.state.filteredFeatures = filter(this.props.features, function(o) {
-        return o.probability >= 0.4;
+        return o.probability >= filterValue;
       })
       return (
         <React.Fragment>
-          <Row>
+          <PercentageStep
+            min={50}
+            max={100}
+            default={this.state.filterValue}
+            onChange={(value) => this.setState({filterValue: value})}
+          />
+          <Row style={{marginTop: "20px"}}>
             <Col span={12}>
-              <Stage width={(window.innerWidth - 380)/2} height={500}>
-                {/* <Stage width={width} height={height}> */}
+              <Stage width={this.state.width} height={this.state.height}>
                 <Layer>
                   {/* For Local Test */}
                   {/* <URLImage src="https://i.imgur.com/rZuyMXF.jpg" x={100} y={50} features={this.props.features}/> */}
-                  <URLImage
+                  <Image
                     image={this.state.image}
                     x={0}
                     y={0}
+                    width={this.state.width}
+                    height={this.state.height}
                   />
                   {this.renderBBox()}
                 </Layer>
