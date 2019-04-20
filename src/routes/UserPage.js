@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import { Layout, Menu } from "antd";
 import UserContext from "../context/UserContext";
 import { Redirect } from "react-router-dom";
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 class UserPage extends Component {
   render() {
+    if (this.props.context.loading) {
+      return (
+        <div>Loading</div>
+      )
+    } else if (this.props.context.username === null) {
+      return(<Redirect to="/login" />)
+    }
+
     return(
-      this.props.context.username === null ?
-      <Redirect to="/login" />
-      :
-      <div>
-      <Sider width="300" style={{ width: "30%", background: "#E8E9EB" }}>
+      <Layout>
+      <Sider>
         <div className="Experiment-setup-title-bar Experiment-setup-sider-bar">
           <h3 style={{ color: "white" }}>MY PAGE</h3>
         </div>
@@ -19,7 +24,7 @@ class UserPage extends Component {
         <Menu
           mode="inline"
           selectedKeys="profile"
-          style={{ border: 1, backgroundColor: "#E8E9EB" }}
+          style={{ border: 1 }}
         >
           <Menu.Item
             key="profile"
@@ -31,9 +36,9 @@ class UserPage extends Component {
               height: "auto",
             }}
           >
-            <div>MY PROFILE</div>
+            <div style={{color: "white"}}>MY PROFILE</div>
           </Menu.Item>
-          <Menu.Item
+          {/* <Menu.Item
             key="savedExperiment"
             style={{
               paddingTop: "10px",
@@ -56,10 +61,15 @@ class UserPage extends Component {
             }}
           >
             <div>PERSONAL DATASET LIBRARY</div>
-          </Menu.Item>
+          </Menu.Item> */}
           </Menu>
       </Sider>
-      </div>
+      <Content>
+        <div style={{width: "100%", textAlign: "center"}}>
+          {"Username: " + this.props.context.username}
+        </div>
+      </Content>
+      </Layout>
     )
   }
 }

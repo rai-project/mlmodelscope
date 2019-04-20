@@ -4,7 +4,7 @@ import { Layout, Form, Icon, Input } from "antd";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
-import { Login, setBasicAuth } from "../swagger/index";
+import { Login, setBasicAuth, UserInfo } from "../swagger/index";
 import base64 from "base-64";
 
 const FormItem = Form.Item;
@@ -14,7 +14,8 @@ function encodeUserPassword({username, password}) {
 }
 
 class NormalLoginForm extends React.Component {
-  handleSubmit = (e, context) => {
+  handleSubmit = (e) => {
+    var context = this.props.context;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -31,10 +32,13 @@ class NormalLoginForm extends React.Component {
             if (response.status === "failure") {
               window.alert(response.error);
             } else if (response.status === "success") {
-              window.alert("Login Success!");
+              UserInfo({}).then(result =>{
+                if (result.outcome === "success") {
+                  context.logIn(result.username)
+                }
+              })
             }
           })
-        // this.props.logIn();
       }
     });
   };
@@ -43,43 +47,39 @@ class NormalLoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <UserContext.Consumer>
-        {context => (
-          <Form onSubmit={e => this.handleSubmit(e, context)}>
-            <FormItem>
-              {getFieldDecorator("username", {
-                rules: [{ required: true, message: "Please input your username!" }],
-              })(
-                <Input
-                  prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-                  placeholder="Username"
-                />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator("password", {
-                rules: [{ required: true, message: "Please input your Password!" }],
-              })(
-                <Input
-                  prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-                  type="password"
-                  placeholder="Password"
-                />
-              )}
-            </FormItem>
-            <FormItem>
-              <PrimaryButton htmlType="submit" text="Login" style={{ width: "100%" }} />
-            </FormItem>
-          </Form>
-        )}
-      </UserContext.Consumer>
+      <Form onSubmit={e => this.handleSubmit(e)}>
+        <FormItem>
+          {getFieldDecorator("username", {
+            rules: [{ required: true, message: "Please input your username!" }],
+          })(
+            <Input
+              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Username"
+            />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("password", {
+            rules: [{ required: true, message: "Please input your Password!" }],
+          })(
+            <Input
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              type="password"
+              placeholder="Password"
+            />
+          )}
+        </FormItem>
+        <FormItem>
+          <PrimaryButton htmlType="submit" text="Login" style={{ width: "100%" }} />
+        </FormItem>
+      </Form>
     );
   }
 }
 
 const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
-export default class LogInPage extends Component {
+class LogInPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,10 +92,10 @@ export default class LogInPage extends Component {
   };
 
   render() {
-    return this.state.loggedIn ? (
-      <Redirect to="/experiment" />
+    return this.props.context.username !== null ? (
+      <Redirect to="/my" />
     ) : (
-      <Layout className="LightGray" style={{ minHeight: 700 }}>
+      <Layout style={{ minHeight: 700 }}>
         <Helmet title="Login" meta={[{ property: "og:title", content: "Login" }]} />
         <header className="DarkBlue">
           <div style={{ marginTop: "40px", marginBottom: "40px", textAlign: "center" }}>
@@ -104,9 +104,15 @@ export default class LogInPage extends Component {
         </header>
 
         <div className="CenterBlock" style={{ marginTop: "40px", width: "40%" }}>
-          <WrappedNormalLoginForm logIn={this.logIn} />
+          <WrappedNormalLoginForm logIn={this.logIn} context={this.props.context} />
         </div>
       </Layout>
     );
   }
 }
+
+export default props => (
+  <UserContext.Consumer>
+    {context => <LogInPage {...props} context={context} />}
+  </UserContext.Consumer>
+);

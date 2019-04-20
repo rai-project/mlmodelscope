@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Helmet from "react-helmet";
 import { Layout, Form, Icon, Input } from "antd";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
-import { Signup } from "../swagger/index";
+import { Signup, UserInfo } from "../swagger/index";
 
 const FormItem = Form.Item;
 
@@ -14,7 +14,6 @@ class NormalSignupForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        // context.logIn(values.userName);
         Signup({body: values})
           .catch(err => {
             throw(err)
@@ -24,10 +23,13 @@ class NormalSignupForm extends React.Component {
             if (response.status === "failure") {
               window.alert(response.error);
             } else if (response.status === "success") {
-              window.alert("Login Success!");
+              UserInfo({}).then(result =>{
+                if (result.outcome === "success") {
+                  context.logIn(result.username)
+                }
+              })
             }
           })
-        // this.props.logIn();
       }
     });
   };
@@ -92,22 +94,16 @@ class NormalSignupForm extends React.Component {
 
 const WrappedNormalSignupForm = Form.create()(NormalSignupForm);
 
-export default class SignupPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false,
-    };
-  }
-
-  logIn = () => {
-    this.setState({ loggedIn: true });
-  };
-
+class SignupPage extends Component {
   render() {
-    return this.state.loggedIn ? (
-      <Redirect to="/experiment" />
-    ) : (
+    if (this.props.context.loading) {
+      return (
+        <div>Loading</div>
+      )
+    } else if (this.props.context.username !== null) {
+      return(<Redirect to="/my" />)
+    } 
+    return(
       <Layout className="LightGray" style={{ minHeight: 700 }}>
         <Helmet title="Signup" meta={[{ property: "og:title", content: "Signup" }]} />
         <header className="DarkBlue">
@@ -123,3 +119,9 @@ export default class SignupPage extends Component {
     );
   }
 }
+
+export default withRouter(props => (
+  <UserContext.Consumer>
+    {context => <SignupPage {...props} context={context} />}
+  </UserContext.Consumer>
+));
