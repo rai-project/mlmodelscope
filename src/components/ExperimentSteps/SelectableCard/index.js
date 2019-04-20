@@ -6,8 +6,7 @@ export default class SelectableCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerVisible: this.props.drawerVisible || false,
-      // selected: this.props.selected || false,
+      drawerVisible: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.onDrawerOpen = this.onDrawerOpen.bind(this);
@@ -15,7 +14,6 @@ export default class SelectableCard extends Component {
   }
 
   handleClick() {
-    this.setState({ selected: !this.state.selected });
     this.props.onClick();
   }
 
@@ -48,12 +46,12 @@ export default class SelectableCard extends Component {
                 closable={true}
                 onClose={this.onDrawerClose}
                 visible={this.state.drawerVisible}
-                style={{
-                  height: "calc(100% - 55px)",
-                  width: "100%",
-                  overflow: "auto",
-                  paddingBottom: 53,
-                }}
+                // style={{
+                //   height: "calc(100% - 55px)",
+                //   width: "100%",
+                //   overflow: "auto",
+                //   paddingBottom: 53,
+                // }}
               >
                 <Row gutter={16}>
                   <Col>

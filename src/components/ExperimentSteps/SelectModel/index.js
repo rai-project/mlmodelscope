@@ -327,6 +327,7 @@ class SelectModel extends Component {
                       style={{ paddingBottom: "10px", paddingTop: "10px" }}
                     >
                       <SelectableCard
+                        key={`model-${key}`}
                         title={model.name + " V" + model.version}
                         content={truncate(model.description, {
                           length: 140,
