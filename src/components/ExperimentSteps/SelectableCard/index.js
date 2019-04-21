@@ -13,14 +13,16 @@ export default class SelectableCard extends Component {
     this.onDrawerClose = this.onDrawerClose.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
     this.props.onClick();
   }
 
-  onDrawerOpen() {
+  onDrawerOpen(e) {
+    e.stopPropagation();
     this.setState({ drawerVisible: true });
   }
-  onDrawerClose() {
+  onDrawerClose(e) {
+    e.stopPropagation();
     this.setState({ drawerVisible: false });
   }
 
