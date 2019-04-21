@@ -15,6 +15,7 @@ const taskList = [
     input: "image",
     output: "classification",
     image: "classification.png",
+    defaultUrl: "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg",
     description: "Assigning an input image one label from a fixed set of categories",
   },
   {
@@ -22,6 +23,7 @@ const taskList = [
     input: "image",
     output: "boundingbox",
     image: "objectDetection.png",
+    defaultUrl: "https://i.imgur.com/rZuyMXF.jpg",
     description: "Detecting instances of semantic objects in images",
   },
   {
@@ -29,6 +31,7 @@ const taskList = [
     input: "image",
     output: "semanticsegment",
     image: "semanticSegmentation.png",
+    defaultUrl: "https://i.imgur.com/rZuyMXF.jpg",
     description: "Label each pixel in the image with a category label",
   },
   {
@@ -36,6 +39,7 @@ const taskList = [
     input: "image",
     output: "instancesegment",
     image: "instanceSegmentation.png",
+    defaultUrl: "https://i.imgur.com/rZuyMXF.jpg",
     description: "Label each foreground pixel with object and instance",
   },
   {
@@ -43,6 +47,7 @@ const taskList = [
     input: "image",
     output: "image",
     image: "imageEnhancement.png",
+    defaultUrl: "http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg",
     description: "Improving the quality and the information content of original image",
   },
 ];

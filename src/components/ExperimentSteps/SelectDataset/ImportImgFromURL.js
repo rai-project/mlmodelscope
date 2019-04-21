@@ -23,7 +23,7 @@ export default class ImportImgFromURL extends Component {
                   onClick={() => context.addUrl(document.getElementById("urlInput").value)}
                 />
               }
-              defaultValue="http://ww4.hdnux.com/photos/41/15/35/8705883/4/920x920.jpg"
+              defaultValue={context.task.defaultUrl}
               onPressEnter={e => context.addUrl(e.target.value)}
             />
           )}
