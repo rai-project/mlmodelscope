@@ -34,7 +34,12 @@ class NormalLoginForm extends React.Component {
             } else if (response.status === "success") {
               UserInfo({}).then(result =>{
                 if (result.outcome === "success") {
-                  context.logIn(result.username)
+                  context.logIn(
+                    result.username,
+                    result.first_name,
+                    result.last_name,
+                    result.email,
+                  )
                 }
               })
             }

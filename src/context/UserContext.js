@@ -10,9 +10,16 @@ export class UserProvider extends Component {
     this.state = {
       loading: false,
       username: null,
-      logIn: username => {
-        this.setState({ username: username });
-        console.log(username);
+      firstname: null,
+      lastname: null,
+      email: null,
+      logIn: (username, firstname, lastname, email) => {
+        this.setState({
+          username: username,
+          firstname: firstname,
+          lastname: lastname,
+          email: email
+        });
       },
       logout: () =>
         this.setState({
@@ -26,7 +33,13 @@ export class UserProvider extends Component {
     UserInfo({})
     .then(result =>{
       if (result.outcome === "success") {
-        this.setState({username: result.username, loading: false})
+        this.setState({
+          username: result.username,
+          firstname: result.first_name,
+          lastname: result.last_name,
+          email: result.email,
+          loading: false
+        })
       } else {
         this.setState({loading: false})
       }
