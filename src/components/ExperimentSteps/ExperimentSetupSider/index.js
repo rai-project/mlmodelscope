@@ -14,9 +14,10 @@ const trace_options = [
   { key: 1, text: "Application", value: "APPLICATION_TRACE" },
   { key: 2, text: "Model", value: "MODEL_TRACE" },
   { key: 3, text: "Framework", value: "FRAMEWORK_TRACE" },
-  { key: 4, text: "Library", value: "LIBRARY_TRACE" },
-  { key: 5, text: "Hardware", value: "HARDWARE_TRACE" },
-  { key: 6, text: "Full", value: "FULL_TRACE" },
+  { key: 4, text: "ML Library", value: "ML_LIBRARY_TRACE" },
+  { key: 5, text: "System Library", value: "SYSTEM_LIBRARY_TRACE" },
+  { key: 6, text: "Hardware", value: "HARDWARE_TRACE" },
+  { key: 7, text: "Full", value: "FULL_TRACE" },
 ];
 
 const primaryColor = "#1a253a";
