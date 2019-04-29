@@ -43,12 +43,13 @@ export default class News extends Component {
           position="right"
           title={this.props.data.title}
           icon={
-            this.props.data.images.length > 0 &&
+            (this.props.data.images.length > 0 || this.props.data.videos.length > 0) &&
               <div
                 onClick={() => (document.getElementById("myModal"+this.props.index.toString()).style.display = "block")}
               >
               <ImageCarousel
                 images={this.props.data.images}
+                videos={this.props.data.videos || []}
               /></div>
           }
           iconSize={6}
@@ -58,6 +59,7 @@ export default class News extends Component {
         </Panel>
         <LightBox
           images={this.props.data.images}
+          videos={this.props.data.videos || []}
           index={this.props.index}
         />
       </React.Fragment>

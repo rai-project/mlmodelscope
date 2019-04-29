@@ -2,6 +2,7 @@ import "./LightBox.css";
 import React, { Component } from "react";
 import { Row, Col, Icon } from "antd";
 import yeast from "yeast";
+import ReactDOM from 'react-dom';
 
 var news_images = require.context("../../resources/news", true);
 class ImagePreview extends Component {
@@ -89,7 +90,7 @@ export default class LightBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: props.images.length,
+      total: props.images.length + props.videos.length,
       currentSlide: 0,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -100,6 +101,45 @@ export default class LightBox extends Component {
   }
 
   render() {
+
+    var contents = [];
+    this.props.images.map((src, index) => {
+      if (index == this.state.currentSlide) {
+        var indexPlusOne = index + 1;
+        contents.push(
+          <div>
+            <div class="numbertext">
+              {indexPlusOne.toString() +
+                " / " +
+                this.state.total.toString()}
+            </div>
+            <img
+              alt=""
+              src={news_images("./" + src)}
+              style={{ width: "100%" }}
+            />
+          </div>
+        );
+      }
+    })
+    this.props.videos.map((src, index) => {
+      if (index + this.props.images.length == this.state.currentSlide) {
+        var indexPlusOne = this.state.currentSlide + 1;
+        contents.push(
+          <div>
+            <div class="numbertext">
+              {indexPlusOne.toString() +
+                " / " +
+                this.state.total.toString()}
+            </div>
+            <iframe
+            src={src}
+            style={{width: "100%", height: "800px"}}/>
+          </div>
+        );
+      }
+    })
+
     return (
       <React.Fragment>
         {/* <ImagePreview images={this.props.images} handleClick={this.handleClick} /> */}
@@ -111,25 +151,7 @@ export default class LightBox extends Component {
             <Icon type="close" style={{ color: "white" }} />
           </span>
           <div class="modal-content">
-            {this.props.images.map((src, index) => {
-              if (index == this.state.currentSlide) {
-                var indexPlusOne = index + 1;
-                return (
-                  <div>
-                    <div class="numbertext">
-                      {indexPlusOne.toString() +
-                        " / " +
-                        this.props.images.length.toString()}
-                    </div>
-                    <img
-                      alt=""
-                      src={news_images("./" + src)}
-                      style={{ width: "100%" }}
-                    />
-                  </div>
-                );
-              }
-            })}
+            {contents}
 
             <a
               class="prev"
