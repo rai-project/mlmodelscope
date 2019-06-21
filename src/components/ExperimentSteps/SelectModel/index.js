@@ -281,7 +281,7 @@ class SelectModel extends Component {
               ))}
             </Row>
 
-            <Row gutter={16} type="flex" justify="space-around" align="middle">
+            <Row gutter={16} type="flex" justify="start" align="middle">
               {modelsKey.map(key => {
                 const model = models[key];
                 // console.log(model);
