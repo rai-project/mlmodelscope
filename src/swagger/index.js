@@ -145,11 +145,13 @@ export async function Close(params) {
 };
 
 /**
- * The result is a prediction feature list.
+ * Dataset method receives a single dataset and runs
+the predictor on all elements of the dataset.
+The result is a prediction feature list.
  * @method
  * @name DLFramework#Dataset
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
+     * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
  */
 export async function Dataset(params) {
     let urlPath = baseURL + '/api/predict/dataset';
@@ -220,11 +222,13 @@ export async function Dataset(params) {
 };
 
 /**
- * The result is a prediction feature list for each image.
+ * Images method receives a list of base64 encoded images and runs
+the predictor on all the images.
+The result is a prediction feature list for each image.
  * @method
  * @name DLFramework#Images
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
+     * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
  */
 export async function Images(params) {
     let urlPath = baseURL + '/api/predict/images';
@@ -372,7 +376,7 @@ export async function Open(params) {
 };
 
 /**
- * Clear method clears the internal cache of the predictors
+ * Reset method clears the internal cache of the predictors
  * @method
  * @name DLFramework#Reset
  * @param {object} parameters - method options and parameters
@@ -447,11 +451,13 @@ export async function Reset(params) {
 };
 
 /**
- * The result is a prediction feature stream for each url.
+ * URLs method receives a list of urls and runs
+the predictor on all the urls.
+The result is a list of predicted features for all the urls.
  * @method
  * @name DLFramework#URLs
  * @param {object} parameters - method options and parameters
- * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
+     * @param {} parameters.body - MLModelScope is a hardware/software agnostic platform to facilitate the evaluation, measurement, and introspection of ML models within AI pipelines. MLModelScope aids application developers in discovering and experimenting with models, data scientists developers in replicating and evaluating for publishing models, and system architects in understanding the performance of AI workloads.
  */
 export async function URLs(params) {
     let urlPath = baseURL + '/api/predict/urls';
