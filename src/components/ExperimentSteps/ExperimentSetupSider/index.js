@@ -143,6 +143,7 @@ class ExperimentSetupSider extends Component {
               MODELS
             </div>
             {this.props.context.models.map((model, index) => (
+              <div>
               <Tag
                 closable
                 key={yeast()}
@@ -151,6 +152,7 @@ class ExperimentSetupSider extends Component {
               >
                 {model.framework.name + " " + model.name + " v" + model.version}
               </Tag>
+              </div>
             ))}
           </Menu.Item>
 
