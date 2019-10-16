@@ -38,22 +38,6 @@
   version = "1.0.0"
 
 [[constraint]]
-  name = "github.com/fatih/color"
-  version = "1.7.0"
-
-[[constraint]]
-  name = "github.com/go-openapi/loads"
-  version = "0.17.2"
-
-[[constraint]]
-  name = "github.com/k0kubun/pp"
-  version = "2.3.0"
-
-[[constraint]]
-  name = "github.com/labstack/echo"
-  version = "3.3.7"
-
-[[constraint]]
   name = "github.com/pkg/profile"
   version = "1.2.1"
 
@@ -62,8 +46,8 @@
   name = "github.com/rai-project/config"
 
 [[constraint]]
+  branch = "master"
   name = "github.com/rai-project/dlframework"
-  version = "0.2.18"
 
 [[constraint]]
   branch = "master"
@@ -72,6 +56,10 @@
 [[constraint]]
   branch = "master"
   name = "github.com/rai-project/logger"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/rai-project/mlmodelscope"
 
 [[constraint]]
   branch = "master"
@@ -108,6 +96,18 @@
 [[constraint]]
   name = "github.com/tus/tusd"
   version = "0.10.0"
+ 
+[[override]]
+  name = "github.com/k0kubun/pp"
+  version = "3.0.1"
+
+[[override]]
+  name = "github.com/labstack/echo"
+  version = "3.3.10"
+
+[[override]]
+  branch = "master"
+  name = "github.com/go-openapi/loads"
 
 [prune]
   go-tests = true

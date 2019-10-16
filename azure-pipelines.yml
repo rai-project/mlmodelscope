@@ -1,0 +1,11 @@
+jobs:
+  - job: mlmodelscope
+    timeoutInMinutes: 0
+    pool:
+      vmImage: "Ubuntu 16.04"
+    steps:
+      - bash: |
+          docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
+          cd dockerfiles
+          make buildlocalamd64
+          ./push.sh pushlocalamd64
