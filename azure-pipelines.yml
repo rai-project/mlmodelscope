@@ -9,3 +9,5 @@ jobs:
           cd dockerfiles
           make buildlocalamd64
           ./push.sh pushlocalamd64
+variables:
+- group: Docker Auth
