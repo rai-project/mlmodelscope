@@ -19,7 +19,7 @@ before_install:
 - go env
 - export GOPATH=$HOME/gopath
 - export PATH=$HOME/gopath/bin:$PATH
-- mkdir -p $HOME/gopath/src/github.com/rai-project/carml
+- mkdir -p $HOME/gopath/src/github.com/rai-project/mlmodelscope
 - rsync -az ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/rai-project/mlmodelscope/
 - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/rai-project/mlmodelscope
 install:
