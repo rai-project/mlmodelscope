@@ -28,7 +28,7 @@ install:
 - go get github.com/golang/dep/cmd/dep
 - go get github.com/tcnksm/ghr
 - yarn install
-- npm run bundle
+- yarn run bundle
 - dep ensure -v
 - go build
 script:
