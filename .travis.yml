@@ -20,15 +20,8 @@ before_install:
 - export GOPATH=$HOME/gopath
 - export PATH=$HOME/gopath/bin:$PATH
 - mkdir -p $HOME/gopath/src/github.com/rai-project/carml
-- rsync -az ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/rai-project/carml/
+- cp -r ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/rai-project/carml/
 - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/rai-project/carml
-- cd $HOME/gopath/src/github.com/rai-project/carml
-- bash scripts/install-protobuf.sh
-install:
-- gem install fpm
-before_script:
-- ls -R $HOME/protobuf
-- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 install:
 - cd ${TRAVIS_BUILD_DIR}
 - go get github.com/tools/godep
