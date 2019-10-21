@@ -34,17 +34,17 @@ install:
 - go build -tags=nogpu
 script:
 - echo "Skip tests..."
-# deploy:
-# - provider: bluemixcloudfoundry
-#   edge: true
-#   api: https://api.ng.bluemix.net
-#   username: "$BLUEMIX_USERNAME"
-#   password: "$BLUEMIX_PASSWORD"
-#   organization: IBM-ILLINOIS-C3SR
-#   space: dev
-#   manifest: manifest.yml
-#   on:
-#     repo: rai-project/carml
+deploy:
+- provider: bluemixcloudfoundry
+  edge: true
+  api: https://api.ng.bluemix.net
+  username: "$BLUEMIX_USERNAME"
+  password: "$BLUEMIX_PASSWORD"
+  organization: IBM-ILLINOIS-C3SR
+  space: dev
+  manifest: manifest.yml
+  on:
+    repo: rai-project/carml
 env:
   global:
   - PROTOBUF_VER="3.6.0"
