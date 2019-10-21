@@ -31,7 +31,7 @@ install:
 - npm install
 - npm run bundle
 - dep ensure -v
-- go build
+- go build -tags=nogpu
 script:
 - echo "Skip tests..."
 # deploy:
