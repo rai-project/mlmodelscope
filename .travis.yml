@@ -17,6 +17,10 @@ before_install:
 - echo ${TRAVIS_NODE_VERSION}
 - eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | bash)"
 - go env
+- go get github.com/golang/dep/cmd/dep
+- go get github.com/tcnksm/ghr
+- go get github.com/jteeuwen/go-bindata/...
+- go get github.com/elazarl/go-bindata-assetfs/...
 - export GOPATH=$HOME/gopath
 - export PATH=$HOME/gopath/bin:$PATH
 - mkdir -p $HOME/gopath/src/github.com/rai-project/mlmodelscope
@@ -24,41 +28,16 @@ before_install:
 - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/rai-project/mlmodelscope
 install:
 - cd ${TRAVIS_BUILD_DIR}
-- go get github.com/golang/dep/cmd/dep
-- go get github.com/tcnksm/ghr
-- go get github.com/jteeuwen/go-bindata/...
-- go get github.com/elazarl/go-bindata-assetfs/...
 - npm install
 - npm run bundle
 - dep ensure -v
 - go build -tags=nogpu
 script:
 - echo "Skip tests..."
-deploy:
-- provider: bluemixcloudfoundry
-  edge: true
-  api: https://api.ng.bluemix.net
-  username: "$BLUEMIX_USERNAME"
-  password: "$BLUEMIX_PASSWORD"
-  organization: IBM-ILLINOIS-C3SR
-  space: dev
-  manifest: manifest.yml
-  on:
-    repo: rai-project/carml
 env:
   global:
-  - PROTOBUF_VER="3.6.0"
   - GIMME_GO_VERSION=1.12
   - CGO_ENABLED=0
   - secure: AS3v52mn97AFe+8CWZCSDeTiHSvURufMdwUcKjga6PmLxX0NMC3YFMBqnCnrtciZ+nSmFOXc80KJscU+OPJFmAgQOUqd/LMfng6Pcra3I3J3LXQAdC5IryqKr31vDnZSDsNk6Mv0TLHcaajxnRFA7s4EUslWNyNYc1frRRlHTo9lxTAAy2RAy76G9Iltzsj9HWMhy4h2IJTuTio1/rEG6s7dk7UK+3CQtQmS9FyoGHG1Vof4EE2z/KtNnQb38FrWvx16gcoVFaNe2ttnjW4pVnN1vUi3BPTFBt456eT15a6txPscOUS7ALfsjfKj7JRxQsK9Ugp5cs577BSmHKb8pwLH+GGT6EkneKad3UHJUkebxvlmwrcmZUbKZp0xmSkozlN7jL/YDDx2OREXvEqBOflGwLpOBLaiBDchQqnKuqeCCMLrT+UwomeFGNdNL4XIRJQM8e5aW8LNGAH/cOpKrjcsUolhab85BYzFd2/AOH+0rV2ZQaA5uRFcl/1CfND9eEsDy6BaRD+9Gwhnx2PFv8AT+yrf1NWSuhwLxMwzd6SJqdNM3sDiMDn3S/4qC1jQaUijChlvRwQazDnMP8fgj1yRrwpaVcIAIimCOa7x4aICAFnBAea55DYSL2pxpsk4bN9FscsbZQqQniY11tafFGFpeKQ1OBrX7yRdGqYqU4I=
   - secure: N1Rk/4dV+KMFgYDupPJSFbN0OwoOwLHHXRgZbUKq3ioab93FAbjfY25BXZi/+eS3sY7Rk3+dGKfDuwpnXLe9wJXl0MvIWJ3ArHKCXGRyuxEFM851JG2ioNhkBEHCrK3T15ehbKh1Cle+00doNsG2CANPqxAMi7ZpZQUMAR2MK+ptMq/a9MOTeyxWjT/T9/kNpsVa3bUxEv2RxzeMbNKwIhMEKpto/Cw+ppNboMeAutQfth2aru2Cq+tgR6LiwCvI/4CLZJVdITJoK0X1F3dfh7DBbQNbSscLNZNlqPJeSjmuR/URKBKXH34Ug8rBmDbgf5frWtoqPoMR9U/WCtNlKxEsMcxyYw70d9KXF9RlQ4xm2KxE1Vbh8i93pIIR4itOYfylIoACg7ZlKE1Y9tHgGkJXcgZhOk+6+YnjhWo3Ydz3BzZcya/7e/oG9QFsFD6Nq5DUci+VeyUyX1bhKOIANeDKLTN+KVIgKS4tQ7H9wIvcUbmVlw0hrKKyYDce23hkgK5ZY1pNiY9M33RkRzCOS3zSh/qvZCYFJ9QpMtjW7p0l1gzrhfBPNshZROl7k32kn3VNMwQkIIkzgQBnQP+xwKwO4g3upEVTLjm1L0ITmJbK8WwCsY87JvIpzUh87TqwmpgKLNTDZYpVP4eBoVkpYJnJnJFrwcaKi1nx/qNKubk=
   - secure: Q8n/CtGvfZ4O3o2yggzSkNMuVpyCP4P7ie0u2qN0hAfZYSaAxNaoCYiN0kRDyRC3kZt569PmR8ZPPuVhhyg32isu4JGpHqsLYmTYI8U2Xl5etoysWTX+gWsuWFNlXdnxsmV2WvdO0kLkGkZKpoQc88QPrifHccH4FdiPmXzGizxfffGDApqYQFRBCV5ZMS5XQChakJbw7UXo/EEaGSjwvGSX9nTNF6CNDmd2kBVWmELEK4hYkqM4kKaRcPE2Ux8T6StBHeFo8vZ9cEd7idpQ2QUm6hznX+sNLeJP5istbysH8IRDtStf9GrvIqx+yNvAZ79Dv9Afqa06WzARfJ5vwYc0J+puJtquq0MvRZxIpCjcN280uAekA8QXJIs08L+cH2F7DPpgVjdQS4Dkobg/OFHklCHA5fS8ZO08mXpFnoVicUA0Zv1FRXy0p/IFCtC9Imu6pJN0HQoBeB89wtpVBDOdNfIbWyDt+v7dg8zfy/3Tja5Ry3x5n2R7xkUcfb63aNoIuP/Ttl8j9e2gb95zLKuSesKPhxzESi5EPNXKC30zk2x70SNNPYMIEWzlKstuvZeub6+I2R6bgq0j8coMTDl6N/jJnkcYxa2/wCFPWotclaWZVvnnMAhVibVNJOaQywRz2dvk0Lp+w8z75rZxbK1eLHWpuyv0RMxY0z0fUvg=
-notifications:
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/5da814a19c3c25ebd5f7
-    on_success: always # options: [always|never|change] default: always
-    on_failure: always # options: [always|never|change] default: always
-    on_start: change   # options: [always|never|change] default: never
-    on_cancel: always # options: [always|never|change] default: always
-    on_error: always # options: [always|never|change] default: always
